@@ -5,7 +5,7 @@ import {ThemeModeSwitcher} from '../../../partials'
 
 const Topbar: FC = () => (
   <div className='d-flex flex-shrink-0'>
-    {/* begin::Invite user */}
+    {/* begin::Add new test*/}
     <div className='d-flex ms-3'>
       <a
         href='#'
@@ -17,7 +17,7 @@ const Topbar: FC = () => (
         <span className='d-none d-md-inline'>New Test</span>
       </a>
     </div>
-    {/* end::Invite user */}
+    {/* end::Add new test*/}
 
     {/* begin::Create app */}
     <div className='d-flex ms-3'>

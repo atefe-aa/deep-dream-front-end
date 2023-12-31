@@ -5,8 +5,10 @@ interface DataType {
   name: string;
   date: string;
   number: number;
+  labNumber: number;
   testType: string;
   age: number;
+  price: number;
   sex: string;
   description: string;
   laboratory: string;
@@ -51,10 +53,13 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
     <tr>
       <td>{index}</td>
       <td>
-        <div className="d-flex align-items-center">
-          <div className="text-gray-900 fw-bold text-hover-primary fs-7">
+        <div className="d-flex justify-content-start flex-column">
+          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
             {data.number}
-          </div>
+          </a>
+          <span className="text-muted fw-semibold text-muted d-block fs-7">
+            {data.labNumber}
+          </span>
         </div>
       </td>
       <td>
@@ -65,6 +70,13 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
           <span className="text-muted fw-semibold text-muted d-block fs-7">
             {data.age} , {data.sex}
           </span>
+        </div>
+      </td>
+      <td>
+        <div className="d-flex justify-content-start flex-column">
+          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+            {data.price}
+          </a>
         </div>
       </td>
       <td>

@@ -10,64 +10,80 @@ const fakeData = [
   {
     name: "ana",
     date: "1402-10-10 10:50",
-    number: 50423,
+    number: 6988,
+    labNumber: 50423,
     testType: "CC",
     age: 20,
     sex: "female",
     description: "this is a test discription",
     laboratory: "Milad",
-    progress:"new",
+    progress: "new",
+    price: 250000,
   },
   {
     name: "ana",
     date: "1402-10-10 10:50",
     number: 50424,
+    labNumber: 6988,
     testType: "CC",
     age: 20,
     sex: "female",
     description: "this is a test discription",
     laboratory: "Milad",
-    progress:"scanning",
-  },  {
+    progress: "scanning",
+    price: 250000,
+  },
+  {
     name: "ana",
     date: "1402-10-10 10:50",
     number: 50424,
+    labNumber: 6988,
     testType: "CC",
     age: 20,
     sex: "female",
     description: "this is a test discription",
     laboratory: "Milad",
-    progress:"scanned",
-  },  {
+    progress: "scanned",
+    price: 250000,
+  },
+  {
     name: "ana",
     date: "1402-10-10 10:50",
     number: 50424,
+    labNumber: 6988,
     testType: "CC",
     age: 20,
     sex: "female",
     description: "this is a test discription",
     laboratory: "Milad",
-    progress:"answered",
-  },  {
+    progress: "answered",
+    price: 250000,
+  },
+  {
     name: "ana",
     date: "1402-10-10 10:50",
     number: 50424,
+    labNumber: 6988,
     testType: "CC",
     age: 20,
     sex: "female",
     description: "this is a test discription",
     laboratory: "Milad",
-    progress:"confirmed",
-  },  {
+    progress: "confirmed",
+    price: 250000,
+  },
+  {
     name: "ana",
     date: "1402-10-10 10:50",
     number: 50424,
+    labNumber: 6988,
     testType: "CC",
     age: 20,
     sex: "female",
     description: "this is a test discription",
     laboratory: "Milad",
-    progress:"deleted",
+    progress: "deleted",
+    price: 250000,
   },
 ];
 
@@ -114,6 +130,7 @@ const TablesWidget9: React.FC<Props> = ({ className }) => {
                 <th className="w-25px">#</th>
                 <th className="min-w-15px">Number</th>
                 <th className="min-w-150px">Clients</th>
+                <th className="min-w-130px">Price</th>
                 <th className="min-w-150px">Date</th>
                 <th className="min-w-140px">Laboratory</th>
                 <th className="min-w-120px">Progress</th>
@@ -124,7 +141,7 @@ const TablesWidget9: React.FC<Props> = ({ className }) => {
             {/* begin::Table body */}
             <tbody>
               {fakeData.map((data, _index) => (
-                <TablesWidget9Row data={data} index={_index + 1} />
+                <TablesWidget9Row key={_index} data={data} index={_index + 1} />
               ))}
             </tbody>
             {/* end::Table body */}

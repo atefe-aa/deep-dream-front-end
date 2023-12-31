@@ -9,9 +9,9 @@ import { Content } from "./components/Content";
 import { PageDataProvider } from "./core";
 import {
   ActivityDrawer,
+  AddNewTest,
   DrawerMessenger,
   Dropdown1,
-  InviteUsers,
   Search,
   UpgradePlan,
 } from "../partials";
@@ -65,7 +65,7 @@ const MasterLayout = () => {
       {/* end:: Drawers */}
 
       {/* begin:: Modals */}
-      <InviteUsers />
+      <AddNewTest />
       {/* <UpgradePlan /> */}
       {/* end:: Modals */}
       <ScrollTop />
