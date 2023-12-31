@@ -10,6 +10,9 @@ import {
   MixedWidget3,
   MixedWidget8,
   StatisticsWidget4,
+  TablesWidget1,
+  TablesWidget2,
+  TablesWidget3,
   TablesWidget5,
   TablesWidget9,
 } from "../../../_metronic/partials/widgets";
@@ -36,6 +39,7 @@ const DashboardPage = () => {
   return (
     <>
       <SearchAndFilter />
+
       {/* begin::Row */}
       <div className="row gy-5 g-xl-8">
         {/* begin::Col */}

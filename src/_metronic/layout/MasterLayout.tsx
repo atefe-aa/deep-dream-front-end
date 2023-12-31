@@ -59,14 +59,14 @@ const MasterLayout = () => {
       </div>
 
       {/* begin:: Drawers */}
-      <ActivityDrawer />
-      <RightToolbar />
+      {/* <ActivityDrawer /> */}
+      {/* <RightToolbar /> */}
       <DrawerMessenger />
       {/* end:: Drawers */}
 
       {/* begin:: Modals */}
       <InviteUsers />
-      <UpgradePlan />
+      {/* <UpgradePlan /> */}
       {/* end:: Modals */}
       <ScrollTop />
     </PageDataProvider>
