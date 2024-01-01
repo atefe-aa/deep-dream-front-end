@@ -19,6 +19,7 @@ import { MenuComponent } from "../assets/ts/components";
 import { KTIcon } from "../helpers";
 import { SearchAndFilter } from "./components/SearchAndFilter";
 import { StartScanning } from "../partials/modals/scanning/StartScanning";
+import { ScanningLayout } from "../partials/modals/scanning/ScanningLayout";
 
 const MasterLayout = () => {
   const location = useLocation();
@@ -67,7 +68,7 @@ const MasterLayout = () => {
 
       {/* begin:: Modals */}
       <AddNewTest />
-      <StartScanning />
+      <ScanningLayout />
       {/* <UpgradePlan /> */}
       {/* end:: Modals */}
       <ScrollTop />

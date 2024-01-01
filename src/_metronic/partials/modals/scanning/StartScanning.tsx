@@ -27,8 +27,10 @@ const initialValues: FormValues = {
   https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
   https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e
 */
-
-const StartScanning: FC = () => {
+type Props = {
+  start: Function;
+};
+const StartScanning: React.FC<Props> = ({ start })  => {
   const [loading, setLoading] = useState(false);
 
   const checkboxes = Array.from({ length: 10 }, (_, index) => index + 1);
@@ -38,6 +40,7 @@ const StartScanning: FC = () => {
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       setLoading(true);
       try {
+        start(true);
         console.log(values);
       } catch (error) {
         console.error(error);
@@ -84,128 +87,86 @@ const StartScanning: FC = () => {
   };
 
   return (
-    <div className="modal fade" id="kt_modal_start_scanning" aria-hidden="true">
-      <div className="modal-dialog mw-650px">
-        <div className="modal-content">
-          <div className="modal-header pb-0 border-0 justify-content-end">
-            <div
-              className="btn btn-sm btn-icon btn-active-color-primary"
-              data-bs-dismiss="modal"
-            >
-              <KTIcon iconName="cross" className="fs-1" />
-            </div>
+    <>
+      {" "}
+      <h3 className="form-label mb-5 fs-6 fw-bolder text-gray-900">
+        Choose slide(s) to scan<span className="text-danger">*</span>
+      </h3>
+      <form className="form w-100" onSubmit={formik.handleSubmit} noValidate>
+        {formik.status && (
+          <div className="mb-lg-15 alert alert-danger">
+            <div className="alert-text font-weight-bold">{formik.status}</div>
           </div>
-          <div className="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
-            <div className="text-center mb-13">
-              <h1 className="mb-3">Scanning Proccess</h1>
+        )}
 
-              <div className="text-muted fw-bold fs-5">
-                If you need more info, please check out
-                <a href="#" className="link-primary fw-bolder">
-                  {" "}
-                  FAQ Page
-                </a>
-                .
-              </div>
-            </div>
+        <div className="mb-8 border-bottom pb-3 form-check form-check-custom form-check-solid">
+          <input
+            {...formik.getFieldProps("selectAll")}
+            className="form-check-input"
+            type="checkbox"
+            id="checkAll"
+            onChange={handleSelectAllChange}
+          />
+          <label className="ms-3 fw-bolder " htmlFor="checkAll">
+            Select All
+          </label>
+        </div>
 
-            <h3 className="form-label mb-5 fs-6 fw-bolder text-gray-900">
-              Choose slide(s) to scan<span className="text-danger">*</span>
-            </h3>
-
-            <form
-              className="form w-100"
-              onSubmit={formik.handleSubmit}
-              noValidate
-            >
-              {formik.status && (
-                <div className="mb-lg-15 alert alert-danger">
-                  <div className="alert-text font-weight-bold">
-                    {formik.status}
-                  </div>
-                </div>
-              )}
-
-              <div className="mb-8 border-bottom pb-3 form-check form-check-custom form-check-solid">
+        {checkboxes.map((checkboxValue) => (
+          <div className="fv-row mb-3" key={`slide${checkboxValue}`}>
+            <div className="mb-10">
+              <div className="form-check form-check-custom form-check-solid">
                 <input
-                  {...formik.getFieldProps("selectAll")}
+                  {...formik.getFieldProps("selectedCheckboxes")}
+                  checked={
+                    formik.values.selectAll ||
+                    formik.values.selectedCheckboxes.includes(checkboxValue)
+                  }
+                  onChange={handleCheckboxChange}
                   className="form-check-input"
                   type="checkbox"
-                  id="checkAll"
-                  onChange={handleSelectAllChange}
+                  value={checkboxValue}
+                  id={`slide${checkboxValue}`}
                 />
-                <label className="ms-3 fw-bolder " htmlFor="checkAll">
-                  Select All
+                <label
+                  className="form-check-label"
+                  htmlFor={`slide${checkboxValue}`}
+                >
+                  Slide {checkboxValue}
                 </label>
               </div>
-
-              {checkboxes.map((checkboxValue) => (
-                <div className="fv-row mb-3" key={`slide${checkboxValue}`}>
-                  <div className="mb-10">
-                    <div className="form-check form-check-custom form-check-solid">
-                      <input
-                        {...formik.getFieldProps("selectedCheckboxes")}
-                        checked={
-                          formik.values.selectAll ||
-                          formik.values.selectedCheckboxes.includes(
-                            checkboxValue
-                          )
-                        }
-                        onChange={handleCheckboxChange}
-                        className="form-check-input"
-                        type="checkbox"
-                        value={checkboxValue}
-                        id={`slide${checkboxValue}`}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor={`slide${checkboxValue}`}
-                      >
-                        Slide {checkboxValue}
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              ))}
-
-              {formik.touched.selectedCheckboxes &&
-                formik.errors.selectedCheckboxes && (
-                  <div className="fv-plugins-message-container mb-4">
-                    <div className="fv-help-block">
-                      <span role="alert">
-                        *** {formik.errors.selectedCheckboxes}
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-              {/* begin::Action */}
-              <div className="d-grid mb-10">
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={formik.isSubmitting || !formik.isValid}
-                >
-                  {!loading && (
-                    <span className="indicator-label">Scan labels</span>
-                  )}
-                  {loading && (
-                    <span
-                      className="indicator-progress"
-                      style={{ display: "block" }}
-                    >
-                      Please wait...
-                      <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                    </span>
-                  )}
-                </button>
-              </div>
-              {/* end::Action */}
-            </form>
+            </div>
           </div>
+        ))}
+
+        {formik.touched.selectedCheckboxes &&
+          formik.errors.selectedCheckboxes && (
+            <div className="fv-plugins-message-container mb-4">
+              <div className="fv-help-block">
+                <span role="alert">*** {formik.errors.selectedCheckboxes}</span>
+              </div>
+            </div>
+          )}
+
+        {/* begin::Action */}
+        <div className="d-grid mb-10">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={formik.isSubmitting || !formik.isValid}
+          >
+            {!loading && <span className="indicator-label">Scan labels</span>}
+            {loading && (
+              <span className="indicator-progress" style={{ display: "block" }}>
+                Please wait...
+                <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span>
+            )}
+          </button>
         </div>
-      </div>
-    </div>
+        {/* end::Action */}
+      </form>
+    </>
   );
 };
 
