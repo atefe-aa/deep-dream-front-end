@@ -110,7 +110,7 @@ const TablesWidget9: React.FC<Props> = ({ className }) => {
             href="#"
             className="btn btn-sm btn-light-primary"
             data-bs-toggle="modal"
-            data-bs-target="#kt_modal_invite_friends"
+            data-bs-target="#kt_modal_add_new_test"
           >
             <KTIcon iconName="plus" className="fs-3" />
             New Test

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -9,26 +9,59 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"
     />
-    <title>Metronic Theme | Keenthemes</title>
+    <title>Deep Dream| Scanner</title>
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/media/logos/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/media/logos/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/media/logos/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/media/logos/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/media/logos/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
     <link rel="shortcut icon" href="/media/logos/favicon.ico" />
-    <link rel="stylesheet" id="layout-styles-anchor" href="/splash-screen.css" />
+    <link
+      rel="stylesheet"
+      id="layout-styles-anchor"
+      href="/splash-screen.css"
+    />
   </head>
 
   <body id="kt_body" class="page-loading">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <!--begin::Theme mode setup on page load-->
     <script>
-      let themeMode = 'system'
+      let themeMode = "system";
 
-      if (localStorage.getItem('kt_theme_mode_value')) {
-        themeMode = localStorage.getItem('kt_theme_mode_value')
+      if (localStorage.getItem("kt_theme_mode_value")) {
+        themeMode = localStorage.getItem("kt_theme_mode_value");
       }
 
-      if (themeMode === 'system') {
-        themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      if (themeMode === "system") {
+        themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
       }
 
-      document.documentElement.setAttribute('data-bs-theme', themeMode)
+      document.documentElement.setAttribute("data-bs-theme", themeMode);
     </script>
     <!--end::Theme mode setup on page load-->
 

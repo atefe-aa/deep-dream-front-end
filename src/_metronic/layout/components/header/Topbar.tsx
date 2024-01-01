@@ -11,7 +11,7 @@ const Topbar: FC = () => (
         href='#'
         className='btn btn-flex flex-center bg-body btn-color-gray-700 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6'
         data-bs-toggle='modal'
-        data-bs-target='#kt_modal_invite_friends'
+        data-bs-target='#kt_modal_add_new_test'
       >
         <KTIcon iconName='plus' className='fs-2 text-primary me-0 me-md-2' />
         <span className='d-none d-md-inline'>New Test</span>
@@ -24,9 +24,8 @@ const Topbar: FC = () => (
       <a
         href='#'
         className='btn btn-flex flex-center bg-body btn-color-gray-700 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6'
-        id='kt_toolbar_primary_button'
         data-bs-toggle='modal'
-        data-bs-target='#kt_modal_create_app'
+        data-bs-target='#kt_modal_start_scanning'
       >
         <KTIcon iconName='document' className='fs-2 text-primary me-0 me-md-2' />
         <span className='d-none d-md-inline'>Start Scanning</span>
