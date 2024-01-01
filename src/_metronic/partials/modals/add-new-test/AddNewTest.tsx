@@ -26,6 +26,9 @@ const addSchema = Yup.object().shape({
   discription: Yup.string()
     .min(1, "Minimum 1 symbols")
     .max(300, "Maximum 300 symbols"),
+  labNumber: Yup.string()
+    .min(1, "Minimum 1 symbols")
+    .max(10, "Maximum 300 symbols"),
 });
 
 const initialValues = {
@@ -35,6 +38,7 @@ const initialValues = {
   testType: "1",
   laboratory: "1",
   description: "",
+  labNumber: "",
 };
 
 /*
@@ -182,7 +186,7 @@ const AddNewTest: FC = () => {
                     </label>
                     <div
                       className={clsx(
-                        "form-control bg-transparent",
+                        "mt-3 mb-5 bg-transparent",
                         {
                           "is-invalid": formik.touched.sex && formik.errors.sex,
                         },
@@ -306,29 +310,61 @@ const AddNewTest: FC = () => {
                         "form-select bg-transparent",
                         {
                           "is-invalid":
-                            formik.touched.laboratory && formik.errors.laboratory,
+                            formik.touched.laboratory &&
+                            formik.errors.laboratory,
                         },
                         {
                           "is-valid":
-                            formik.touched.laboratory && !formik.errors.laboratory,
+                            formik.touched.laboratory &&
+                            !formik.errors.laboratory,
                         }
                       )}
                       aria-label="Select Laboratory Title"
                     >
-                      <option disabled>
-                        Choose Laboratory
-                      </option>
+                      <option disabled>Choose Laboratory</option>
                       <option value="1">Milad</option>
                       <option value="2">Mohammad</option>
                       <option value="3">Ali</option>
                       <option value="4">HH</option>
                       <option value="5">FF</option>
                     </select>
-                   
+
                     {formik.touched.laboratory && formik.errors.laboratory && (
                       <div className="fv-plugins-message-container">
                         <div className="fv-help-block">
                           <span role="alert">{formik.errors.laboratory}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  {/* end::Form group */}
+                  {/* begin::Form group */}
+                  <div className="fv-row mb-3">
+                    <label className="form-label fs-6 fw-bolder text-gray-900">
+                      Laboratory Number
+                    </label>
+                    <input
+                      placeholder="Laboratory Number"
+                      {...formik.getFieldProps("labNumber")}
+                      className={clsx(
+                        "form-control bg-transparent",
+                        {
+                          "is-invalid":
+                            formik.touched.labNumber && formik.errors.labNumber,
+                        },
+                        {
+                          "is-valid":
+                            formik.touched.labNumber &&
+                            !formik.errors.labNumber,
+                        }
+                      )}
+                      type="text"
+                      autoComplete="off"
+                    />
+                    {formik.touched.labNumber && formik.errors.labNumber && (
+                      <div className="fv-plugins-message-container">
+                        <div className="fv-help-block">
+                          <span role="alert">{formik.errors.labNumber}</span>
                         </div>
                       </div>
                     )}
