@@ -3,10 +3,16 @@ import React from "react";
 type Props = {
   className: string;
   children: React.ReactNode;
+  handleSelectAllChange: Function;
+  formik: any;
 };
 
-const SlidesTable: React.FC<Props> = ({ className, children}) => {
- 
+const SlidesTable: React.FC<Props> = ({
+  className,
+  children,
+  handleSelectAllChange,
+  formik,
+}) => {
   return (
     <div className={`card ${className}`}>
       {/* begin::Body */}
@@ -18,18 +24,28 @@ const SlidesTable: React.FC<Props> = ({ className, children}) => {
             {/* begin::Table head */}
             <thead>
               <tr className="fw-bold text-muted">
+                <th className="min-w-50px">
+                  <div className="form-check form-check-sm form-check-custom form-check-solid">
+                    <input
+                      {...formik.getFieldProps("selectAll")}
+                      className="form-check-input"
+                      type="checkbox"
+                      id="checkAll"
+                      onChange={handleSelectAllChange}
+                    />
+                  </div>
+                </th>
                 <th className="min-w-50px">Slide</th>
                 <th className="min-w-50px">Number</th>
                 <th className="min-w-0px">Test Type</th>
+                <th className="min-w-50px">Slide Preview</th>
                 <th className="min-w-50px">Status</th>
                 <th className="min-w-50px text-end">Actions</th>
               </tr>
             </thead>
             {/* end::Table head */}
             {/* begin::Table body */}
-            <tbody>
-            {children}
-            </tbody>
+            <tbody>{children}</tbody>
             {/* end::Table body */}
           </table>
           {/* end::Table */}

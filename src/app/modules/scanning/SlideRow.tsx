@@ -1,20 +1,28 @@
 import React from "react";
 import { KTIcon } from "../../../_metronic/helpers";
-
+import { RegionSelector } from "./RegionSelector";
 
 interface DataType {
   slide: number;
   testNumber: number;
   testType: string;
   progress: string;
+  image: string;
 }
 
 type Props = {
   data: DataType;
   isScanning: boolean;
+  formik: any;
+  handleCheckboxChange: Function;
 };
 
-const SlideRow: React.FC<Props> = ({ data, isScanning }) => {
+const SlideRow: React.FC<Props> = ({
+  data,
+  isScanning,
+  formik,
+  handleCheckboxChange,
+}) => {
   let progressPercent = 0;
   let progressBg = "info";
   switch (data.progress) {
@@ -36,8 +44,25 @@ const SlideRow: React.FC<Props> = ({ data, isScanning }) => {
       progressBg = "danger";
       break;
   }
+
   return (
     <tr>
+      <td>
+        <div className="form-check form-check-sm form-check-custom form-check-solid">
+          <input
+            {...formik.getFieldProps("selectedCheckboxes")}
+            checked={
+              formik.values.selectAll ||
+              formik.values.selectedCheckboxes.includes(data.slide)
+            }
+            onChange={handleCheckboxChange}
+            className="form-check-input widget-9-check"
+            type="checkbox"
+            value={data.slide}
+            id={`slide${data.slide}`}
+          />
+        </div>
+      </td>
       <td>
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
@@ -59,7 +84,14 @@ const SlideRow: React.FC<Props> = ({ data, isScanning }) => {
           </a>
         </div>
       </td>
-
+      <td className="ms-4 text-end">
+        <div
+          className="d-flex flex-column me-2"
+          style={{ width: "320px" }}
+        >
+          <RegionSelector image={data.image} />
+        </div>
+      </td>
       <td className="text-end">
         <div className="d-flex flex-column w-100 me-2">
           <div className="d-flex flex-stack mb-2">
@@ -76,6 +108,7 @@ const SlideRow: React.FC<Props> = ({ data, isScanning }) => {
           </div>
         </div>
       </td>
+
       <td>
         {/* Actions */}
         <div className="d-flex justify-content-end flex-shrink-0">

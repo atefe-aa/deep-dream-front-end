@@ -5,7 +5,10 @@ import {
 } from "@bmunozg/react-image-area";
 import { FC, useState } from "react";
 
-const RegionSelector: FC = () => {
+type Props = {
+  image: string;
+};
+const RegionSelector: React.FC<Props> = ({ image }) => {
   const [areas, setAreas] = useState<IArea[]>([]);
 
   const onChangeHandler = (areas: IArea[]) => {
@@ -13,7 +16,7 @@ const RegionSelector: FC = () => {
   };
 
   console.log(areas);
-  
+
   return (
     <AreaSelector
       areas={areas}
@@ -21,7 +24,11 @@ const RegionSelector: FC = () => {
       unit="percentage"
       onChange={onChangeHandler}
     >
-      <img style={{width:"120px",rotate:"-90deg",height:"350px"}} src="/media/slides/slide.jpg" alt="my image" />
+      <img
+        style={{ width: "100%", height: "100%" }}
+        src="/media/slides/slide.jpg"
+        alt="my image"
+      />
     </AreaSelector>
   );
 };
