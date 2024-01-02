@@ -1,5 +1,6 @@
 import React from "react";
-import { KTIcon, toAbsoluteUrl } from "../../../helpers";
+import { KTIcon } from "../../../_metronic/helpers";
+
 
 interface DataType {
   slide: number;
@@ -76,20 +77,28 @@ const SlideRow: React.FC<Props> = ({ data, isScanning }) => {
         </div>
       </td>
       <td>
+        {/* Actions */}
         <div className="d-flex justify-content-end flex-shrink-0">
+          {/* Start Action */}
           {data?.progress === "ready" && (
             <button
+              data-bs-toggle="modal"
+              data-bs-target="#kt_modal_scanning_slide"
               disabled={isScanning}
               className="btn btn-icon  btn-bg-light btn-active-color-primary btn-sm me-1"
             >
               <i className="las la-play"></i>
             </button>
           )}
+
+          {/* View Action */}
           {data?.progress === "scanned" && (
             <button className="btn btn-icon  btn-bg-light btn-active-color-primary btn-sm me-1">
               <KTIcon iconName="eye" className="fs-3" />
             </button>
-          )}{" "}
+          )}
+
+          {/* Try Again Action */}
           {data?.progress === "failed" && (
             <button
               disabled={isScanning}
@@ -97,18 +106,26 @@ const SlideRow: React.FC<Props> = ({ data, isScanning }) => {
             >
               <i className="las la-redo-alt"></i>
             </button>
-          )}{" "}
+          )}
+
+          {/* Scanning State */}
           {data?.progress === "scanning" && (
             <button className="btn btn-icon  btn-bg-light btn-active-color-primary btn-sm me-1">
               <span className="spinner-border spinner-border-sm align-middle"></span>
             </button>
           )}
-          {data.progress === 'scanning' ?  <button className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-          <i className="las la-ban"></i>
-          </button> :  <button className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-            <KTIcon iconName="trash" className="fs-3" />
-          </button>}
-         
+
+          {data.progress === "scanning" ? (
+            // stop Action
+            <button className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+              <i className="las la-ban"></i>
+            </button>
+          ) : (
+            // Delete Action
+            <button className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+              <KTIcon iconName="trash" className="fs-3" />
+            </button>
+          )}
         </div>
       </td>
     </tr>

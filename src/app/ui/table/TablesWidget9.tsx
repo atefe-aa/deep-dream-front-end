@@ -1,6 +1,6 @@
 import React from "react";
-import { KTIcon, toAbsoluteUrl } from "../../../helpers";
-import { TablesWidget9Row } from "./rows/TableWidget9Row";
+import { KTIcon, toAbsoluteUrl } from "../../../_metronic/helpers";
+import { TablesWidget9Row } from "./TableWidget9Row";
 
 type Props = {
   className: string;
@@ -83,6 +83,58 @@ const fakeData = [
     description: "this is a test discription",
     laboratory: "Milad",
     progress: "deleted",
+    price: 250000,
+  },
+  {
+    name: "ana",
+    date: "1402-10-10 10:50",
+    number: 50424,
+    labNumber: 6988,
+    testType: "CC",
+    age: 20,
+    sex: "female",
+    description: "this is a test discription",
+    laboratory: "Milad",
+    progress: "confirmed",
+    price: 250000,
+  },
+  {
+    name: "ana",
+    date: "1402-10-10 10:50",
+    number: 6988,
+    labNumber: 50423,
+    testType: "CC",
+    age: 20,
+    sex: "female",
+    description: "this is a test discription",
+    laboratory: "Milad",
+    progress: "new",
+    price: 250000,
+  },
+  {
+    name: "ana",
+    date: "1402-10-10 10:50",
+    number: 50424,
+    labNumber: 6988,
+    testType: "CC",
+    age: 20,
+    sex: "female",
+    description: "this is a test discription",
+    laboratory: "Milad",
+    progress: "scanned",
+    price: 250000,
+  },
+  {
+    name: "ana",
+    date: "1402-10-10 10:50",
+    number: 50424,
+    labNumber: 6988,
+    testType: "CC",
+    age: 20,
+    sex: "female",
+    description: "this is a test discription",
+    laboratory: "Milad",
+    progress: "answered",
     price: 250000,
   },
 ];

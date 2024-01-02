@@ -1,5 +1,6 @@
 import React from "react";
-import { KTIcon, toAbsoluteUrl } from "../../../../helpers";
+import { KTIcon } from "../../../_metronic/helpers";
+import { DropDownButton } from "../buttons/DropDownButton";
 
 interface DataType {
   name: string;
@@ -118,21 +119,13 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
           <a
             href="#"
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+            data-bs-toggle='tooltip'
+            title='Share'
           >
-            <KTIcon iconName="switch" className="fs-3" />
+            <KTIcon iconName="share" className="fs-3" />
           </a>
-          <a
-            href="#"
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-          >
-            <KTIcon iconName="pencil" className="fs-3" />
-          </a>
-          <a
-            href="#"
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-          >
-            <KTIcon iconName="trash" className="fs-3" />
-          </a>
+          <DropDownButton />
+       
         </div>
       </td>
     </tr>

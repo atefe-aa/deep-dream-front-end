@@ -3,23 +3,11 @@ import { Outlet, useLocation } from "react-router-dom";
 import { AsideDefault } from "./components/aside/AsideDefault";
 import { Footer } from "./components/Footer";
 import { HeaderWrapper } from "./components/header/HeaderWrapper";
-import { RightToolbar } from "../partials/layout/RightToolbar";
 import { ScrollTop } from "./components/ScrollTop";
 import { Content } from "./components/Content";
 import { PageDataProvider } from "./core";
-import {
-  ActivityDrawer,
-  AddNewTest,
-  DrawerMessenger,
-  Dropdown1,
-  Search,
-  UpgradePlan,
-} from "../partials";
+import { AddNewTest, DrawerMessenger } from "../partials";
 import { MenuComponent } from "../assets/ts/components";
-import { KTIcon } from "../helpers";
-import { SearchAndFilter } from "./components/SearchAndFilter";
-import { StartScanning } from "../partials/modals/scanning/StartScanning";
-import { ScanningLayout } from "../partials/modals/scanning/ScanningLayout";
 
 const MasterLayout = () => {
   const location = useLocation();
@@ -61,16 +49,13 @@ const MasterLayout = () => {
       </div>
 
       {/* begin:: Drawers */}
-      {/* <ActivityDrawer /> */}
-      {/* <RightToolbar /> */}
       <DrawerMessenger />
       {/* end:: Drawers */}
 
       {/* begin:: Modals */}
       <AddNewTest />
-      <ScanningLayout />
-      {/* <UpgradePlan /> */}
       {/* end:: Modals */}
+
       <ScrollTop />
     </PageDataProvider>
   );

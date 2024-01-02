@@ -1,57 +1,58 @@
-
-import {FC} from 'react'
-import {KTIcon} from '../../../helpers'
-import {ThemeModeSwitcher} from '../../../partials'
+import { FC } from "react";
+import { KTIcon } from "../../../helpers";
+import { ThemeModeSwitcher } from "../../../partials";
+import { Link } from "react-router-dom";
 
 const Topbar: FC = () => (
-  <div className='d-flex flex-shrink-0'>
+  <div className="d-flex flex-shrink-0">
     {/* begin::Add new test*/}
-    <div className='d-flex ms-3'>
+    <div className="d-flex ms-3">
       <a
-        href='#'
-        className='btn btn-flex flex-center bg-body btn-color-gray-700 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6'
-        data-bs-toggle='modal'
-        data-bs-target='#kt_modal_add_new_test'
+        href="#"
+        className="btn btn-flex flex-center bg-body btn-color-gray-700 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6"
+        data-bs-toggle="modal"
+        data-bs-target="#kt_modal_add_new_test"
       >
-        <KTIcon iconName='plus' className='fs-2 text-primary me-0 me-md-2' />
-        <span className='d-none d-md-inline'>New Test</span>
+        <KTIcon iconName="plus" className="fs-2 text-primary me-0 me-md-2" />
+        <span className="d-none d-md-inline">New Test</span>
       </a>
     </div>
     {/* end::Add new test*/}
 
     {/* begin::Create app */}
-    <div className='d-flex ms-3'>
-      <a
-        href='#'
-        className='btn btn-flex flex-center bg-body btn-color-gray-700 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6'
-        data-bs-toggle='modal'
-        data-bs-target='#kt_modal_start_scanning'
+    <div className="d-flex ms-3">
+      <Link
+        to="/scanning"
+        className="btn btn-flex flex-center bg-body btn-color-gray-700 btn-active-color-primary w-40px w-md-auto h-40px px-0 px-md-6"
       >
-        <KTIcon iconName='document' className='fs-2 text-primary me-0 me-md-2' />
-        <span className='d-none d-md-inline'>Start Scanning</span>
-      </a>
+        <KTIcon
+          iconName="document"
+          className="fs-2 text-primary me-0 me-md-2"
+        />
+        <span className="d-none d-md-inline">Start Scanning</span>
+      </Link>
     </div>
     {/* end::Create app */}
 
     {/* begin::Theme mode */}
-    <div className='d-flex align-items-center  ms-3'>
-      <ThemeModeSwitcher toggleBtnClass=' flex-center bg-body btn-color-gray-600 btn-active-color-primary h-40px' />
+    <div className="d-flex align-items-center  ms-3">
+      <ThemeModeSwitcher toggleBtnClass=" flex-center bg-body btn-color-gray-600 btn-active-color-primary h-40px" />
     </div>
     {/* end::Theme mode */}
 
     {/* CHAT */}
-    <div className='d-flex align-items-center ms-3'>
+    <div className="d-flex align-items-center ms-3">
       {/* begin::Menu wrapper */}
       <div
-        className='btn btn-icon btn-primary w-40px h-40px pulse pulse-white'
-        id='kt_drawer_chat_toggle'
+        className="btn btn-icon btn-primary w-40px h-40px pulse pulse-white"
+        id="kt_drawer_chat_toggle"
       >
-        <KTIcon iconName='message-text-2' className='fs-2' />
-        <span className='pulse-ring' />
+        <KTIcon iconName="message-text-2" className="fs-2" />
+        <span className="pulse-ring" />
       </div>
       {/* end::Menu wrapper */}
     </div>
   </div>
-)
+);
 
-export {Topbar}
+export { Topbar };

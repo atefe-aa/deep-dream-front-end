@@ -1,10 +1,6 @@
-import React, { FC } from "react";
-import { KTIcon, toAbsoluteUrl } from "../../../helpers";
-
+import React from "react";
 import { useState } from "react";
 import * as Yup from "yup";
-import clsx from "clsx";
-import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 
 const addSchema = Yup.object().shape({
@@ -30,7 +26,7 @@ const initialValues: FormValues = {
 type Props = {
   start: Function;
 };
-const StartScanning: React.FC<Props> = ({ start })  => {
+const SelectSlides: React.FC<Props> = ({ start }) => {
   const [loading, setLoading] = useState(false);
 
   const checkboxes = Array.from({ length: 10 }, (_, index) => index + 1);
@@ -88,7 +84,6 @@ const StartScanning: React.FC<Props> = ({ start })  => {
 
   return (
     <>
-      {" "}
       <h3 className="form-label mb-5 fs-6 fw-bolder text-gray-900">
         Choose slide(s) to scan<span className="text-danger">*</span>
       </h3>
@@ -170,4 +165,4 @@ const StartScanning: React.FC<Props> = ({ start })  => {
   );
 };
 
-export { StartScanning };
+export { SelectSlides };
