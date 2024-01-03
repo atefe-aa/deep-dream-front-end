@@ -22,14 +22,22 @@ const Dropdown: FC = () => {
       </div>
 
       <div className="menu-item px-3">
-        <a href="#" className="menu-link px-3">
+        <a
+          href="http://cytomine.local/#/project/3609/image/4107/slice/4108?viewer=izoeau5m2"
+          className="menu-link px-3"
+        >
           <KTIcon iconName="eye" className="fs-3 me-3" />
           View Image
         </a>
       </div>
 
       <div className="menu-item px-3 my-1">
-        <a href="#" className="menu-link px-3 text-danger " data-bs-toggle="tooltip" title="Delete Test">
+        <a
+          href="#"
+          className="menu-link px-3 text-danger "
+          data-bs-toggle="tooltip"
+          title="Delete Test"
+        >
           <KTIcon iconName="trash" className="fs-3 me-3" />
           Delete Test
         </a>
