@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { SelectSlides } from "../../modules/scanning/SelectSlides";
-import { ScanningSlide } from "../../modules/scanning/ScanningSlide";
 import { SlidesTable } from "../../modules/scanning/SlidesTable";
 import { SlideRow } from "../../modules/scanning/SlideRow";
 import * as Yup from "yup";
@@ -8,72 +6,82 @@ import { useFormik } from "formik";
 
 const fakeData = [
   {
-    image:'/media/slides/slide.jpg',
+    image: "",
     slide: 1,
-    testNumber: 550035,
-    testType: "CC",
-    progress: "ready",
+    laboratory:"",
+    testNumber: 0,
+    testType: "",
+    progress: "",
   },
   {
-    image:'/media/slides/slide.jpg',
+    image: "/media/slides/slide.jpg",
     slide: 2,
+    laboratory:"Milad",
     testNumber: 550036,
     testType: "CC",
     progress: "scanned",
   },
   {
-    image:'/media/slides/slide.jpg',
+    image: "/media/slides/slide.jpg",
     slide: 3,
+    laboratory:"Milad",
     testNumber: 550037,
     testType: "CC",
     progress: "scanned",
   },
   {
-    image:'/media/slides/slide.jpg',
+    image: "/media/slides/slide.jpg",
     slide: 4,
+    laboratory:"Milad",
     testNumber: 550038,
     testType: "CC",
     progress: "ready",
   },
   {
-    image:'/media/slides/slide.jpg',
+    image: "/media/slides/slide.jpg",
     slide: 5,
+    laboratory:"Milad",
     testNumber: 550039,
     testType: "CC",
     progress: "scanned",
   },
   {
-    image:'/media/slides/slide.jpg',
+    image: "/media/slides/slide.jpg",
     slide: 6,
+    laboratory:"Milad",
     testNumber: 550040,
     testType: "CC",
     progress: "failed",
   },
   {
-    image:'/media/slides/slide.jpg',
+    image: "/media/slides/slide.jpg",
     slide: 7,
+    laboratory:"Milad",
     testNumber: 550041,
     testType: "CC",
     progress: "ready",
   },
   {
-    image:'/media/slides/slide.jpg',
+    image: "/media/slides/slide.jpg",
     slide: 8,
+    laboratory:"Milad",
     testNumber: 550042,
     testType: "CC",
     progress: "ready",
   },
   {
-    image:'/media/slides/slide.jpg',
+    image: "/media/slides/slide.jpg",
     slide: 9,
+    laboratory:"Milad",
     testNumber: 550043,
     testType: "CC",
     progress: "ready",
   },
   {
-    image:'/media/slides/slide.jpg',
+    image: "/media/slides/slide.jpg",
     slide: 10,
-    testNumber: 550044,
+    laboratory:"Milad",
+    testNumber: 0,
     testType: "CC",
     progress: "ready",
   },
@@ -81,10 +89,12 @@ const fakeData = [
 interface FormValues {
   selectedCheckboxes: number[];
   selectAll: boolean;
+  testNumber: number;
 }
 const initialValues: FormValues = {
   selectedCheckboxes: [],
   selectAll: false,
+  testNumber: 0,
 };
 const addSchema = Yup.object().shape({
   selectedCheckboxes: Yup.array()
@@ -93,11 +103,6 @@ const addSchema = Yup.object().shape({
 });
 
 const ScanningPage = () => {
-  type Props = {
-    className: string;
-    children: React.ReactNode;
-  };
-
   const [loading, setLoading] = useState(false);
 
   const checkboxes = Array.from({ length: 10 }, (_, index) => index + 1);

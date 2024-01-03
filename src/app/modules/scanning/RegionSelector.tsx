@@ -20,14 +20,13 @@ const RegionSelector: React.FC<Props> = ({ image }) => {
   return (
     <AreaSelector
       areas={areas}
-      maxAreas={1}
       unit="percentage"
       onChange={onChangeHandler}
     >
       <img
-        style={{ width: "100%", height: "100%" }}
-        src="/media/slides/slide.jpg"
-        alt="my image"
+        style={{ width: "100%", height: "100%", borderRadius: "5px" }}
+        src={image}
+        alt="slide image"
       />
     </AreaSelector>
   );

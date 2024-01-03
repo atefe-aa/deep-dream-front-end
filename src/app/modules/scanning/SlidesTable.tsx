@@ -24,7 +24,7 @@ const SlidesTable: React.FC<Props> = ({
             {/* begin::Table head */}
             <thead>
               <tr className="fw-bold text-muted">
-                <th className="min-w-50px">
+                <th className="min-w-50px text-center">
                   <div className="form-check form-check-sm form-check-custom form-check-solid">
                     <input
                       {...formik.getFieldProps("selectAll")}
@@ -35,12 +35,13 @@ const SlidesTable: React.FC<Props> = ({
                     />
                   </div>
                 </th>
-                <th className="min-w-50px">Slide</th>
-                <th className="min-w-50px">Number</th>
-                <th className="min-w-0px">Test Type</th>
-                <th className="min-w-50px">Slide Preview</th>
-                <th className="min-w-50px">Status</th>
-                <th className="min-w-50px text-end">Actions</th>
+                <th className="min-w-50px text-center">Slide</th>
+                <th className="min-w-50px text-center">Number</th>
+                <th className="min-w-50px text-center">Test Type</th>
+                <th className="min-w-50px text-center">Laboratory</th>
+                <th className="min-w-50px text-center">Status</th>
+                <th className="min-w-50px text-center">Actions</th>
+                <th className="min-w-50px text-center">Slide Preview</th>
               </tr>
             </thead>
             {/* end::Table head */}

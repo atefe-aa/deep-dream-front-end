@@ -1,6 +1,7 @@
 import React from "react";
 import { KTIcon } from "../../../_metronic/helpers";
 import { RegionSelector } from "./RegionSelector";
+import clsx from "clsx";
 
 interface DataType {
   slide: number;
@@ -8,6 +9,7 @@ interface DataType {
   testType: string;
   progress: string;
   image: string;
+  laboratory: string;
 }
 
 type Props = {
@@ -47,7 +49,7 @@ const SlideRow: React.FC<Props> = ({
 
   return (
     <tr>
-      <td>
+      <td className="text-center">
         <div className="form-check form-check-sm form-check-custom form-check-solid">
           <input
             {...formik.getFieldProps("selectedCheckboxes")}
@@ -63,36 +65,65 @@ const SlideRow: React.FC<Props> = ({
           />
         </div>
       </td>
-      <td>
+      <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
             {data.slide}
           </a>
         </div>
       </td>
-      <td>
+      <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
-          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {data.testNumber}
-          </a>
+          {data?.testNumber ? (
+            <a
+              href="#"
+              className="text-gray-900 fw-bold text-hover-primary fs-6"
+            >
+              {data.testNumber}
+            </a>
+          ) : (
+            <input
+              type="number"
+              autoComplete="off"
+              placeholder="Enter Test Number"
+              {...formik.getFieldProps("testNumber")}
+              className={clsx(
+                "form-control-sm bg-transparent",
+                {
+                  "is-invalid":
+                    formik.touched.testNumber && formik.errors.testNumber,
+                },
+                {
+                  "is-valid":
+                    formik.touched.testNumber && !formik.errors.testNumber,
+                }
+              )}
+            />
+          )}
+          {formik.touched.testNumber && formik.errors.testNumber && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.testNumber}</span>
+              </div>
+            </div>
+          )}
         </div>
       </td>
-      <td>
+      <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
             {data.testType}
           </a>
         </div>
       </td>
-      <td className="ms-4 text-end">
-        <div
-          className="d-flex flex-column me-2"
-          style={{ width: "320px" }}
-        >
-          <RegionSelector image={data.image} />
+      <td className="text-center">
+        <div className="d-flex justify-content-start flex-column">
+          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+            {data.laboratory}
+          </a>
         </div>
       </td>
-      <td className="text-end">
+      <td className="text-center">
         <div className="d-flex flex-column w-100 me-2">
           <div className="d-flex flex-stack mb-2">
             <span className="text-muted me-2 fs-7 fw-semibold">
@@ -108,8 +139,7 @@ const SlideRow: React.FC<Props> = ({
           </div>
         </div>
       </td>
-
-      <td>
+      <td className="text-center">
         {/* Actions */}
         <div className="d-flex justify-content-end flex-shrink-0">
           {/* Start Action */}
@@ -158,6 +188,15 @@ const SlideRow: React.FC<Props> = ({
             <button className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
               <KTIcon iconName="trash" className="fs-3" />
             </button>
+          )}
+        </div>
+      </td>
+      <td className="text-center">
+        <div className="d-flex flex-column" style={{ width: "320px" }}>
+          {data?.image ? (
+            <RegionSelector image={data.image} />
+          ) : (
+            <h6 className="text-muted">No image yet.</h6>
           )}
         </div>
       </td>
