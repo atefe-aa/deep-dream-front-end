@@ -25,6 +25,8 @@ const Dropdown: FC = () => {
         <a
           href="http://cytomine.local/#/project/3609/image/4107/slice/4108?viewer=izoeau5m2"
           className="menu-link px-3"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <KTIcon iconName="eye" className="fs-3 me-3" />
           View Image

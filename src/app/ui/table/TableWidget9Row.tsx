@@ -76,7 +76,7 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
       <td>
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {data.price}
+            {data.price.toLocaleString()}
           </a>
         </div>
       </td>

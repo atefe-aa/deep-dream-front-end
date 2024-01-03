@@ -1,10 +1,10 @@
 import { FC } from "react";
-import { useLayout } from "../core";
-import { Dropdown1, Search } from "../../partials";
-import { KTIcon } from "../../helpers";
+import { useLayout } from "../../../_metronic/layout/core";
+import { Dropdown1, Search } from "../../../_metronic/partials";
+import { KTIcon } from "../../../_metronic/helpers";
+import { FilterDropdown } from "./FilterDropdown";
 
 const SearchAndFilter: FC = () => {
-  
   return (
     <div className="row">
       <div className="d-flex col col-12 col-md-4  mb-4">
@@ -22,7 +22,7 @@ const SearchAndFilter: FC = () => {
             <KTIcon iconName="filter" className="fs-2" />
           </button>
           {/* end::Menu toggle */}
-          <Dropdown1 />
+          <FilterDropdown />
         </div>
         {/* end::Filter */}
       </div>

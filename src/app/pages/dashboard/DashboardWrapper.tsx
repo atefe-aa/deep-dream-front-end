@@ -6,8 +6,9 @@ import {
   StatisticsWidget4,
   TablesWidget9,
 } from "../../../_metronic/partials/widgets";
-import { SearchAndFilter } from "../../../_metronic/layout/components/SearchAndFilter";
+import { SearchAndFilter } from "../../ui/serach-and-filter/SearchAndFilter";
 import { Pagination } from "../../ui/Pagination";
+
 
 const dashboardBreadCrumbs: Array<PageLink> = [
   {
@@ -33,6 +34,7 @@ const DashboardPage = () => {
 
       {/* begin::Row */}
       <div className="row gy-5 g-xl-8">
+        
         {/* begin::Col */}
         <div className="col-xxl-4">
           <MixedWidget3
