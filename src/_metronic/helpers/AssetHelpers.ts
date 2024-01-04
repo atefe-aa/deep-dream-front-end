@@ -1,8 +1,20 @@
 import { useLayout } from "../layout/core";
 import { ThemeModeComponent } from "../assets/ts/layout";
 
-export const toAbsoluteUrl = (pathname: string) =>
-  import.meta.env.BASE_URL + pathname;
+// export const toAbsoluteUrl = (pathname: string) =>
+//   import.meta.env.BASE_URL + pathname;
+
+export const toAbsoluteUrl = (pathname: string) => {
+  const baseUrl = import.meta.env.BASE_URL.endsWith("/")
+    ? import.meta.env.BASE_URL
+    : import.meta.env.BASE_URL + "/";
+
+  const normalizedPathname = pathname.startsWith("/")
+    ? pathname.substring(1)
+    : pathname;
+
+  return baseUrl + normalizedPathname;
+};
 
 export const useIllustrationsPath = (illustrationName: string): string => {
   const { config } = useLayout();
