@@ -21,7 +21,7 @@ type TestsData = {
   price: number;
 };
 
-const TablesWidget9: React.FC<Props> = ({ className, testsData }) => {
+const TestsTable: React.FC<Props> = ({ className="", testsData }) => {
   const totalNumberOfTests = testsData.length;
   return (
     <div className={`card ${className}`}>
@@ -89,4 +89,4 @@ const TablesWidget9: React.FC<Props> = ({ className, testsData }) => {
   );
 };
 
-export { TablesWidget9 };
+export { TestsTable };

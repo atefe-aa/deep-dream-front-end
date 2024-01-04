@@ -1,23 +1,14 @@
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { PageLink, PageTitle } from "../../../_metronic/layout/core";
-import {
-  ChartsWidget1,
-  ChartsWidget2,
-  ChartsWidget3,
-  ChartsWidget4,
-  ChartsWidget5,
-  ChartsWidget6,
-  ChartsWidget7,
-  StatisticsWidget4,
-  TablesWidget9,
-} from "../../../_metronic/partials/widgets";
+
 import { SearchAndFilter } from "../../ui/serach-and-filter/SearchAndFilter";
 import { Pagination } from "../../ui/Pagination";
 import { BarChart } from "../../ui/charts/BarChart";
 import { FAKE_DATA, LABS_TESTS_DATA } from "../../utils/constants";
 import { LineChart } from "../../ui/charts/LineChart";
 import { RadarChart } from "../../ui/charts/RadarChart";
+import { TestsTable } from "../../ui/table/TestsTable";
 
 const data = FAKE_DATA;
 
@@ -152,7 +143,7 @@ const DashboardPage = () => {
       <div className="row gy-5 g-xl-8 mt-2">
         {/* begin::Col */}
         <div className="col-xxl-12">
-          <TablesWidget9
+          <TestsTable
             testsData={data}
             className="card-xxl-stretch mb-5 mb-xl-8"
           />
