@@ -4,143 +4,25 @@ import { TablesWidget9Row } from "./TableWidget9Row";
 
 type Props = {
   className: string;
+  testsData: TestsData[];
 };
 
-const fakeData = [
-  {
-    name: "ana",
-    date: "1402-10-10 10:50",
-    number: 6988,
-    labNumber: 50423,
-    testType: "CC",
-    age: 20,
-    sex: "female",
-    description: "this is a test discription",
-    laboratory: "Milad",
-    progress: "new",
-    price: 250000,
-  },
-  {
-    name: "ana",
-    date: "1402-10-10 10:50",
-    number: 50424,
-    labNumber: 6988,
-    testType: "CC",
-    age: 20,
-    sex: "female",
-    description: "this is a test discription",
-    laboratory: "Milad",
-    progress: "scanning",
-    price: 250000,
-  },
-  {
-    name: "ana",
-    date: "1402-10-10 10:50",
-    number: 50424,
-    labNumber: 6988,
-    testType: "CC",
-    age: 20,
-    sex: "female",
-    description: "this is a test discription",
-    laboratory: "Milad",
-    progress: "scanned",
-    price: 250000,
-  },
-  {
-    name: "ana",
-    date: "1402-10-10 10:50",
-    number: 50424,
-    labNumber: 6988,
-    testType: "CC",
-    age: 20,
-    sex: "female",
-    description: "this is a test discription",
-    laboratory: "Milad",
-    progress: "answered",
-    price: 250000,
-  },
-  {
-    name: "ana",
-    date: "1402-10-10 10:50",
-    number: 50424,
-    labNumber: 6988,
-    testType: "CC",
-    age: 20,
-    sex: "female",
-    description: "this is a test discription",
-    laboratory: "Milad",
-    progress: "confirmed",
-    price: 250000,
-  },
-  {
-    name: "ana",
-    date: "1402-10-10 10:50",
-    number: 50424,
-    labNumber: 6988,
-    testType: "CC",
-    age: 20,
-    sex: "female",
-    description: "this is a test discription",
-    laboratory: "Milad",
-    progress: "deleted",
-    price: 250000,
-  },
-  {
-    name: "ana",
-    date: "1402-10-10 10:50",
-    number: 50424,
-    labNumber: 6988,
-    testType: "CC",
-    age: 20,
-    sex: "female",
-    description: "this is a test discription",
-    laboratory: "Milad",
-    progress: "confirmed",
-    price: 250000,
-  },
-  {
-    name: "ana",
-    date: "1402-10-10 10:50",
-    number: 6988,
-    labNumber: 50423,
-    testType: "CC",
-    age: 20,
-    sex: "female",
-    description: "this is a test discription",
-    laboratory: "Milad",
-    progress: "new",
-    price: 250000,
-  },
-  {
-    name: "ana",
-    date: "1402-10-10 10:50",
-    number: 50424,
-    labNumber: 6988,
-    testType: "CC",
-    age: 20,
-    sex: "female",
-    description: "this is a test discription",
-    laboratory: "Milad",
-    progress: "scanned",
-    price: 250000,
-  },
-  {
-    name: "ana",
-    date: "1402-10-10 10:50",
-    number: 50424,
-    labNumber: 6988,
-    testType: "CC",
-    age: 20,
-    sex: "female",
-    description: "this is a test discription",
-    laboratory: "Milad",
-    progress: "answered",
-    price: 250000,
-  },
-];
+type TestsData = {
+  name: string;
+  date: string;
+  number: number;
+  labNumber: number;
+  testType: string;
+  age: number;
+  sex: string;
+  description: string;
+  laboratory: string;
+  progress: string;
+  price: number;
+};
 
-const TablesWidget9: React.FC<Props> = ({ className }) => {
-  const totalNumberOfTests = fakeData.length;
+const TablesWidget9: React.FC<Props> = ({ className, testsData }) => {
+  const totalNumberOfTests = testsData.length;
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -192,7 +74,7 @@ const TablesWidget9: React.FC<Props> = ({ className }) => {
             {/* end::Table head */}
             {/* begin::Table body */}
             <tbody>
-              {fakeData.map((data, _index) => (
+              {testsData.map((data, _index) => (
                 <TablesWidget9Row key={_index} data={data} index={_index + 1} />
               ))}
             </tbody>

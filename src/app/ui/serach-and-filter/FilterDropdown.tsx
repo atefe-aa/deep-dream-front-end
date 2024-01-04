@@ -6,7 +6,7 @@ import { DateObject } from "react-multi-date-picker";
 import type { Value } from "react-multi-date-picker";
 
 const FilterDropdown: FC = () => {
-  const [value, setValue] = useState<Value>(new Date());
+  const [value, setValue] = useState<Value>();
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     console.log(value);
