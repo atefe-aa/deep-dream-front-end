@@ -7,6 +7,7 @@ import {
   getCSS,
   getCSSVariableValue,
 } from "../../../_metronic/assets/ts/_utils";
+import { TEST_TYPES } from "../../utils/constants";
 
 type Props = {
   className: string;
@@ -14,15 +15,14 @@ type Props = {
   color: string;
   change: string;
   description: string;
+  series: Array<ChartDataItem>;
+  unit: string;
 };
-
-const LineChart: React.FC<Props> = ({
-  className,
-  svgIcon,
-  color,
-  change,
-  description,
-}) => {
+interface ChartDataItem {
+  name: string;
+  data: number[];
+}
+const RadarChart: React.FC<Props> = ({ className, color, series, unit , description}) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const { mode } = useThemeMode();
   const refreshChart = () => {
@@ -37,7 +37,7 @@ const LineChart: React.FC<Props> = ({
 
     const chart = new ApexCharts(
       chartRef.current,
-      getChartOptions(height, labelColor, baseColor, lightColor)
+      getChartOptions(height, labelColor, baseColor, lightColor, series, unit)
     );
     if (chart) {
       chart.render();
@@ -59,25 +59,19 @@ const LineChart: React.FC<Props> = ({
   return (
     <div className={`card ${className}`}>
       {/* begin::Body */}
-      <div className="card-body p-0">
-        <div className="d-flex flex-stack card-p flex-grow-1">
-          <span className={clsx("symbol symbol-50px", "me-2")}>
-            <span className={clsx("symbol-label", `bg-light-${color}`)}>
-              <KTIcon iconName={svgIcon} className={`fs-2x text-${color}`} />
-            </span>
-          </span>
+      <div className="card-bod p-0 ">
+      <div className="d-flex flex-stack card-p flex-grow-1">
+        
 
           <div className="d-flex flex-column text-end">
-            <span className="text-gray-900 fw-bold fs-2">{change}</span>
-
-            <span className="text-muted fw-semibold mt-1">{description}</span>
+          
+            <span className="fs-6 fw-bold">{description}</span>
           </div>
         </div>
-
         <div
           ref={chartRef}
-          className="statistics-widget-4-chart card-rounded-bottom"
-          style={{ height: "435px" }}
+          className="statistics-widget-4-chart card-rounded-bottom "
+          style={{ height: "465px" }}
         ></div>
       </div>
       {/* end::Body */}
@@ -85,24 +79,23 @@ const LineChart: React.FC<Props> = ({
   );
 };
 
-export { LineChart };
+export { RadarChart };
 
 function getChartOptions(
   height: number,
   labelColor: string,
   baseColor: string,
-  lightColor: string
+  lightColor: string,
+  series: Array<ChartDataItem>,
+  unit: string
 ): ApexOptions {
+  const testTypes = TEST_TYPES.map((test) => test.title);
+
   return {
-    series: [
-      {
-        name: "Net Profit",
-        data: [40, 40, 30, 30, 35, 35, 50],
-      },
-    ],
+    series: series,
     chart: {
       fontFamily: "inherit",
-      type: "area",
+      type: "radar",
       height: height,
       toolbar: {
         show: false,
@@ -116,23 +109,60 @@ function getChartOptions(
     },
     plotOptions: {},
     legend: {
-      show: false,
+      show: true,
+      position: "left",
+      offsetX: 0,
+      offsetY: 0,
+
+      onItemClick: {
+        toggleDataSeries: true,
+      },
+      labels: {
+        colors: ["--bs-gray-800"],
+        useSeriesColors: false,
+      },
+      markers: {
+        width: 12,
+        height: 12,
+        strokeWidth: 0,
+        strokeColor: baseColor,
+        fillColors: [
+          "#3379ff",
+          "#f8934d",
+          "#6fa91b",
+          "#9e68d2",
+          "#68c5d2",
+          "#ea2694",
+        ],
+        radius: 12,
+        customHTML: undefined,
+        onClick: undefined,
+        offsetX: 0,
+        offsetY: 0,
+      },
     },
     dataLabels: {
       enabled: false,
     },
     fill: {
       type: "solid",
-      opacity: 1,
+      opacity: 0.2,
     },
     stroke: {
       curve: "smooth",
       show: true,
       width: 3,
-      colors: [baseColor],
+      colors: [
+        "#3379ff",
+        "#f8934d",
+        "#6fa91b",
+        "#9e68d2",
+        "#68c5d2",
+        "#ea2694",
+      ],
     },
     xaxis: {
-      categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+      categories: testTypes,
       axisBorder: {
         show: false,
       },
@@ -150,7 +180,7 @@ function getChartOptions(
         show: false,
         position: "front",
         stroke: {
-          color: "#E4E6EF",
+          color: "--bs-gray-800",
           width: 1,
           dashArray: 3,
         },
@@ -160,8 +190,6 @@ function getChartOptions(
       },
     },
     yaxis: {
-      min: 0,
-      max: 60,
       labels: {
         show: false,
         style: {
@@ -197,15 +225,15 @@ function getChartOptions(
       },
       y: {
         formatter: function (val) {
-          return  val + " (R)";
+          return val + unit;
         },
       },
     },
     colors: [lightColor],
     markers: {
-      colors: [lightColor],
-      strokeColors: [baseColor],
-      strokeWidth: 3,
+      //   colors: [lightColor, 'white','yellow','red','blue'],
+      //   strokeColors: [baseColor],
+      //   strokeWidth: 3,
     },
   };
 }

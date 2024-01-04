@@ -26,12 +26,9 @@ type Props = {
   totals: Array<TotalItem>;
   series: Array<ChartDataItem>;
   xaxisCategories: object;
-  maxY: number;
-  minY: number;
-  unit: string
-};
 
-const statistics = LABS_TESTS_DATA;
+  unit: string;
+};
 
 const BarChart: FC<Props> = ({
   className,
@@ -41,9 +38,7 @@ const BarChart: FC<Props> = ({
   totals,
   series,
   xaxisCategories,
-  maxY,
-  minY,
-  unit
+  unit,
 }) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const { mode } = useThemeMode();
@@ -54,7 +49,7 @@ const BarChart: FC<Props> = ({
 
     const chart = new ApexCharts(
       chartRef.current,
-      chartOptions(chartHeight, series, xaxisCategories, maxY, minY, unit)
+      chartOptions(chartHeight, series, xaxisCategories, unit)
     );
     if (chart) {
       chart.render();
@@ -116,7 +111,7 @@ const BarChart: FC<Props> = ({
           <div className="row g-0">
             {/* begin::Col  */}
             {totals.map((total) => (
-              <div className="col mx-5">
+              <div key={total.title} className="col mx-5">
                 <div className="fs-6 text-gray-500">{total.title}</div>
                 <div className="fs-5 fw-bold text-gray-800">
                   {total.value} {total.unit}
@@ -139,9 +134,7 @@ const chartOptions = (
   chartHeight: string,
   series: Array<ChartDataItem>,
   xaxisCategories: object,
-  maxY: number,
-  minY: number,
-  unit:string
+  unit: string
 ): ApexOptions => {
   const labelColor = getCSSVariableValue("--bs-gray-500");
   const borderColor = getCSSVariableValue("--bs-gray-200");
@@ -193,8 +186,6 @@ const chartOptions = (
       },
     },
     yaxis: {
-      min: minY,
-      max: maxY,
       labels: {
         style: {
           colors: labelColor,

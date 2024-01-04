@@ -2,6 +2,13 @@ import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { PageLink, PageTitle } from "../../../_metronic/layout/core";
 import {
+  ChartsWidget1,
+  ChartsWidget2,
+  ChartsWidget3,
+  ChartsWidget4,
+  ChartsWidget5,
+  ChartsWidget6,
+  ChartsWidget7,
   StatisticsWidget4,
   TablesWidget9,
 } from "../../../_metronic/partials/widgets";
@@ -10,6 +17,7 @@ import { Pagination } from "../../ui/Pagination";
 import { BarChart } from "../../ui/charts/BarChart";
 import { FAKE_DATA, LABS_TESTS_DATA } from "../../utils/constants";
 import { LineChart } from "../../ui/charts/LineChart";
+import { RadarChart } from "../../ui/charts/RadarChart";
 
 const data = FAKE_DATA;
 
@@ -57,6 +65,20 @@ const DashboardPage = () => {
   ];
   const xaxisCategories = statistics.map((lab) => lab.labName);
 
+  const radarPriceSeries = statistics.map((lab) => {
+    const testData = lab.tests.map((test) => test.totalPrice);
+    return {
+      name: lab.labName,
+      data: testData,
+    };
+  }); 
+  const radarNumberSeries = statistics.map((lab) => {
+    const testData = lab.tests.map((test) => test.totalNamber);
+    return {
+      name: lab.labName,
+      data: testData,
+    };
+  });
   return (
     <>
       <SearchAndFilter />
@@ -71,44 +93,54 @@ const DashboardPage = () => {
             chartTitle="Tests Number"
             unit=" tests"
             xaxisCategories={xaxisCategories}
-            maxY={100}
-            minY={0}
-            className="card-xl-stretch mb-xl-8"
+            className=" mb-xl-8"
             chartColor="info"
-            chartHeight="250px"
+            chartHeight="350px"
           />
-        </div>
-        <div className="col-xxl-4">
           <BarChart
-            maxY={10000}
-            minY={0}
             unit=" (1000 R)"
             totals={totals}
             series={testPriceSeries}
             chartTitle="Tests Price"
             xaxisCategories={xaxisCategories}
-            className="card-xl-stretch mb-xl-8"
+            className=" mb-xl-8"
             chartColor="primary"
-            chartHeight="250px"
+            chartHeight="350px"
           />
         </div>
-        {/* end::Col */}
-        {/* begin::Col */}
         <div className="col-xxl-4">
           <LineChart
-            className="card-xxl-stretch mb-5 mb-xl-8"
+            className=" mb-5 mb-xl-8"
             svgIcon="element-11"
             color="danger"
-            description="Weekly Income"
-            change="750$"
+            description="Test Types Prices"
+            change="750,000 (R)"
+          />
+          <LineChart
+            className=" mb-xl-8"
+            svgIcon="basket"
+            color="success"
+            description="Test Types Numbers"
+            change="290 Tests"
           />
         </div>
         <div className="col-xxl-4">
-          <LineChart
-            className="card-xxl-stretch mb-xl-8"
+          <RadarChart
+           series={radarPriceSeries}
+           unit=" (R)"
+            className="mb-5 mb-xl-8 "
             svgIcon="basket"
             color="success"
-            description="Sales Change"
+            description="Price Base"
+            change="+259"
+          />
+          <RadarChart
+          series={radarNumberSeries}
+          unit=" tests"
+            className=" mb-xl-8 "
+            svgIcon="basket"
+            color="success"
+            description="Test Number Base"
             change="+259"
           />
         </div>
