@@ -1,53 +1,54 @@
-import {KTIcon, toAbsoluteUrl} from '../../../helpers'
-import {HeaderNotificationsMenu, HeaderUserMenu, QuickLinks} from '../../../partials'
+import { useAuth } from "../../../../app/modules/auth";
+import { KTIcon, toAbsoluteUrl } from "../../../helpers";
+import {
+  HeaderNotificationsMenu,
+  HeaderUserMenu,
+  QuickLinks,
+} from "../../../partials";
 
 const AsideFooter = () => {
+  const { logout} = useAuth()
   return (
     <div
-      className='aside-footer d-flex flex-column align-items-center mt-3 flex-column-auto'
-      id='kt_aside_footer'
+      className="aside-footer d-flex flex-column align-items-center mt-3 flex-column-auto"
+      id="kt_aside_footer"
     >
-
-
-      {/* begin::User */}
-      <div className='d-flex align-items-center mb-1' id='kt_header_user_menu_toggle'>
+      {/* begin::log out */}
+      <div onClick={logout}  className="d-flex align-items-center mb-1">
         {/* begin::Menu wrapper */}
         <div
-          className='cursor-pointer symbol symbol-40px'
-          data-kt-menu-trigger='click'
-          data-kt-menu-overflow='false'
-          data-kt-menu-placement='top-start'
-          title='User profile'
+          className="btn btn-icon btn-active-color-primary btn-color-gray-500 btn-active-light"
+          data-bs-toggle="tooltip"
+          title="Sign out"
         >
-          <img src={toAbsoluteUrl('/media/avatars/300-1.jpg')} alt='avatar' />
+          <i className="bi bi-box-arrow-right fs-2"></i>
         </div>
         {/* end::Menu wrapper */}
-        <HeaderUserMenu />
+        <HeaderNotificationsMenu backgrounUrl="/media/misc/pattern-1.jpg" />
       </div>
-      {/* end::User */}
+      {/* end::log out */}
 
-            {/* begin::Notifications */}
-            <div className='d-flex align-items-center mb-5'>
+      {/* begin::Notifications */}
+      <div className="d-flex align-items-center mb-5">
         {/* begin::Menu wrapper */}
         <div
-          className='btn btn-icon btn-active-color-primary btn-color-gray-500 btn-active-light'
-          data-kt-menu-trigger='click'
-          data-kt-menu-overflow='true'
-          data-kt-menu-placement='top-start'
-          data-bs-toggle='tooltip'
-          data-bs-placement='right'
-          data-bs-dismiss='click'
-          title='Notifications'
+          className="btn btn-icon btn-active-color-primary btn-color-gray-500 btn-active-light"
+          data-kt-menu-trigger="click"
+          data-kt-menu-overflow="true"
+          data-kt-menu-placement="top-start"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
+          data-bs-dismiss="click"
+          title="Notifications"
         >
-          <KTIcon iconName='notification' className='fs-2 text-lg-1' />
+          <KTIcon iconName="notification" className="fs-2 text-lg-1" />
         </div>
         {/* end::Menu wrapper */}
-        <HeaderNotificationsMenu backgrounUrl='/media/misc/pattern-1.jpg' />
+        <HeaderNotificationsMenu backgrounUrl="/media/misc/pattern-1.jpg" />
       </div>
       {/* end::Notifications */}
-
     </div>
-  )
-}
+  );
+};
 
-export {AsideFooter}
+export { AsideFooter };
