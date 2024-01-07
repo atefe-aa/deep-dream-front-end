@@ -260,7 +260,7 @@ const AddNewTest: FC = () => {
                     </label>
                     <div className="input-group">
                       <input
-                        type="number"
+                        type="text"
                         min={1}
                         inputMode="numeric"
                         autoComplete="off"

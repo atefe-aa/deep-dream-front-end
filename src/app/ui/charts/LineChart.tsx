@@ -77,8 +77,26 @@ const LineChart: React.FC<Props> = ({
         <div
           ref={chartRef}
           className="statistics-widget-4-chart card-rounded-bottom"
-          style={{ height: "435px" }}
+          style={{ height: "335px" }}
         ></div>
+
+        {/* begin::Stats  */}
+        <div className="card-rounded bg-body mt-n10 position-relative card-px py-15">
+          {/* begin::Row  */}
+          <div className="row g-0">
+            {/* begin::Col  */}
+            <div className="col mx-5">
+              <div className="fs-6 text-gray-500">total</div>
+              <div className="fs-5 fw-bold text-gray-800">2000 R</div>
+            </div>{" "}
+            <div className="col mx-5">
+              <div className="fs-6 text-gray-500">total</div>
+              <div className="fs-5 fw-bold text-gray-800">2000 R</div>
+            </div>
+            {/* end::Col  */}
+          </div>
+          {/* end::Row  */}
+        </div>
       </div>
       {/* end::Body */}
     </div>
@@ -197,7 +215,7 @@ function getChartOptions(
       },
       y: {
         formatter: function (val) {
-          return  val + " (R)";
+          return val + " (R)";
         },
       },
     },
