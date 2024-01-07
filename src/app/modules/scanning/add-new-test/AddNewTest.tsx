@@ -1,10 +1,9 @@
-import React, { FC } from "react";
-import { KTIcon, toAbsoluteUrl } from "../../../helpers";
+import { FC } from "react";
+import { KTIcon } from "../../../../_metronic/helpers";
 
 import { useState } from "react";
 import * as Yup from "yup";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import QRCodeGenerator from "./QRCodeGenerator";
 
@@ -116,7 +115,7 @@ const AddNewTest: FC = () => {
                     </div>
                   )}
 
-                  {/* begin::Form group */}
+                  {/* begin::Form group / Fullname*/}
                   <div className="fv-row mb-3">
                     <label className="form-label fs-6 fw-bolder text-gray-900">
                       Client's Full Name <span className="text-danger">*</span>
@@ -149,13 +148,15 @@ const AddNewTest: FC = () => {
                   </div>
                   {/* end::Form group */}
 
-                  {/* begin::Form group */}
+                  {/* begin::Form group / Age */}
                   <div className="fv-row mb-3">
                     <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
                       Age<span className="text-danger">*</span>
                     </label>
                     <input
                       type="number"
+                      min={1}
+                      inputMode="numeric"
                       autoComplete="off"
                       placeholder="Age"
                       {...formik.getFieldProps("age")}
@@ -168,6 +169,10 @@ const AddNewTest: FC = () => {
                           "is-valid": formik.touched.age && !formik.errors.age,
                         }
                       )}
+                      style={{
+                        WebkitAppearance: "none",
+                        MozAppearance: "textfield",
+                      }}
                     />
                     {formik.touched.age && formik.errors.age && (
                       <div className="fv-plugins-message-container">
