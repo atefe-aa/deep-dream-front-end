@@ -4,6 +4,7 @@ import persian_en from "react-date-object/locales/persian_en";
 import { FC, useEffect, useState } from "react";
 import { DateObject } from "react-multi-date-picker";
 import type { Value } from "react-multi-date-picker";
+import { LABS_TESTS_DATA, TEST_TYPES } from "../../utils/constants";
 
 const FilterDropdown: FC = () => {
   const [value, setValue] = useState<Value>();
@@ -28,17 +29,18 @@ const FilterDropdown: FC = () => {
 
           <div>
             <select
-              className="form-select form-select-solid"
+              className="form-select "
               data-kt-select2="true"
               data-placeholder="Select option"
               data-allow-clear="true"
               defaultValue={"1"}
             >
-              <option></option>
-              <option value="1">Milad</option>
-              <option value="2">Faraway</option>
-              <option value="3">CLI</option>
-              <option value="4">R.R</option>
+              <option>Choose Labratory</option>
+              {LABS_TESTS_DATA.map((lab) => (
+                <option key={lab.id} value={lab.id}>
+                  {lab.labName}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -46,29 +48,17 @@ const FilterDropdown: FC = () => {
         <div className="mb-10">
           <label className="form-label fw-bold">Test Type:</label>
 
-          <div className="d-flex">
-            <label className="form-check form-check-sm form-check-custom form-check-solid me-5">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value="2"
-                defaultChecked={true}
-              />
-              <span className="form-check-label">All</span>
-            </label>
-            <label className="form-check form-check-sm form-check-custom form-check-solid me-5">
-              <input className="form-check-input" type="checkbox" value="1" />
-              <span className="form-check-label">HH</span>
-            </label>
-            <label className="form-check form-check-sm form-check-custom form-check-solid me-5">
-              <input className="form-check-input" type="checkbox" value="1" />
-              <span className="form-check-label">CC</span>
-            </label>
-            <label className="form-check form-check-sm form-check-custom form-check-solid me-5">
-              <input className="form-check-input" type="checkbox" value="1" />
-              <span className="form-check-label">DD</span>
-            </label>
-          </div>
+          <select
+            className="form-select bg-transparent"
+            aria-label="Select test type"
+          >
+            <option>Choose the test type</option>
+            {TEST_TYPES.map((test) => (
+              <option value={test.id} key={test.id}>
+                {test.code} - {test.title}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="mb-10">

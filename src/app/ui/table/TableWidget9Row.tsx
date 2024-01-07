@@ -7,7 +7,7 @@ interface DataType {
   name: string;
   date: string;
   number: number;
-  labNumber: number;
+  labNumber: string;
   testType: string;
   age: number;
   price: number;
@@ -25,7 +25,7 @@ type Props = {
 const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
   let progressPercent = 0;
   let progressBg = "danger";
-  switch (data.progress) {
+  switch (data.progress.toLowerCase()) {
     case "new":
       progressPercent = 20;
       progressBg = "danger";

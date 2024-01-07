@@ -1,5 +1,4 @@
 import React from "react";
-import { KTIcon, toAbsoluteUrl } from "../../../_metronic/helpers";
 import { TablesWidget9Row } from "./TableWidget9Row";
 
 type Props = {
@@ -11,7 +10,7 @@ type TestsData = {
   name: string;
   date: string;
   number: number;
-  labNumber: number;
+  labNumber: string;
   testType: string;
   age: number;
   sex: string;
@@ -22,34 +21,15 @@ type TestsData = {
 };
 
 const TestsTable: React.FC<Props> = ({ className="", testsData }) => {
-  const totalNumberOfTests = testsData.length;
+
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
       <div className="card-header border-0 pt-5">
         <h3 className="card-title align-items-start flex-column">
           <span className="card-label fw-bold fs-3 mb-1">Tests Statistics</span>
-          <span className="text-muted mt-1 fw-semibold fs-7">
-            Over {totalNumberOfTests} tests
-          </span>
         </h3>
-        <div
-          className="card-toolbar"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          data-bs-trigger="hover"
-          title="Click to add a user"
-        >
-          <a
-            href="#"
-            className="btn btn-sm btn-light-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#kt_modal_add_new_test"
-          >
-            <KTIcon iconName="plus" className="fs-3" />
-            New Test
-          </a>
-        </div>
+      
       </div>
       {/* end::Header */}
       {/* begin::Body */}
@@ -63,7 +43,7 @@ const TestsTable: React.FC<Props> = ({ className="", testsData }) => {
               <tr className="fw-bold text-muted">
                 <th className="w-25px">#</th>
                 <th className="min-w-15px">Number</th>
-                <th className="min-w-150px">Clients</th>
+                <th className="min-w-150px">Patient</th>
                 <th className="min-w-130px">Price(R)</th>
                 <th className="min-w-150px">Date & Time</th>
                 <th className="min-w-140px">Laboratory</th>

@@ -75,9 +75,9 @@ const DashboardPage = () => {
       <SearchAndFilter />
 
       {/* begin::Row */}
-      <div className="row gy-5 g-xl-8">
+      <div className="row gy-5 g-xxl-8">
         {/* begin::Col */}
-        <div className="col-xxl-4">
+        <div className="col-lg-4">
           <BarChart
             totals={totals}
             series={testNumberSeries}
@@ -99,7 +99,7 @@ const DashboardPage = () => {
             chartHeight="350px"
           />
         </div>
-        <div className="col-xxl-4">
+        <div className="col-lg-4">
           <LineChart
             className=" mb-5 mb-xl-8"
             svgIcon="element-11"
@@ -115,7 +115,7 @@ const DashboardPage = () => {
             change="290 Tests"
           />
         </div>
-        <div className="col-xxl-4">
+        <div className="col-lg-4">
           <RadarChart
            series={radarPriceSeries}
            unit=" (R)"

@@ -26,7 +26,7 @@ const MasterLayout = () => {
           <AsideDefault />
           {/* begin::Wrapper */}
           <div
-            className="wrapper d-flex flex-column flex-row-fluid"
+            className=" offset-sm-1 offset-xxl-0 wrapper d-flex flex-column flex-row-fluid"
             id="kt_wrapper"
           >
             <HeaderWrapper />
