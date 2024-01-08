@@ -1,11 +1,9 @@
 import { useEffect, useRef, FC } from "react";
 import ApexCharts, { ApexOptions } from "apexcharts";
 import { getCSSVariableValue } from "../../../_metronic/assets/ts/_utils";
-import { Dropdown1, useThemeMode } from "../../../_metronic/partials";
+import { useThemeMode } from "../../../_metronic/partials";
 import { KTIcon } from "../../../_metronic/helpers";
 import clsx from "clsx";
-import { LABS_TESTS_DATA } from "../../utils/constants";
-import { Dropdown } from "../Dropdown";
 import { FilterDropdown } from "../serach-and-filter/FilterDropdown";
 
 interface TotalItem {
