@@ -86,7 +86,7 @@ const DashboardPage = () => {
             xaxisCategories={xaxisCategories}
             className="mb-5 mb-xl-8"
             chartColor="info"
-            chartHeight="343px"
+            chartHeight="365px"
           />
           <BarChart
             unit=" (1000 R)"
@@ -96,7 +96,7 @@ const DashboardPage = () => {
             xaxisCategories={xaxisCategories}
             className=" mb-xl-8"
             chartColor="primary"
-            chartHeight="343px"
+            chartHeight="365px"
           />
         </div>
         <div className="col-lg-4">

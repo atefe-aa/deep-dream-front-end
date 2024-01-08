@@ -7,15 +7,16 @@ import clsx from "clsx";
 import { useFormik } from "formik";
 import QRCodeGenerator from "./QRCodeGenerator";
 import { LABS_TESTS_DATA, TEST_TYPES } from "../../../utils/constants";
+import Select from "react-select";
 
 const addSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
     .required("Name is required"),
-  nationalId: Yup.string()
-    .matches(/^\d{10}$/, "The national ID format is wrong.")
-    .required("National ID  is required"),
+  nationalId: Yup.number()
+    .min(1000000000, "The national ID format is wrong.")
+    .max(9999999999, "The national ID format is wrong."),
   age: Yup.number().min(1, "Minimum age is 1 ").required("Age is required"),
   ageType: Yup.string().required("Age type is required"),
   sex: Yup.string().required("Gender is required"),
@@ -41,7 +42,7 @@ const initialValues = {
   age: "",
   ageType: "year",
   sex: "",
-  testType: "",
+  testType: 0,
   laboratory: "",
   description: "",
   labNumber: "",
@@ -57,6 +58,18 @@ const AddNewTest: FC = () => {
   const [loading, setLoading] = useState(false);
   const [testNumber, setTestNumber] = useState<string>("");
 
+  const sortedLabsData = [...LABS_TESTS_DATA].sort((a, b) =>
+    a.labName.localeCompare(b.labName)
+  );
+
+  const sortedTestTypes = [...TEST_TYPES].sort((a, b) =>
+    a.title.localeCompare(b.title)
+  );
+
+  const testTypeOptions = TEST_TYPES.map((test) => ({
+    value: test.id,
+    label: `${test.code} - ${test.title}`,
+  }));
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
@@ -136,7 +149,7 @@ const AddNewTest: FC = () => {
                       aria-label="Select Laboratory Title"
                     >
                       <option>Choose Laboratory</option>
-                      {LABS_TESTS_DATA.map((lab) => (
+                      {sortedLabsData.map((lab) => (
                         <option key={lab.id} value={lab.id}>
                           {lab.labName}
                         </option>
@@ -156,8 +169,14 @@ const AddNewTest: FC = () => {
                   {/* begin::Form group */}
                   <div className="fv-row mb-3">
                     <label className="form-label fs-6 fw-bolder text-gray-900">
+                      {
+                        LABS_TESTS_DATA.find(
+                          (lab) => lab.id === Number(formik.values.laboratory)
+                        )?.labName
+                      }{" "}
                       Laboratory Number
                     </label>
+
                     <input
                       placeholder="Laboratory Number"
                       {...formik.getFieldProps("labNumber")}
@@ -240,7 +259,7 @@ const AddNewTest: FC = () => {
                             !formik.errors.nationalId,
                         }
                       )}
-                      type="text"
+                      type="number"
                       name="nationalId"
                       autoComplete="off"
                     />
@@ -355,28 +374,30 @@ const AddNewTest: FC = () => {
                     <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
                       Test Type<span className="text-danger">*</span>
                     </label>
-                    <select
+                    <Select
                       {...formik.getFieldProps("testType")}
-                      className={clsx(
-                        "form-select",
-                        {
-                          "is-invalid":
-                            formik.touched.testType && formik.errors.testType,
+                      theme={(theme) => ({
+                        ...theme,
+                        borderRadius: 7,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "var(--bs-success-text-emphasis)",
+                          neutral0: "var(--bs-modal-bg)",
+                          neutral20: "var(--bs-gray-300)",
+                          neutral80: "var(--bs-gray-700)",
                         },
-                        {
-                          "is-valid":
-                            formik.touched.testType && !formik.errors.testType,
-                        }
+                      })}
+                      options={testTypeOptions}
+                      isSearchable={true}
+                      placeholder="Choose the test type"
+                      onChange={(option) =>
+                        formik.setFieldValue("testType", option?.value)
+                      }
+                      value={testTypeOptions.find(
+                        (test) => test.value === Number(formik.values.testType)
                       )}
-                      aria-label="Select test type"
-                    >
-                      <option>Choose the test type</option>
-                      {TEST_TYPES.map((test) => (
-                        <option value={test.id} key={test.id}>
-                          {test.code} - {test.title}
-                        </option>
-                      ))}
-                    </select>
+                    />
+
                     {formik.touched.testType && formik.errors.testType && (
                       <div className="fv-plugins-message-container">
                         <div className="fv-help-block">

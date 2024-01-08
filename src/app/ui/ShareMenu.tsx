@@ -1,13 +1,5 @@
-import clsx from "clsx";
 import { FC } from "react";
-import { Link } from "react-router-dom";
-import {
-  KTIcon,
-  defaultAlerts,
-  defaultLogs,
-  toAbsoluteUrl,
-  useIllustrationsPath,
-} from "../../_metronic/helpers";
+import { toAbsoluteUrl, useIllustrationsPath } from "../../_metronic/helpers";
 
 type Props = {
   backgrounUrl: string;
@@ -43,7 +35,7 @@ const ShareMenu: FC<Props> = ({ backgrounUrl }) => (
               Select a colleage to send a link to this test.
             </div>
 
-            <select className="form-select bg-transparent my-6">
+            <select className="form-select my-6">
               <option disabled>Select a colleague</option>
               <option>Dr. Ahmadi</option>
               <option>Dr. Nasr</option>

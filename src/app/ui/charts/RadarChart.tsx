@@ -8,6 +8,7 @@ import {
   getCSSVariableValue,
 } from "../../../_metronic/assets/ts/_utils";
 import { TEST_TYPES } from "../../utils/constants";
+import { FilterDropdown } from "../serach-and-filter/FilterDropdown";
 
 type Props = {
   className: string;
@@ -58,16 +59,35 @@ const RadarChart: React.FC<Props> = ({ className, color, series, unit , descript
 
   return (
     <div className={`card ${className}`}>
+      {/* begin::Header  */}
+      <div className={`card-header border-0  py-5`}>
+        <div className="d-flex flex-column">
+          <span className="text-gray-900 fw-bold fs-2">{description}</span>
+          {/* <span className="text-muted fw-semibold mt-1">{description}</span> */}
+        </div>
+        <div className="card-toolbar">
+          {/* begin::Menu  */}
+          <button
+            type="button"
+            className={clsx(
+              "btn btn-sm btn-icon btn-color-white btn-active-white",
+              `btn-active-color-${color}`,
+              "border-0 me-n3"
+            )}
+            data-kt-menu-trigger="click"
+            data-kt-menu-placement="bottom-end"
+            data-kt-menu-flip="top-end"
+          >
+            <KTIcon iconName="category" className="fs-2" />
+          </button>
+          <FilterDropdown />
+          {/* end::Menu  */}
+        </div>
+      </div>
+      {/* end::Header  */}
+
       {/* begin::Body */}
       <div className="card-bod p-0 ">
-      <div className="d-flex flex-stack card-p flex-grow-1">
-        
-
-          <div className="d-flex flex-column text-end">
-          
-            <span className="fs-6 fw-bold">{description}</span>
-          </div>
-        </div>
         <div
           ref={chartRef}
           className="statistics-widget-4-chart card-rounded-bottom "

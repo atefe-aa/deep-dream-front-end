@@ -3,12 +3,13 @@ import { SlidesTable } from "../../modules/scanning/SlidesTable";
 import { SlideRow } from "../../modules/scanning/SlideRow";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import Timer from "../../modules/scanning/Timer";
 
 const fakeData = [
   {
     image: "",
     slide: 1,
-    laboratory:"",
+    laboratory: "",
     testNumber: 0,
     testType: "",
     progress: "",
@@ -16,7 +17,7 @@ const fakeData = [
   {
     image: "/media/slides/slide.jpg",
     slide: 2,
-    laboratory:"Milad",
+    laboratory: "Milad",
     testNumber: 550036,
     testType: "CC",
     progress: "scanned",
@@ -24,7 +25,7 @@ const fakeData = [
   {
     image: "/media/slides/slide.jpg",
     slide: 3,
-    laboratory:"Milad",
+    laboratory: "Milad",
     testNumber: 550037,
     testType: "CC",
     progress: "scanned",
@@ -32,7 +33,7 @@ const fakeData = [
   {
     image: "/media/slides/slide.jpg",
     slide: 4,
-    laboratory:"Milad",
+    laboratory: "Milad",
     testNumber: 550038,
     testType: "CC",
     progress: "ready",
@@ -40,7 +41,7 @@ const fakeData = [
   {
     image: "/media/slides/slide.jpg",
     slide: 5,
-    laboratory:"Milad",
+    laboratory: "Milad",
     testNumber: 550039,
     testType: "CC",
     progress: "scanned",
@@ -48,7 +49,7 @@ const fakeData = [
   {
     image: "/media/slides/slide.jpg",
     slide: 6,
-    laboratory:"Milad",
+    laboratory: "Milad",
     testNumber: 550040,
     testType: "CC",
     progress: "failed",
@@ -56,7 +57,7 @@ const fakeData = [
   {
     image: "/media/slides/slide.jpg",
     slide: 7,
-    laboratory:"Milad",
+    laboratory: "Milad",
     testNumber: 550041,
     testType: "CC",
     progress: "ready",
@@ -64,7 +65,7 @@ const fakeData = [
   {
     image: "/media/slides/slide.jpg",
     slide: 8,
-    laboratory:"Milad",
+    laboratory: "Milad",
     testNumber: 550042,
     testType: "CC",
     progress: "ready",
@@ -72,7 +73,7 @@ const fakeData = [
   {
     image: "/media/slides/slide.jpg",
     slide: 9,
-    laboratory:"Milad",
+    laboratory: "Milad",
     testNumber: 550043,
     testType: "CC",
     progress: "ready",
@@ -80,7 +81,7 @@ const fakeData = [
   {
     image: "/media/slides/slide.jpg",
     slide: 10,
-    laboratory:"Milad",
+    laboratory: "Milad",
     testNumber: 0,
     testType: "CC",
     progress: "ready",
@@ -171,7 +172,7 @@ const ScanningPage = () => {
     <form onSubmit={formik.handleSubmit}>
       <div className="row g-5 g-xl-8">
         {/* begin::Action */}
-        <div className="">
+        <div className="d-flex justify-content-between align-items-center">
           <button
             type="submit"
             className="btn btn-primary"
@@ -185,6 +186,9 @@ const ScanningPage = () => {
               </span>
             )}
           </button>
+          <div className="text-end">
+          <Timer />
+        </div>
         </div>
         {/* end::Action */}
         {formik.touched.selectedCheckboxes &&
@@ -195,6 +199,8 @@ const ScanningPage = () => {
               </div>
             </div>
           )}
+
+       
 
         <div className="col-xl-12">
           <div className="card-xl-stretch mb-xl-8">
