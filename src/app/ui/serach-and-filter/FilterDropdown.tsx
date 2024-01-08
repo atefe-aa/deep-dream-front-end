@@ -49,7 +49,7 @@ const FilterDropdown: FC = () => {
           <label className="form-label fw-bold">Test Type:</label>
 
           <select
-            className="form-select bg-transparent"
+            className="form-select "
             aria-label="Select test type"
           >
             <option>Choose the test type</option>

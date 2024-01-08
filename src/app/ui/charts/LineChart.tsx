@@ -7,6 +7,7 @@ import {
   getCSS,
   getCSSVariableValue,
 } from "../../../_metronic/assets/ts/_utils";
+import { FilterDropdown } from "../serach-and-filter/FilterDropdown";
 
 type Props = {
   className: string;
@@ -58,20 +59,41 @@ const LineChart: React.FC<Props> = ({
 
   return (
     <div className={`card ${className}`}>
+      {/* begin::Header  */}
+      <div className={`card-header border-0  py-5`}>
+        <div className="d-flex flex-column">
+          <span className="text-gray-900 fw-bold fs-2">{change}</span>
+          <span className="text-muted fw-semibold mt-1">{description}</span>
+        </div>
+        <div className="card-toolbar">
+          {/* begin::Menu  */}
+          <button
+            type="button"
+            className={clsx(
+              "btn btn-sm btn-icon btn-color-white btn-active-white",
+              `btn-active-color-${color}`,
+              "border-0 me-n3"
+            )}
+            data-kt-menu-trigger="click"
+            data-kt-menu-placement="bottom-end"
+            data-kt-menu-flip="top-end"
+          >
+            <KTIcon iconName="category" className="fs-2" />
+          </button>
+          <FilterDropdown />
+          {/* end::Menu  */}
+        </div>
+      </div>
+      {/* end::Header  */}
+
       {/* begin::Body */}
       <div className="card-body p-0">
         <div className="d-flex flex-stack card-p flex-grow-1">
-          <span className={clsx("symbol symbol-50px", "me-2")}>
-            <span className={clsx("symbol-label", `bg-light-${color}`)}>
-              <KTIcon iconName={svgIcon} className={`fs-2x text-${color}`} />
-            </span>
-          </span>
-
-          <div className="d-flex flex-column text-end">
+          {/* <div className="d-flex flex-column text-end">
             <span className="text-gray-900 fw-bold fs-2">{change}</span>
 
             <span className="text-muted fw-semibold mt-1">{description}</span>
-          </div>
+          </div> */}
         </div>
 
         <div
@@ -197,7 +219,7 @@ function getChartOptions(
       },
       y: {
         formatter: function (val) {
-          return  val + " (R)";
+          return val + " (R)";
         },
       },
     },

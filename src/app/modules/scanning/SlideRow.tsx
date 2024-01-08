@@ -84,11 +84,12 @@ const SlideRow: React.FC<Props> = ({
           ) : (
             <input
               type="number"
+              min={0}
               autoComplete="off"
               placeholder="Enter Test Number"
               {...formik.getFieldProps("testNumber")}
               className={clsx(
-                "form-control-sm bg-transparent",
+                "p-2 rounded text-center w-80px bg-transparent",
                 {
                   "is-invalid":
                     formik.touched.testNumber && formik.errors.testNumber,
