@@ -374,28 +374,6 @@ const AddNewTest: FC = () => {
                     <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
                       Test Type<span className="text-danger">*</span>
                     </label>
-                    {/* <select
-                      {...formik.getFieldProps("testType")}
-                      className={clsx(
-                        "form-select",
-                        {
-                          "is-invalid":
-                            formik.touched.testType && formik.errors.testType,
-                        },
-                        {
-                          "is-valid":
-                            formik.touched.testType && !formik.errors.testType,
-                        }
-                      )}
-                      aria-label="Select test type"
-                    >
-                      <option>Choose the test type</option>
-                      {sortedTestTypes.map((test) => (
-                        <option value={test.id} key={test.id}>
-                          {test.code} - {test.title}
-                        </option>
-                      ))}
-                    </select> */}
                     <Select
                       {...formik.getFieldProps("testType")}
                       theme={(theme) => ({
