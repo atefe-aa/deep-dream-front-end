@@ -91,7 +91,7 @@ const AddNewTest: FC = () => {
       }
     },
   });
-  
+
   return (
     <div className="modal fade" id="kt_modal_add_new_test" aria-hidden="true">
       <div className="modal-dialog mw-650px">
@@ -405,6 +405,7 @@ const AddNewTest: FC = () => {
                           ...theme.colors,
                           primary25: "var(--bs-success-text-emphasis)",
                           neutral0: "var(--bs-modal-bg)",
+                          neutral20: "var(--bs-gray-300)",
                           neutral80: "var(--bs-gray-700)",
                         },
                       })}
