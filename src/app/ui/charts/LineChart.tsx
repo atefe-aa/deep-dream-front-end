@@ -99,7 +99,7 @@ const LineChart: React.FC<Props> = ({
         <div
           ref={chartRef}
           className="statistics-widget-4-chart card-rounded-bottom"
-          style={{ height: "335px" }}
+          style={{ height: "310px" }}
         ></div>
 
         {/* begin::Stats  */}
