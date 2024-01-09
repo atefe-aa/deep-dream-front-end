@@ -7,14 +7,14 @@ import {
 } from "../../../partials";
 
 const AsideFooter = () => {
-  const { logout} = useAuth()
+  const { logout } = useAuth();
   return (
     <div
       className="aside-footer d-flex flex-column align-items-center mt-3 flex-column-auto"
       id="kt_aside_footer"
     >
       {/* begin::log out */}
-      <div onClick={logout}  className="d-flex align-items-center mb-1">
+      <div onClick={logout} className="d-flex align-items-center mb-1">
         {/* begin::Menu wrapper */}
         <div
           className="btn btn-icon btn-active-color-primary btn-color-gray-500 btn-active-light"
@@ -24,7 +24,6 @@ const AsideFooter = () => {
           <i className="bi bi-box-arrow-right fs-2"></i>
         </div>
         {/* end::Menu wrapper */}
-        <HeaderNotificationsMenu backgrounUrl="/media/misc/pattern-1.jpg" />
       </div>
       {/* end::log out */}
 
@@ -34,8 +33,8 @@ const AsideFooter = () => {
         <div
           className="btn btn-icon btn-active-color-primary btn-color-gray-500 btn-active-light"
           data-kt-menu-trigger="click"
-          data-kt-menu-overflow="true"
-          data-kt-menu-placement="top-start"
+          data-kt-menu-placement="bottom-start"
+          data-kt-menu-flip="top-end"
           data-bs-toggle="tooltip"
           data-bs-placement="right"
           data-bs-dismiss="click"

@@ -1,13 +1,10 @@
 
 import clsx from 'clsx'
 import {FC} from 'react'
-import {Link} from 'react-router-dom'
 import {
   defaultAlerts,
-  defaultLogs,
   KTIcon,
   toAbsoluteUrl,
-  useIllustrationsPath,
 } from '../../../helpers'
 
 type Props = {
@@ -31,7 +28,7 @@ const HeaderNotificationsMenu: FC<Props> = ({backgrounUrl}) => (
 
     <div className='tab-content'>
       <div className='tab-pane fade show active' id='kt_topbar_notifications_1' role='tabpanel'>
-        <div className='scroll-y mh-325px my-5 px-8'>
+        <div className='scroll-y mh-225px my-5 px-8'>
           {defaultAlerts.map((alert, index) => (
             <div key={`alert${index}`} className='d-flex flex-stack py-4'>
               <div className='d-flex align-items-center'>
@@ -53,15 +50,6 @@ const HeaderNotificationsMenu: FC<Props> = ({backgrounUrl}) => (
               <span className='badge badge-light fs-8'>{alert.time}</span>
             </div>
           ))}
-        </div>
-
-        <div className='py-3 text-center border-top'>
-          <Link
-            to='#'
-            className='btn btn-color-gray-600 btn-active-color-primary'
-          >
-            View All <KTIcon iconName='arrow-right' className='fs-5' />
-          </Link>
         </div>
       </div>
 

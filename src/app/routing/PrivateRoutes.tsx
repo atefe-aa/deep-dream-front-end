@@ -8,6 +8,7 @@ import { getCSSVariableValue } from "../../_metronic/assets/ts/_utils";
 import { WithChildren } from "../../_metronic/helpers";
 import BuilderPageWrapper from "../pages/layout-builder/BuilderPageWrapper";
 import { ScanningPage } from "../pages/scanning/ScanningPage";
+import Settings from "react-multi-date-picker/plugins/settings";
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import("../modules/profile/ProfilePage"));
@@ -27,7 +28,7 @@ const PrivateRoutes = () => {
         {/* Pages */}
         <Route path="dashboard" element={<DashboardWrapper />} />
         <Route path="scanning" element={<ScanningPage />} />
-        <Route path="builder" element={<BuilderPageWrapper />} />
+        <Route path="settings/*" element={<Settings />} />
         <Route path="menu-test" element={<MenuTestPage />} />
         {/* Lazy Modules */}
         <Route
@@ -55,7 +56,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path="crafted/account/*"
+          path="crafted/settings/*"
           element={
             <SuspensedView>
               <AccountPage />
