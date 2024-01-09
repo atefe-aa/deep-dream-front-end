@@ -5,10 +5,23 @@ import { PageLink, PageTitle } from "../../../_metronic/layout/core";
 import { SearchAndFilter } from "../../ui/serach-and-filter/SearchAndFilter";
 import { Pagination } from "../../ui/Pagination";
 import { BarChart } from "../../ui/charts/BarChart";
-import { FAKE_DATA, LABS_TESTS_DATA } from "../../utils/constants";
+import {
+  BarChartTotals,
+  FAKE_DATA,
+  LABS_TESTS_DATA,
+  TestTypeNumberSeries,
+  TestTypePriceSeries,
+  radarNumberSeries,
+  radarPriceSeries,
+  testNumberSeries,
+  testPriceSeries,
+  xaxisCategories,
+  xaxisTestTypeCategories,
+} from "../../utils/constants";
 import { LineChart } from "../../ui/charts/LineChart";
 import { RadarChart } from "../../ui/charts/RadarChart";
 import { TestsTable } from "../../ui/table/TestsTable";
+import { ChartsWidget1 } from "../../../_metronic/partials/widgets";
 
 const data = FAKE_DATA;
 
@@ -20,56 +33,9 @@ const dashboardBreadCrumbs: Array<PageLink> = [
     isActive: false,
   },
 ];
-const statistics = LABS_TESTS_DATA;
 
 const DashboardPage = () => {
-  useEffect(() => {
-    // We have to show toolbar only for dashboard page
-    document.getElementById("kt_layout_toolbar")?.classList.remove("d-none");
-    return () => {
-      document.getElementById("kt_layout_toolbar")?.classList.add("d-none");
-    };
-  }, []);
 
-  const totals = [
-    {
-      title: "Total Tests",
-      unit: "tests",
-      value: statistics.reduce((acc, lab) => acc + lab.totalTests, 0),
-    },
-    {
-      title: "Total Price",
-      unit: "(R)",
-      value: statistics
-        .reduce((acc, lab) => acc + lab.totalPrice, 0)
-        .toLocaleString(),
-    },
-  ];
-  const testNumberSeries = [
-    { name: "Total Tests", data: statistics.map((lab) => lab.totalTests) },
-  ];
-  const testPriceSeries = [
-    {
-      name: "Total Price",
-      data: statistics.map((lab) => lab.totalPrice / 1000),
-    },
-  ];
-  const xaxisCategories = statistics.map((lab) => lab.labName);
-
-  const radarPriceSeries = statistics.map((lab) => {
-    const testData = lab.tests.map((test) => test.totalPrice);
-    return {
-      name: lab.labName,
-      data: testData,
-    };
-  }); 
-  const radarNumberSeries = statistics.map((lab) => {
-    const testData = lab.tests.map((test) => test.totalNamber);
-    return {
-      name: lab.labName,
-      data: testData,
-    };
-  });
   return (
     <>
       <SearchAndFilter />
@@ -77,9 +43,9 @@ const DashboardPage = () => {
       {/* begin::Row */}
       <div className="row gy-5 g-xxl-8">
         {/* begin::Col */}
-        <div className="col-lg-4">
+        <div className="col-lg-6">
           <BarChart
-            totals={totals}
+            totals={BarChartTotals}
             series={testNumberSeries}
             chartTitle="Tests Number"
             unit=" tests"
@@ -88,9 +54,12 @@ const DashboardPage = () => {
             chartColor="info"
             chartHeight="365px"
           />
+          {/* <ChartsWidget1 className='mb-5 mb-xxl-8' /> */}
+        </div>
+        <div className="col-lg-6">
           <BarChart
             unit=" (1000 R)"
-            totals={totals}
+            totals={BarChartTotals}
             series={testPriceSeries}
             chartTitle="Tests Price"
             xaxisCategories={xaxisCategories}
@@ -99,35 +68,49 @@ const DashboardPage = () => {
             chartHeight="365px"
           />
         </div>
-        <div className="col-lg-4">
+        <div className="col-lg-6">
           <LineChart
+            chartHeight=""
+            chartTitle=""
+            totals={BarChartTotals}
+            series={TestTypePriceSeries}
+            xaxisCategories={xaxisTestTypeCategories}
+            unit=" (R)"
             className=" mb-5 mb-xl-8"
-            svgIcon="element-11"
             color="danger"
             description="Test Types Prices"
             change="750,000 (R)"
           />
+        </div>
+        <div className="col-lg-6">
           <LineChart
+           chartHeight=""
+           chartTitle=""
+           totals={BarChartTotals}
+           series={TestTypeNumberSeries}
+           xaxisCategories={xaxisTestTypeCategories}
+           unit=" Tests"
             className=" mb-xl-8"
-            svgIcon="basket"
             color="success"
             description="Test Types Numbers"
             change="290 Tests"
           />
         </div>
-        <div className="col-lg-4">
+        <div className="col-lg-6">
           <RadarChart
-           series={radarPriceSeries}
-           unit=" (R)"
+            series={radarPriceSeries}
+            unit=" (R)"
             className="mb-5 mb-xl-8 "
             svgIcon="basket"
             color="success"
             description="Price Base"
             change="+259"
           />
+        </div>
+        <div className="col-lg-6">
           <RadarChart
-          series={radarNumberSeries}
-          unit=" tests"
+            series={radarNumberSeries}
+            unit=" tests"
             className=" mb-xl-8 "
             svgIcon="basket"
             color="success"

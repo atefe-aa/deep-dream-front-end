@@ -8,18 +8,36 @@ import {
   getCSSVariableValue,
 } from "../../../_metronic/assets/ts/_utils";
 import { FilterDropdown } from "../serach-and-filter/FilterDropdown";
-
+interface TotalItem {
+  title: string;
+  value: number | string;
+  unit: string;
+}
+interface ChartDataItem {
+  name: string;
+  data: number[];
+}
 type Props = {
   className: string;
-  svgIcon: string;
   color: string;
   change: string;
   description: string;
+  chartHeight: string;
+  chartTitle: string;
+  totals: Array<TotalItem>;
+  series: Array<ChartDataItem>;
+  xaxisCategories: object;
+  unit: string;
 };
 
 const LineChart: React.FC<Props> = ({
   className,
-  svgIcon,
+  chartHeight,
+  chartTitle,
+  totals,
+  series,
+  xaxisCategories,
+  unit,
   color,
   change,
   description,
@@ -31,14 +49,13 @@ const LineChart: React.FC<Props> = ({
       return;
     }
 
-    const height = parseInt(getCSS(chartRef.current, "height"));
     const labelColor = getCSSVariableValue("--bs-gray-800");
     const baseColor = getCSSVariableValue("--bs-" + color);
     const lightColor = getCSSVariableValue("--bs-" + color + "-light");
 
     const chart = new ApexCharts(
       chartRef.current,
-      getChartOptions(height, labelColor, baseColor, lightColor)
+      getChartOptions(chartHeight, labelColor, baseColor, lightColor,series,xaxisCategories,unit)
     );
     if (chart) {
       chart.render();
@@ -99,16 +116,15 @@ const LineChart: React.FC<Props> = ({
         <div
           ref={chartRef}
           className="statistics-widget-4-chart card-rounded-bottom"
-          style={{ height: "310px" }}
         ></div>
 
         {/* begin::Stats  */}
-        <div className="card-rounded bg-body mt-n10 position-relative card-px py-15">
+        <div className="card-rounded bg-secondary mt-n6 position-relative card-px py-15">
           {/* begin::Row  */}
           <div className="row g-0">
             {/* begin::Col  */}
             <div className="col mx-5">
-              <div className="fs-6 text-gray-500">total</div>
+              <div className="fs-6 text-gray-700">total</div>
               <div className="fs-5 fw-bold text-gray-800">2000 R</div>
             </div>{" "}
             <div className="col mx-5">
@@ -128,22 +144,20 @@ const LineChart: React.FC<Props> = ({
 export { LineChart };
 
 function getChartOptions(
-  height: number,
+  chartHeight: string,
   labelColor: string,
   baseColor: string,
-  lightColor: string
+  lightColor: string,
+  series: Array<ChartDataItem>,
+  xaxisCategories: object,
+  unit: string
 ): ApexOptions {
   return {
-    series: [
-      {
-        name: "Net Profit",
-        data: [40, 40, 30, 30, 35, 35, 50],
-      },
-    ],
+    series:series,
     chart: {
       fontFamily: "inherit",
       type: "area",
-      height: height,
+      height: chartHeight,
       toolbar: {
         show: false,
       },
@@ -151,7 +165,7 @@ function getChartOptions(
         enabled: false,
       },
       sparkline: {
-        enabled: true,
+        enabled: false,
       },
     },
     plotOptions: {},
@@ -163,7 +177,7 @@ function getChartOptions(
     },
     fill: {
       type: "solid",
-      opacity: 1,
+      opacity: 0.8,
     },
     stroke: {
       curve: "smooth",
@@ -172,12 +186,12 @@ function getChartOptions(
       colors: [baseColor],
     },
     xaxis: {
-      categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+      categories: xaxisCategories,
       axisBorder: {
         show: false,
       },
       axisTicks: {
-        show: false,
+        show: true,
       },
       labels: {
         show: true,
@@ -200,10 +214,8 @@ function getChartOptions(
       },
     },
     yaxis: {
-      min: 0,
-      max: 60,
       labels: {
-        show: false,
+        show: true,
         style: {
           colors: labelColor,
           fontSize: "12px",
@@ -237,7 +249,7 @@ function getChartOptions(
       },
       y: {
         formatter: function (val) {
-          return val + " (R)";
+          return val + unit;
         },
       },
     },
@@ -246,6 +258,19 @@ function getChartOptions(
       colors: [lightColor],
       strokeColors: [baseColor],
       strokeWidth: 3,
+    },
+    grid: {
+      borderColor: labelColor,
+      strokeDashArray: 4,
+      yaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      padding: {
+        left: 20,
+        right: 20,
+      },
     },
   };
 }

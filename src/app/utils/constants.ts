@@ -9,7 +9,7 @@ export const FAKE_DATA = [
     sex: "Female",
     description: "",
     laboratory: "Nobel",
-    progress: "Ready",
+    progress: "scanned",
     price: 120000,
   },
   {
@@ -22,7 +22,7 @@ export const FAKE_DATA = [
     sex: "Female",
     description: "",
     laboratory: "Nobel",
-    progress: "Ready",
+    progress: "answered",
     price: 120000,
   },
   {
@@ -35,7 +35,7 @@ export const FAKE_DATA = [
     sex: "Male",
     description: "",
     laboratory: "Arya",
-    progress: "Ready",
+    progress: "deleted",
     price: 630000,
   },
   {
@@ -48,7 +48,7 @@ export const FAKE_DATA = [
     sex: "Female",
     description: "",
     laboratory: "Erythron",
-    progress: "Ready",
+    progress: "confirmed",
     price: 700000,
   },
   {
@@ -61,7 +61,7 @@ export const FAKE_DATA = [
     sex: "Female",
     description: "",
     laboratory: "Milad",
-    progress: "Ready",
+    progress: "scanning",
     price: 450000,
   },
   {
@@ -74,7 +74,7 @@ export const FAKE_DATA = [
     sex: "Female",
     description: "",
     laboratory: "Erythron",
-    progress: "Ready",
+    progress: "new",
     price: 500000,
   },
   {
@@ -87,7 +87,7 @@ export const FAKE_DATA = [
     sex: "Female",
     description: "",
     laboratory: "Milad",
-    progress: "Ready",
+    progress: "new",
     price: 450000,
   },
   {
@@ -100,7 +100,7 @@ export const FAKE_DATA = [
     sex: "Male",
     description: "",
     laboratory: "Milad",
-    progress: "Ready",
+    progress: "answered",
     price: 630000,
   },
   {
@@ -113,7 +113,7 @@ export const FAKE_DATA = [
     sex: "Male",
     description: "",
     laboratory: "Milad",
-    progress: "Ready",
+    progress: "scanning",
     price: 170000,
   },
   {
@@ -352,6 +352,226 @@ export const LABS_TESTS_DATA = [
       },
     ],
   },
+  {
+    id: 8,
+    labName: "Nobel",
+    totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
+    totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+    tests: [
+      {
+        id: 12,
+        testName: "Breast",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 13,
+        testName: "Papsmear",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 14,
+        testName: "PBS",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 15,
+        testName: "Colon",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 16,
+        testName: "Gastric",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 17,
+        testName: "TAH",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+    ],
+  },
+  {
+    id: 9,
+    labName: "Milad",
+    totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
+    totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+    tests: [
+      {
+        id: 12,
+        testName: "Breast",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 13,
+        testName: "Papsmear",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 14,
+        testName: "PBS",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 15,
+        testName: "Colon",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 16,
+        testName: "Gastric",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 17,
+        testName: "TAH",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+    ],
+  },
+  {
+    id: 10,
+    labName: "Arya",
+    totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
+    totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+    tests: [
+      {
+        id: 12,
+        testName: "Breast",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 13,
+        testName: "Papsmear",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 14,
+        testName: "PBS",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 15,
+        testName: "Colon",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 16,
+        testName: "Gastric",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 17,
+        testName: "TAH",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+    ],
+  },
+  {
+    id: 11,
+    labName: "Erythron",
+    totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
+    totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+    tests: [
+      {
+        id: 12,
+        testName: "Breast",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 13,
+        testName: "Papsmear",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 14,
+        testName: "PBS",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 15,
+        testName: "Colon",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 16,
+        testName: "Gastric",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 17,
+        testName: "TAH",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+    ],
+  },
+  {
+    id: 12,
+    labName: "Baradaran",
+    totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
+    totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+    tests: [
+      {
+        id: 12,
+        testName: "Breast",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 13,
+        testName: "Papsmear",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 14,
+        testName: "PBS",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 15,
+        testName: "Colon",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 16,
+        testName: "Gastric",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+      {
+        id: 17,
+        testName: "TAH",
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
+        totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      },
+    ],
+  },
 ];
 
 export const TEST_TYPES = [
@@ -359,7 +579,7 @@ export const TEST_TYPES = [
     id: 12,
     title: "Breast",
     code: 120,
-    magnifications:[1,2],
+    magnifications: [1, 2],
     prices: [
       {
         id: 1,
@@ -399,7 +619,7 @@ export const TEST_TYPES = [
     id: 13,
     title: "Papsmear",
     code: 121,
-    magnifications:[3,2],
+    magnifications: [3, 2],
     prices: [
       {
         id: 1,
@@ -439,7 +659,7 @@ export const TEST_TYPES = [
     id: 14,
     title: "PBS",
     code: 122,
-    magnifications:[1,3],
+    magnifications: [1, 3],
     prices: [
       {
         id: 1,
@@ -479,7 +699,7 @@ export const TEST_TYPES = [
     id: 15,
     title: "Colon",
     code: 123,
-    magnifications:[4,2],
+    magnifications: [4, 2],
     prices: [
       {
         id: 1,
@@ -519,7 +739,7 @@ export const TEST_TYPES = [
     id: 16,
     title: "Gastric",
     code: 124,
-    magnifications:[1,2,3],
+    magnifications: [1, 2, 3],
     prices: [
       {
         id: 1,
@@ -559,7 +779,7 @@ export const TEST_TYPES = [
     id: 17,
     title: "TAH",
     code: 125,
-    magnifications:[1,2,3,4],
+    magnifications: [1, 2, 3, 4],
     prices: [
       {
         id: 1,
@@ -691,3 +911,72 @@ export const DEFAULT_SETTINGS = [
     ],
   },
 ];
+
+export const BarChartTotals = [
+  {
+    title: "Total Tests",
+    unit: "tests",
+    value: LABS_TESTS_DATA.reduce((acc, lab) => acc + lab.totalTests, 0),
+  },
+  {
+    title: "Total Price",
+    unit: "(R)",
+    value: LABS_TESTS_DATA.reduce(
+      (acc, lab) => acc + lab.totalPrice,
+      0
+    ).toLocaleString(),
+  },
+];
+export const testNumberSeries = [
+  { name: "Total Tests", data: LABS_TESTS_DATA.map((lab) => lab.totalTests) },
+];
+export const testPriceSeries = [
+  {
+    name: "Total Price",
+    data: LABS_TESTS_DATA.map((lab) => lab.totalPrice / 1000),
+  },
+];
+export const xaxisCategories = LABS_TESTS_DATA.map((lab) => lab.labName);
+
+export const radarPriceSeries = LABS_TESTS_DATA.map((lab) => {
+  const testData = lab.tests.map((test) => test.totalPrice);
+  return {
+    name: lab.labName,
+    data: testData,
+  };
+});
+export const radarNumberSeries = LABS_TESTS_DATA.map((lab) => {
+  const testData = lab.tests.map((test) => test.totalNamber);
+  return {
+    name: lab.labName,
+    data: testData,
+  };
+});
+
+export const xaxisTestTypeCategories = TEST_TYPES.map(test=>test.title);
+
+export const TestTypeNumberSeries = [
+  {
+    name: "Total Tests",
+    data: TEST_TYPES.map((test) =>
+      LABS_TESTS_DATA.reduce(
+        (accum, lab) =>
+          accum + (lab.tests.find((labTest) => labTest.id === test.id)?.totalNamber || 0),
+        0
+      )
+    ),
+  },
+];export const TestTypePriceSeries = [
+  {
+    name: "Total Prices",
+    data: TEST_TYPES.map((test) =>
+      LABS_TESTS_DATA.reduce(
+        (accum, lab) =>
+          accum + (lab.tests.find((labTest) => labTest.id === test.id)?.totalPrice || 0),
+        0
+      )
+    ),
+  },
+];
+
+
