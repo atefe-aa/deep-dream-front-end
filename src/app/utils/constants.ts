@@ -41,7 +41,7 @@ export const FAKE_DATA = [
   {
     name: "Mehri Alaafchian",
     date: "1402-10-04 18:31",
-    labNumber:"C02-4784",
+    labNumber: "C02-4784",
     number: 45404,
     testType: "TAH",
     age: 68,
@@ -54,7 +54,7 @@ export const FAKE_DATA = [
   {
     name: "Ellaheh Habibi",
     date: "1402-10-06 10:27",
-    labNumber:"C02-4680",
+    labNumber: "C02-4680",
     number: 70008,
     testType: "Colon",
     age: 31,
@@ -67,7 +67,7 @@ export const FAKE_DATA = [
   {
     name: "Mina Ahmadi",
     date: "1402-10-07 20:05",
-    labNumber:"P02-703",
+    labNumber: "P02-703",
     number: 69023,
     testType: "Breast",
     age: 45,
@@ -80,7 +80,7 @@ export const FAKE_DATA = [
   {
     name: "Fatemeh Bagherian",
     date: "1402-09-29 10:50",
-    labNumber:"P02-697",
+    labNumber: "P02-697",
     number: 67541,
     testType: "Colon",
     age: 63,
@@ -93,7 +93,7 @@ export const FAKE_DATA = [
   {
     name: "Ebrahim Salehi",
     date: "1402-09-20 10:50",
-    labNumber:"P02-691",
+    labNumber: "P02-691",
     number: 59173,
     testType: "Gastric",
     age: 63,
@@ -106,7 +106,7 @@ export const FAKE_DATA = [
   {
     name: "Taghi Kianian",
     date: "1402-08-10 10:50",
-    labNumber:"P02-652",
+    labNumber: "P02-652",
     number: 75861,
     testType: "PBS",
     age: 35,
@@ -119,7 +119,7 @@ export const FAKE_DATA = [
   {
     name: "Ebrahim Shahriari",
     date: "1402-07-19 10:50",
-    labNumber:"P02-593",
+    labNumber: "P02-593",
     number: 1,
     testType: "Colon",
     age: 41,
@@ -135,13 +135,13 @@ export const LABS_TESTS_DATA = [
   {
     id: 1,
     labName: "Nobel",
-    totalTests: Math.floor(Math.random() * (90 - 10 + 1)) ,
+    totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
     totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
     tests: [
       {
         id: 12,
         testName: "Breast",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
       {
@@ -165,13 +165,13 @@ export const LABS_TESTS_DATA = [
       {
         id: 16,
         testName: "Gastric",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
       {
         id: 17,
         testName: "TAH",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
     ],
@@ -179,13 +179,13 @@ export const LABS_TESTS_DATA = [
   {
     id: 2,
     labName: "Milad",
-    totalTests: Math.floor(Math.random() * (90 - 10 + 1)) ,
+    totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
     totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
     tests: [
       {
         id: 12,
         testName: "Breast",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
       {
@@ -209,13 +209,13 @@ export const LABS_TESTS_DATA = [
       {
         id: 16,
         testName: "Gastric",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
       {
         id: 17,
         testName: "TAH",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
     ],
@@ -223,13 +223,13 @@ export const LABS_TESTS_DATA = [
   {
     id: 3,
     labName: "Arya",
-    totalTests: Math.floor(Math.random() * (90 - 10 + 1)) ,
+    totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
     totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
     tests: [
       {
         id: 12,
         testName: "Breast",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
       {
@@ -253,13 +253,13 @@ export const LABS_TESTS_DATA = [
       {
         id: 16,
         testName: "Gastric",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
       {
         id: 17,
         testName: "TAH",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
     ],
@@ -267,13 +267,13 @@ export const LABS_TESTS_DATA = [
   {
     id: 4,
     labName: "Erythron",
-    totalTests: Math.floor(Math.random() * (90 - 10 + 1)) ,
+    totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
     totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
     tests: [
       {
         id: 12,
         testName: "Breast",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
       {
@@ -297,13 +297,13 @@ export const LABS_TESTS_DATA = [
       {
         id: 16,
         testName: "Gastric",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
       {
         id: 17,
         testName: "TAH",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
     ],
@@ -311,13 +311,13 @@ export const LABS_TESTS_DATA = [
   {
     id: 5,
     labName: "Baradaran",
-    totalTests: Math.floor(Math.random() * (90 - 10 + 1)) ,
+    totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
     totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
     tests: [
       {
         id: 12,
         testName: "Breast",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
       {
@@ -341,13 +341,13 @@ export const LABS_TESTS_DATA = [
       {
         id: 16,
         testName: "Gastric",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
       {
         id: 17,
         testName: "TAH",
-        totalNamber:Math.floor(Math.random() * (90 - 10 + 1)),
+        totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
     ],
@@ -358,31 +358,336 @@ export const TEST_TYPES = [
   {
     id: 12,
     title: "Breast",
-    code:120
+    code: 120,
+    magnifications:[1,2],
+    prices: [
+      {
+        id: 1,
+        lab: {
+          id: 1,
+          name: "Milad",
+        },
+        price: 25000,
+      },
+      {
+        id: 2,
+        lab: {
+          id: 2,
+          name: "Ariya",
+        },
+        price: 15000,
+      },
+      {
+        id: 3,
+        lab: {
+          id: 3,
+          name: "Nobel",
+        },
+        price: 35000,
+      },
+      {
+        id: 4,
+        lab: {
+          id: 4,
+          name: "Shargh",
+        },
+        price: 25000,
+      },
+    ],
   },
   {
     id: 13,
     title: "Papsmear",
-    code:121
+    code: 121,
+    magnifications:[3,2],
+    prices: [
+      {
+        id: 1,
+        lab: {
+          id: 1,
+          name: "Milad",
+        },
+        price: 25000,
+      },
+      {
+        id: 2,
+        lab: {
+          id: 2,
+          name: "Ariya",
+        },
+        price: 15000,
+      },
+      {
+        id: 3,
+        lab: {
+          id: 3,
+          name: "Nobel",
+        },
+        price: 35000,
+      },
+      {
+        id: 4,
+        lab: {
+          id: 4,
+          name: "Shargh",
+        },
+        price: 25000,
+      },
+    ],
   },
   {
     id: 14,
     title: "PBS",
-    code:122
+    code: 122,
+    magnifications:[1,3],
+    prices: [
+      {
+        id: 1,
+        lab: {
+          id: 1,
+          name: "Milad",
+        },
+        price: 25000,
+      },
+      {
+        id: 2,
+        lab: {
+          id: 2,
+          name: "Ariya",
+        },
+        price: 15000,
+      },
+      {
+        id: 3,
+        lab: {
+          id: 3,
+          name: "Nobel",
+        },
+        price: 35000,
+      },
+      {
+        id: 4,
+        lab: {
+          id: 4,
+          name: "Shargh",
+        },
+        price: 25000,
+      },
+    ],
   },
   {
     id: 15,
     title: "Colon",
-    code:123
+    code: 123,
+    magnifications:[4,2],
+    prices: [
+      {
+        id: 1,
+        lab: {
+          id: 1,
+          name: "Milad",
+        },
+        price: 25000,
+      },
+      {
+        id: 2,
+        lab: {
+          id: 2,
+          name: "Ariya",
+        },
+        price: 15000,
+      },
+      {
+        id: 3,
+        lab: {
+          id: 3,
+          name: "Nobel",
+        },
+        price: 35000,
+      },
+      {
+        id: 4,
+        lab: {
+          id: 4,
+          name: "Shargh",
+        },
+        price: 25000,
+      },
+    ],
   },
   {
     id: 16,
     title: "Gastric",
-    code:124
+    code: 124,
+    magnifications:[1,2,3],
+    prices: [
+      {
+        id: 1,
+        lab: {
+          id: 1,
+          name: "Milad",
+        },
+        price: 25000,
+      },
+      {
+        id: 2,
+        lab: {
+          id: 2,
+          name: "Ariya",
+        },
+        price: 15000,
+      },
+      {
+        id: 3,
+        lab: {
+          id: 3,
+          name: "Nobel",
+        },
+        price: 35000,
+      },
+      {
+        id: 4,
+        lab: {
+          id: 4,
+          name: "Shargh",
+        },
+        price: 25000,
+      },
+    ],
   },
-{
+  {
     id: 17,
     title: "TAH",
-    code:125
+    code: 125,
+    magnifications:[1,2,3,4],
+    prices: [
+      {
+        id: 1,
+        lab: {
+          id: 1,
+          name: "Milad",
+        },
+        price: 25000,
+      },
+      {
+        id: 2,
+        lab: {
+          id: 2,
+          name: "Ariya",
+        },
+        price: 15000,
+      },
+      {
+        id: 3,
+        lab: {
+          id: 3,
+          name: "Nobel",
+        },
+        price: 35000,
+      },
+      {
+        id: 4,
+        lab: {
+          id: 4,
+          name: "Shargh",
+        },
+        price: 25000,
+      },
+    ],
+  },
+];
+
+export const DEFAULT_SETTINGS = [
+  {
+    id: 1,
+    magnification: 4,
+    angle: 20,
+    b: 30,
+    axis: [
+      {
+        id: 1,
+        type: "x",
+        step: 1,
+      },
+      {
+        id: 2,
+        type: "y",
+        step: 1,
+      },
+      {
+        id: 3,
+        type: "z",
+        step: 1,
+      },
+    ],
+  },
+  {
+    id: 2,
+    magnification: 10,
+    angle: 40,
+    b: 50,
+    axis: [
+      {
+        id: 1,
+        type: "x",
+        step: 2,
+      },
+      {
+        id: 2,
+        type: "y",
+        step: 2,
+      },
+      {
+        id: 3,
+        type: "z",
+        step: 2,
+      },
+    ],
+  },
+  {
+    id: 3,
+    magnification: 40,
+    angle: 90,
+    b: 10,
+    axis: [
+      {
+        id: 1,
+        type: "x",
+        step: 3,
+      },
+      {
+        id: 2,
+        type: "y",
+        step: 3,
+      },
+      {
+        id: 3,
+        type: "z",
+        step: 3,
+      },
+    ],
+  },
+  {
+    id: 4,
+    magnification: 100,
+    angle: 180,
+    b: 20,
+    axis: [
+      {
+        id: 1,
+        type: "x",
+        step: 4,
+      },
+      {
+        id: 2,
+        type: "y",
+        step: 4,
+      },
+      {
+        id: 3,
+        type: "z",
+        step: 4,
+      },
+    ],
   },
 ];

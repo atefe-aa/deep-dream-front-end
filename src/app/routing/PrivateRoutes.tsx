@@ -8,7 +8,7 @@ import { getCSSVariableValue } from "../../_metronic/assets/ts/_utils";
 import { WithChildren } from "../../_metronic/helpers";
 import BuilderPageWrapper from "../pages/layout-builder/BuilderPageWrapper";
 import { ScanningPage } from "../pages/scanning/ScanningPage";
-import Settings from "react-multi-date-picker/plugins/settings";
+import Settings from "../pages/settings/Settings";
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import("../modules/profile/ProfilePage"));
@@ -72,7 +72,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path="apps/user-management/*"
+          path="/user-management/*"
           element={
             <SuspensedView>
               <UsersPage />
@@ -80,7 +80,7 @@ const PrivateRoutes = () => {
           }
         />
         {/* Page Not Found */}
-        <Route path="*" element={<Navigate to="/error/404" />} />
+        <Route path="*" element={<Navigate replace to="/error/404" />} />
       </Route>
     </Routes>
   );
