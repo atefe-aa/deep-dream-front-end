@@ -1,14 +1,6 @@
 import { useState } from "react";
-import SettingFormGroup from "../machine-settings/SettingFormGroup";
 import SettingItem from "../machine-settings/SettingItem";
-import {
-  DEFAULT_SETTINGS,
-  LABS_TESTS_DATA,
-  TEST_TYPES,
-} from "../../../utils/constants";
-import Magnifications from "../machine-settings/Magnifications";
-import MagnificationCheckbox from "../machine-settings/MagnificationCheckbox";
-import { TablesWidget10 } from "../../../../_metronic/partials/widgets";
+import { LABS_TESTS_DATA, TEST_TYPES } from "../../../utils/constants";
 import { TestTypesTable } from "../../../ui/table/test-types/TestTypesTable";
 import { TestTypesTableRow } from "../../../ui/table/test-types/TestTypesTableRow";
 import { TestTypesPriceTable } from "../../../ui/table/test-type-price/TestTypesPriceTable";
@@ -34,69 +26,45 @@ function TestTypesSettings() {
 
       <div id="test_types_settings " className="collapse show">
         <div className="accordion px-10 " id="accordionExample">
-          {/* <form
-            //  onSubmit={formik.handleSubmit}
-            noValidate
-            className="form"
-          > */}
-            <SettingItem name="test_types" label="Test Types" show={true}>
-              <TestTypesTable className="mb-5 mb-xl-8">
-                {TEST_TYPES.map((test, index) => (
-                  <TestTypesTableRow
-                    key={test.id}
-                    index={index}
-                    testTypeData={test}
-                  />
-                ))}
-              </TestTypesTable>
-            </SettingItem>
-
-            <SettingItem
-              name="test_types_price"
-              label="Test Type Prices"
-              show={false}
-            >
-              {LABS_TESTS_DATA.map((lab, index) => (
-                <SettingItem
-                  name={`${lab.labName}_test_types_price`}
-                  label={`${lab.labName} Test Type Prices`}
-                  show={false}
-                >
-                  <TestTypesPriceTable
-                    tableTitle={lab.labName}
-                    className="mb-5 mb-xl-8"
-                  >
-                    {lab.tests.map((test) => (
-                      <TestTypesPriceTableRow
-                        key={test.id}
-                        index={index}
-                        testTypeData={test}
-                      />
-                    ))}
-                  </TestTypesPriceTable>
-                </SettingItem>
+          <SettingItem name="test_types" label="Test Types" show={true}>
+            <TestTypesTable className="mb-5 mb-xl-8">
+              {TEST_TYPES.map((test, index) => (
+                <TestTypesTableRow
+                  key={test.id}
+                  index={index}
+                  testTypeData={test}
+                />
               ))}
-            </SettingItem>
+            </TestTypesTable>
+          </SettingItem>
 
-            {/* <div className="card-footer d-flex justify-content-end py-6 px-9">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={loading}
+          <SettingItem
+            name="test_types_price"
+            label="Test Type Prices"
+            show={false}
+          >
+            {LABS_TESTS_DATA.map((lab, index) => (
+              <SettingItem
+                key={lab.id}
+                name={`${lab.labName}_test_types_price`}
+                label={`${lab.labName} Test Type Prices`}
+                show={false}
               >
-                {!loading && "Save Changes"}
-                {loading && (
-                  <span
-                    className="indicator-progress"
-                    style={{ display: "block" }}
-                  >
-                    Please wait...{" "}
-                    <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                  </span>
-                )}
-              </button>
-            </div> */}
-          {/* </form> */}
+                <TestTypesPriceTable
+                  tableTitle={lab.labName}
+                  className="mb-5 mb-xl-8"
+                >
+                  {lab.tests.map((test) => (
+                    <TestTypesPriceTableRow
+                      key={test.id}
+                      index={index}
+                      testTypeData={test}
+                    />
+                  ))}
+                </TestTypesPriceTable>
+              </SettingItem>
+            ))}
+          </SettingItem>
         </div>
       </div>
     </div>

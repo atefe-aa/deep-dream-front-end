@@ -1,12 +1,62 @@
 import { useState } from "react";
-import { AsideMenuItem } from "../../../../_metronic/layout/components/aside/AsideMenuItem";
-import { AsideMenuItemWithSub } from "../../../../_metronic/layout/components/aside/AsideMenuItemWithSub";
 import SettingItem from "./SettingItem";
 import { DEFAULT_SETTINGS } from "../../../utils/constants";
 import SettingFormGroup from "./SettingFormGroup";
+import Checkbox from "./Checkbox";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+
+
+
+const addSchema = Yup.object().shape({
+  title: Yup.string()
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Title is required"),
+  code: Yup.number().required("Test code is required."),
+  type: Yup.string().required("Type is required"),
+  sex: Yup.string().required("Gender is required"),
+  discription: Yup.string()
+    .min(1, "Minimum 1 symbols")
+    .max(300, "Maximum 300 symbols"),
+});
+
+const initialValues = {
+  title: "",
+  code: "",
+  type: "",
+  sex: "",
+  description: "",
+  mag4x: true,
+  mag10x: false,
+  mag40x: false,
+  mag100x: false,
+};
 
 function MachineSettings() {
   const [loading, setLoading] = useState(false);
+
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema: addSchema,
+    onSubmit: async (values, { setStatus, setSubmitting }) => {
+      setLoading(true);
+      try {
+        console.log(values);
+        // const {data: auth} = await login(values.email, values.password)
+        // saveAuth(auth)
+        // const {data: user} = await getUserByToken(auth.api_token)
+        // setCurrentUser(user)
+      } catch (error) {
+        console.error(error);
+        // saveAuth(undefined)
+        setStatus("The login details are incorrect");
+        setSubmitting(false);
+        setLoading(false);
+      }
+    },
+  });
 
   return (
     <div className="card mb-5 mb-xl-10">
@@ -37,30 +87,26 @@ function MachineSettings() {
                 name={set.magnification.toString()}
                 show={_index === 0}
               >
-                <SettingFormGroup
-                value={set.angle}
-                  label="Angle"
-                  type="number"
-                  placeHolder="Angle"
-                  inputName="Angle"
-                />
-                <SettingFormGroup
-                value={set.b}
-                  label="b Position"
-                  type="number"
-                  placeHolder="b position"
-                  inputName="b"
-                />
-                {set.axis.map((ax) => (
-                  <SettingFormGroup
-                  value={ax.step}
-                    key={ax.id}
-                    label={ax.type}
-                    type="number"
-                    placeHolder={`Steps for ${ax.type} axis`}
-                    inputName={ax.type}
-                  />
-                ))}
+                {set.settings.map((setting) =>
+                  setting.type === "checkbox" ? (
+                    <Checkbox
+                    formik={formik}
+                    key={setting.id}
+                      isChecked={!!setting.value}
+                      label={setting.title.toUpperCase()}
+                      inputName={setting.title}
+                    />
+                  ) : (
+                    <SettingFormGroup
+                      value={setting.value}
+                      key={setting.id}
+                      label={setting.title.toUpperCase()}
+                      type={setting.type}
+                      placeHolder={`${setting.type.toUpperCase()} setting`}
+                      inputName={setting.title}
+                    />
+                  )
+                )}
               </SettingItem>
             ))}
 

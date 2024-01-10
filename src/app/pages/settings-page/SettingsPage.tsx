@@ -1,3 +1,4 @@
+import { AddNewTestType } from "../../modules/settings/AddNewTestType";
 import MachineSettings from "../../modules/settings/machine-settings/MachineSettings";
 import TestTypesSettings from "../../modules/settings/test-type-settings/TestTypesSettings";
 
@@ -7,6 +8,11 @@ function Settings() {
     <>
       <MachineSettings />
       <TestTypesSettings />
+
+
+        {/* begin:: Modals */}
+        <AddNewTestType />
+      {/* end:: Modals */}
     </>
   );
 }

@@ -75,7 +75,7 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
           {testTypeData.magnifications.map((mag) => (
-            <span>{mag}x, </span>
+            <span key={mag}>{mag}x, </span>
           ))}
         </a>
       </td>

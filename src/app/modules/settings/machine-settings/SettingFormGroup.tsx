@@ -3,7 +3,7 @@ type Props = {
   type: string;
   placeHolder: string;
   inputName: string;
-  value: number;
+  value: number | boolean;
   // formik:any
 };
 
@@ -28,7 +28,8 @@ const SettingFormGroup: React.FC<Props> = ({
               type={type}
               className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
               placeholder={placeHolder}
-              value={value}
+              value={typeof value === 'number' ? value : ''}
+              name={inputName}
               //   {...formik.getFieldProps("fName")}
             />
             {/* {formik.touched.fName && formik.errors.fName && (

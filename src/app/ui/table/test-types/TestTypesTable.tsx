@@ -21,8 +21,8 @@ const TestTypesTable: FC<Props> = ({ className, children }) => {
           <a
             href="#"
             className="btn btn-sm btn-light-primary"
-            // data-bs-toggle='modal'
-            // data-bs-target='#kt_modal_invite_friends'
+            data-bs-toggle="modal"
+            data-bs-target="#kt_modal_add_new_test_type"
           >
             <KTIcon iconName="plus" className="fs-3" />
             New Test Type
