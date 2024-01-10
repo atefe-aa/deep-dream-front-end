@@ -26,7 +26,7 @@ const initialValues = {
   type: "",
   sex: "",
   description: "",
-  mag4x: true,
+  mag4x: false,
   mag10x: false,
   mag40x: false,
   mag100x: false,
@@ -242,14 +242,33 @@ const AddNewTestType: FC = () => {
         </div>
         {/* end::Form group */}
 
-<div className="d-flex align-items-center my-6">
-       <Checkbox label="4x" inputName="mag4x" formik={formik} isChecked={formik.initialValues.mag4x} />
-        <Checkbox label="10x" inputName="mag10x" formik={formik} isChecked={formik.initialValues.mag10x} />
-        <Checkbox label="40x" inputName="mag40x" formik={formik} isChecked={formik.initialValues.mag40x} />
-        <Checkbox label="100x" inputName="mag100x" formik={formik} isChecked={formik.initialValues.mag100x} />
+        <div className="d-flex align-items-center my-6">
+          <Checkbox
+            label="4x"
+            inputName="mag4x"
+            formik={formik}
+            isChecked={formik.initialValues.mag4x}
+          />
+          <Checkbox
+            label="10x"
+            inputName="mag10x"
+            formik={formik}
+            isChecked={formik.initialValues.mag10x}
+          />
+          <Checkbox
+            label="40x"
+            inputName="mag40x"
+            formik={formik}
+            isChecked={formik.initialValues.mag40x}
+          />
+          <Checkbox
+            label="100x"
+            inputName="mag100x"
+            formik={formik}
+            isChecked={formik.initialValues.mag100x}
+          />
+        </div>
 
-</div>
-     
         {/* begin::Action */}
         <div className="d-flex mb-10">
           <button
