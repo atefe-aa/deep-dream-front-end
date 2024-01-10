@@ -8,7 +8,7 @@ import { getCSSVariableValue } from "../../_metronic/assets/ts/_utils";
 import { WithChildren } from "../../_metronic/helpers";
 import BuilderPageWrapper from "../pages/layout-builder/BuilderPageWrapper";
 import { ScanningPage } from "../pages/scanning/ScanningPage";
-import Settings from "../pages/settings/Settings";
+import Settings from "../pages/settings-page/SettingsPage";
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import("../modules/profile/ProfilePage"));
@@ -16,9 +16,7 @@ const PrivateRoutes = () => {
   const AccountPage = lazy(() => import("../modules/accounts/AccountPage"));
   const WidgetsPage = lazy(() => import("../modules/widgets/WidgetsPage"));
   const ChatPage = lazy(() => import("../modules/apps/chat/ChatPage"));
-  const UsersPage = lazy(
-    () => import("../modules/apps/user-management/UsersPage")
-  );
+  const UsersPage = lazy(() => import("../pages/users-page/UsersPage"));
 
   return (
     <Routes>

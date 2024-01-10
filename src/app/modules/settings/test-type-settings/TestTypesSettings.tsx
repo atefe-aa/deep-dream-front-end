@@ -51,6 +51,7 @@ function TestTypesSettings() {
                 </Magnifications>
                 {test.prices.map((price) => (
                   <SettingFormGroup
+                    value={price.price}
                     key={price.id}
                     label={price.lab.name}
                     type="number"

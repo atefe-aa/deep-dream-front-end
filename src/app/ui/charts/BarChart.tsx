@@ -134,7 +134,7 @@ const chartOptions = (
   xaxisCategories: object,
   unit: string
 ): ApexOptions => {
-  const labelColor = getCSSVariableValue("--bs-gray-500");
+  const labelColor = getCSSVariableValue("--bs-gray-100");
   const borderColor = getCSSVariableValue("--bs-gray-200");
 
   return {
@@ -178,7 +178,7 @@ const chartOptions = (
       },
       labels: {
         style: {
-          colors: "var(--bs-gray-100)",
+          colors: labelColor,
           fontSize: "12px",
           fontWeight: "900",
         },
@@ -187,7 +187,7 @@ const chartOptions = (
     yaxis: {
       labels: {
         style: {
-          colors: "var(--bs-gray-100)",
+          colors: labelColor,
           fontSize: "12px",
           fontWeight: "900",
         },
