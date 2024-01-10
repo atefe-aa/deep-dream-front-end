@@ -20,7 +20,7 @@ import {
 } from "../../utils/constants";
 import { LineChart } from "../../ui/charts/LineChart";
 import { RadarChart } from "../../ui/charts/RadarChart";
-import { TestsTable } from "../../ui/table/TestsTable";
+import { TestsTable } from "../../ui/table/tests/TestsTable";
 import { ChartsWidget1 } from "../../../_metronic/partials/widgets";
 
 const data = FAKE_DATA;
@@ -35,7 +35,6 @@ const dashboardBreadCrumbs: Array<PageLink> = [
 ];
 
 const DashboardPage = () => {
-
   return (
     <>
       <SearchAndFilter />
@@ -84,12 +83,12 @@ const DashboardPage = () => {
         </div>
         <div className="col-lg-6">
           <LineChart
-           chartHeight=""
-           chartTitle=""
-           totals={BarChartTotals}
-           series={TestTypeNumberSeries}
-           xaxisCategories={xaxisTestTypeCategories}
-           unit=" Tests"
+            chartHeight=""
+            chartTitle=""
+            totals={BarChartTotals}
+            series={TestTypeNumberSeries}
+            xaxisCategories={xaxisTestTypeCategories}
+            unit=" Tests"
             className=" mb-xl-8"
             color="success"
             description="Test Types Numbers"
