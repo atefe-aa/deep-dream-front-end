@@ -59,7 +59,7 @@ export * from "./tables/TablesWidget5";
 export * from "./tables/TablesWidget6";
 export * from "./tables/TablesWidget7";
 export * from "./tables/TablesWidget8";
-export * from "../../../app/ui/table/TestsTable";
+export * from "../../../app/ui/table/tests/TestsTable";
 export * from "./tables/TablesWidget10";
 export * from "./tables/TablesWidget11";
 export * from "./tables/TablesWidget12";

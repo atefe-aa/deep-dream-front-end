@@ -8,6 +8,7 @@ import { getCSSVariableValue } from "../../_metronic/assets/ts/_utils";
 import { WithChildren } from "../../_metronic/helpers";
 import BuilderPageWrapper from "../pages/layout-builder/BuilderPageWrapper";
 import { ScanningPage } from "../pages/scanning/ScanningPage";
+import Settings from "../pages/settings-page/SettingsPage";
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import("../modules/profile/ProfilePage"));
@@ -15,9 +16,7 @@ const PrivateRoutes = () => {
   const AccountPage = lazy(() => import("../modules/accounts/AccountPage"));
   const WidgetsPage = lazy(() => import("../modules/widgets/WidgetsPage"));
   const ChatPage = lazy(() => import("../modules/apps/chat/ChatPage"));
-  const UsersPage = lazy(
-    () => import("../modules/apps/user-management/UsersPage")
-  );
+  const UsersPage = lazy(() => import("../pages/users-page/UsersPage"));
 
   return (
     <Routes>
@@ -27,7 +26,7 @@ const PrivateRoutes = () => {
         {/* Pages */}
         <Route path="dashboard" element={<DashboardWrapper />} />
         <Route path="scanning" element={<ScanningPage />} />
-        <Route path="builder" element={<BuilderPageWrapper />} />
+        <Route path="settings/*" element={<Settings />} />
         <Route path="menu-test" element={<MenuTestPage />} />
         {/* Lazy Modules */}
         <Route
@@ -55,7 +54,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path="crafted/account/*"
+          path="crafted/settings/*"
           element={
             <SuspensedView>
               <AccountPage />
@@ -71,7 +70,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path="apps/user-management/*"
+          path="/user-management/*"
           element={
             <SuspensedView>
               <UsersPage />
@@ -79,7 +78,7 @@ const PrivateRoutes = () => {
           }
         />
         {/* Page Not Found */}
-        <Route path="*" element={<Navigate to="/error/404" />} />
+        <Route path="*" element={<Navigate replace to="/error/404" />} />
       </Route>
     </Routes>
   );

@@ -1,7 +1,7 @@
 import React from "react";
-import { KTIcon } from "../../../_metronic/helpers";
-import { DropDownButton } from "../buttons/DropDownButton";
-import { ShareMenu } from "../ShareMenu";
+import { KTIcon } from "../../../../_metronic/helpers";
+import { DropDownButton } from "../../buttons/DropDownButton";
+import { ShareMenu } from "../../ShareMenu";
 
 interface DataType {
   name: string;

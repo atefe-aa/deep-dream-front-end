@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import QRCodeGenerator from "./QRCodeGenerator";
 import { LABS_TESTS_DATA, TEST_TYPES } from "../../../utils/constants";
 import Select from "react-select";
+import { ModalLayout } from "../../../ui/modals/ModalLayout";
 
 const addSchema = Yup.object().shape({
   name: Yup.string()
@@ -93,19 +94,8 @@ const AddNewTest: FC = () => {
   });
 
   return (
-    <div className="modal fade" id="kt_modal_add_new_test" aria-hidden="true">
-      <div className="modal-dialog mw-650px">
-        <div className="modal-content">
-          <div className="modal-header pb-0 border-0 justify-content-end">
-            <div
-              className="btn btn-sm btn-icon btn-active-color-primary"
-              data-bs-dismiss="modal"
-            >
-              <KTIcon iconName="cross" className="fs-1" />
-            </div>
-          </div>
-          <div className="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
-            {testNumber !== "" ? (
+   <ModalLayout modalId="kt_modal_add_new_test">
+       {testNumber !== "" ? (
               <QRCodeGenerator number={testNumber} />
             ) : (
               <>
@@ -116,7 +106,6 @@ const AddNewTest: FC = () => {
                   className="form w-100"
                   onSubmit={formik.handleSubmit}
                   noValidate
-                  // id="kt_login_signin_form"
                 >
                   {formik.status && (
                     <div className="mb-lg-15 alert alert-danger">
@@ -279,7 +268,7 @@ const AddNewTest: FC = () => {
                     </label>
                     <div className="input-group">
                       <input
-                        type="text"
+                        type="number"
                         min={1}
                         inputMode="numeric"
                         autoComplete="off"
@@ -456,10 +445,9 @@ const AddNewTest: FC = () => {
                 </form>
               </>
             )}
-          </div>
-        </div>
-      </div>
-    </div>
+   </ModalLayout>
+         
+         
   );
 };
 

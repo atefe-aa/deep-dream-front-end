@@ -95,12 +95,12 @@ const RadarChart: React.FC<Props> = ({ className, color, series, unit , descript
         ></div>
 
              {/* begin::Stats  */}
-             <div className="card-rounded bg-body mt-n10 position-relative card-px py-15">
+             <div className="card-rounded bg-secondary mt-n6 position-relative card-px py-15">
           {/* begin::Row  */}
           <div className="row g-0">
             {/* begin::Col  */}
             <div className="col mx-5">
-              <div className="fs-6 text-gray-500">total</div>
+              <div className="fs-6 text-gray-700">total</div>
               <div className="fs-5 fw-bold text-gray-800">2000 R</div>
             </div>{" "}
             <div className="col mx-5">

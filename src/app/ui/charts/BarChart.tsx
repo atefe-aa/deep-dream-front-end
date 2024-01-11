@@ -104,13 +104,13 @@ const BarChart: FC<Props> = ({
         {/* end::Chart  */}
 
         {/* begin::Stats  */}
-        <div className="card-rounded bg-body mt-n10 position-relative card-px py-15">
+        <div className="card-rounded bg-secondary mt-n6 position-relative card-px py-15">
           {/* begin::Row  */}
           <div className="row g-0">
             {/* begin::Col  */}
             {totals.map((total) => (
               <div key={total.title} className="col mx-5">
-                <div className="fs-6 text-gray-500">{total.title}</div>
+                <div className="fs-6 text-gray-700">{total.title}</div>
                 <div className="fs-5 fw-bold text-gray-800">
                   {total.value} {total.unit}
                 </div>
@@ -134,7 +134,7 @@ const chartOptions = (
   xaxisCategories: object,
   unit: string
 ): ApexOptions => {
-  const labelColor = getCSSVariableValue("--bs-gray-500");
+  const labelColor = getCSSVariableValue("--bs-gray-100");
   const borderColor = getCSSVariableValue("--bs-gray-200");
 
   return {
@@ -147,13 +147,13 @@ const chartOptions = (
         show: false,
       },
       sparkline: {
-        enabled: true,
+        enabled: false,
       },
     },
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: "30%",
+        columnWidth: "10%",
         borderRadius: 5,
       },
     },
@@ -180,6 +180,7 @@ const chartOptions = (
         style: {
           colors: labelColor,
           fontSize: "12px",
+          fontWeight: "900",
         },
       },
     },
@@ -188,6 +189,7 @@ const chartOptions = (
         style: {
           colors: labelColor,
           fontSize: "12px",
+          fontWeight: "900",
         },
       },
     },

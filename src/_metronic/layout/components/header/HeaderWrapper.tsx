@@ -5,7 +5,6 @@ import { KTIcon, toAbsoluteUrl } from "../../../helpers";
 import { useLayout } from "../../core";
 import { DefaultTitle } from "./page-title/DefaultTitle";
 import { Topbar } from "./Topbar";
-import { Dropdown1, Search } from "../../../partials";
 
 export function HeaderWrapper() {
   const { config, classes, attributes } = useLayout();
