@@ -16,10 +16,11 @@ const Dropdown: FC = () => {
 
       <div className="menu-item px-3">
         <a href="#" className="menu-link px-3">
-          <KTIcon iconName="document" className="fs-3 me-3" />
-          Download Report
+          <KTIcon iconName="printer" className="fs-3 me-3" />
+          Print Label
         </a>
       </div>
+
 
       <div className="menu-item px-3">
         <a
@@ -35,11 +36,11 @@ const Dropdown: FC = () => {
 
       <div className="menu-item px-3">
         <a href="#" className="menu-link px-3">
-          <KTIcon iconName="printer" className="fs-3 me-3" />
-          Print Label
+          <KTIcon iconName="document" className="fs-3 me-3" />
+          Download Report
         </a>
       </div>
-
+      
       <div className="menu-item px-3 my-1">
         <a
           href="#"

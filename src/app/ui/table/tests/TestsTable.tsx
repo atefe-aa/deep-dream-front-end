@@ -43,7 +43,7 @@ const TestsTable: React.FC<Props> = ({ className = "", testsData }) => {
                 <th className="min-w-15px">Number</th>
                 <th className="min-w-150px">Patient</th>
                 <th className="min-w-130px">Price(R)</th>
-                <th className="min-w-150px">Date & Time</th>
+                <th className="min-w-150px">Admit Date & Time</th>
                 <th className="min-w-140px">Laboratory</th>
                 <th className="min-w-120px">Progress</th>
                 <th className="min-w-100px text-end">Actions</th>

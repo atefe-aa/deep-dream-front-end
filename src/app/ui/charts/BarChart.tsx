@@ -88,7 +88,7 @@ const BarChart: FC<Props> = ({
           >
             <KTIcon iconName="category" className="fs-2" />
           </button>
-          <FilterDropdown />
+          <FilterDropdown filters={['date']} />
           {/* end::Menu  */}
         </div>
       </div>

@@ -85,7 +85,7 @@ function MachineSettings() {
                 set.title !== "slides placement" && (
                   <SettingItem
                     key={set.id}
-                    label={`Settings for ${set.title}x`}
+                    label={`Settings for ${set.title}`}
                     name={set.title}
                     show={_index === 0}
                   >
@@ -112,7 +112,7 @@ function MachineSettings() {
                   </SettingItem>
                 )
             )}
-            <SettingItem name="test_types" label="Test Types" show={true}>
+            <SettingItem name="slide_placement" label="Slide Placement" show={true}>
               <TestTypesTable
               modalId="kt_modal_add_new_slide"
                 className="mb-5 mb-xl-8"

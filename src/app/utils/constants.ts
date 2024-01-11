@@ -927,12 +927,19 @@ export const Slides_Placements = [
   },
 ];
 
-export const BarChartTotals = [
+export const BarChartTotalsNumber = [
   {
     title: "Total Tests",
     unit: "tests",
     value: LABS_TESTS_DATA.reduce((acc, lab) => acc + lab.totalTests, 0),
   },
+  {
+    title: "Date Range",
+    unit: "",
+    value: "All Time",
+  },
+];
+export const BarChartTotalsPrice = [
   {
     title: "Total Price",
     unit: "(R)",
@@ -940,6 +947,11 @@ export const BarChartTotals = [
       (acc, lab) => acc + lab.totalPrice,
       0
     ).toLocaleString(),
+  },
+  {
+    title: "Range Date",
+    unit: "",
+    value: "All Time",
   },
 ];
 export const testNumberSeries = [

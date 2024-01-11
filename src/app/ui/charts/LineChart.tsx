@@ -97,7 +97,7 @@ const LineChart: React.FC<Props> = ({
           >
             <KTIcon iconName="category" className="fs-2" />
           </button>
-          <FilterDropdown />
+          <FilterDropdown filters={['lab','date']} />
           {/* end::Menu  */}
         </div>
       </div>

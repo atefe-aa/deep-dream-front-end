@@ -23,7 +23,13 @@ interface ChartDataItem {
   name: string;
   data: number[];
 }
-const RadarChart: React.FC<Props> = ({ className, color, series, unit , description}) => {
+const RadarChart: React.FC<Props> = ({
+  className,
+  color,
+  series,
+  unit,
+  description,
+}) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const { mode } = useThemeMode();
   const refreshChart = () => {
@@ -80,7 +86,7 @@ const RadarChart: React.FC<Props> = ({ className, color, series, unit , descript
           >
             <KTIcon iconName="category" className="fs-2" />
           </button>
-          <FilterDropdown />
+          <FilterDropdown filters={["lab", "date", "testType"]} />
           {/* end::Menu  */}
         </div>
       </div>
@@ -94,8 +100,8 @@ const RadarChart: React.FC<Props> = ({ className, color, series, unit , descript
           style={{ height: "365px" }}
         ></div>
 
-             {/* begin::Stats  */}
-             <div className="card-rounded bg-secondary mt-n6 position-relative card-px py-15">
+        {/* begin::Stats  */}
+        <div className="card-rounded bg-secondary mt-n6 position-relative card-px py-15">
           {/* begin::Row  */}
           <div className="row g-0">
             {/* begin::Col  */}
@@ -156,7 +162,7 @@ function getChartOptions(
         toggleDataSeries: true,
       },
       labels: {
-        colors: ["--bs-gray-800"],
+        colors: [labelColor],
         useSeriesColors: false,
       },
       markers: {
@@ -184,7 +190,7 @@ function getChartOptions(
     },
     fill: {
       type: "solid",
-      opacity: 0.2,
+      opacity: 0,
     },
     stroke: {
       curve: "smooth",

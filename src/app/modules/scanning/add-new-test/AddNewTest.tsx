@@ -230,7 +230,7 @@ const AddNewTest: FC = () => {
                   {/* begin::Form group / Fullname*/}
                   <div className="fv-row mb-3">
                     <label className="form-label fs-6 fw-bolder text-gray-900">
-                      National ID <span className="text-danger">*</span>
+                      National ID 
                     </label>
                     <input
                       placeholder="National ID"
@@ -285,11 +285,7 @@ const AddNewTest: FC = () => {
                               formik.touched.age && !formik.errors.age,
                           }
                         )}
-                        style={{
-                          WebkitAppearance: "none",
-                          MozAppearance: "textfield",
-                          appearance: "none",
-                        }}
+                       
                       />
                       <select
                         {...formik.getFieldProps("ageType")}

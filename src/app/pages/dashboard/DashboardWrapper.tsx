@@ -6,7 +6,8 @@ import { SearchAndFilter } from "../../ui/serach-and-filter/SearchAndFilter";
 import { Pagination } from "../../ui/Pagination";
 import { BarChart } from "../../ui/charts/BarChart";
 import {
-  BarChartTotals,
+  BarChartTotalsNumber,
+  BarChartTotalsPrice,
   FAKE_DATA,
   LABS_TESTS_DATA,
   TestTypeNumberSeries,
@@ -44,7 +45,7 @@ const DashboardPage = () => {
         {/* begin::Col */}
         <div className="col-lg-6">
           <BarChart
-            totals={BarChartTotals}
+            totals={BarChartTotalsNumber}
             series={testNumberSeries}
             chartTitle="Tests Number"
             unit=" tests"
@@ -58,9 +59,9 @@ const DashboardPage = () => {
         <div className="col-lg-6">
           <BarChart
             unit=" (1000 R)"
-            totals={BarChartTotals}
+            totals={BarChartTotalsPrice}
             series={testPriceSeries}
-            chartTitle="Tests Price"
+            chartTitle="Tests Price(R)"
             xaxisCategories={xaxisCategories}
             className=" mb-xl-8"
             chartColor="primary"
@@ -71,28 +72,28 @@ const DashboardPage = () => {
           <LineChart
             chartHeight=""
             chartTitle=""
-            totals={BarChartTotals}
+            totals={BarChartTotalsPrice}
             series={TestTypePriceSeries}
             xaxisCategories={xaxisTestTypeCategories}
             unit=" (R)"
             className=" mb-5 mb-xl-8"
             color="danger"
             description="Test Types Prices"
-            change="750,000 (R)"
+            change="All Laboratories"
           />
         </div>
         <div className="col-lg-6">
           <LineChart
             chartHeight=""
             chartTitle=""
-            totals={BarChartTotals}
+            totals={BarChartTotalsNumber}
             series={TestTypeNumberSeries}
             xaxisCategories={xaxisTestTypeCategories}
             unit=" Tests"
             className=" mb-xl-8"
             color="success"
             description="Test Types Numbers"
-            change="290 Tests"
+            change="All Laboratories"
           />
         </div>
         <div className="col-lg-6">
