@@ -11,24 +11,26 @@ const SettingItem: React.FC<Props> = ({
   name,
   show = false,
 }) => {
+  const modifiedName = name.replace(/ /g, "_");
+  console.log(modifiedName);
   return (
     <div className="accordion-item">
-      <h2 className="accordion-header" id={`headding${name}`}>
+      <h2 className="accordion-header" id={`headding${modifiedName}`}>
         <button
           className="accordion-button"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target={`#collapse${name}`}
+          data-bs-target={`#collapse${modifiedName}`}
           aria-expanded="true"
-          aria-controls={`collapse${name}`}
+          aria-controls={`collapse${modifiedName}`}
         >
-         {label}
+          {label}
         </button>
       </h2>
       <div
-        id={`collapse${name}`}
-        className={`accordion-collapse collapse ${show && 'show'}`}
-        aria-labelledby={`hedding${name}`}
+        id={`collapse${modifiedName}`}
+        className={`accordion-collapse collapse ${show && "show"}`}
+        aria-labelledby={`hedding${modifiedName}`}
         data-bs-parent="#accordionExample"
       >
         <div className="accordion-body">

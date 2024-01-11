@@ -1,12 +1,13 @@
 import { useState } from "react";
 import SettingItem from "./SettingItem";
-import { DEFAULT_SETTINGS } from "../../../utils/constants";
+import { DEFAULT_SETTINGS, Slides_Placements } from "../../../utils/constants";
 import SettingFormGroup from "./SettingFormGroup";
 import Checkbox from "./Checkbox";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-
-
+import { TestTypesTable } from "../../../ui/table/test-types/TestTypesTable";
+import { TestTypesTableRow } from "../../../ui/table/test-types/TestTypesTableRow";
+import { SlidesPlacementTableRow } from "../../../ui/table/test-types/SlidesPlacementTableRow";
 
 const addSchema = Yup.object().shape({
   title: Yup.string()
@@ -35,7 +36,6 @@ const initialValues = {
 
 function MachineSettings() {
   const [loading, setLoading] = useState(false);
-
 
   const formik = useFormik({
     initialValues,
@@ -80,35 +80,53 @@ function MachineSettings() {
             noValidate
             className="form"
           >
-            {DEFAULT_SETTINGS.map((set, _index) => (
-              <SettingItem
-                key={set.id}
-                label={`Settings for ${set.magnification}x`}
-                name={set.magnification.toString()}
-                show={_index === 0}
+            {DEFAULT_SETTINGS.map(
+              (set, _index) =>
+                set.title !== "slides placement" && (
+                  <SettingItem
+                    key={set.id}
+                    label={`Settings for ${set.title}x`}
+                    name={set.title}
+                    show={_index === 0}
+                  >
+                    {set.settings.map((setting) =>
+                      setting.type === "checkbox" ? (
+                        <Checkbox
+                          formik={formik}
+                          key={setting.id}
+                          isChecked={!!setting.value}
+                          label={setting.title.toUpperCase()}
+                          inputName={setting.title}
+                        />
+                      ) : (
+                        <SettingFormGroup
+                          value={setting.value}
+                          key={setting.id}
+                          label={setting.title.toUpperCase()}
+                          type={setting.type}
+                          placeHolder={`${setting.type.toUpperCase()} setting`}
+                          inputName={setting.title}
+                        />
+                      )
+                    )}
+                  </SettingItem>
+                )
+            )}
+            <SettingItem name="test_types" label="Test Types" show={true}>
+              <TestTypesTable
+              modalId="kt_modal_add_new_slide"
+                className="mb-5 mb-xl-8"
+                columns={["Number", "x", "y"]}
               >
-                {set.settings.map((setting) =>
-                  setting.type === "checkbox" ? (
-                    <Checkbox
-                    formik={formik}
-                    key={setting.id}
-                      isChecked={!!setting.value}
-                      label={setting.title.toUpperCase()}
-                      inputName={setting.title}
-                    />
-                  ) : (
-                    <SettingFormGroup
-                      value={setting.value}
-                      key={setting.id}
-                      label={setting.title.toUpperCase()}
-                      type={setting.type}
-                      placeHolder={`${setting.type.toUpperCase()} setting`}
-                      inputName={setting.title}
-                    />
-                  )
-                )}
-              </SettingItem>
-            ))}
+                {Slides_Placements.map((slide, index) => (
+                  <SlidesPlacementTableRow
+                    key={slide.id}
+                    index={index}
+                    data={slide}
+                  />
+                ))}
+              </TestTypesTable>
+            </SettingItem>
 
             <div className="card-footer d-flex justify-content-end py-6 px-9">
               <button

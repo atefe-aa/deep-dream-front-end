@@ -4,9 +4,16 @@ import { KTIcon } from "../../../../_metronic/helpers";
 type Props = {
   className: string;
   children: React.ReactNode;
+  columns: Array<string>;
+  modalId: string;
 };
 
-const TestTypesTable: FC<Props> = ({ className, children }) => {
+const TestTypesTable: FC<Props> = ({
+  className,
+  children,
+  columns,
+  modalId,
+}) => {
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -22,10 +29,11 @@ const TestTypesTable: FC<Props> = ({ className, children }) => {
             href="#"
             className="btn btn-sm btn-light-primary"
             data-bs-toggle="modal"
-            data-bs-target="#kt_modal_add_new_test_type"
+            // data-bs-target="#kt_modal_add_new_test_type"
+            data-bs-target={`#${modalId}`}
           >
             <KTIcon iconName="plus" className="fs-3" />
-            New Test Type
+            Add New
           </a>
         </div>
       </div>
@@ -44,12 +52,9 @@ const TestTypesTable: FC<Props> = ({ className, children }) => {
                     #
                   </div>
                 </th>
-                <th className="min-w-100px">Title</th>
-                <th className="min-w-100px">Code</th>
-                <th className="min-w-120px">Sex</th>
-                <th className="min-w-120px">Type</th>
-                <th className="w-200px">Description</th>
-                <th className="min-w-120px">Magnifications</th>
+                {columns.map((col) => (
+                  <th className="min-w-100px">{col}</th>
+                ))}
                 <th className="min-w-100px text-end">Actions</th>
               </tr>
             </thead>

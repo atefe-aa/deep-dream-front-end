@@ -648,7 +648,7 @@ export const TEST_TYPES = [
 export const DEFAULT_SETTINGS = [
   {
     id: 1,
-    magnification: 4,
+    title: "4x",
     settings: [
       {
         id: 1,
@@ -697,7 +697,7 @@ export const DEFAULT_SETTINGS = [
   },
   {
     id: 2,
-    magnification: 10,
+    title: "10x",
     settings: [
       {
         id: 1,
@@ -746,7 +746,7 @@ export const DEFAULT_SETTINGS = [
   },
   {
     id: 3,
-    magnification: 40,
+    title: "40x",
     settings: [
       {
         id: 1,
@@ -795,7 +795,7 @@ export const DEFAULT_SETTINGS = [
   },
   {
     id: 4,
-    magnification: 100,
+    title: "100x",
     settings: [
       {
         id: 1,
@@ -839,6 +839,89 @@ export const DEFAULT_SETTINGS = [
         title: "multiLayer",
         value: true,
         type: "checkbox",
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: "field lens placement",
+    settings: [
+      {
+        id: 1,
+        title: "2x",
+        value: 20,
+        type: "number",
+      },
+      {
+        id: 2,
+        title: "10x",
+        value: 10,
+        type: "number",
+      },
+      {
+        id: 4,
+        title: "40x",
+        value: 20,
+        type: "number",
+      },
+      {
+        id: 5,
+        title: "100x",
+        value: 3,
+        type: "number",
+      },
+    ],
+  },
+  {
+    id: 6,
+    title: "condenseur placement",
+    settings: [
+      {
+        id: 1,
+        title: "min",
+        value: 20,
+        type: "number",
+      },
+      {
+        id: 2,
+        title: "max",
+        value: 10,
+        type: "number",
+      },
+    ],
+  },
+];
+
+export const Slides_Placements = [
+  {
+    id: 1,
+    title: "slide 1",
+    coordinates: [
+      {
+        id: 1,
+        title: "x",
+        value: 20,
+      },
+      {
+        id: 2,
+        title: "y",
+        value: 0,
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: "slide 2",
+    coordinates: [
+      {
+        id: 1,
+        title: "x",
+        value: 20,
+      },
+      {
+        id: 2,
+        title: "y",
+        value: 0,
       },
     ],
   },
