@@ -10,12 +10,18 @@ import {
 import { TEST_TYPES } from "../../utils/constants";
 import { FilterDropdown } from "../search-and-filter/FilterDropdown";
 
+interface TotalItem {
+  title: string;
+  value: number | string;
+  unit: string;
+}
+
 type Props = {
   className: string;
   svgIcon: string;
   color: string;
-  change: string;
   description: string;
+  totals: Array<TotalItem>;
   series: Array<ChartDataItem>;
   unit: string;
 };
@@ -29,6 +35,7 @@ const RadarChart: React.FC<Props> = ({
   series,
   unit,
   description,
+  totals,
 }) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const { mode } = useThemeMode();
@@ -105,14 +112,14 @@ const RadarChart: React.FC<Props> = ({
           {/* begin::Row  */}
           <div className="row g-0">
             {/* begin::Col  */}
-            <div className="col mx-5">
-              <div className="fs-6 text-gray-700">total</div>
-              <div className="fs-5 fw-bold text-gray-800">2000 R</div>
-            </div>{" "}
-            <div className="col mx-5">
-              <div className="fs-6 text-gray-500">total</div>
-              <div className="fs-5 fw-bold text-gray-800">2000 R</div>
-            </div>
+            {totals.map((total) => (
+              <div key={total.title} className="col mx-5">
+                <div className="fs-6 text-gray-700">{total.title}</div>
+                <div className="fs-5 fw-bold text-gray-800">
+                  {total.value} {total.unit}
+                </div>
+              </div>
+            ))}
             {/* end::Col  */}
           </div>
           {/* end::Row  */}

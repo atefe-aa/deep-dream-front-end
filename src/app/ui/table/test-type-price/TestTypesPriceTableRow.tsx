@@ -38,7 +38,7 @@ const TestTypesPriceTableRow: FC<Props> = ({ testTypeData, index }) => {
           href="#"
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
-          {testTypeData.testPrice}
+          {testTypeData.testPrice.toLocaleString()}
         </a>
       </td>
     

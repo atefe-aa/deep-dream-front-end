@@ -121,10 +121,10 @@ const AddNewTestPrice: React.FC<Props> = ({ labName }) => {
         {/* begin::code Form group  */}
         <div className="fv-row mb-3">
           <label className="form-label required fs-6 fw-bolder text-gray-900">
-            Price
+            Price (R)
           </label>
           <input
-            placeholder="Test Price"
+            placeholder="Test Price (R)"
             {...formik.getFieldProps("price")}
             className={clsx(
               "form-control bg-transparent",

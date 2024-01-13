@@ -55,7 +55,7 @@ const TestTypesPriceTable: FC<Props> = ({
                     </div>
                   </th>
                   <th className="min-w-100px">Title</th>
-                  <th className="min-w-100px">Price</th>
+                  <th className="min-w-100px">Price(R)</th>
                   <th className="min-w-100px text-end">Actions</th>
                 </tr>
               </thead>

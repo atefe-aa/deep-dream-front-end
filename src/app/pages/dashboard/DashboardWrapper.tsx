@@ -73,7 +73,7 @@ const DashboardPage = () => {
             unit=" (R)"
             className=" mb-5 mb-xl-8"
             color="danger"
-            description="Test Types Prices"
+            description="Test Types Prices(R)"
             change="All Laboratories"
           />
         </div>
@@ -98,8 +98,8 @@ const DashboardPage = () => {
             className="mb-5 mb-xl-8 "
             svgIcon="basket"
             color="success"
-            description="Price Base"
-            change="+259"
+            description="Price(R) Base"
+            totals={BarChartTotalsPrice}
           />
         </div>
         <div className="col-lg-6">
@@ -110,7 +110,7 @@ const DashboardPage = () => {
             svgIcon="basket"
             color="success"
             description="Test Number Base"
-            change="+259"
+            totals={BarChartTotalsNumber}
           />
         </div>
         {/* end::Col */}
