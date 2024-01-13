@@ -6,8 +6,8 @@ import { FilterDropdown } from "./FilterDropdown";
 
 const SearchAndFilter: FC = () => {
   return (
-    <div className="row">
-      <div className="d-flex col col-12 col-md-4  mb-4">
+    <div className="row mt-5">
+      <div className="d-flex col col-12 col-md-4">
         {/* Full width on mobile, 25% on desktop */}
         <Search />
         {/* begin::Filter */}
@@ -22,7 +22,7 @@ const SearchAndFilter: FC = () => {
             <KTIcon iconName="filter" className="fs-2" />
           </button>
           {/* end::Menu toggle */}
-          <FilterDropdown />
+          <FilterDropdown filters={['date','lab','testType']} />
         </div>
         {/* end::Filter */}
       </div>

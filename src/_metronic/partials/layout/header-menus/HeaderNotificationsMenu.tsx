@@ -16,7 +16,7 @@ type Props = {
 
 const HeaderNotificationsMenu: FC<Props> = ({backgrounUrl}) => (
   <div
-    className='menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px'
+    className='menu menu-sub  menu-sub-dropdown menu-column w-350px w-lg-375px'
     data-kt-menu='true'
   >
     <div
@@ -68,7 +68,6 @@ const HeaderNotificationsMenu: FC<Props> = ({backgrounUrl}) => (
               <div className='d-flex align-items-center'>
                 <div className='symbol symbol-35px me-4'>
                   <span className={clsx('symbol-label', `bg-light-${alert.state}`)}>
-                    {' '}
                     <KTIcon iconName={alert.icon} className={`fs-2 text-${alert.state}`} />
                   </span>
                 </div>

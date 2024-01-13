@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { PageLink, PageTitle } from "../../../_metronic/layout/core";
 
@@ -9,7 +8,6 @@ import {
   BarChartTotalsNumber,
   BarChartTotalsPrice,
   FAKE_DATA,
-  LABS_TESTS_DATA,
   TestTypeNumberSeries,
   TestTypePriceSeries,
   radarNumberSeries,
@@ -22,7 +20,6 @@ import {
 import { LineChart } from "../../ui/charts/LineChart";
 import { RadarChart } from "../../ui/charts/RadarChart";
 import { TestsTable } from "../../ui/table/tests/TestsTable";
-import { ChartsWidget1 } from "../../../_metronic/partials/widgets";
 
 const data = FAKE_DATA;
 
@@ -38,8 +35,6 @@ const dashboardBreadCrumbs: Array<PageLink> = [
 const DashboardPage = () => {
   return (
     <>
-      <SearchAndFilter />
-
       {/* begin::Row */}
       <div className="row gy-5 g-xxl-8">
         {/* begin::Col */}
@@ -122,8 +117,10 @@ const DashboardPage = () => {
       </div>
       {/* end::Row */}
 
+      <SearchAndFilter />
+
       {/* begin::Row */}
-      <div className="row gy-5 g-xl-8 mt-2">
+      <div className="row gy-5 g-xl-8 mt-1">
         {/* begin::Col */}
         <div className="col-xxl-12">
           <TestsTable

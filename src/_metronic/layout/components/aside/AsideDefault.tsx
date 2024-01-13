@@ -2,10 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { useLayout } from "../../core";
-import { KTIcon, toAbsoluteUrl } from "../../../helpers";
+import {  toAbsoluteUrl } from "../../../helpers";
 import { AsideTabs } from "./AsideTabs";
 import { AsideFooter } from "./AsideFooter";
-import { TabsBase } from "./Tabs/_TabsBase";
 
 const AsideDefault = () => {
   const { config } = useLayout();
@@ -41,7 +40,7 @@ const AsideDefault = () => {
         </div>
         {/* end::Logo */}
 
-        <AsideFooter />
+   
         {/* begin::Nav */}
         <div
           className="aside-nav d-flex flex-column align-items-center flex-column-fluid w-100 pt-5 pt-lg-0"
@@ -50,6 +49,8 @@ const AsideDefault = () => {
           <AsideTabs link={link} setLink={setLink} />
         </div>
         {/* end::Nav */}
+
+        <AsideFooter />
       </div>
       {/* end::Primary */}
     </div>

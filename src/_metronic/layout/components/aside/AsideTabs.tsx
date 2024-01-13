@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 const tabs: ReadonlyArray<{ link: string; icon: string; tooltip: string }> = [
   {
-    link: "/live-view/view",
-    icon: "eye",
-    tooltip: "Live View",
+    link: "/manual-mode",
+    icon: "joystick",
+    tooltip: "Manual Mode",
   },
   {
     link: "/user-management/users",
@@ -16,7 +16,7 @@ const tabs: ReadonlyArray<{ link: string; icon: string; tooltip: string }> = [
   },
   {
     link: "/settings/ss",
-    icon: "gear",
+    icon: "setting-4",
     tooltip: "Settings",
   },
 ];
