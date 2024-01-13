@@ -87,7 +87,7 @@ function MachineSettings() {
                     key={set.id}
                     label={`Settings for ${set.title}`}
                     name={set.title}
-                    show={_index === 0}
+                    show={false}
                   >
                     {set.settings.map((setting) =>
                       setting.type === "checkbox" ? (
@@ -112,7 +112,7 @@ function MachineSettings() {
                   </SettingItem>
                 )
             )}
-            <SettingItem name="slide_placement" label="Slide Placement" show={true}>
+            <SettingItem name="slide_placement" label="Slide Placement" show={false}>
               <TestTypesTable
               modalId="kt_modal_add_new_slide"
                 className="mb-5 mb-xl-8"

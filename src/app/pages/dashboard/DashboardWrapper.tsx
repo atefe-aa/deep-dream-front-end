@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { PageLink, PageTitle } from "../../../_metronic/layout/core";
 
-import { SearchAndFilter } from "../../ui/serach-and-filter/SearchAndFilter";
+import { SearchAndFilter } from "../../ui/search-and-filter/SearchAndFilter";
 import { Pagination } from "../../ui/Pagination";
 import { BarChart } from "../../ui/charts/BarChart";
 import {

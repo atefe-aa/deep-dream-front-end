@@ -1,5 +1,5 @@
 export * from "./layout/quick-links/QuicLinks";
-export * from "../../app/ui/serach-and-filter/Search";
+export * from "../../app/ui/search-and-filter/Search";
 export * from "./layout/SearchModal";
 export * from "./layout/InboxCompose";
 export * from "./layout/header-menus/HeaderUserMenu";

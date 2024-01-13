@@ -7,7 +7,7 @@ import {
   getCSS,
   getCSSVariableValue,
 } from "../../../_metronic/assets/ts/_utils";
-import { FilterDropdown } from "../serach-and-filter/FilterDropdown";
+import { FilterDropdown } from "../search-and-filter/FilterDropdown";
 interface TotalItem {
   title: string;
   value: number | string;
@@ -55,7 +55,15 @@ const LineChart: React.FC<Props> = ({
 
     const chart = new ApexCharts(
       chartRef.current,
-      getChartOptions(chartHeight, labelColor, baseColor, lightColor,series,xaxisCategories,unit)
+      getChartOptions(
+        chartHeight,
+        labelColor,
+        baseColor,
+        lightColor,
+        series,
+        xaxisCategories,
+        unit
+      )
     );
     if (chart) {
       chart.render();
@@ -97,7 +105,7 @@ const LineChart: React.FC<Props> = ({
           >
             <KTIcon iconName="category" className="fs-2" />
           </button>
-          <FilterDropdown filters={['lab','date']} />
+          <FilterDropdown filters={["lab", "date"]} />
           {/* end::Menu  */}
         </div>
       </div>
@@ -153,7 +161,7 @@ function getChartOptions(
   unit: string
 ): ApexOptions {
   return {
-    series:series,
+    series: series,
     chart: {
       fontFamily: "inherit",
       type: "area",

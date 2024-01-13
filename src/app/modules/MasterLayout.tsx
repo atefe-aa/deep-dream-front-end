@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { AsideDefault } from "../../_metronic/layout/components/aside/AsideDefault";
 import { Footer } from "../../_metronic/layout/components/Footer";
 import { HeaderWrapper } from "../../_metronic/layout/components/header/HeaderWrapper";
 import { ScrollTop } from "../../_metronic/layout/components/ScrollTop";
@@ -8,6 +7,7 @@ import { Content } from "../../_metronic/layout/components/Content";
 import { PageDataProvider } from "../../_metronic/layout/core";
 import { AddNewTest, DrawerMessenger } from "../../_metronic/partials";
 import { MenuComponent } from "../../_metronic/assets/ts/components";
+import { AsideDefault } from "../ui/aside/AsideDefault";
 
 const MasterLayout = () => {
   const location = useLocation();
@@ -34,8 +34,7 @@ const MasterLayout = () => {
             {/* begin::Content */}
             <div
               id="kt_content"
-              className="content d-flex flex-column flex-column-fluid mt-20 mt-lg-40"
-              // style={{ marginTop: "120px" }}
+              className="content d-flex flex-column flex-column-fluid "
             >
               <Content>
                 <Outlet />

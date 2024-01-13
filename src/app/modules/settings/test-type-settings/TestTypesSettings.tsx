@@ -26,7 +26,7 @@ function TestTypesSettings() {
 
       <div id="test_types_settings " className="collapse show">
         <div className="accordion px-10 " id="accordionExample">
-          <SettingItem name="test_types" label="Test Types" show={true}>
+          <SettingItem name="test_types" label="Test Types" show={false}>
             <TestTypesTable modalId="kt_modal_add_new_test_type" className="mb-5 mb-xl-8" columns={['Tilte','Code','Sex','Type','Description','Magnifications']}>
               {TEST_TYPES.map((test, index) => (
                 <TestTypesTableRow

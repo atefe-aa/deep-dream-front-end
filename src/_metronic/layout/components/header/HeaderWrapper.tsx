@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { KTIcon, toAbsoluteUrl } from "../../../helpers";
 import { useLayout } from "../../core";
-import { DefaultTitle } from "./page-title/DefaultTitle";
 import { Topbar } from "./Topbar";
 
 export function HeaderWrapper() {
@@ -28,8 +27,8 @@ export function HeaderWrapper() {
   return (
     <div
       id="kt_header"
-      style={{background:"var(--bs-page-bg)"}}
-      className={clsx("header  fixed-top", classes.header.join(" "))}
+      // style={{background:"var(--bs-page-bg)"}}
+      className={clsx("header  ", classes.header.join(" "))}
       {...attributes.headerMenu}
       data-kt-sticky="true"
       data-kt-sticky-name="header"
@@ -44,13 +43,13 @@ export function HeaderWrapper() {
         id="kt_header_container"
       >
          {/* begin::Logo */}
-         <Link to="/dashboard" className="d-lg-flex d-none align-items-center">
+         {/* <Link to="/dashboard" className="d-lg-flex d-none align-items-center">
             <img
               alt="Logo"
               src={toAbsoluteUrl("/media/logos/demo7.svg")}
               className="h-30px"
             />
-          </Link>
+          </Link> */}
           {/* end::Logo */}
         {/* begin::Wrapper */}
         <div className="d-flex d-lg-none align-items-center ms-auto me-0">

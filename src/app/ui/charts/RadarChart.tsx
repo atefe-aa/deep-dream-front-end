@@ -8,7 +8,7 @@ import {
   getCSSVariableValue,
 } from "../../../_metronic/assets/ts/_utils";
 import { TEST_TYPES } from "../../utils/constants";
-import { FilterDropdown } from "../serach-and-filter/FilterDropdown";
+import { FilterDropdown } from "../search-and-filter/FilterDropdown";
 
 type Props = {
   className: string;
