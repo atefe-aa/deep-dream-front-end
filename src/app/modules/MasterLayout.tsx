@@ -34,7 +34,8 @@ const MasterLayout = () => {
             {/* begin::Content */}
             <div
               id="kt_content"
-              className="content d-flex flex-column flex-column-fluid"
+              className="content d-flex flex-column flex-column-fluid mt-20 mt-lg-40"
+              // style={{ marginTop: "120px" }}
             >
               <Content>
                 <Outlet />

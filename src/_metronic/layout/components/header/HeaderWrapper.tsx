@@ -28,7 +28,8 @@ export function HeaderWrapper() {
   return (
     <div
       id="kt_header"
-      className={clsx("header", classes.header.join(" "))}
+      style={{background:"var(--bs-page-bg)"}}
+      className={clsx("header  fixed-top", classes.header.join(" "))}
       {...attributes.headerMenu}
       data-kt-sticky="true"
       data-kt-sticky-name="header"
@@ -38,13 +39,21 @@ export function HeaderWrapper() {
       <div
         className={clsx(
           classes.headerContainer.join(" "),
-          "d-flex align-items-center justify-content-between"
+          " d-flex align-items-center justify-content-between "
         )}
         id="kt_header_container"
       >
-        <DefaultTitle />
+         {/* begin::Logo */}
+         <Link to="/dashboard" className="d-lg-flex d-none align-items-center">
+            <img
+              alt="Logo"
+              src={toAbsoluteUrl("/media/logos/demo7.svg")}
+              className="h-30px"
+            />
+          </Link>
+          {/* end::Logo */}
         {/* begin::Wrapper */}
-        <div className={"d-flex d-lg-none align-items-center ms-n2 me-2"}>
+        <div className="d-flex d-lg-none align-items-center ms-auto me-0">
           {/* begin::Aside mobile toggle */}
           <div
             className="btn btn-icon btn-active-icon-primary aside-toggle"

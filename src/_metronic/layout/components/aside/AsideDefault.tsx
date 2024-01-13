@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { useLayout } from "../../core";
-import {  toAbsoluteUrl } from "../../../helpers";
+import { toAbsoluteUrl } from "../../../helpers";
 import { AsideTabs } from "./AsideTabs";
 import { AsideFooter } from "./AsideFooter";
 
@@ -24,23 +24,7 @@ const AsideDefault = () => {
       data-kt-drawer-toggle="#kt_aside_toggle"
     >
       {/* begin::Primary */}
-      <div className="aside-primary d-flex flex-column align-items-lg-center flex-row-auto">
-        {/* begin::Logo */}
-        <div
-          className="aside-logo d-none d-lg-flex flex-column align-items-center flex-column-auto py-10"
-          id="kt_aside_logo"
-        >
-          <Link to="/dashboard">
-            <img
-              src={toAbsoluteUrl("/media/logos/logo-large.png")}
-              alt="logo"
-              className="h-35px"
-            />
-          </Link>
-        </div>
-        {/* end::Logo */}
-
-   
+      <div className="aside-primary d-flex flex-column mt-lg-40 mt-5 align-items-lg-center flex-row-auto">
         {/* begin::Nav */}
         <div
           className="aside-nav d-flex flex-column align-items-center flex-column-fluid w-100 pt-5 pt-lg-0"
