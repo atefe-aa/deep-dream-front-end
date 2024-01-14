@@ -278,6 +278,15 @@ const ScanningPage = () => {
   };
   const [isScanning, setIsScanning] = useState(false);
 
+  // useEffect(() => {
+  //   const isSelectAll =
+  //     formik.values.selectedCheckboxes.length === checkboxes.length;
+  //   if (!isSelectAll) {
+  //     formik.setFieldValue("selectAll", false);
+  //   }
+
+  // }, [formik.values.selectedCheckboxes]);
+
   useEffect(
     function () {
       fakeData.map(

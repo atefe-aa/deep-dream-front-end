@@ -31,6 +31,7 @@ const SlidesTable: React.FC<Props> = ({
                       className="form-check-input"
                       type="checkbox"
                       id="checkAll"
+                      checked={formik.values.selectAll}
                       onChange={handleSelectAllChange}
                     />
                   </div>
