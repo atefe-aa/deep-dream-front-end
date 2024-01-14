@@ -3,6 +3,12 @@ import { KTIcon } from "../../../../_metronic/helpers";
 import { DropDownButton } from "../../buttons/DropDownButton";
 import { ShareMenu } from "../../ShareMenu";
 
+interface DurationArray {
+  id?: number;
+  magnification?: string;
+  duration?: number;
+}
+
 interface DataType {
   name: string;
   date: string;
@@ -11,10 +17,12 @@ interface DataType {
   testType: string;
   age: number;
   price: number;
+  numberOfSlides:number;
   sex: string;
   description: string;
   laboratory: string;
   progress: string;
+  durations?: DurationArray[];
 }
 
 type Props = {
@@ -23,6 +31,11 @@ type Props = {
 };
 
 const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
+  const totalDuration = data.durations?.reduce(
+    (acc, item) => acc + (item.duration ? item.duration : 0),
+    0
+  );
+
   let progressPercent = 0;
   let progressBg = "danger";
   switch (data.progress.toLowerCase()) {
@@ -80,6 +93,12 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
             {data.price.toLocaleString()}
           </a>
         </div>
+      </td>  <td>
+        <div className="d-flex justify-content-start flex-column">
+          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+            {data.numberOfSlides}
+          </a>
+        </div>
       </td>
       <td>
         <div className="d-flex justify-content-start flex-column">
@@ -99,6 +118,25 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
           {data.testType}
         </span>
       </td>
+      <td>
+        {data.durations ? (
+          <>
+            <a
+              href="#"
+              className="d-flex justify-content-between text-gray-900 fw-bold text-hover-primary d-block fs-6"
+            >
+              <span>Total: </span>{totalDuration}
+            </a>
+            {data.durations.map((item) => (
+              <span className="d-flex justify-content-between text-muted fw-semibold text-muted d-block fs-7">
+                <span>{item.magnification}: </span>{item.duration}
+              </span>
+            ))}
+          </>
+        ) : (
+          ""
+        )}
+      </td>
       <td className="text-end">
         <div className="d-flex flex-column w-100 me-2">
           <div className="d-flex flex-stack mb-2">
@@ -116,7 +154,7 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
         </div>
       </td>
       <td>
-        <div className="d-flex justify-content-end flex-shrink-0">
+        <div className="d-flex justify-content-center flex-shrink-0">
           <a
             href="#"
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"

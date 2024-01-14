@@ -11,6 +11,27 @@ export const FAKE_DATA = [
     laboratory: "Nobel",
     progress: "scanned",
     price: 120000,
+    numberOfSlides:1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },  {
+        id: 3,
+        magnification: "40x",
+        duration: 10,
+      },  {
+        id: 4,
+        magnification: "100x",
+        duration: 30,
+      },
+    ],
   },
   {
     name: "Razieh Aabedini",
@@ -24,6 +45,19 @@ export const FAKE_DATA = [
     laboratory: "Nobel",
     progress: "answered",
     price: 120000,
+    numberOfSlides:1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Lotfallah Moradi",
@@ -37,6 +71,19 @@ export const FAKE_DATA = [
     laboratory: "Arya",
     progress: "deleted",
     price: 630000,
+    numberOfSlides:1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Mehri Alaafchian",
@@ -50,6 +97,19 @@ export const FAKE_DATA = [
     laboratory: "Erythron",
     progress: "confirmed",
     price: 700000,
+    numberOfSlides:1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Ellaheh Habibi",
@@ -63,6 +123,19 @@ export const FAKE_DATA = [
     laboratory: "Milad",
     progress: "scanning",
     price: 450000,
+    numberOfSlides:1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Mina Ahmadi",
@@ -76,6 +149,19 @@ export const FAKE_DATA = [
     laboratory: "Erythron",
     progress: "new",
     price: 500000,
+    numberOfSlides:1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Fatemeh Bagherian",
@@ -89,6 +175,19 @@ export const FAKE_DATA = [
     laboratory: "Milad",
     progress: "new",
     price: 450000,
+    numberOfSlides:1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Ebrahim Salehi",
@@ -102,6 +201,19 @@ export const FAKE_DATA = [
     laboratory: "Milad",
     progress: "answered",
     price: 630000,
+    numberOfSlides:1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Taghi Kianian",
@@ -115,6 +227,19 @@ export const FAKE_DATA = [
     laboratory: "Milad",
     progress: "scanning",
     price: 170000,
+    numberOfSlides:1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Ebrahim Shahriari",
@@ -128,6 +253,19 @@ export const FAKE_DATA = [
     laboratory: "Milad",
     progress: "Scanned",
     price: 450000,
+    numberOfSlides:1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
 ];
 
