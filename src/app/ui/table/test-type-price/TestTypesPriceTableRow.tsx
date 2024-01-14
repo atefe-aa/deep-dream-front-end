@@ -2,10 +2,9 @@ import { FC } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
 
 interface TestTypeArray {
-  
   testName: string;
   testPrice: number;
-
+  testExtraPrice: number;
 }
 
 type Props = {
@@ -39,6 +38,14 @@ const TestTypesPriceTableRow: FC<Props> = ({ testTypeData, index }) => {
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
           {testTypeData.testPrice.toLocaleString()}
+        </a>
+      </td>
+      <td>
+        <a
+          href="#"
+          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
+        >
+          {testTypeData.testExtraPrice.toLocaleString()}
         </a>
       </td>
     
