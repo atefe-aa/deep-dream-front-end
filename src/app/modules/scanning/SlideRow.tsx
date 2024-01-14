@@ -3,6 +3,12 @@ import { KTIcon } from "../../../_metronic/helpers";
 import { RegionSelector } from "./RegionSelector";
 import clsx from "clsx";
 
+interface TimeType {
+  magnification?: string;
+  id?: number;
+  duration?: number;
+}
+
 interface DataType {
   slide: number;
   testNumber: number;
@@ -10,6 +16,7 @@ interface DataType {
   progress: string;
   image: string;
   laboratory: string;
+  durations?: TimeType[];
 }
 
 type Props = {
@@ -25,6 +32,11 @@ const SlideRow: React.FC<Props> = ({
   formik,
   handleCheckboxChange,
 }) => {
+  const totalDuration = data.durations?.reduce(
+    (acc, item) => acc + (item.duration ? item.duration : 0),
+    0
+  );
+
   let progressPercent = 0;
   let progressBg = "info";
   switch (data.progress) {
@@ -140,6 +152,26 @@ const SlideRow: React.FC<Props> = ({
           </div>
         </div>
       </td>
+
+      {/* start::Durations */}
+      <td className="text-center">
+        <div className="d-flex flex-column text-gray-900 fw-bold text-hover-primary fs-6">
+         {data?.durations && <div className="d-flex justify-content-between">
+            <span>Total: </span>
+            <span>{totalDuration}</span>
+          </div>
+}
+          {data.durations &&
+            data.durations.map((item) => (
+              <div key={item.id} className="d-flex justify-content-between">
+                <span className="text-muted fs-7">{item.magnification}: </span>
+                <span className="text-muted fs-7">{item.duration}</span>
+              </div>
+            ))}
+        </div>
+      </td>
+      {/* end::Durations */}
+
       <td className="text-center">
         {/* Actions */}
         <div className="d-flex justify-content-end flex-shrink-0">
@@ -151,7 +183,7 @@ const SlideRow: React.FC<Props> = ({
               disabled={isScanning}
               className="btn btn-icon  btn-bg-light btn-active-color-primary btn-sm me-1"
             >
-              <i className="las la-play"></i>
+             <KTIcon iconName="to-left" className="fs-3" />
             </button>
           )}
 
@@ -168,7 +200,7 @@ const SlideRow: React.FC<Props> = ({
               disabled={isScanning}
               className="btn btn-icon  btn-bg-light btn-active-color-primary btn-sm me-1"
             >
-              <i className="las la-redo-alt"></i>
+               <KTIcon iconName="arrows-circle" className="fs-3" />
             </button>
           )}
 
@@ -192,6 +224,7 @@ const SlideRow: React.FC<Props> = ({
           )}
         </div>
       </td>
+
       <td className="text-center">
         <div className="d-flex flex-column" style={{ width: "320px" }}>
           {data?.image ? (

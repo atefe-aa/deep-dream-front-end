@@ -40,6 +40,12 @@ const SlidesTable: React.FC<Props> = ({
                 <th className="min-w-50px text-center">Test Type</th>
                 <th className="min-w-50px text-center">Laboratory</th>
                 <th className="min-w-50px text-center">Status</th>
+                <th
+                  className="min-w-50px text-center"
+                  style={{ width: "100px" }}
+                >
+                  Duration(min)
+                </th>
                 <th className="min-w-50px text-center">Actions</th>
                 <th className="min-w-50px text-center">Slide Preview</th>
               </tr>
