@@ -5,7 +5,7 @@ import { HeaderWrapper } from "../../_metronic/layout/components/header/HeaderWr
 import { ScrollTop } from "../../_metronic/layout/components/ScrollTop";
 import { Content } from "../../_metronic/layout/components/Content";
 import { PageDataProvider } from "../../_metronic/layout/core";
-import { AddNewTest, DrawerMessenger } from "../../_metronic/partials";
+import { AddNewTest } from "../../_metronic/partials";
 import { MenuComponent } from "../../_metronic/assets/ts/components";
 import { AsideDefault } from "../ui/aside/AsideDefault";
 
@@ -47,10 +47,6 @@ const MasterLayout = () => {
         </div>
         {/* end::Page */}
       </div>
-
-      {/* begin:: Drawers */}
-      <DrawerMessenger />
-      {/* end:: Drawers */}
 
       {/* begin:: Modals */}
       <AddNewTest />
