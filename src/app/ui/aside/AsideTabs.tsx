@@ -17,7 +17,7 @@ const tabs: ReadonlyArray<{ link: string; icon: string; tooltip: string }> = [
     tooltip: "Colleagues",
   },
   {
-    link: "/settings/ss",
+    link: "/settings/all",
     icon: "setting-4",
     tooltip: "Settings",
   },

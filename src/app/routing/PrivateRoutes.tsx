@@ -6,8 +6,8 @@ import { DashboardWrapper } from "../pages/dashboard/DashboardWrapper";
 import { getCSSVariableValue } from "../../_metronic/assets/ts/_utils";
 import { WithChildren } from "../../_metronic/helpers";
 import { ScanningPage } from "../pages/scanning/ScanningPage";
-import Settings from "../pages/settings-page/SettingsPage";
 import ManualModePage from "../pages/manual-mode-page/ManualModePage";
+import SettingsPage from "../pages/settings-page/SettingsPage";
 
 const PrivateRoutes = () => {
   const UsersPage = lazy(() => import("../pages/users-page/UsersPage"));
@@ -20,7 +20,7 @@ const PrivateRoutes = () => {
         {/* Pages */}
         <Route path="dashboard" element={<DashboardWrapper />} />
         <Route path="scanning" element={<ScanningPage />} />
-        <Route path="settings/*" element={<Settings />} />
+        <Route path="settings/*" element={<SettingsPage />} />
         <Route path="manual-mode" element={<ManualModePage />} />
 
         {/* Lazy Modules */}

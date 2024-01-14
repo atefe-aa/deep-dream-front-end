@@ -12,7 +12,7 @@ const SettingItem: React.FC<Props> = ({
   show = false,
 }) => {
   const modifiedName = name.replace(/ /g, "_");
-  console.log(modifiedName);
+
   return (
     <div className="accordion-item">
       <h2 className="accordion-header" id={`headding${modifiedName}`}>

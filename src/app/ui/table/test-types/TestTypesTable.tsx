@@ -53,7 +53,7 @@ const TestTypesTable: FC<Props> = ({
                   </div>
                 </th>
                 {columns.map((col) => (
-                  <th className="min-w-100px">{col}</th>
+                  <th key={col} className="min-w-100px">{col}</th>
                 ))}
                 <th className="min-w-100px text-end">Actions</th>
               </tr>

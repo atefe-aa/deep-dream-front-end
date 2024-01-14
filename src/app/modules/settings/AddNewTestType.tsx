@@ -243,30 +243,10 @@ const AddNewTestType: FC = () => {
         {/* end::Form group */}
 
         <div className="d-flex align-items-center my-6">
-          <Checkbox
-            label="4x"
-            inputName="mag4x"
-            formik={formik}
-            isChecked={formik.initialValues.mag4x}
-          />
-          <Checkbox
-            label="10x"
-            inputName="mag10x"
-            formik={formik}
-            isChecked={formik.initialValues.mag10x}
-          />
-          <Checkbox
-            label="40x"
-            inputName="mag40x"
-            formik={formik}
-            isChecked={formik.initialValues.mag40x}
-          />
-          <Checkbox
-            label="100x"
-            inputName="mag100x"
-            formik={formik}
-            isChecked={formik.initialValues.mag100x}
-          />
+          <Checkbox label="4x" inputName="mag4x" formik={formik} />
+          <Checkbox label="10x" inputName="mag10x" formik={formik} />
+          <Checkbox label="40x" inputName="mag40x" formik={formik} />
+          <Checkbox label="100x" inputName="mag100x" formik={formik} />
         </div>
 
         {/* begin::Action */}

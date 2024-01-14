@@ -5,7 +5,7 @@ import MachineSettings from "../../modules/settings/machine-settings/MachineSett
 import TestTypesSettings from "../../modules/settings/test-type-settings/TestTypesSettings";
 import { LABS_TESTS_DATA } from "../../utils/constants";
 
-function Settings() {
+function SettingsPage() {
   return (
     <>
       <MachineSettings />
@@ -14,7 +14,7 @@ function Settings() {
       {/* begin:: Modals */}
       <AddNewTestType />
       {LABS_TESTS_DATA.map((lab) => (
-        <AddNewTestPrice labName={lab.labName} />
+        <AddNewTestPrice key={lab.id} labName={lab.labName} />
       ))}
       <AddNewSlide />
       {/* end:: Modals */}
@@ -22,4 +22,4 @@ function Settings() {
   );
 }
 
-export default Settings;
+export default SettingsPage;

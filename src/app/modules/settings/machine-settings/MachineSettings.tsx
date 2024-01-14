@@ -23,11 +23,15 @@ const addSchema = Yup.object().shape({
 });
 
 const initialValues = {
-  title: "",
-  code: "",
-  type: "",
-  sex: "",
-  description: "",
+  microStep: "",
+  brightness: "",
+  x: "",
+  y: "",
+  z: "",
+  condenseur: "",
+  multiLayer: false,
+  numberOfLayers: 1,
+  steps: 1,
   mag4x: true,
   mag10x: false,
   mag40x: false,
@@ -75,11 +79,7 @@ function MachineSettings() {
 
       <div id="machine_settings" className="collapse show">
         <div className="accordion px-10" id="accordionExample">
-          <form
-            //  onSubmit={formik.handleSubmit}
-            noValidate
-            className="form"
-          >
+          <form onSubmit={formik.handleSubmit} noValidate className="form">
             {DEFAULT_SETTINGS.map(
               (set, _index) =>
                 set.title !== "slides placement" && (
@@ -94,27 +94,48 @@ function MachineSettings() {
                         <Checkbox
                           formik={formik}
                           key={setting.id}
-                          isChecked={!!setting.value}
                           label={setting.title.toUpperCase()}
                           inputName={setting.title}
                         />
                       ) : (
                         <SettingFormGroup
-                          value={setting.value}
                           key={setting.id}
                           label={setting.title.toUpperCase()}
                           type={setting.type}
-                          placeHolder={`${setting.type.toUpperCase()} setting`}
+                          placeHolder={setting.title}
                           inputName={setting.title}
+                          formik={formik}
                         />
                       )
+                    )}
+                    {formik.values.multiLayer && (
+                      <>
+                      <SettingFormGroup
+                        label="Number Of Layers"
+                        type="number"
+                        placeHolder="Number Of Layers"
+                        inputName="numberOfLayers"
+                        formik={formik}
+                        />
+                      <SettingFormGroup
+                      label="Steps (mm)"
+                      type="number"
+                      placeHolder="Steps (mm)"
+                      inputName="steps"
+                      formik={formik}
+                      />
+                      </>
                     )}
                   </SettingItem>
                 )
             )}
-            <SettingItem name="slide_placement" label="Slide Placement" show={false}>
+            <SettingItem
+              name="slide_placement"
+              label="Slide Placement"
+              show={false}
+            >
               <TestTypesTable
-              modalId="kt_modal_add_new_slide"
+                modalId="kt_modal_add_new_slide"
                 className="mb-5 mb-xl-8"
                 columns={["Number", "x", "y"]}
               >

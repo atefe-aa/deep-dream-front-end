@@ -40,7 +40,7 @@ const SlidesPlacementTableRow: FC<Props> = ({ data, index }) => {
         </div>
       </td>
       {data.coordinates.map((coor) => (
-        <td>
+        <td key={coor.id}>
           <a
             href="#"
             className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
