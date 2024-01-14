@@ -76,7 +76,6 @@ const RadarChart: React.FC<Props> = ({
       <div className={`card-header border-0  py-5`}>
         <div className="d-flex flex-column">
           <span className="text-gray-900 fw-bold fs-2">{description}</span>
-          {/* <span className="text-muted fw-semibold mt-1">{description}</span> */}
         </div>
         <div className="card-toolbar">
           {/* begin::Menu  */}
@@ -104,7 +103,7 @@ const RadarChart: React.FC<Props> = ({
         <div
           ref={chartRef}
           className="statistics-widget-4-chart card-rounded-bottom "
-          style={{ height: "365px" }}
+          style={{ height: "415px" }}
         ></div>
 
         {/* begin::Stats  */}
@@ -158,7 +157,21 @@ function getChartOptions(
         enabled: true,
       },
     },
-    plotOptions: {},
+    plotOptions: {
+      radar: {
+        polygons: {
+          strokeColors: "var(--bs-gray-400",
+          connectorColors: "var(--bs-gray-400",
+          strokeWidth: "1px",
+          fill: {
+            colors: [],
+          },
+        },
+        size: 150,
+        offsetX: 50,
+        offsetY: -30,
+      },
+    },
     legend: {
       show: true,
       position: "left",
@@ -202,7 +215,7 @@ function getChartOptions(
     stroke: {
       curve: "smooth",
       show: true,
-      width: 3,
+      width: 2,
       colors: [
         "#3379ff",
         "#f8934d",
@@ -231,7 +244,7 @@ function getChartOptions(
         show: false,
         position: "front",
         stroke: {
-          color: "--bs-gray-800",
+          color: labelColor,
           width: 1,
           dashArray: 3,
         },
@@ -247,6 +260,9 @@ function getChartOptions(
           colors: labelColor,
           fontSize: "12px",
         },
+      },
+      axisBorder: {
+        color: "red",
       },
     },
     states: {
@@ -276,15 +292,18 @@ function getChartOptions(
       },
       y: {
         formatter: function (val) {
-          return val + unit;
+          return val.toLocaleString() + unit;
         },
       },
     },
-    colors: [lightColor],
     markers: {
-      //   colors: [lightColor, 'white','yellow','red','blue'],
-      //   strokeColors: [baseColor],
-      //   strokeWidth: 3,
+      strokeColors:"var(--bs-gray-700",
+      colors:"var(--bs-gray-400",
+      // colors:[],
+      size: 3,
+      hover: {
+        size: 5,
+      },
     },
   };
 }

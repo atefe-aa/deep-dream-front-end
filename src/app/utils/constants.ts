@@ -955,12 +955,17 @@ export const BarChartTotalsPrice = [
   },
 ];
 export const testNumberSeries = [
-  { name: "Total Tests", data: LABS_TESTS_DATA.map((lab) => lab.totalTests) },
+  {
+    name: "Total Tests",
+    data: LABS_TESTS_DATA.map((lab) => lab.totalTests).sort((a, b) => b - a),
+  },
 ];
 export const testPriceSeries = [
   {
     name: "Total Price",
-    data: LABS_TESTS_DATA.map((lab) => lab.totalPrice / 1000),
+    data: LABS_TESTS_DATA.map((lab) => lab.totalPrice / 1000).sort(
+      (a, b) => b - a
+    ),
   },
 ];
 export const xaxisCategories = LABS_TESTS_DATA.map((lab) => lab.labName);

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { KTIcon, toAbsoluteUrl } from "../../../helpers";
 import { useLayout } from "../../core";
 import { Topbar } from "./Topbar";
+import { DefaultTitle } from "./page-title/DefaultTitle";
 
 export function HeaderWrapper() {
   const { config, classes, attributes } = useLayout();
@@ -27,7 +28,6 @@ export function HeaderWrapper() {
   return (
     <div
       id="kt_header"
-      // style={{background:"var(--bs-page-bg)"}}
       className={clsx("header  ", classes.header.join(" "))}
       {...attributes.headerMenu}
       data-kt-sticky="true"
@@ -38,21 +38,13 @@ export function HeaderWrapper() {
       <div
         className={clsx(
           classes.headerContainer.join(" "),
-          " d-flex align-items-center justify-content-between "
+          " d-flex align-items-center justify-content-between"
         )}
         id="kt_header_container"
       >
-         {/* begin::Logo */}
-         {/* <Link to="/dashboard" className="d-lg-flex d-none align-items-center">
-            <img
-              alt="Logo"
-              src={toAbsoluteUrl("/media/logos/demo7.svg")}
-              className="h-30px"
-            />
-          </Link> */}
-          {/* end::Logo */}
+         <DefaultTitle />
         {/* begin::Wrapper */}
-        <div className="d-flex d-lg-none align-items-center ms-auto me-0">
+        <div className="d-flex d-lg-none align-items-center ms-n2 me-2">
           {/* begin::Aside mobile toggle */}
           <div
             className="btn btn-icon btn-active-icon-primary aside-toggle"

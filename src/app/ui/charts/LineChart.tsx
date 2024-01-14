@@ -259,7 +259,7 @@ function getChartOptions(
       },
       y: {
         formatter: function (val) {
-          return val + unit;
+          return val.toLocaleString() + unit;
         },
       },
     },
