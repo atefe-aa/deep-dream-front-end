@@ -3,6 +3,12 @@ import { KTIcon } from "../../../../_metronic/helpers";
 import { DropDownButton } from "../../buttons/DropDownButton";
 import { ShareMenu } from "../../ShareMenu";
 
+interface DurationArray {
+  id?: number;
+  magnification?: string;
+  duration?: number;
+}
+
 interface DataType {
   name: string;
   date: string;
@@ -11,10 +17,12 @@ interface DataType {
   testType: string;
   age: number;
   price: number;
+  numberOfSlides: number;
   sex: string;
   description: string;
   laboratory: string;
   progress: string;
+  durations?: DurationArray[];
 }
 
 type Props = {
@@ -23,6 +31,11 @@ type Props = {
 };
 
 const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
+  const totalDuration = data.durations?.reduce(
+    (acc, item) => acc + (item?.duration || 0),
+    0
+  );
+
   let progressPercent = 0;
   let progressBg = "danger";
   switch (data.progress.toLowerCase()) {
@@ -56,9 +69,9 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
       <td>{index}</td>
       <td>
         <div className="d-flex justify-content-start flex-column">
-          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+          <div className="text-gray-900 fw-bold text-hover-primary fs-6">
             {data.number}
-          </a>
+          </div>
           <span className="text-muted fw-semibold text-muted d-block fs-7">
             {data.labNumber}
           </span>
@@ -66,9 +79,9 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
       </td>
       <td>
         <div className="d-flex justify-content-start flex-column">
-          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+          <div className="text-gray-900 fw-bold text-hover-primary fs-6">
             {data.name}
-          </a>
+          </div>
           <span className="text-muted fw-semibold text-muted d-block fs-7">
             {data.age} , {data.sex}
           </span>
@@ -76,28 +89,53 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
       </td>
       <td>
         <div className="d-flex justify-content-start flex-column">
-          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+          <div className="text-gray-900 fw-bold text-hover-primary fs-6">
             {data.price.toLocaleString()}
-          </a>
+          </div>
         </div>
       </td>
       <td>
         <div className="d-flex justify-content-start flex-column">
-          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {data.date}
-          </a>
+          <div className="text-gray-900 fw-bold text-hover-primary fs-6">
+            {data.numberOfSlides}
+          </div>
         </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="d-flex justify-content-start flex-column">
+          <div className="text-gray-900 fw-bold text-hover-primary fs-6">
+            {data.date}
+          </div>
+        </div>
+      </td>
+      <td>
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {data.laboratory}
-        </a>
+        </div>
         <span className="text-muted fw-semibold text-muted d-block fs-7">
           {data.testType}
         </span>
+      </td>
+      <td>
+        {data.durations ? (
+          <>
+            <div className="d-flex justify-content-between text-gray-900 fw-bold text-hover-primary d-block fs-6">
+              <span>Total: </span>
+              {totalDuration}
+            </div>
+            {data.durations.map((item) => (
+              <span
+                key={item?.id}
+                className="d-flex justify-content-between text-muted fw-semibold text-muted d-block fs-7"
+              >
+                <span>{item?.magnification}: </span>
+                {item?.duration}
+              </span>
+            ))}
+          </>
+        ) : (
+          "-"
+        )}
       </td>
       <td className="text-end">
         <div className="d-flex flex-column w-100 me-2">
@@ -116,9 +154,8 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
         </div>
       </td>
       <td>
-        <div className="d-flex justify-content-end flex-shrink-0">
-          <a
-            href="#"
+        <div className="d-flex justify-content-center flex-shrink-0">
+          <div
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
             data-bs-toggle="tooltip"
             title="Share"
@@ -129,7 +166,7 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
             data-bs-dismiss="click"
           >
             <KTIcon iconName="share" className="fs-3" />
-          </a>
+          </div>
           <ShareMenu backgrounUrl="/media/misc/pattern-1.jpg" />
           <DropDownButton />
         </div>

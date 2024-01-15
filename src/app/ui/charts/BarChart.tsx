@@ -4,7 +4,8 @@ import { getCSSVariableValue } from "../../../_metronic/assets/ts/_utils";
 import { useThemeMode } from "../../../_metronic/partials";
 import { KTIcon } from "../../../_metronic/helpers";
 import clsx from "clsx";
-import { FilterDropdown } from "../serach-and-filter/FilterDropdown";
+import { FilterDropdown } from "../search-and-filter/FilterDropdown";
+import { LABS_TESTS_DATA } from "../../utils/constants";
 
 interface TotalItem {
   title: string;
@@ -88,7 +89,7 @@ const BarChart: FC<Props> = ({
           >
             <KTIcon iconName="category" className="fs-2" />
           </button>
-          <FilterDropdown filters={['date']} />
+          <FilterDropdown filters={["date"]} />
           {/* end::Menu  */}
         </div>
       </div>

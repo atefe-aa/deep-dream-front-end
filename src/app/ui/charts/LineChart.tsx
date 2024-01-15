@@ -7,7 +7,8 @@ import {
   getCSS,
   getCSSVariableValue,
 } from "../../../_metronic/assets/ts/_utils";
-import { FilterDropdown } from "../serach-and-filter/FilterDropdown";
+import { FilterDropdown } from "../search-and-filter/FilterDropdown";
+
 interface TotalItem {
   title: string;
   value: number | string;
@@ -55,7 +56,15 @@ const LineChart: React.FC<Props> = ({
 
     const chart = new ApexCharts(
       chartRef.current,
-      getChartOptions(chartHeight, labelColor, baseColor, lightColor,series,xaxisCategories,unit)
+      getChartOptions(
+        chartHeight,
+        labelColor,
+        baseColor,
+        lightColor,
+        series,
+        xaxisCategories,
+        unit
+      )
     );
     if (chart) {
       chart.render();
@@ -97,7 +106,7 @@ const LineChart: React.FC<Props> = ({
           >
             <KTIcon iconName="category" className="fs-2" />
           </button>
-          <FilterDropdown filters={['lab','date']} />
+          <FilterDropdown filters={["lab", "date"]} />
           {/* end::Menu  */}
         </div>
       </div>
@@ -123,14 +132,15 @@ const LineChart: React.FC<Props> = ({
           {/* begin::Row  */}
           <div className="row g-0">
             {/* begin::Col  */}
-            <div className="col mx-5">
-              <div className="fs-6 text-gray-700">total</div>
-              <div className="fs-5 fw-bold text-gray-800">2000 R</div>
-            </div>{" "}
-            <div className="col mx-5">
-              <div className="fs-6 text-gray-500">total</div>
-              <div className="fs-5 fw-bold text-gray-800">2000 R</div>
-            </div>
+            {totals.map((total) => (
+              <div key={total.title} className="col mx-5">
+                <div className="fs-6 text-gray-700">{total.title}</div>
+                <div className="fs-5 fw-bold text-gray-800">
+                  {total.value} {total.unit}
+                </div>
+              </div>
+            ))}
+
             {/* end::Col  */}
           </div>
           {/* end::Row  */}
@@ -153,7 +163,7 @@ function getChartOptions(
   unit: string
 ): ApexOptions {
   return {
-    series:series,
+    series: series,
     chart: {
       fontFamily: "inherit",
       type: "area",
@@ -249,7 +259,7 @@ function getChartOptions(
       },
       y: {
         formatter: function (val) {
-          return val + unit;
+          return val.toLocaleString() + unit;
         },
       },
     },

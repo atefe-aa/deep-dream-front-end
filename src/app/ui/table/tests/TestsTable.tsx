@@ -18,6 +18,7 @@ type TestsData = {
   laboratory: string;
   progress: string;
   price: number;
+  numberOfSlides: number;
 };
 
 const TestsTable: React.FC<Props> = ({ className = "", testsData }) => {
@@ -33,7 +34,7 @@ const TestsTable: React.FC<Props> = ({ className = "", testsData }) => {
       {/* begin::Body */}
       <div className="card-body py-3">
         {/* begin::Table container */}
-        <div className="table-responsive">
+        <div className="table-responsive text-center">
           {/* begin::Table */}
           <table className="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
             {/* begin::Table head */}
@@ -43,10 +44,12 @@ const TestsTable: React.FC<Props> = ({ className = "", testsData }) => {
                 <th className="min-w-15px">Number</th>
                 <th className="min-w-150px">Patient</th>
                 <th className="min-w-130px">Price(R)</th>
+                <th className="min-w-80px">Number Of SLides</th>
                 <th className="min-w-150px">Admit Date & Time</th>
                 <th className="min-w-140px">Laboratory</th>
+                <th className="min-w-50px" style={{width:"80px"}}>Scan Duration(min)</th>
                 <th className="min-w-120px">Progress</th>
-                <th className="min-w-100px text-end">Actions</th>
+                <th className="min-w-100px ">Actions</th>
               </tr>
             </thead>
             {/* end::Table head */}

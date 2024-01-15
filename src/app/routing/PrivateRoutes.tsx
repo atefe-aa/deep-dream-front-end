@@ -3,19 +3,13 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { MasterLayout } from "../modules/MasterLayout";
 import TopBarProgress from "react-topbar-progress-indicator";
 import { DashboardWrapper } from "../pages/dashboard/DashboardWrapper";
-import { MenuTestPage } from "../pages/MenuTestPage";
 import { getCSSVariableValue } from "../../_metronic/assets/ts/_utils";
 import { WithChildren } from "../../_metronic/helpers";
-import BuilderPageWrapper from "../pages/layout-builder/BuilderPageWrapper";
 import { ScanningPage } from "../pages/scanning/ScanningPage";
-import Settings from "../pages/settings-page/SettingsPage";
+import ManualModePage from "../pages/manual-mode-page/ManualModePage";
+import SettingsPage from "../pages/settings-page/SettingsPage";
 
 const PrivateRoutes = () => {
-  const ProfilePage = lazy(() => import("../modules/profile/ProfilePage"));
-  const WizardsPage = lazy(() => import("../modules/wizards/WizardsPage"));
-  const AccountPage = lazy(() => import("../modules/accounts/AccountPage"));
-  const WidgetsPage = lazy(() => import("../modules/widgets/WidgetsPage"));
-  const ChatPage = lazy(() => import("../modules/apps/chat/ChatPage"));
   const UsersPage = lazy(() => import("../pages/users-page/UsersPage"));
 
   return (
@@ -26,49 +20,10 @@ const PrivateRoutes = () => {
         {/* Pages */}
         <Route path="dashboard" element={<DashboardWrapper />} />
         <Route path="scanning" element={<ScanningPage />} />
-        <Route path="settings/*" element={<Settings />} />
-        <Route path="menu-test" element={<MenuTestPage />} />
+        <Route path="settings/*" element={<SettingsPage />} />
+        <Route path="manual-mode" element={<ManualModePage />} />
+
         {/* Lazy Modules */}
-        <Route
-          path="crafted/pages/profile/*"
-          element={
-            <SuspensedView>
-              <ProfilePage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path="crafted/pages/wizards/*"
-          element={
-            <SuspensedView>
-              <WizardsPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path="crafted/widgets/*"
-          element={
-            <SuspensedView>
-              <WidgetsPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path="crafted/settings/*"
-          element={
-            <SuspensedView>
-              <AccountPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path="apps/chat/*"
-          element={
-            <SuspensedView>
-              <ChatPage />
-            </SuspensedView>
-          }
-        />
         <Route
           path="/user-management/*"
           element={

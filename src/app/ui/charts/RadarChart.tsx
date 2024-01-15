@@ -8,14 +8,20 @@ import {
   getCSSVariableValue,
 } from "../../../_metronic/assets/ts/_utils";
 import { TEST_TYPES } from "../../utils/constants";
-import { FilterDropdown } from "../serach-and-filter/FilterDropdown";
+import { FilterDropdown } from "../search-and-filter/FilterDropdown";
+
+interface TotalItem {
+  title: string;
+  value: number | string;
+  unit: string;
+}
 
 type Props = {
   className: string;
   svgIcon: string;
   color: string;
-  change: string;
   description: string;
+  totals: Array<TotalItem>;
   series: Array<ChartDataItem>;
   unit: string;
 };
@@ -29,6 +35,7 @@ const RadarChart: React.FC<Props> = ({
   series,
   unit,
   description,
+  totals,
 }) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const { mode } = useThemeMode();
@@ -69,7 +76,6 @@ const RadarChart: React.FC<Props> = ({
       <div className={`card-header border-0  py-5`}>
         <div className="d-flex flex-column">
           <span className="text-gray-900 fw-bold fs-2">{description}</span>
-          {/* <span className="text-muted fw-semibold mt-1">{description}</span> */}
         </div>
         <div className="card-toolbar">
           {/* begin::Menu  */}
@@ -97,7 +103,7 @@ const RadarChart: React.FC<Props> = ({
         <div
           ref={chartRef}
           className="statistics-widget-4-chart card-rounded-bottom "
-          style={{ height: "365px" }}
+          style={{ height: "415px" }}
         ></div>
 
         {/* begin::Stats  */}
@@ -105,14 +111,14 @@ const RadarChart: React.FC<Props> = ({
           {/* begin::Row  */}
           <div className="row g-0">
             {/* begin::Col  */}
-            <div className="col mx-5">
-              <div className="fs-6 text-gray-700">total</div>
-              <div className="fs-5 fw-bold text-gray-800">2000 R</div>
-            </div>{" "}
-            <div className="col mx-5">
-              <div className="fs-6 text-gray-500">total</div>
-              <div className="fs-5 fw-bold text-gray-800">2000 R</div>
-            </div>
+            {totals.map((total) => (
+              <div key={total.title} className="col mx-5">
+                <div className="fs-6 text-gray-700">{total.title}</div>
+                <div className="fs-5 fw-bold text-gray-800">
+                  {total.value} {total.unit}
+                </div>
+              </div>
+            ))}
             {/* end::Col  */}
           </div>
           {/* end::Row  */}
@@ -151,7 +157,21 @@ function getChartOptions(
         enabled: true,
       },
     },
-    plotOptions: {},
+    plotOptions: {
+      radar: {
+        polygons: {
+          strokeColors: "var(--bs-gray-400",
+          connectorColors: "var(--bs-gray-400",
+          strokeWidth: "1px",
+          fill: {
+            colors: [],
+          },
+        },
+        size: 150,
+        offsetX: 50,
+        offsetY: -30,
+      },
+    },
     legend: {
       show: true,
       position: "left",
@@ -195,7 +215,7 @@ function getChartOptions(
     stroke: {
       curve: "smooth",
       show: true,
-      width: 3,
+      width: 2,
       colors: [
         "#3379ff",
         "#f8934d",
@@ -224,7 +244,7 @@ function getChartOptions(
         show: false,
         position: "front",
         stroke: {
-          color: "--bs-gray-800",
+          color: labelColor,
           width: 1,
           dashArray: 3,
         },
@@ -240,6 +260,9 @@ function getChartOptions(
           colors: labelColor,
           fontSize: "12px",
         },
+      },
+      axisBorder: {
+        color: "red",
       },
     },
     states: {
@@ -269,15 +292,18 @@ function getChartOptions(
       },
       y: {
         formatter: function (val) {
-          return val + unit;
+          return val.toLocaleString() + unit;
         },
       },
     },
-    colors: [lightColor],
     markers: {
-      //   colors: [lightColor, 'white','yellow','red','blue'],
-      //   strokeColors: [baseColor],
-      //   strokeWidth: 3,
+      strokeColors:"var(--bs-gray-700",
+      colors:"var(--bs-gray-400",
+      // colors:[],
+      size: 3,
+      hover: {
+        size: 5,
+      },
     },
   };
 }

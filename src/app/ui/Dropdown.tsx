@@ -21,7 +21,6 @@ const Dropdown: FC = () => {
         </a>
       </div>
 
-
       <div className="menu-item px-3">
         <a
           href="http://cytomine.local/#/project/3609/image/4107/slice/4108?viewer=izoeau5m2"
@@ -40,7 +39,14 @@ const Dropdown: FC = () => {
           Download Report
         </a>
       </div>
-      
+
+      <div className="menu-item px-3">
+        <a href="#" className="menu-link px-3">
+          <KTIcon iconName="picture" className="fs-3 me-3" />
+          View Slide Image
+        </a>
+      </div>
+
       <div className="menu-item px-3 my-1">
         <a
           href="#"

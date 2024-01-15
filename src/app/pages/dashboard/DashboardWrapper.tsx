@@ -1,14 +1,13 @@
 import { useIntl } from "react-intl";
 import { PageLink, PageTitle } from "../../../_metronic/layout/core";
 
-import { SearchAndFilter } from "../../ui/serach-and-filter/SearchAndFilter";
+import { SearchAndFilter } from "../../ui/search-and-filter/SearchAndFilter";
 import { Pagination } from "../../ui/Pagination";
 import { BarChart } from "../../ui/charts/BarChart";
 import {
   BarChartTotalsNumber,
   BarChartTotalsPrice,
   FAKE_DATA,
-  LABS_TESTS_DATA,
   TestTypeNumberSeries,
   TestTypePriceSeries,
   radarNumberSeries,
@@ -21,7 +20,6 @@ import {
 import { LineChart } from "../../ui/charts/LineChart";
 import { RadarChart } from "../../ui/charts/RadarChart";
 import { TestsTable } from "../../ui/table/tests/TestsTable";
-import { ChartsWidget1 } from "../../../_metronic/partials/widgets";
 
 const data = FAKE_DATA;
 
@@ -37,8 +35,6 @@ const dashboardBreadCrumbs: Array<PageLink> = [
 const DashboardPage = () => {
   return (
     <>
-      <SearchAndFilter />
-
       {/* begin::Row */}
       <div className="row gy-5 g-xxl-8">
         {/* begin::Col */}
@@ -77,7 +73,7 @@ const DashboardPage = () => {
             unit=" (R)"
             className=" mb-5 mb-xl-8"
             color="danger"
-            description="Test Types Prices"
+            description="Test Types Prices(R)"
             change="All Laboratories"
           />
         </div>
@@ -102,8 +98,8 @@ const DashboardPage = () => {
             className="mb-5 mb-xl-8 "
             svgIcon="basket"
             color="success"
-            description="Price Base"
-            change="+259"
+            description="Price(R) Base"
+            totals={BarChartTotalsPrice}
           />
         </div>
         <div className="col-lg-6">
@@ -114,15 +110,17 @@ const DashboardPage = () => {
             svgIcon="basket"
             color="success"
             description="Test Number Base"
-            change="+259"
+            totals={BarChartTotalsNumber}
           />
         </div>
         {/* end::Col */}
       </div>
       {/* end::Row */}
 
+      <SearchAndFilter />
+
       {/* begin::Row */}
-      <div className="row gy-5 g-xl-8 mt-2">
+      <div className="row gy-5 g-xl-8 mt-1">
         {/* begin::Col */}
         <div className="col-xxl-12">
           <TestsTable

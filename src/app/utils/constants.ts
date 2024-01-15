@@ -11,6 +11,29 @@ export const FAKE_DATA = [
     laboratory: "Nobel",
     progress: "scanned",
     price: 120000,
+    numberOfSlides: 1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+      {
+        id: 3,
+        magnification: "40x",
+        duration: 10,
+      },
+      {
+        id: 4,
+        magnification: "100x",
+        duration: 30,
+      },
+    ],
   },
   {
     name: "Razieh Aabedini",
@@ -24,6 +47,19 @@ export const FAKE_DATA = [
     laboratory: "Nobel",
     progress: "answered",
     price: 120000,
+    numberOfSlides: 1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Lotfallah Moradi",
@@ -37,6 +73,19 @@ export const FAKE_DATA = [
     laboratory: "Arya",
     progress: "deleted",
     price: 630000,
+    numberOfSlides: 1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Mehri Alaafchian",
@@ -50,6 +99,19 @@ export const FAKE_DATA = [
     laboratory: "Erythron",
     progress: "confirmed",
     price: 700000,
+    numberOfSlides: 1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Ellaheh Habibi",
@@ -63,6 +125,19 @@ export const FAKE_DATA = [
     laboratory: "Milad",
     progress: "scanning",
     price: 450000,
+    numberOfSlides: 1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Mina Ahmadi",
@@ -76,6 +151,19 @@ export const FAKE_DATA = [
     laboratory: "Erythron",
     progress: "new",
     price: 500000,
+    numberOfSlides: 1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Fatemeh Bagherian",
@@ -89,6 +177,19 @@ export const FAKE_DATA = [
     laboratory: "Milad",
     progress: "new",
     price: 450000,
+    numberOfSlides: 1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Ebrahim Salehi",
@@ -102,6 +203,19 @@ export const FAKE_DATA = [
     laboratory: "Milad",
     progress: "answered",
     price: 630000,
+    numberOfSlides: 1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Taghi Kianian",
@@ -115,6 +229,19 @@ export const FAKE_DATA = [
     laboratory: "Milad",
     progress: "scanning",
     price: 170000,
+    numberOfSlides: 1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     name: "Ebrahim Shahriari",
@@ -128,6 +255,19 @@ export const FAKE_DATA = [
     laboratory: "Milad",
     progress: "Scanned",
     price: 450000,
+    numberOfSlides: 1,
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
 ];
 
@@ -142,6 +282,7 @@ export const LABS_TESTS_DATA = [
         id: 12,
         testName: "Breast",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -149,6 +290,7 @@ export const LABS_TESTS_DATA = [
         id: 13,
         testName: "Papsmear",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -156,6 +298,7 @@ export const LABS_TESTS_DATA = [
         id: 14,
         testName: "PBS",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -163,6 +306,7 @@ export const LABS_TESTS_DATA = [
         id: 15,
         testName: "Colon",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -170,6 +314,7 @@ export const LABS_TESTS_DATA = [
         id: 16,
         testName: "Gastric",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -177,6 +322,7 @@ export const LABS_TESTS_DATA = [
         id: 17,
         testName: "TAH",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -192,6 +338,7 @@ export const LABS_TESTS_DATA = [
         id: 12,
         testName: "Breast",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -199,6 +346,7 @@ export const LABS_TESTS_DATA = [
         id: 13,
         testName: "Papsmear",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -206,6 +354,7 @@ export const LABS_TESTS_DATA = [
         id: 14,
         testName: "PBS",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -213,6 +362,7 @@ export const LABS_TESTS_DATA = [
         id: 15,
         testName: "Colon",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -220,6 +370,7 @@ export const LABS_TESTS_DATA = [
         id: 16,
         testName: "Gastric",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -227,6 +378,7 @@ export const LABS_TESTS_DATA = [
         id: 17,
         testName: "TAH",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -242,6 +394,7 @@ export const LABS_TESTS_DATA = [
         id: 12,
         testName: "Breast",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -249,6 +402,7 @@ export const LABS_TESTS_DATA = [
         id: 13,
         testName: "Papsmear",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -256,6 +410,7 @@ export const LABS_TESTS_DATA = [
         id: 14,
         testName: "PBS",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -263,6 +418,7 @@ export const LABS_TESTS_DATA = [
         id: 15,
         testName: "Colon",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -270,6 +426,7 @@ export const LABS_TESTS_DATA = [
         id: 16,
         testName: "Gastric",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -277,6 +434,7 @@ export const LABS_TESTS_DATA = [
         id: 17,
         testName: "TAH",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -292,6 +450,7 @@ export const LABS_TESTS_DATA = [
         id: 12,
         testName: "Breast",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -299,6 +458,7 @@ export const LABS_TESTS_DATA = [
         id: 13,
         testName: "Papsmear",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -306,6 +466,7 @@ export const LABS_TESTS_DATA = [
         id: 14,
         testName: "PBS",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -313,6 +474,7 @@ export const LABS_TESTS_DATA = [
         id: 15,
         testName: "Colon",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -320,6 +482,7 @@ export const LABS_TESTS_DATA = [
         id: 16,
         testName: "Gastric",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -327,6 +490,7 @@ export const LABS_TESTS_DATA = [
         id: 17,
         testName: "TAH",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -342,6 +506,7 @@ export const LABS_TESTS_DATA = [
         id: 12,
         testName: "Breast",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -349,6 +514,7 @@ export const LABS_TESTS_DATA = [
         id: 13,
         testName: "Papsmear",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -356,6 +522,7 @@ export const LABS_TESTS_DATA = [
         id: 14,
         testName: "PBS",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -363,6 +530,7 @@ export const LABS_TESTS_DATA = [
         id: 15,
         testName: "Colon",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -370,6 +538,7 @@ export const LABS_TESTS_DATA = [
         id: 16,
         testName: "Gastric",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -377,6 +546,7 @@ export const LABS_TESTS_DATA = [
         id: 17,
         testName: "TAH",
         testPrice: 25000,
+        testExtraPrice: 10000,
         totalNamber: Math.floor(Math.random() * (90 - 10 + 1)),
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
@@ -955,12 +1125,17 @@ export const BarChartTotalsPrice = [
   },
 ];
 export const testNumberSeries = [
-  { name: "Total Tests", data: LABS_TESTS_DATA.map((lab) => lab.totalTests) },
+  {
+    name: "Total Tests",
+    data: LABS_TESTS_DATA.map((lab) => lab.totalTests).sort((a, b) => b - a),
+  },
 ];
 export const testPriceSeries = [
   {
     name: "Total Price",
-    data: LABS_TESTS_DATA.map((lab) => lab.totalPrice / 1000),
+    data: LABS_TESTS_DATA.map((lab) => lab.totalPrice / 1000).sort(
+      (a, b) => b - a
+    ),
   },
 ];
 export const xaxisCategories = LABS_TESTS_DATA.map((lab) => lab.labName);

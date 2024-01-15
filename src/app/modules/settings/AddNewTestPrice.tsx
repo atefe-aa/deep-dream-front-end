@@ -12,12 +12,16 @@ const addSchema = Yup.object().shape({
   price: Yup.number()
     .min(1, "The min price can't be less than 1")
     .required("Price is required."),
+  extraPrice: Yup.number()
+    .min(1, "The min price can't be less than 1")
+    .required("Price is required."),
   testType: Yup.string().required("Test Type is required"),
 });
 
 const initialValues = {
   testType: "",
   price: "",
+  extraPrice: "",
 };
 
 type Props = {
@@ -118,13 +122,13 @@ const AddNewTestPrice: React.FC<Props> = ({ labName }) => {
         </div>
         {/* end::Form group */}
 
-        {/* begin::code Form group  */}
+        {/* begin::price Form group  */}
         <div className="fv-row mb-3">
           <label className="form-label required fs-6 fw-bolder text-gray-900">
-            Price
+            Price (R)
           </label>
           <input
-            placeholder="Test Price"
+            placeholder="Test Price (R)"
             {...formik.getFieldProps("price")}
             className={clsx(
               "form-control bg-transparent",
@@ -143,6 +147,39 @@ const AddNewTestPrice: React.FC<Props> = ({ labName }) => {
             <div className="fv-plugins-message-container">
               <div className="fv-help-block">
                 <span role="alert">{formik.errors.price}</span>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* end::Form group */}
+
+        {/* begin::price for extra slides (per slide) Form group  */}
+        <div className="fv-row mb-3">
+          <label className="form-label required fs-6 fw-bolder text-gray-900">
+            Extra Slides Price (R)
+          </label>
+          <input
+            placeholder="Extra Price Per Slide"
+            {...formik.getFieldProps("extraPrice")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid":
+                  formik.touched.extraPrice && formik.errors.extraPrice,
+              },
+              {
+                "is-valid":
+                  formik.touched.extraPrice && !formik.errors.extraPrice,
+              }
+            )}
+            type="number"
+            name="extraPrice"
+            autoComplete="off"
+          />
+          {formik.touched.extraPrice && formik.errors.extraPrice && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.extraPrice}</span>
               </div>
             </div>
           )}

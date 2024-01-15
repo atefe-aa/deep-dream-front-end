@@ -13,6 +13,7 @@ const fakeData = [
     testNumber: 0,
     testType: "",
     progress: "",
+    // durations: [],
   },
   {
     image: "/media/slides/slide.jpg",
@@ -21,6 +22,23 @@ const fakeData = [
     testNumber: 550036,
     testType: "CC",
     progress: "scanned",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+      {
+        id: 3,
+        magnification: "40x",
+        duration: 5,
+      },
+    ],
   },
   {
     image: "/media/slides/slide.jpg",
@@ -29,6 +47,23 @@ const fakeData = [
     testNumber: 550037,
     testType: "CC",
     progress: "scanned",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+      {
+        id: 3,
+        magnification: "40x",
+        duration: 5,
+      },
+    ],
   },
   {
     image: "/media/slides/slide.jpg",
@@ -37,6 +72,18 @@ const fakeData = [
     testNumber: 550038,
     testType: "CC",
     progress: "ready",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     image: "/media/slides/slide.jpg",
@@ -45,6 +92,18 @@ const fakeData = [
     testNumber: 550039,
     testType: "CC",
     progress: "scanned",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     image: "/media/slides/slide.jpg",
@@ -53,6 +112,18 @@ const fakeData = [
     testNumber: 550040,
     testType: "CC",
     progress: "failed",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     image: "/media/slides/slide.jpg",
@@ -61,6 +132,18 @@ const fakeData = [
     testNumber: 550041,
     testType: "CC",
     progress: "ready",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     image: "/media/slides/slide.jpg",
@@ -69,6 +152,18 @@ const fakeData = [
     testNumber: 550042,
     testType: "CC",
     progress: "ready",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     image: "/media/slides/slide.jpg",
@@ -77,6 +172,18 @@ const fakeData = [
     testNumber: 550043,
     testType: "CC",
     progress: "ready",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
   {
     image: "/media/slides/slide.jpg",
@@ -85,6 +192,18 @@ const fakeData = [
     testNumber: 0,
     testType: "CC",
     progress: "ready",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
   },
 ];
 interface FormValues {
@@ -159,6 +278,15 @@ const ScanningPage = () => {
   };
   const [isScanning, setIsScanning] = useState(false);
 
+  // useEffect(() => {
+  //   const isSelectAll =
+  //     formik.values.selectedCheckboxes.length === checkboxes.length;
+  //   if (!isSelectAll) {
+  //     formik.setFieldValue("selectAll", false);
+  //   }
+
+  // }, [formik.values.selectedCheckboxes]);
+
   useEffect(
     function () {
       fakeData.map(
@@ -187,8 +315,8 @@ const ScanningPage = () => {
             )}
           </button>
           <div className="text-end">
-          <Timer />
-        </div>
+            <Timer />
+          </div>
         </div>
         {/* end::Action */}
         {formik.touched.selectedCheckboxes &&
@@ -199,8 +327,6 @@ const ScanningPage = () => {
               </div>
             </div>
           )}
-
-       
 
         <div className="col-xl-12">
           <div className="card-xl-stretch mb-xl-8">

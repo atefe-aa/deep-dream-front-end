@@ -40,18 +40,6 @@ const Topbar: FC = () => (
     </div>
     {/* end::Theme mode */}
 
-    {/* CHAT */}
-    <div className="d-flex align-items-center ms-3">
-      {/* begin::Menu wrapper */}
-      <div
-        className="btn btn-icon btn-primary w-40px h-40px pulse pulse-white"
-        id="kt_drawer_chat_toggle"
-      >
-        <KTIcon iconName="message-text-2" className="fs-2" />
-        <span className="pulse-ring" />
-      </div>
-      {/* end::Menu wrapper */}
-    </div>
   </div>
 );
 
