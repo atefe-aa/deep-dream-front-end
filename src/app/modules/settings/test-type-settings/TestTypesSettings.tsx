@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SettingItem from "../machine-settings/SettingItem";
 import { LABS_TESTS_DATA, TEST_TYPES } from "../../../utils/constants";
-import { TestTypesTable } from "../../../ui/table/test-types/TestTypesTable";
+import { CustomTable } from "../../../ui/CustomTable";
 import { TestTypesTableRow } from "../../../ui/table/test-types/TestTypesTableRow";
 import { TestTypesPriceTable } from "../../../ui/table/test-type-price/TestTypesPriceTable";
 import { TestTypesPriceTableRow } from "../../../ui/table/test-type-price/TestTypesPriceTableRow";
@@ -26,7 +26,7 @@ function TestTypesSettings() {
 
       <div id="test_types_settings " className="collapse show">
         <div className="accordion px-10 " id="accordionExample">
-          <TestTypesTable
+          <CustomTable
             modalId="kt_modal_add_new_test_type"
             className="mb-5 mb-xl-8"
             columns={[
@@ -49,7 +49,7 @@ function TestTypesSettings() {
                 testTypeData={test}
               />
             ))}
-          </TestTypesTable>
+          </CustomTable>
 
           {/* <SettingItem
             name="test_types_price"

@@ -5,8 +5,7 @@ import SettingFormGroup from "./SettingFormGroup";
 import Checkbox from "./Checkbox";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { TestTypesTable } from "../../../ui/table/test-types/TestTypesTable";
-import { TestTypesTableRow } from "../../../ui/table/test-types/TestTypesTableRow";
+import { CustomTable } from "../../../ui/CustomTable";
 import { SlidesPlacementTableRow } from "../../../ui/table/test-types/SlidesPlacementTableRow";
 import { capitalizeWords } from "../../../utils/helper";
 
@@ -117,7 +116,7 @@ function MachineSettings() {
               label="Slide Placement"
               show={false}
             >
-              <TestTypesTable
+              <CustomTable
                 modalId="kt_modal_add_new_slide"
                 className="mb-5 mb-xl-8"
                 columns={["Number", "x", "y"]}
@@ -129,7 +128,7 @@ function MachineSettings() {
                     data={slide}
                   />
                 ))}
-              </TestTypesTable>
+              </CustomTable>
             </SettingItem>
 
             <div className="card-footer d-flex justify-content-end py-6 px-9">

@@ -477,6 +477,12 @@ export const LABS_TESTS_DATA = [
   {
     id: 1,
     labName: "Nobel",
+    fullName: "Ali Ahmadi",
+    phone: "09100520741",
+    address: "Esfahan,Bozorgmehr st. 15",
+    description: "description for laboratories",
+    username: "username",
+    picture: "avatars/300-6.jpg",
     totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
     totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
     tests: [
@@ -539,6 +545,12 @@ export const LABS_TESTS_DATA = [
   {
     id: 2,
     labName: "Milad",
+    fullName: "Ali Ahmadi",
+    phone: "09100520741",
+    address: "Esfahan,Bozorgmehr st. 15",
+    description: "description for laboratories",
+    username: "username",
+    picture: "avatars/300-1.jpg",
     totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
     totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
     tests: [
@@ -601,6 +613,12 @@ export const LABS_TESTS_DATA = [
   {
     id: 3,
     labName: "Arya",
+    fullName: "Ali Ahmadi",
+    phone: "09100520741",
+    address: "Esfahan,Bozorgmehr st. 15",
+    description: "description for laboratories",
+    username: "username",
+    picture: "avatars/300-1.jpg",
     totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
     totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
     tests: [
@@ -663,6 +681,12 @@ export const LABS_TESTS_DATA = [
   {
     id: 4,
     labName: "Erythron",
+    fullName: "Ali Ahmadi",
+    phone: "09100520741",
+    address: "Esfahan,Bozorgmehr st. 15",
+    description: "description for laboratories",
+    username: "username",
+    picture: "avatars/300-1.jpg",
     totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
     totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
     tests: [
@@ -725,6 +749,12 @@ export const LABS_TESTS_DATA = [
   {
     id: 5,
     labName: "Baradaran",
+    fullName: "Ali Ahmadi",
+    phone: "09100520741",
+    address: "Esfahan,Bozorgmehr st. 15",
+    description: "description for laboratories",
+    username: "username",
+    picture: "avatars/300-1.jpg",
     totalTests: Math.floor(Math.random() * (90 - 10 + 1)),
     totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
     tests: [
@@ -783,6 +813,29 @@ export const LABS_TESTS_DATA = [
         totalPrice: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
       },
     ],
+  },
+];
+
+export const counsellorsData = [
+  {
+    id: 1,
+    name: "Dr. Ahmadi",
+    phone: "09100520741",
+  },
+  {
+    id: 2,
+    name: "Dr. Ahmadi",
+    phone: "09100520741",
+  },
+  {
+    id: 3,
+    name: "Dr. Ahmadi",
+    phone: "09100520741",
+  },
+  {
+    id: 4,
+    name: "Dr. Ahmadi",
+    phone: "09100520741",
   },
 ];
 

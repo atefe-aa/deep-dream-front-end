@@ -39,7 +39,7 @@ const FilterDropdown: React.FC<Props> = ({ filters = [] }) => {
                 data-allow-clear="true"
                 defaultValue={"1"}
               >
-                <option>Choose Labratory</option>
+                <option>Choose Laboratory</option>
                 {LABS_TESTS_DATA.map((lab) => (
                   <option key={lab.id} value={lab.id}>
                     {lab.labName}

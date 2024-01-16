@@ -1,23 +1,20 @@
 import { FC } from "react";
-import { KTIcon } from "../../../../_metronic/helpers";
+import { KTIcon } from "../../_metronic/helpers";
 
 type Props = {
   className: string;
   children: React.ReactNode;
   columns: Array<string>;
   modalId: string;
+  tableTitle?:string;
 };
 
-const TestTypesTable: FC<Props> = ({
-  className,
-  children,
-  columns,
-  modalId,
-}) => {
+const CustomTable: FC<Props> = ({tableTitle, className, children, columns, modalId }) => {
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
       <div className="card-header border-0 pt-5">
+        <h4>{tableTitle}</h4>
         <div
           className="card-toolbar"
           data-bs-toggle="tooltip"
@@ -53,7 +50,9 @@ const TestTypesTable: FC<Props> = ({
                   </div>
                 </th>
                 {columns.map((col) => (
-                  <th key={col} className="min-w-50px">{col}</th>
+                  <th key={col} className="min-w-50px">
+                    {col}
+                  </th>
                 ))}
                 <th className="min-w-100px text-end">Actions</th>
               </tr>
@@ -72,4 +71,4 @@ const TestTypesTable: FC<Props> = ({
   );
 };
 
-export { TestTypesTable };
+export { CustomTable };

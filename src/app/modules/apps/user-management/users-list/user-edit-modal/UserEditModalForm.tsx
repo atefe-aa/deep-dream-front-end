@@ -197,7 +197,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
           </div>
           {/* end::Input group */}
 
-          {/* begin:: labratory name Input group */}
+          {/* begin:: laboratory name Input group */}
           <div className="fv-row mb-7">
             {/* begin::Label */}
             <label className="required fw-bold fs-6 mb-2">
@@ -207,7 +207,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
 
             {/* begin:: Input */}
             <input
-              placeholder="Labratory Title"
+              placeholder="Laboratory Title"
               {...formik.getFieldProps("labName")}
               type="text"
               name="labName"
