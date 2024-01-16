@@ -29,15 +29,10 @@ const SlidesPlacementTableRow: FC<Props> = ({ data, index }) => {
         </div>
       </td>
       <td>
-        <div className="d-flex align-items-center">
-          <div className="d-flex justify-content-start flex-column">
-            <a
-              href="#"
-              className="text-gray-900 fw-bold text-hover-primary fs-6"
-            >
-              {data.title}
-            </a>
-          </div>
+        <div className="d-flex justify-content-start flex-column">
+          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+            {data.title}
+          </a>
         </div>
       </td>
       {data.coordinates.map((coor) => (
