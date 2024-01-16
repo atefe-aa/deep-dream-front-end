@@ -14,7 +14,7 @@ const tabs: ReadonlyArray<{ link: string; icon: string; tooltip: string }> = [
   {
     link: "/user-management/users",
     icon: "people",
-    tooltip: "Colleagues",
+    tooltip: "Laboratories",
   },
   {
     link: "/settings/all",
@@ -63,7 +63,7 @@ const AsideTabs: FC<Props> = ({ link, setLink }) => {
         </li>
         {/* begin::Nav item */}
         {tabs.map((t) => (
-          <li key={t.link}>
+          <li key={t.link} data-bs-toggle="tooltip" title={t.tooltip}>
             {/* begin::Nav link */}
             <Link
               to={t.link}
