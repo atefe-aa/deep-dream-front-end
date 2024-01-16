@@ -47,11 +47,9 @@ const MasterLayout = () => {
         </div>
         {/* end::Page */}
       </div>
-
       {/* begin:: Modals */}
       <AddNewTest />
       {/* end:: Modals */}
-
       <ScrollTop />
     </PageDataProvider>
   );

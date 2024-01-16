@@ -29,7 +29,7 @@ const AsideDefault = () => {
             <Link to="/dashboard" className="d-lg-flex d-none  align-items-center">
             <img
               alt="Logo"
-              src={toAbsoluteUrl("/media/logos/demo7.svg")}
+              src={toAbsoluteUrl("/media/logos/default.svg")}
               className="h-30px"
             />
           </Link>
