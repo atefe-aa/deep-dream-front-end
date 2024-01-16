@@ -7,6 +7,10 @@ interface TestTypeArray {
   id: number;
   title: string;
   code: number;
+  numberOfLayers: number;
+  z: number;
+  condenseur: number;
+  brightness: number;
   sex: string;
   type: string;
   description: string;
@@ -70,6 +74,38 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
           {testTypeData.magnifications.map((mag) => (
             <span key={mag}>{mag}x, </span>
           ))}
+        </a>
+      </td>
+      <td>
+        <a
+          href="#"
+          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
+        >
+          {testTypeData.numberOfLayers}
+        </a>
+      </td>
+      <td>
+        <a
+          href="#"
+          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
+        >
+          {testTypeData.z}
+        </a>
+      </td>
+      <td>
+        <a
+          href="#"
+          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
+        >
+          {testTypeData.condenseur}
+        </a>
+      </td>
+      <td>
+        <a
+          href="#"
+          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
+        >
+          {testTypeData.brightness}
         </a>
       </td>
       <td>

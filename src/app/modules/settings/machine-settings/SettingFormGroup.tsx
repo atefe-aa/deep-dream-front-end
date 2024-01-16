@@ -4,9 +4,13 @@ type Props = {
   placeHolder: string;
   inputName: string;
   formik: any;
+  fullWidth?: boolean;
+  required?: boolean;
 };
 
 const SettingFormGroup: React.FC<Props> = ({
+  fullWidth = false,
+  required = true,
   label,
   type,
   placeHolder,
@@ -15,16 +19,19 @@ const SettingFormGroup: React.FC<Props> = ({
 }) => {
   return (
     <div className="row mb-6">
-      <label htmlFor={inputName} className="col-lg-4 col-form-label required fw-bold fs-6">
+      <label
+        htmlFor={inputName}
+        className={`col-lg-4 col-form-label  fw-bold fs-6 ${required?"required":""}`}
+      >
         {label}
       </label>
 
       <div className="col-lg-8">
         <div className="row">
-          <div className="col-lg-6 fv-row">
+          <div className={`fv-row ${fullWidth ? "" : "col-lg-6"}`}>
             <input
               type={type}
-              className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+              className="form-control mb-3 mb-lg-0"
               placeholder={placeHolder}
               name={inputName}
               id={inputName}

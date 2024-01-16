@@ -43,7 +43,7 @@ const TestTypesTable: FC<Props> = ({
         {/* begin::Table container */}
         <div className="table-responsive">
           {/* begin::Table */}
-          <table className="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+          <table className="table text-center table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
             {/* begin::Table head */}
             <thead>
               <tr className="fw-bold text-muted">
@@ -53,7 +53,7 @@ const TestTypesTable: FC<Props> = ({
                   </div>
                 </th>
                 {columns.map((col) => (
-                  <th key={col} className="min-w-100px">{col}</th>
+                  <th key={col} className="min-w-50px">{col}</th>
                 ))}
                 <th className="min-w-100px text-end">Actions</th>
               </tr>

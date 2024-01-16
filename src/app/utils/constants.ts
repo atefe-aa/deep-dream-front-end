@@ -200,7 +200,6 @@ export const SlidesFakeData = [
   },
 ];
 
-
 export const FAKE_DATA = [
   {
     name: "Azam Ghasemi",
@@ -795,6 +794,10 @@ export const TEST_TYPES = [
     sex: "male",
     description: "test description to clarify darkness points.",
     type: "optical",
+    numberOfLayers: 1,
+    z: 1,
+    condenseur: 2,
+    brightness: 3,
     magnifications: [1, 2],
     prices: [
       {
@@ -838,6 +841,10 @@ export const TEST_TYPES = [
     sex: "male",
     description: "test description to clarify darkness points.",
     type: "optical",
+    numberOfLayers: 1,
+    z: 1,
+    condenseur: 2,
+    brightness: 3,
     magnifications: [3, 2],
     prices: [
       {
@@ -881,6 +888,10 @@ export const TEST_TYPES = [
     sex: "male",
     description: "test description to clarify darkness points.",
     type: "Flourscent",
+    numberOfLayers: 1,
+    z: 1,
+    condenseur: 2,
+    brightness: 3,
     magnifications: [1, 3],
     prices: [
       {
@@ -924,6 +935,10 @@ export const TEST_TYPES = [
     sex: "male",
     description: "test description to clarify darkness points.",
     type: "invert",
+    numberOfLayers: 1,
+    z: 1,
+    condenseur: 2,
+    brightness: 3,
     magnifications: [4, 2],
     prices: [
       {
@@ -967,6 +982,10 @@ export const TEST_TYPES = [
     sex: "male",
     description: "test description to clarify darkness points.",
     type: "optical",
+    numberOfLayers: 1,
+    z: 1,
+    condenseur: 2,
+    brightness: 3,
     magnifications: [1, 2, 3],
     prices: [
       {
@@ -1010,6 +1029,10 @@ export const TEST_TYPES = [
     sex: "male",
     description: "test description to clarify darkness points.",
     type: "optical",
+    numberOfLayers: 1,
+    z: 1,
+    condenseur: 2,
+    brightness: 3,
     magnifications: [1, 2, 3, 4],
     prices: [
       {
@@ -1090,12 +1113,6 @@ export const DEFAULT_SETTINGS = [
         value: 50,
         type: "number",
       },
-      {
-        id: 3,
-        title: "multiLayer",
-        value: true,
-        type: "checkbox",
-      },
     ],
   },
   {
@@ -1138,12 +1155,6 @@ export const DEFAULT_SETTINGS = [
         title: "z",
         value: 50,
         type: "number",
-      },
-      {
-        id: 3,
-        title: "multiLayer",
-        value: true,
-        type: "checkbox",
       },
     ],
   },
@@ -1188,12 +1199,6 @@ export const DEFAULT_SETTINGS = [
         value: 50,
         type: "number",
       },
-      {
-        id: 3,
-        title: "multiLayer",
-        value: true,
-        type: "checkbox",
-      },
     ],
   },
   {
@@ -1236,12 +1241,6 @@ export const DEFAULT_SETTINGS = [
         title: "z",
         value: 50,
         type: "number",
-      },
-      {
-        id: 3,
-        title: "multiLayer",
-        value: true,
-        type: "checkbox",
       },
     ],
   },

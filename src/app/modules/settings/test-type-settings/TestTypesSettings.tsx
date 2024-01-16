@@ -26,30 +26,32 @@ function TestTypesSettings() {
 
       <div id="test_types_settings " className="collapse show">
         <div className="accordion px-10 " id="accordionExample">
-          <SettingItem name="test_types" label="Test Types" show={false}>
-            <TestTypesTable
-              modalId="kt_modal_add_new_test_type"
-              className="mb-5 mb-xl-8"
-              columns={[
-                "Tilte",
-                "Code",
-                "Sex",
-                "Type",
-                "Magnifications",
-                "Description",
-              ]}
-            >
-              {TEST_TYPES.map((test, index) => (
-                <TestTypesTableRow
-                  key={test.id}
-                  index={index}
-                  testTypeData={test}
-                />
-              ))}
-            </TestTypesTable>
-          </SettingItem>
+          <TestTypesTable
+            modalId="kt_modal_add_new_test_type"
+            className="mb-5 mb-xl-8"
+            columns={[
+              "Tilte",
+              "Code",
+              "Gender",
+              "Type",
+              "Number of Layers",
+              "Z",
+              "Condenseur",
+              "Brightness",
+              "Magnifications",
+              "Description",
+            ]}
+          >
+            {TEST_TYPES.map((test, index) => (
+              <TestTypesTableRow
+                key={test.id}
+                index={index + 1}
+                testTypeData={test}
+              />
+            ))}
+          </TestTypesTable>
 
-          <SettingItem
+          {/* <SettingItem
             name="test_types_price"
             label="Test Type Prices"
             show={false}
@@ -75,7 +77,7 @@ function TestTypesSettings() {
                 </TestTypesPriceTable>
               </SettingItem>
             ))}
-          </SettingItem>
+          </SettingItem> */}
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { ModalLayout } from "../../ui/modals/ModalLayout";
 import Checkbox from "./machine-settings/Checkbox";
 import { ModalForm } from "../../ui/modals/ModalForm";
+import SettingFormGroup from "./machine-settings/SettingFormGroup";
 
 const addSchema = Yup.object().shape({
   title: Yup.string()
@@ -27,6 +28,13 @@ const initialValues = {
   type: "",
   sex: "",
   description: "",
+  numberOfLayers: "",
+  steps: "",
+  microSteps: "",
+  z: "",
+  brightness: "",
+  condenseur: "",
+  multiLayer: false,
   mag4x: false,
   mag10x: false,
   mag40x: false,
@@ -98,7 +106,6 @@ const AddNewTestType: FC = () => {
           )}
         </div>
         {/* end::Form group */}
-
         {/* begin::code Form group  */}
         <div className="fv-row mb-3">
           <label className="form-label fs-6 fw-bolder text-gray-900">
@@ -129,7 +136,6 @@ const AddNewTestType: FC = () => {
           )}
         </div>
         {/* end::Form group */}
-
         {/* begin::sex Form group */}
         <div className="fv-row mb-3">
           <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
@@ -174,7 +180,6 @@ const AddNewTestType: FC = () => {
           )}
         </div>
         {/* end::Form group */}
-
         {/* begin::type Form group */}
         <div className="fv-row mb-3">
           <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
@@ -219,7 +224,62 @@ const AddNewTestType: FC = () => {
           )}
         </div>
         {/* end::Form group */}
-
+        <Checkbox formik={formik} label="Multi-layer" inputName="multiLayer" />
+        {formik.values.multiLayer && (
+          <>
+            <SettingFormGroup
+              fullWidth={true}
+              label="Number Of Layers"
+              type="number"
+              placeHolder="Number Of Layers"
+              inputName="numberOfLayers"
+              formik={formik}
+            />
+            <SettingFormGroup
+              fullWidth={true}
+              label="Steps"
+              type="number"
+              placeHolder="Steps"
+              inputName="steps"
+              formik={formik}
+            />
+            <SettingFormGroup
+              fullWidth={true}
+              label="Micro Steps (mm)"
+              type="number"
+              placeHolder="Micro Steps (mm)"
+              inputName="microSteps"
+              formik={formik}
+            />
+          </>
+        )}
+        <SettingFormGroup
+          required={false}
+          fullWidth={true}
+          label="Z"
+          type="number"
+          placeHolder="Z"
+          inputName="z"
+          formik={formik}
+        />
+        <SettingFormGroup
+          required={false}
+          fullWidth={true}
+          label="Brightness"
+          type="number"
+          placeHolder="Brightness"
+          inputName="brightness"
+          formik={formik}
+        />
+        <SettingFormGroup
+          required={false}
+          fullWidth={true}
+          label="Condenseur"
+          type="number"
+          placeHolder="Condenseur"
+          inputName="condenseur"
+          formik={formik}
+        />
         {/* begin:: description Form group */}
         <div className="fv-row mb-3">
           <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
@@ -233,7 +293,6 @@ const AddNewTestType: FC = () => {
           />
         </div>
         {/* end::Form group */}
-
         <div className="d-flex align-items-center justify-content-between my-6">
           <Checkbox label="4x" inputName="mag4x" formik={formik} />
           <Checkbox label="10x" inputName="mag10x" formik={formik} />

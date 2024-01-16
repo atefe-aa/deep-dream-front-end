@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { TestTypesTable } from "../../../ui/table/test-types/TestTypesTable";
 import { TestTypesTableRow } from "../../../ui/table/test-types/TestTypesTableRow";
 import { SlidesPlacementTableRow } from "../../../ui/table/test-types/SlidesPlacementTableRow";
+import { capitalizeWords } from "../../../utils/helper";
 
 const addSchema = Yup.object().shape({
   title: Yup.string()
@@ -85,8 +86,8 @@ function MachineSettings() {
                 set.title !== "slides placement" && (
                   <SettingItem
                     key={set.id}
-                    label={`Settings for ${set.title}`}
-                    name={set.title}
+                    label={capitalizeWords(`Settings for ${set.title}`)}
+                    name={capitalizeWords(set.title)}
                     show={false}
                   >
                     {set.settings.map((setting) =>
@@ -94,37 +95,19 @@ function MachineSettings() {
                         <Checkbox
                           formik={formik}
                           key={setting.id}
-                          label={setting.title.toUpperCase()}
+                          label={capitalizeWords(setting.title)}
                           inputName={setting.title}
                         />
                       ) : (
                         <SettingFormGroup
                           key={setting.id}
-                          label={setting.title.toUpperCase()}
+                          label={capitalizeWords(setting.title)}
                           type={setting.type}
-                          placeHolder={setting.title}
+                          placeHolder={capitalizeWords(setting.title)}
                           inputName={setting.title}
                           formik={formik}
                         />
                       )
-                    )}
-                    {formik.values.multiLayer && (
-                      <>
-                      <SettingFormGroup
-                        label="Number Of Layers"
-                        type="number"
-                        placeHolder="Number Of Layers"
-                        inputName="numberOfLayers"
-                        formik={formik}
-                        />
-                      <SettingFormGroup
-                      label="Steps (mm)"
-                      type="number"
-                      placeHolder="Steps (mm)"
-                      inputName="steps"
-                      formik={formik}
-                      />
-                      </>
                     )}
                   </SettingItem>
                 )
@@ -142,7 +125,7 @@ function MachineSettings() {
                 {Slides_Placements.map((slide, index) => (
                   <SlidesPlacementTableRow
                     key={slide.id}
-                    index={index}
+                    index={index + 1}
                     data={slide}
                   />
                 ))}
