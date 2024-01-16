@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { useFormik } from "formik";
 import { ModalLayout } from "../../ui/modals/ModalLayout";
 import Checkbox from "./machine-settings/Checkbox";
+import { ModalForm } from "../../ui/modals/ModalForm";
 
 const addSchema = Yup.object().shape({
   title: Yup.string()
@@ -63,17 +64,8 @@ const AddNewTestType: FC = () => {
   });
 
   return (
-    <ModalLayout modalId="kt_modal_add_new_test_type">
-      <div className="text-center mb-13">
-        <h1 className="mb-3">Add New Test Type</h1>
-      </div>
-      <form className="form w-100" onSubmit={formik.handleSubmit} noValidate>
-        {formik.status && (
-          <div className="mb-lg-15 alert alert-danger">
-            <div className="alert-text font-weight-bold">{formik.status}</div>
-          </div>
-        )}
-
+    <ModalLayout modalId="kt_modal_add_new_test_type" title="Add New Test Type">
+      <ModalForm modalId="kt_modal_add_new_test_type" formik={formik}>
         {/* begin::Title Form group */}
         <div className="fv-row mb-3">
           <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
@@ -248,34 +240,7 @@ const AddNewTestType: FC = () => {
           <Checkbox label="40x" inputName="mag40x" formik={formik} />
           <Checkbox label="100x" inputName="mag100x" formik={formik} />
         </div>
-
-        {/* begin::Action */}
-        <div className="d-flex mb-10">
-          <button
-            type="submit"
-            className="btn btn-primary me-4"
-            disabled={formik.isSubmitting || !formik.isValid}
-          >
-            {!loading && <span className="indicator-label">Continue</span>}
-            {loading && (
-              <span className="indicator-progress" style={{ display: "block" }}>
-                Please wait...
-                <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-              </span>
-            )}
-          </button>
-
-          <button
-            type="reset"
-            className="btn btn-secondary"
-            disabled={formik.isSubmitting}
-            onClick={formik.handleReset}
-          >
-            <span className="indicator-label">Reset</span>
-          </button>
-        </div>
-        {/* end::Action */}
-      </form>
+      </ModalForm>
     </ModalLayout>
   );
 };

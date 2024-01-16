@@ -9,6 +9,7 @@ import QRCodeGenerator from "./QRCodeGenerator";
 import { LABS_TESTS_DATA, TEST_TYPES } from "../../../utils/constants";
 import Select from "react-select";
 import { ModalLayout } from "../../../ui/modals/ModalLayout";
+import { ModalForm } from "../../../ui/modals/ModalForm";
 
 const addSchema = Yup.object().shape({
   name: Yup.string()
@@ -99,398 +100,345 @@ const AddNewTest: FC = () => {
   });
 
   return (
-    <ModalLayout modalId="kt_modal_add_new_test">
-      {testNumber !== "" ? (
-        <QRCodeGenerator number={testNumber} />
-      ) : (
-        <>
-          <div className="text-center mb-13">
-            <h1 className="mb-3">Add New Test</h1>
-          </div>
-          <form
-            className="form w-100"
-            onSubmit={formik.handleSubmit}
-            noValidate
-          >
-            {formik.status && (
-              <div className="mb-lg-15 alert alert-danger">
-                <div className="alert-text font-weight-bold">
-                  {formik.status}
-                </div>
-              </div>
+    <ModalLayout modalId="kt_modal_add_new_test" title="Add New Test">
+      <ModalForm modalId="kt_modal_add_new_test" formik={formik}>
+        {/* begin::Form group */}
+        <div className="fv-row mb-3">
+          <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
+            Sender Laboratory<span className="text-danger">*</span>
+          </label>
+          <select
+            {...formik.getFieldProps("laboratory")}
+            className={clsx(
+              "form-select",
+              {
+                "is-invalid":
+                  formik.touched.laboratory && formik.errors.laboratory,
+              },
+              {
+                "is-valid":
+                  formik.touched.laboratory && !formik.errors.laboratory,
+              }
             )}
+            aria-label="Select Laboratory Title"
+          >
+            <option>Choose Laboratory</option>
+            {sortedLabsData.map((lab) => (
+              <option key={lab.id} value={lab.id}>
+                {lab.labName}
+              </option>
+            ))}
+          </select>
 
-            {/* begin::Form group */}
-            <div className="fv-row mb-3">
-              <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
-                Sender Laboratory<span className="text-danger">*</span>
-              </label>
-              <select
-                {...formik.getFieldProps("laboratory")}
-                className={clsx(
-                  "form-select",
-                  {
-                    "is-invalid":
-                      formik.touched.laboratory && formik.errors.laboratory,
-                  },
-                  {
-                    "is-valid":
-                      formik.touched.laboratory && !formik.errors.laboratory,
-                  }
-                )}
-                aria-label="Select Laboratory Title"
-              >
-                <option>Choose Laboratory</option>
-                {sortedLabsData.map((lab) => (
-                  <option key={lab.id} value={lab.id}>
-                    {lab.labName}
-                  </option>
-                ))}
-              </select>
-
-              {formik.touched.laboratory && formik.errors.laboratory && (
-                <div className="fv-plugins-message-container">
-                  <div className="fv-help-block">
-                    <span role="alert">{formik.errors.laboratory}</span>
-                  </div>
-                </div>
-              )}
+          {formik.touched.laboratory && formik.errors.laboratory && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.laboratory}</span>
+              </div>
             </div>
-            {/* end::Form group */}
+          )}
+        </div>
+        {/* end::Form group */}
 
-            {/* begin::Form group */}
-            <div className="fv-row mb-3">
-              <label className="form-label fs-6 fw-bolder text-gray-900">
+        {/* begin::Form group */}
+        <div className="fv-row mb-3">
+          <label className="form-label fs-6 fw-bolder text-gray-900">
+            {
+              LABS_TESTS_DATA.find(
+                (lab) => lab.id === Number(formik.values.laboratory)
+              )?.labName
+            }
+            Laboratory Number
+          </label>
+
+          <input
+            placeholder="Laboratory Number"
+            {...formik.getFieldProps("labNumber")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid":
+                  formik.touched.labNumber && formik.errors.labNumber,
+              },
+              {
+                "is-valid":
+                  formik.touched.labNumber && !formik.errors.labNumber,
+              }
+            )}
+            type="text"
+            autoComplete="off"
+          />
+          {formik.touched.labNumber && formik.errors.labNumber && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.labNumber}</span>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* end::Form group */}
+
+        {/* begin::Form group / Fullname*/}
+        <div className="fv-row mb-3">
+          <label className="form-label fs-6 fw-bolder text-gray-900">
+            Patient's Full Name <span className="text-danger">*</span>
+          </label>
+          <input
+            placeholder="Full Name"
+            {...formik.getFieldProps("name")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid": formik.touched.name && formik.errors.name,
+              },
+              {
+                "is-valid": formik.touched.name && !formik.errors.name,
+              }
+            )}
+            type="text"
+            name="name"
+            autoComplete="off"
+          />
+          {formik.touched.name && formik.errors.name && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.name}</span>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* end::Form group */}
+
+        {/* begin::Form group / national id*/}
+        <div className="fv-row mb-3">
+          <label className="form-label fs-6 fw-bolder text-gray-900">
+            National ID
+          </label>
+          <input
+            placeholder="National ID"
+            {...formik.getFieldProps("nationalId")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid":
+                  formik.touched.nationalId && formik.errors.nationalId,
+              },
+              {
+                "is-valid":
+                  formik.touched.nationalId && !formik.errors.nationalId,
+              }
+            )}
+            type="number"
+            name="nationalId"
+            autoComplete="off"
+          />
+          {formik.touched.nationalId && formik.errors.nationalId && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.nationalId}</span>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* end::Form group */}
+
+        {/* begin::Form group / Age */}
+        <div className="fv-row mb-3 ">
+          <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
+            Age<span className="text-danger">*</span>
+          </label>
+          <div className="input-group">
+            <input
+              type="number"
+              min={1}
+              inputMode="numeric"
+              autoComplete="off"
+              placeholder="Age"
+              {...formik.getFieldProps("age")}
+              className={clsx(
+                "form-control bg-transparent",
                 {
-                  LABS_TESTS_DATA.find(
-                    (lab) => lab.id === Number(formik.values.laboratory)
-                  )?.labName
+                  "is-invalid": formik.touched.age && formik.errors.age,
+                },
+                {
+                  "is-valid": formik.touched.age && !formik.errors.age,
                 }
-                Laboratory Number
-              </label>
-
-              <input
-                placeholder="Laboratory Number"
-                {...formik.getFieldProps("labNumber")}
-                className={clsx(
-                  "form-control bg-transparent",
-                  {
-                    "is-invalid":
-                      formik.touched.labNumber && formik.errors.labNumber,
-                  },
-                  {
-                    "is-valid":
-                      formik.touched.labNumber && !formik.errors.labNumber,
-                  }
-                )}
-                type="text"
-                autoComplete="off"
-              />
-              {formik.touched.labNumber && formik.errors.labNumber && (
-                <div className="fv-plugins-message-container">
-                  <div className="fv-help-block">
-                    <span role="alert">{formik.errors.labNumber}</span>
-                  </div>
-                </div>
               )}
-            </div>
-            {/* end::Form group */}
+            />
+            <select
+              {...formik.getFieldProps("ageType")}
+              aria-label="Select age type"
+              className="form-select-lg"
+              name="ageType"
+            >
+              <option value="year">Year</option>
+              <option value="day">Day</option>
+            </select>
+          </div>
 
-            {/* begin::Form group / Fullname*/}
-            <div className="fv-row mb-3">
-              <label className="form-label fs-6 fw-bolder text-gray-900">
-                Patient's Full Name <span className="text-danger">*</span>
-              </label>
+          {formik.touched.age && formik.errors.age && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.age}</span>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* end::Form group */}
+
+        {/* begin::Form group /gender */}
+        <div className="fv-row mb-3">
+          <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
+            Gender<span className="text-danger">*</span>
+          </label>
+          <div
+            className={clsx(
+              "mt-3 mb-5 bg-transparent",
+              {
+                "is-invalid": formik.touched.sex && formik.errors.sex,
+              },
+              {
+                "is-valid": formik.touched.sex && !formik.errors.sex,
+              }
+            )}
+          >
+            <label className="radio">
               <input
-                placeholder="Full Name"
-                {...formik.getFieldProps("name")}
-                className={clsx(
-                  "form-control bg-transparent",
-                  {
-                    "is-invalid": formik.touched.name && formik.errors.name,
-                  },
-                  {
-                    "is-valid": formik.touched.name && !formik.errors.name,
-                  }
-                )}
-                type="text"
-                name="name"
-                autoComplete="off"
+                type="radio"
+                {...formik.getFieldProps("sex")}
+                value="1"
+                checked={formik.values.sex === "1"}
               />
-              {formik.touched.name && formik.errors.name && (
-                <div className="fv-plugins-message-container">
-                  <div className="fv-help-block">
-                    <span role="alert">{formik.errors.name}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* end::Form group */}
-
-            {/* begin::Form group / national id*/}
-            <div className="fv-row mb-3">
-              <label className="form-label fs-6 fw-bolder text-gray-900">
-                National ID
-              </label>
+              Female
+            </label>
+            <label className="radio">
               <input
-                placeholder="National ID"
-                {...formik.getFieldProps("nationalId")}
-                className={clsx(
-                  "form-control bg-transparent",
-                  {
-                    "is-invalid":
-                      formik.touched.nationalId && formik.errors.nationalId,
-                  },
-                  {
-                    "is-valid":
-                      formik.touched.nationalId && !formik.errors.nationalId,
-                  }
-                )}
-                type="number"
-                name="nationalId"
-                autoComplete="off"
+                type="radio"
+                {...formik.getFieldProps("sex")}
+                className="ms-5"
+                value="2"
+                checked={formik.values.sex === "2"}
               />
-              {formik.touched.nationalId && formik.errors.nationalId && (
-                <div className="fv-plugins-message-container">
-                  <div className="fv-help-block">
-                    <span role="alert">{formik.errors.nationalId}</span>
-                  </div>
-                </div>
-              )}
+              Male
+            </label>
+          </div>
+          {formik.touched.sex && formik.errors.sex && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.sex}</span>
+              </div>
             </div>
-            {/* end::Form group */}
+          )}
+        </div>
+        {/* end::Form group */}
 
-            {/* begin::Form group / Age */}
-            <div className="fv-row mb-3 ">
-              <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
-                Age<span className="text-danger">*</span>
-              </label>
-              <div className="input-group">
+        {/* begin::Form group/ test type */}
+        <div className="fv-row mb-3">
+          <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
+            Test Type<span className="text-danger">*</span>
+          </label>
+          <Select
+            {...formik.getFieldProps("testType")}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 7,
+              colors: {
+                ...theme.colors,
+                primary25: "var(--bs-success-text-emphasis)",
+                neutral0: "var(--bs-modal-bg)",
+                neutral20: "var(--bs-gray-300)",
+                neutral80: "var(--bs-gray-700)",
+              },
+            })}
+            options={testTypeOptions}
+            isSearchable={true}
+            placeholder="Choose the test type"
+            onChange={(option) =>
+              formik.setFieldValue("testType", option?.value)
+            }
+            value={testTypeOptions.find(
+              (test) => test.value === Number(formik.values.testType)
+            )}
+          />
+
+          {formik.touched.testType && formik.errors.testType && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.testType}</span>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* end::Form group */}
+
+        {/* begin::Form group/ multi-slide */}
+        <div className="fv-row mb-3">
+          <div className="d-flex align-items-center">
+            <label className="min-w-100px form-label fw-bolder text-gray-900 fs-6 mb-0 me-2">
+              Multi-Slide:
+            </label>
+            <div className="form-check form-check-custom form-check-solid form-switch me-6">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                {...formik.getFieldProps("multiSlide.isMultiSlide")}
+                name="multiSlide.isMultiSlide"
+              />
+            </div>
+            {formik.values.multiSlide.isMultiSlide && (
+              <>
+                <label className="min-w-100px form-label fw-bolder text-gray-900 fs-6 mb-0 me-2">
+                  Slides Number:
+                </label>
+
                 <input
-                  type="number"
-                  min={1}
-                  inputMode="numeric"
-                  autoComplete="off"
-                  placeholder="Age"
-                  {...formik.getFieldProps("age")}
                   className={clsx(
                     "form-control bg-transparent",
                     {
-                      "is-invalid": formik.touched.age && formik.errors.age,
+                      "is-invalid":
+                        formik.touched.nationalId && formik.errors.nationalId,
                     },
                     {
-                      "is-valid": formik.touched.age && !formik.errors.age,
+                      "is-valid":
+                        formik.touched.nationalId && !formik.errors.nationalId,
                     }
                   )}
+                  min={1}
+                  type="number"
+                  {...formik.getFieldProps("multiSlide.numberOfSlides")}
+                  name="multiSlide.numberOfSlides"
                 />
-                <select
-                  {...formik.getFieldProps("ageType")}
-                  aria-label="Select age type"
-                  className="form-select-lg"
-                  name="ageType"
-                >
-                  <option value="year">Year</option>
-                  <option value="day">Day</option>
-                </select>
-              </div>
+              </>
+            )}
+          </div>
 
-              {formik.touched.age && formik.errors.age && (
-                <div className="fv-plugins-message-container">
-                  <div className="fv-help-block">
-                    <span role="alert">{formik.errors.age}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* end::Form group */}
-
-            {/* begin::Form group /gender */}
-            <div className="fv-row mb-3">
-              <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
-                Gender<span className="text-danger">*</span>
-              </label>
-              <div
-                className={clsx(
-                  "mt-3 mb-5 bg-transparent",
-                  {
-                    "is-invalid": formik.touched.sex && formik.errors.sex,
-                  },
-                  {
-                    "is-valid": formik.touched.sex && !formik.errors.sex,
-                  }
-                )}
-              >
-                <label className="radio">
-                  <input
-                    type="radio"
-                    {...formik.getFieldProps("sex")}
-                    value="1"
-                    checked={formik.values.sex === "1"}
-                  />
-                  Female
-                </label>
-                <label className="radio">
-                  <input
-                    type="radio"
-                    {...formik.getFieldProps("sex")}
-                    className="ms-5"
-                    value="2"
-                    checked={formik.values.sex === "2"}
-                  />
-                  Male
-                </label>
-              </div>
-              {formik.touched.sex && formik.errors.sex && (
-                <div className="fv-plugins-message-container">
-                  <div className="fv-help-block">
-                    <span role="alert">{formik.errors.sex}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* end::Form group */}
-
-            {/* begin::Form group/ test type */}
-            <div className="fv-row mb-3">
-              <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
-                Test Type<span className="text-danger">*</span>
-              </label>
-              <Select
-                {...formik.getFieldProps("testType")}
-                theme={(theme) => ({
-                  ...theme,
-                  borderRadius: 7,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "var(--bs-success-text-emphasis)",
-                    neutral0: "var(--bs-modal-bg)",
-                    neutral20: "var(--bs-gray-300)",
-                    neutral80: "var(--bs-gray-700)",
-                  },
-                })}
-                options={testTypeOptions}
-                isSearchable={true}
-                placeholder="Choose the test type"
-                onChange={(option) =>
-                  formik.setFieldValue("testType", option?.value)
-                }
-                value={testTypeOptions.find(
-                  (test) => test.value === Number(formik.values.testType)
-                )}
-              />
-
-              {formik.touched.testType && formik.errors.testType && (
-                <div className="fv-plugins-message-container">
-                  <div className="fv-help-block">
-                    <span role="alert">{formik.errors.testType}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* end::Form group */}
-
-            {/* begin::Form group/ multi-slide */}
-            <div className="fv-row mb-3">
-              <div className="d-flex align-items-center">
-                <label className="min-w-100px form-label fw-bolder text-gray-900 fs-6 mb-0 me-2">
-                  Multi-Slide:
-                </label>
-                <div className="form-check form-check-custom form-check-solid form-switch me-6">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    {...formik.getFieldProps("multiSlide.isMultiSlide")}
-                    name="multiSlide.isMultiSlide"
-                  />
-                </div>
-                {formik.values.multiSlide.isMultiSlide && (
-                  <>
-                    <label className="min-w-100px form-label fw-bolder text-gray-900 fs-6 mb-0 me-2">
-                      Slides Number:
-                    </label>
-
-                    <input
-                      className={clsx(
-                        "form-control bg-transparent",
-                        {
-                          "is-invalid":
-                            formik.touched.nationalId &&
-                            formik.errors.nationalId,
-                        },
-                        {
-                          "is-valid":
-                            formik.touched.nationalId &&
-                            !formik.errors.nationalId,
-                        }
-                      )}
-                      min={1}
-                      type="number"
-                      {...formik.getFieldProps("multiSlide.numberOfSlides")}
-                      name="multiSlide.numberOfSlides"
-                    />
-                  </>
-                )}
-              </div>
-
-              {formik.touched.multiSlide?.numberOfSlides &&
-                formik.errors.multiSlide?.numberOfSlides && (
-                  <div className="fv-plugins-message-container">
-                    <div className="fv-help-block">
-                      <span role="alert">
-                        {formik.errors.multiSlide?.numberOfSlides}
-                      </span>
-                    </div>
-                  </div>
-                )}
-            </div>
-            {/* end::Form group */}
-
-            {/* begin::Form group */}
-            <div className="fv-row mb-3">
-              <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
-                Description
-              </label>
-              <textarea
-                autoComplete="off"
-                {...formik.getFieldProps("description")}
-                className="form-control bg-transparent"
-                style={{ minHeight: "150px" }}
-              />
-            </div>
-            {/* end::Form group */}
-
-            {/* begin::Action */}
-            <div className="d-flex mb-10">
-              <button
-                type="submit"
-                className="btn btn-primary me-4"
-                disabled={formik.isSubmitting || !formik.isValid}
-              >
-                {!loading && <span className="indicator-label">Continue</span>}
-                {loading && (
-                  <span
-                    className="indicator-progress"
-                    style={{ display: "block" }}
-                  >
-                    Please wait...
-                    <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+          {formik.touched.multiSlide?.numberOfSlides &&
+            formik.errors.multiSlide?.numberOfSlides && (
+              <div className="fv-plugins-message-container">
+                <div className="fv-help-block">
+                  <span role="alert">
+                    {formik.errors.multiSlide?.numberOfSlides}
                   </span>
-                )}
-              </button>
+                </div>
+              </div>
+            )}
+        </div>
+        {/* end::Form group */}
 
-              <button
-                type="reset"
-                className="btn btn-secondary"
-                disabled={formik.isSubmitting}
-                onClick={formik.handleReset}
-              >
-                <span className="indicator-label">Reset</span>
-              </button>
-            </div>
-            {/* end::Action */}
-          </form>
-        </>
-      )}
+        {/* begin::Form group */}
+        <div className="fv-row mb-3">
+          <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
+            Description
+          </label>
+          <textarea
+            autoComplete="off"
+            {...formik.getFieldProps("description")}
+            className="form-control bg-transparent"
+            style={{ minHeight: "150px" }}
+          />
+        </div>
+        {/* end::Form group */}
+      </ModalForm>
     </ModalLayout>
   );
 };
