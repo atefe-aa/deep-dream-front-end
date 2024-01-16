@@ -16,14 +16,18 @@ function Timer() {
 
   return (
     <div>
-      <span className="fs-2">{String(Math.floor(time / 3600)).padStart(2, '0')}</span>
-      <span className="fs-2">:</span>
-      <span className="fs-2">{String(Math.floor((time % 3600) / 60)).padStart(2, '0')}</span>
-      <span className="fs-2">:</span>
-      <span className="fs-2">{String(time % 60).padStart(2, '0')}</span>
-      <button className="btn btn-success btn-sm ms-4" onClick={start}>
-        Start
+      <button className="btn btn-success ms-4 me-4" onClick={start}>
+        Scan All
       </button>
+      <span className="fs-2">
+        {String(Math.floor(time / 3600)).padStart(2, "0")}
+      </span>
+      <span className="fs-2">:</span>
+      <span className="fs-2">
+        {String(Math.floor((time % 3600) / 60)).padStart(2, "0")}
+      </span>
+      <span className="fs-2">:</span>
+      <span className="fs-2">{String(time % 60).padStart(2, "0")}</span>
     </div>
   );
 }

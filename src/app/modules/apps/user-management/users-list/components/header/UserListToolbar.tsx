@@ -20,7 +20,7 @@ const UsersListToolbar = () => {
         onClick={openAddUserModal}
       >
         <KTIcon iconName="plus" className="fs-2" />
-        Add User
+        Add Laboratory
       </button>
       {/* end::Add user */}
     </div>

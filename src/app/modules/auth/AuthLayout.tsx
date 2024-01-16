@@ -33,7 +33,7 @@ const AuthLayout = () => {
               className="h-50px h-lg-80px"
             />
           </div>
-            <span className="text-success mb-11" style={{fontWeight:"bolder"}}>Deep Dream</span>
+            <span className="text-success fs-2 mb-11 fw-bolder">Deep Dream</span>
           {/* begin::Wrapper */}
           <div className="bg-body rounded w-lg-500px p-10">
             <Outlet />

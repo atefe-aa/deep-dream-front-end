@@ -42,7 +42,7 @@ const RegionSelector: React.FC<Props> = ({ image }) => {
         className="btn btn-danger btn-active-color-primary mt-1 btn-sm"
         onClick={handleReset}
       >
-        <span>Cleare All</span>
+        <span>Clear</span>
       </button>
     </>
   );

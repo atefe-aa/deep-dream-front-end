@@ -55,7 +55,7 @@ const FilterDropdown: React.FC<Props> = ({ filters = [] }) => {
             <label className="form-label fw-bold">Test Type:</label>
 
             <select className="form-select " aria-label="Select test type">
-              <option>Choose the test type</option>
+              <option>Choose test type</option>
               {TEST_TYPES.map((test) => (
                 <option value={test.id} key={test.id}>
                   {test.code} - {test.title}

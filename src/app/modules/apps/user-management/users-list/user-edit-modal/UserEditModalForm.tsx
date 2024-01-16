@@ -201,7 +201,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
           <div className="fv-row mb-7">
             {/* begin::Label */}
             <label className="required fw-bold fs-6 mb-2">
-              Labratory Title
+              Laboratory Title
             </label>
             {/* end::Label */}
 
@@ -338,7 +338,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
           {/* begin:: description Input group */}
           <div className="fv-row mb-7">
             {/* begin::Label */}
-            <label className="required fw-bold fs-6 mb-2">Description</label>
+            <label className="fw-bold fs-6 mb-2">Description</label>
             {/* end::Label */}
 
             {/* begin:: Input */}

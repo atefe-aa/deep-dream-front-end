@@ -4,208 +4,9 @@ import { SlideRow } from "../../modules/scanning/SlideRow";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Timer from "../../modules/scanning/Timer";
+import { SlidesFakeData } from "../../utils/constants";
 
-const fakeData = [
-  {
-    image: "",
-    slide: 1,
-    laboratory: "",
-    testNumber: 0,
-    testType: "",
-    progress: "",
-    // durations: [],
-  },
-  {
-    image: "/media/slides/slide.jpg",
-    slide: 2,
-    laboratory: "Milad",
-    testNumber: 550036,
-    testType: "CC",
-    progress: "scanned",
-    durations: [
-      {
-        id: 1,
-        magnification: "2x",
-        duration: 2,
-      },
-      {
-        id: 2,
-        magnification: "10x",
-        duration: 3,
-      },
-      {
-        id: 3,
-        magnification: "40x",
-        duration: 5,
-      },
-    ],
-  },
-  {
-    image: "/media/slides/slide.jpg",
-    slide: 3,
-    laboratory: "Milad",
-    testNumber: 550037,
-    testType: "CC",
-    progress: "scanned",
-    durations: [
-      {
-        id: 1,
-        magnification: "2x",
-        duration: 2,
-      },
-      {
-        id: 2,
-        magnification: "10x",
-        duration: 3,
-      },
-      {
-        id: 3,
-        magnification: "40x",
-        duration: 5,
-      },
-    ],
-  },
-  {
-    image: "/media/slides/slide.jpg",
-    slide: 4,
-    laboratory: "Milad",
-    testNumber: 550038,
-    testType: "CC",
-    progress: "ready",
-    durations: [
-      {
-        id: 1,
-        magnification: "2x",
-        duration: 2,
-      },
-      {
-        id: 2,
-        magnification: "10x",
-        duration: 3,
-      },
-    ],
-  },
-  {
-    image: "/media/slides/slide.jpg",
-    slide: 5,
-    laboratory: "Milad",
-    testNumber: 550039,
-    testType: "CC",
-    progress: "scanned",
-    durations: [
-      {
-        id: 1,
-        magnification: "2x",
-        duration: 2,
-      },
-      {
-        id: 2,
-        magnification: "10x",
-        duration: 3,
-      },
-    ],
-  },
-  {
-    image: "/media/slides/slide.jpg",
-    slide: 6,
-    laboratory: "Milad",
-    testNumber: 550040,
-    testType: "CC",
-    progress: "failed",
-    durations: [
-      {
-        id: 1,
-        magnification: "2x",
-        duration: 2,
-      },
-      {
-        id: 2,
-        magnification: "10x",
-        duration: 3,
-      },
-    ],
-  },
-  {
-    image: "/media/slides/slide.jpg",
-    slide: 7,
-    laboratory: "Milad",
-    testNumber: 550041,
-    testType: "CC",
-    progress: "ready",
-    durations: [
-      {
-        id: 1,
-        magnification: "2x",
-        duration: 2,
-      },
-      {
-        id: 2,
-        magnification: "10x",
-        duration: 3,
-      },
-    ],
-  },
-  {
-    image: "/media/slides/slide.jpg",
-    slide: 8,
-    laboratory: "Milad",
-    testNumber: 550042,
-    testType: "CC",
-    progress: "ready",
-    durations: [
-      {
-        id: 1,
-        magnification: "2x",
-        duration: 2,
-      },
-      {
-        id: 2,
-        magnification: "10x",
-        duration: 3,
-      },
-    ],
-  },
-  {
-    image: "/media/slides/slide.jpg",
-    slide: 9,
-    laboratory: "Milad",
-    testNumber: 550043,
-    testType: "CC",
-    progress: "ready",
-    durations: [
-      {
-        id: 1,
-        magnification: "2x",
-        duration: 2,
-      },
-      {
-        id: 2,
-        magnification: "10x",
-        duration: 3,
-      },
-    ],
-  },
-  {
-    image: "/media/slides/slide.jpg",
-    slide: 10,
-    laboratory: "Milad",
-    testNumber: 0,
-    testType: "CC",
-    progress: "ready",
-    durations: [
-      {
-        id: 1,
-        magnification: "2x",
-        duration: 2,
-      },
-      {
-        id: 2,
-        magnification: "10x",
-        duration: 3,
-      },
-    ],
-  },
-];
+
 interface FormValues {
   selectedCheckboxes: number[];
   selectAll: boolean;
@@ -289,24 +90,24 @@ const ScanningPage = () => {
 
   useEffect(
     function () {
-      fakeData.map(
+      SlidesFakeData.map(
         (data) => data.progress === "scanning" && setIsScanning(true)
       );
     },
-    [fakeData]
+    [SlidesFakeData]
   );
 
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="row g-5 g-xl-8">
         {/* begin::Action */}
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex align-items-center">
           <button
             type="submit"
             className="btn btn-primary"
             disabled={formik.isSubmitting || !formik.isValid}
           >
-            {!loading && <span className="indicator-label">Scan labels</span>}
+            {!loading && <span className="indicator-label">Start Scanning</span>}
             {loading && (
               <span className="indicator-progress" style={{ display: "block" }}>
                 Please wait...
@@ -314,7 +115,7 @@ const ScanningPage = () => {
               </span>
             )}
           </button>
-          <div className="text-end">
+          <div>
             <Timer />
           </div>
         </div>
@@ -335,7 +136,7 @@ const ScanningPage = () => {
               formik={formik}
               className="card-xl-stretch mb-xl-8"
             >
-              {fakeData.map((data, _index) => (
+              {SlidesFakeData.map((data, _index) => (
                 <SlideRow
                   handleCheckboxChange={handleCheckboxChange}
                   formik={formik}

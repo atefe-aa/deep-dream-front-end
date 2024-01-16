@@ -1,3 +1,206 @@
+export const SlidesFakeData = [
+  {
+    image: "",
+    slide: 1,
+    laboratory: "",
+    testNumber: 0,
+    testType: "",
+    progress: "",
+    // durations: [],
+  },
+  {
+    image: "/media/slides/slide.jpg",
+    slide: 2,
+    laboratory: "Milad",
+    testNumber: 550036,
+    testType: "CC",
+    progress: "scanned",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+      {
+        id: 3,
+        magnification: "40x",
+        duration: 5,
+      },
+    ],
+  },
+  {
+    image: "/media/slides/slide.jpg",
+    slide: 3,
+    laboratory: "Milad",
+    testNumber: 550037,
+    testType: "CC",
+    progress: "scanned",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+      {
+        id: 3,
+        magnification: "40x",
+        duration: 5,
+      },
+    ],
+  },
+  {
+    image: "/media/slides/slide.jpg",
+    slide: 4,
+    laboratory: "Milad",
+    testNumber: 550038,
+    testType: "CC",
+    progress: "ready",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
+  },
+  {
+    image: "/media/slides/slide.jpg",
+    slide: 5,
+    laboratory: "Milad",
+    testNumber: 550039,
+    testType: "CC",
+    progress: "scanned",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
+  },
+  {
+    image: "/media/slides/slide.jpg",
+    slide: 6,
+    laboratory: "Milad",
+    testNumber: 550040,
+    testType: "CC",
+    progress: "failed",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
+  },
+  {
+    image: "/media/slides/slide.jpg",
+    slide: 7,
+    laboratory: "Milad",
+    testNumber: 550041,
+    testType: "CC",
+    progress: "ready",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
+  },
+  {
+    image: "/media/slides/slide.jpg",
+    slide: 8,
+    laboratory: "Milad",
+    testNumber: 550042,
+    testType: "CC",
+    progress: "ready",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
+  },
+  {
+    image: "/media/slides/slide.jpg",
+    slide: 9,
+    laboratory: "Milad",
+    testNumber: 550043,
+    testType: "CC",
+    progress: "ready",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
+  },
+  {
+    image: "/media/slides/slide.jpg",
+    slide: 10,
+    laboratory: "Milad",
+    testNumber: 0,
+    testType: "CC",
+    progress: "ready",
+    durations: [
+      {
+        id: 1,
+        magnification: "2x",
+        duration: 2,
+      },
+      {
+        id: 2,
+        magnification: "10x",
+        duration: 3,
+      },
+    ],
+  },
+];
+
+
 export const FAKE_DATA = [
   {
     name: "Azam Ghasemi",
