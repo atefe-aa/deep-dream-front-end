@@ -6,10 +6,18 @@ type Props = {
   children: React.ReactNode;
   columns: Array<string>;
   modalId: string;
-  tableTitle?:string;
+  tableTitle?: string;
+  accordionId?: string;
 };
 
-const CustomTable: FC<Props> = ({tableTitle, className, children, columns, modalId }) => {
+const CustomTable: FC<Props> = ({
+  tableTitle,
+  className,
+  children,
+  columns,
+  modalId,
+  accordionId,
+}) => {
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -59,7 +67,12 @@ const CustomTable: FC<Props> = ({tableTitle, className, children, columns, modal
             </thead>
             {/* end::Table head */}
             {/* begin::Table body */}
-            <tbody>{children}</tbody>
+            <tbody
+              className={accordionId ? "accordion" : ""}
+              id={accordionId || undefined}
+            >
+              {children}
+            </tbody>
             {/* end::Table body */}
           </table>
           {/* end::Table */}

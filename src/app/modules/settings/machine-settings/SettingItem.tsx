@@ -17,7 +17,7 @@ const SettingItem: React.FC<Props> = ({
     <div className="accordion-item">
       <h2 className="accordion-header" id={`headding${modifiedName}`}>
         <button
-          className="accordion-button"
+          className="accordion-button collapsed"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target={`#collapse${modifiedName}`}

@@ -6,6 +6,7 @@ import { UsersListSearchComponent } from "../../modules/apps/user-management/use
 import { Pagination } from "../../ui/Pagination";
 import { CounsellorTableRow } from "../../ui/table/counsellors/CounsellorTableRow";
 import { AddNewCounsellor } from "./AddNewCounsellor";
+import { AddNewTestPrice } from "../../modules/settings/AddNewTestPrice";
 
 const UsersPage = () => {
   return (
@@ -13,6 +14,7 @@ const UsersPage = () => {
       <UsersListSearchComponent />
       <CustomTable
         className=""
+        accordionId="labsPanel"
         columns={["Name", "username", "Phone", "Address", "Description"]}
         modalId="kt_modal_add_new_laboratory"
       >
@@ -46,6 +48,9 @@ const UsersPage = () => {
       {/* modal */}
       <AddNewLaboratory />
       <AddNewCounsellor />
+      {LABS_TESTS_DATA.map((lab) => (
+        <AddNewTestPrice key={lab.id} labName={lab.labName} />
+      ))}
     </>
   );
 };

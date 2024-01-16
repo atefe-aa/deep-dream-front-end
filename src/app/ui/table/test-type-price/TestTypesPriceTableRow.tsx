@@ -23,15 +23,10 @@ const TestTypesPriceTableRow: FC<Props> = ({ testTypeData, index }) => {
         </div>
       </td>
       <td>
-        <div className="d-flex align-items-center">
-          <div className="d-flex justify-content-start flex-column">
-            <a
-              href="#"
-              className="text-gray-900 fw-bold text-hover-primary fs-6"
-            >
-              {testTypeData.testName}
-            </a>
-          </div>
+        <div className="d-flex justify-content-start flex-column">
+          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+            {testTypeData.testName}
+          </a>
         </div>
       </td>
       <td>
@@ -49,7 +44,8 @@ const TestTypesPriceTableRow: FC<Props> = ({ testTypeData, index }) => {
         >
           {testTypeData.testExtraPrice.toLocaleString()}
         </a>
-      </td>  <td>
+      </td>{" "}
+      <td>
         <a
           href="#"
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
@@ -57,10 +53,9 @@ const TestTypesPriceTableRow: FC<Props> = ({ testTypeData, index }) => {
           {testTypeData.description}
         </a>
       </td>
-    
       <td>
         <div className="d-flex justify-content-end flex-shrink-0">
-        <DropDownButton>
+          <DropDownButton>
             <div className="menu-item px-3">
               <a href="#" className="menu-link px-3">
                 <KTIcon iconName="pencil" className="fs-3 me-3" />

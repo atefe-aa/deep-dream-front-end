@@ -13,9 +13,7 @@ function SettingsPage() {
 
       {/* begin:: Modals */}
       <AddNewTestType />
-      {LABS_TESTS_DATA.map((lab) => (
-        <AddNewTestPrice key={lab.id} labName={lab.labName} />
-      ))}
+   
       <AddNewSlide />
       {/* end:: Modals */}
     </>
