@@ -23,6 +23,7 @@ const initialValues = {
   testType: "",
   price: "",
   extraPrice: "",
+  description:""
 };
 
 type Props = {
@@ -62,7 +63,7 @@ const AddNewTestPrice: React.FC<Props> = ({ labName }) => {
   return (
     <ModalLayout
       modalId={`kt_modal_add_new_test_price_${labName.toLowerCase()}`}
-      title={`Add new test price for ${labName} laboratory`}
+      title={`${labName} Laboratory`}
     >
       <ModalForm
         modalId={`kt_modal_add_new_test_price_${labName.toLowerCase()}`}
@@ -178,6 +179,21 @@ const AddNewTestPrice: React.FC<Props> = ({ labName }) => {
               </div>
             </div>
           )}
+        </div>
+        {/* end::Form group */}
+
+        
+        {/* begin:: description Form group */}
+        <div className="fv-row mb-3">
+          <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
+            Description
+          </label>
+          <textarea
+            autoComplete="off"
+            {...formik.getFieldProps("description")}
+            className="form-control bg-transparent"
+            style={{ minHeight: "150px" }}
+          />
         </div>
         {/* end::Form group */}
       </ModalForm>

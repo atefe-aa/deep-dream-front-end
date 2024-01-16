@@ -234,7 +234,7 @@ const AddNewTestType: FC = () => {
         </div>
         {/* end::Form group */}
 
-        <div className="d-flex align-items-center my-6">
+        <div className="d-flex align-items-center justify-content-between my-6">
           <Checkbox label="4x" inputName="mag4x" formik={formik} />
           <Checkbox label="10x" inputName="mag10x" formik={formik} />
           <Checkbox label="40x" inputName="mag40x" formik={formik} />

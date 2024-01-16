@@ -88,9 +88,12 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
     description: "",
     password: "",
     confirm_password: "",
+    signature: "",
+    header: "",
+    footer: "",
   };
   const blankImg = toAbsoluteUrl("/media/svg/avatars/blank.svg");
-  const userAvatarImg = toAbsoluteUrl(`/media/${userForEdit.avatar}`);
+  // const userAvatarImg = toAbsoluteUrl(`/media/${userForEdit.avatar}`);
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -131,6 +134,69 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
           data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
           data-kt-scroll-offset="300px"
         >
+          {/* begin::Avatar Input group */}
+          <div className="fv-row mb-7">
+            {/* begin::Label */}
+            <label className="d-block fw-bold fs-6 mb-5">Avatar</label>
+            {/* end::Label */}
+
+            {/* begin::Image input */}
+            <div
+              className="image-input image-input-outline"
+              data-kt-image-input="true"
+              style={{ backgroundImage: `url('${blankImg}')` }}
+            >
+              {/* begin::Preview existing avatar */}
+              <div
+                className="image-input-wrapper w-125px h-125px"
+                style={{ backgroundImage: `url('${blankImg}')` }}
+              ></div>
+              {/* end::Preview existing avatar */}
+
+              {/* begin::Label */}
+              <label
+                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                data-kt-image-input-action="change"
+                data-bs-toggle="tooltip"
+                title="Change avatar"
+              >
+                <i className="bi bi-pencil-fill fs-7"></i>
+
+                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                <input type="hidden" name="avatar_remove" />
+              </label>
+              {/* end::Label */}
+
+              {/* begin::Cancel */}
+              <span
+                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                data-kt-image-input-action="cancel"
+                data-bs-toggle="tooltip"
+                title="Cancel avatar"
+              >
+                <i className="bi bi-x fs-2"></i>
+              </span>
+              {/* end::Cancel */}
+
+              {/* begin::Remove */}
+              <span
+                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                data-kt-image-input-action="remove"
+                data-bs-toggle="tooltip"
+                title="Remove avatar"
+              >
+                <i className="bi bi-x fs-2"></i>
+              </span>
+              {/* end::Remove */}
+            </div>
+            {/* end::Image input */}
+
+            {/* begin::Hint */}
+            <div className="form-text">Allowed file types: png, jpg, jpeg.</div>
+            {/* end::Hint */}
+          </div>
+          {/* end::Input group */}
+
           {/* begin:: labratory name Input group */}
           <div className="fv-row mb-7">
             {/* begin::Label */}
@@ -440,6 +506,109 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                   <span role="alert">{formik.errors.confirm_password}</span>
                 </div>
               )}
+          </div>
+          {/* end::Input group */}
+
+          {/* begin:: signature Input group */}
+          <div className="fv-row mb-7">
+            {/* begin::Label */}
+            <label className="required fw-bold fs-6 mb-2">Signature</label>
+            {/* end::Label */}
+
+            {/* begin:: Input */}
+            <input
+              placeholder="signature"
+              {...formik.getFieldProps("signature")}
+              type="file"
+              name="signature"
+              className={clsx(
+                "form-control form-control-solid mb-3 mb-lg-0",
+                {
+                  "is-invalid":
+                    formik.touched.signature && formik.errors.signature,
+                },
+                {
+                  "is-valid":
+                    formik.touched.signature && !formik.errors.signature,
+                }
+              )}
+              autoComplete="off"
+              disabled={formik.isSubmitting}
+            />
+            {formik.touched.signature && formik.errors.signature && (
+              <div className="fv-plugins-message-container">
+                <div className="fv-help-block">
+                  <span role="alert">{formik.errors.signature}</span>
+                </div>
+              </div>
+            )}
+            {/* end::Input */}
+          </div>
+          {/* end::Input group */}
+
+          {/* begin:: header Input group */}
+          <div className="fv-row mb-7">
+            {/* begin::Label */}
+            <label className="required fw-bold fs-6 mb-2">Header</label>
+            {/* end::Label */}
+
+            {/* begin:: Input */}
+            <input
+              placeholder="header"
+              {...formik.getFieldProps("header")}
+              type="file"
+              name="header"
+              className={clsx(
+                "form-control form-control-solid mb-3 mb-lg-0",
+                { "is-invalid": formik.touched.header && formik.errors.header },
+                {
+                  "is-valid": formik.touched.header && !formik.errors.header,
+                }
+              )}
+              autoComplete="off"
+              disabled={formik.isSubmitting}
+            />
+            {formik.touched.header && formik.errors.header && (
+              <div className="fv-plugins-message-container">
+                <div className="fv-help-block">
+                  <span role="alert">{formik.errors.header}</span>
+                </div>
+              </div>
+            )}
+            {/* end::Input */}
+          </div>
+          {/* end::Input group */}
+
+          {/* begin:: footer Input group */}
+          <div className="fv-row mb-7">
+            {/* begin::Label */}
+            <label className="fw-bold fs-6 mb-2">Footer</label>
+            {/* end::Label */}
+
+            {/* begin:: Input */}
+            <input
+              placeholder="footer"
+              {...formik.getFieldProps("footer")}
+              type="file"
+              name="footer"
+              className={clsx(
+                "form-control form-control-solid mb-3 mb-lg-0",
+                { "is-invalid": formik.touched.footer && formik.errors.footer },
+                {
+                  "is-valid": formik.touched.footer && !formik.errors.footer,
+                }
+              )}
+              autoComplete="off"
+              disabled={formik.isSubmitting}
+            />
+            {formik.touched.footer && formik.errors.footer && (
+              <div className="fv-plugins-message-container">
+                <div className="fv-help-block">
+                  <span role="alert">{formik.errors.footer}</span>
+                </div>
+              </div>
+            )}
+            {/* end::Input */}
           </div>
           {/* end::Input group */}
         </div>

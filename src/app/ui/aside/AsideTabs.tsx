@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Dispatch, FC, SetStateAction } from "react";
-import { KTIcon } from "../../../_metronic/helpers";
+import { KTIcon, toAbsoluteUrl } from "../../../_metronic/helpers";
 import { Link } from "react-router-dom";
 import { HeaderNotificationsMenu } from "../../../_metronic/partials";
 import { useAuth } from "../../modules/auth";
@@ -42,6 +42,25 @@ const AsideTabs: FC<Props> = ({ link, setLink }) => {
     >
       {/* begin::Nav */}
       <ul className="nav flex-column" id="kt_aside_nav_tabs">
+        <li className="mb-10">
+          {/* begin::User */}
+          <div
+            className="d-flex align-items-center justify-content-center mb-1"
+            id="kt_header_user_menu_toggle"
+          >
+            <div
+              className=" cursor-pointer symbol symbol-40px"
+              title="User profile"
+            >
+              <img
+                src={toAbsoluteUrl("/media/avatars/300-1.jpg")}
+                alt="avatar"
+              />
+            </div>
+          </div>
+          <span className="fs-7 text-muted fw-bold">Milad Lab.</span>
+          {/* end::User */}
+        </li>
         {/* begin::Nav item */}
         {tabs.map((t) => (
           <li key={t.link}>
@@ -83,7 +102,11 @@ const AsideTabs: FC<Props> = ({ link, setLink }) => {
 
         <li>
           {/* begin::log out */}
-          <div onClick={logout} className="d-flex align-items-center mb-10">
+          <div
+            data-bs-toggle="modal"
+            data-bs-target="#confirm_signout"
+            className="d-flex align-items-center mb-10"
+          >
             {/* begin::Menu wrapper */}
             <div
               className="btn btn-icon btn-active-color-primary btn-color-gray-500 btn-active-light"

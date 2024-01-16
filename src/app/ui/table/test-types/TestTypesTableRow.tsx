@@ -66,7 +66,9 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
           href="#"
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
-          {testTypeData.description}
+          {testTypeData.magnifications.map((mag) => (
+            <span key={mag}>{mag}x, </span>
+          ))}
         </a>
       </td>
       <td>
@@ -74,9 +76,7 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
           href="#"
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
-          {testTypeData.magnifications.map((mag) => (
-            <span key={mag}>{mag}x, </span>
-          ))}
+          {testTypeData.description}
         </a>
       </td>
       <td>

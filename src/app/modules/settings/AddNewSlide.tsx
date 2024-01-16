@@ -5,8 +5,6 @@ import * as Yup from "yup";
 import clsx from "clsx";
 import { useFormik } from "formik";
 import { ModalLayout } from "../../ui/modals/ModalLayout";
-import Checkbox from "./machine-settings/Checkbox";
-import { TEST_TYPES } from "../../utils/constants";
 import { ModalForm } from "../../ui/modals/ModalForm";
 
 const addSchema = Yup.object().shape({

@@ -8,9 +8,12 @@ import { PageDataProvider } from "../../_metronic/layout/core";
 import { AddNewTest, DrawerMessenger } from "../../_metronic/partials";
 import { MenuComponent } from "../../_metronic/assets/ts/components";
 import { AsideDefault } from "../ui/aside/AsideDefault";
+import { ConfirmModal } from "../ui/modals/ConfirmModal";
+import { useAuth } from "./auth";
 
 const MasterLayout = () => {
   const location = useLocation();
+  const { logout } = useAuth();
 
   useEffect(() => {
     setTimeout(() => {
@@ -49,6 +52,11 @@ const MasterLayout = () => {
       </div>
       {/* begin:: Modals */}
       <AddNewTest />
+      <ConfirmModal
+        actionName="signout"
+        onConfirm={logout}
+        message="Are you sure, you want to Sign out?"
+      />
       {/* end:: Modals */}
       <ScrollTop />
     </PageDataProvider>

@@ -6,15 +6,15 @@ type Props = {
 
 const Checkbox: React.FC<Props> = ({ label, inputName, formik }) => {
   return (
-    <div className="row me-5">
+    <div className="row align-items-center">
       <label
         htmlFor={inputName}
-        className="col-lg-4 col-form-label  fw-bold fs-6"
+        className="col-4 col-form-label  fw-bold fs-6"
       >
         {label}
       </label>
 
-      <div className="col-lg-8">
+      <div className="col-8">
         <div className="col">
           <div className="form-check form-check-custom form-check-solid form-switch">
             <input

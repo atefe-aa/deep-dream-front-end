@@ -35,8 +35,8 @@ function TestTypesSettings() {
                 "Code",
                 "Sex",
                 "Type",
-                "Description",
                 "Magnifications",
+                "Description",
               ]}
             >
               {TEST_TYPES.map((test, index) => (

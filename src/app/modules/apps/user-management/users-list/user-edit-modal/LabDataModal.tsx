@@ -26,10 +26,6 @@ const addLabDataSchema = Yup.object().shape({
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
     .required("footer is required"),
-  template: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("template is required"),
 });
 
 const LabDataModal: FC<Props> = ({ labId }) => {
@@ -37,7 +33,6 @@ const LabDataModal: FC<Props> = ({ labId }) => {
     signature: "",
     header: "",
     footer: "",
-    template: "",
   };
 
   const formik = useFormik({
@@ -152,7 +147,7 @@ const LabDataModal: FC<Props> = ({ labId }) => {
           {/* begin:: footer Input group */}
           <div className="fv-row mb-7">
             {/* begin::Label */}
-            <label className="required fw-bold fs-6 mb-2">Footer</label>
+            <label className="fw-bold fs-6 mb-2">Footer</label>
             {/* end::Label */}
 
             {/* begin:: Input */}
@@ -182,42 +177,6 @@ const LabDataModal: FC<Props> = ({ labId }) => {
           </div>
           {/* end::Input group */}
 
-          {/* begin:: template Input group */}
-          <div className="fv-row mb-7">
-            {/* begin::Label */}
-            <label className="required fw-bold fs-6 mb-2">Template</label>
-            {/* end::Label */}
-
-            {/* begin:: Input */}
-            <input
-              placeholder="template"
-              {...formik.getFieldProps("template")}
-              type="file"
-              name="template"
-              className={clsx(
-                "form-control form-control-solid mb-3 mb-lg-0",
-                {
-                  "is-invalid":
-                    formik.touched.template && formik.errors.template,
-                },
-                {
-                  "is-valid":
-                    formik.touched.template && !formik.errors.template,
-                }
-              )}
-              autoComplete="off"
-              disabled={formik.isSubmitting}
-            />
-            {formik.touched.template && formik.errors.template && (
-              <div className="fv-plugins-message-container">
-                <div className="fv-help-block">
-                  <span role="alert">{formik.errors.template}</span>
-                </div>
-              </div>
-            )}
-            {/* end::Input */}
-          </div>
-          {/* end::Input group */}
         </div>
         {/* end::Scroll */}
 
@@ -242,7 +201,7 @@ const LabDataModal: FC<Props> = ({ labId }) => {
             <span className="indicator-label">Submit</span>
             {formik.isSubmitting && (
               <span className="indicator-progress">
-                Please wait...{" "}
+                Please wait...
                 <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
               </span>
             )}
