@@ -167,9 +167,9 @@ function getChartOptions(
             colors: [],
           },
         },
-        size: 150,
+        size: 180,
         offsetX: 50,
-        offsetY: -30,
+        offsetY: 0,
       },
     },
     legend: {
