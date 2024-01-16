@@ -1,7 +1,8 @@
 import React from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
-import { DropDownButton } from "../../buttons/DropDownButton";
+import { DropDownButton } from "../../dropdown/DropDownButton";
 import { ShareMenu } from "../../ShareMenu";
+import { TestsTableDropdown } from "../../dropdown/TestsTableDropdown";
 
 interface DurationArray {
   id?: number;
@@ -119,14 +120,14 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
       <td>
         {data.durations ? (
           <>
-            <div className="d-flex justify-content-between text-gray-900 fw-bold text-hover-primary d-block fs-6">
+            <div className="d-flex justify-content-around text-gray-900 fw-bold text-hover-primary d-block fs-6">
               <span>Total: </span>
               {totalDuration}
             </div>
             {data.durations.map((item) => (
               <span
                 key={item?.id}
-                className="d-flex justify-content-between text-muted fw-semibold text-muted d-block fs-7"
+                className="d-flex justify-content-around text-muted fw-semibold text-muted d-block fs-7"
               >
                 <span>{item?.magnification}: </span>
                 {item?.duration}
@@ -138,7 +139,7 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
         )}
       </td>
       <td className="text-end">
-        <div className="d-flex flex-column w-100 me-2">
+        <div className="d-flex flex-column">
           <div className="d-flex flex-stack mb-2">
             <span className="text-muted me-2 fs-7 fw-semibold">
               {data.progress}
@@ -168,7 +169,7 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
             <KTIcon iconName="share" className="fs-3" />
           </div>
           <ShareMenu backgrounUrl="/media/misc/pattern-1.jpg" />
-          <DropDownButton />
+          <TestsTableDropdown />
         </div>
       </td>
     </tr>

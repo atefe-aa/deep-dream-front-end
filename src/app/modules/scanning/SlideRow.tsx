@@ -2,6 +2,7 @@ import React from "react";
 import { KTIcon } from "../../../_metronic/helpers";
 import { RegionSelector } from "./RegionSelector";
 import clsx from "clsx";
+import { DropDownButton } from "../../ui/dropdown/DropDownButton";
 
 interface TimeType {
   magnification?: string;
@@ -156,11 +157,12 @@ const SlideRow: React.FC<Props> = ({
       {/* start::Durations */}
       <td className="text-center">
         <div className="d-flex flex-column text-gray-900 fw-bold text-hover-primary fs-6">
-         {data?.durations && <div className="d-flex justify-content-between">
-            <span>Total: </span>
-            <span>{totalDuration}</span>
-          </div>
-}
+          {data?.durations && (
+            <div className="d-flex justify-content-between">
+              <span>Total: </span>
+              <span>{totalDuration}</span>
+            </div>
+          )}
           {data.durations &&
             data.durations.map((item) => (
               <div key={item.id} className="d-flex justify-content-between">
@@ -175,53 +177,49 @@ const SlideRow: React.FC<Props> = ({
       <td className="text-center">
         {/* Actions */}
         <div className="d-flex justify-content-end flex-shrink-0">
-          {/* Start Action */}
-          {data?.progress === "ready" && (
-            <button
-              data-bs-toggle="modal"
-              data-bs-target="#kt_modal_scanning_slide"
-              disabled={isScanning}
-              className="btn btn-icon  btn-bg-light btn-active-color-primary btn-sm me-1"
-            >
-             <KTIcon iconName="to-left" className="fs-3" />
-            </button>
-          )}
+          <DropDownButton>
+            {/* Start Action */}
+            {data?.progress === "ready" && (
+              <div className="menu-item px-3">
+                <a href="#" className="menu-link px-3">
+                  <KTIcon iconName="to-right" className="fs-3 me-3" />
+                  Start Scanning
+                </a>
+              </div>
+            )}
 
-          {/* View Action */}
-          {data?.progress === "scanned" && (
-            <button className="btn btn-icon  btn-bg-light btn-active-color-primary btn-sm me-1">
-              <KTIcon iconName="eye" className="fs-3" />
-            </button>
-          )}
+            {/* View Action */}
+            {data?.progress === "scanned" && (
+              <div className="menu-item px-3">
+                <a href="#" className="menu-link px-3">
+                  <KTIcon iconName="eye" className="fs-3 me-3" />
+                  View Image
+                </a>
+              </div>
+            )}
 
-          {/* Try Again Action */}
-          {data?.progress === "failed" && (
-            <button
-              disabled={isScanning}
-              className="btn btn-icon  btn-bg-light btn-active-color-primary btn-sm me-1"
-            >
-               <KTIcon iconName="arrows-circle" className="fs-3" />
-            </button>
-          )}
+            {/* Try Again Action */}
+            {data?.progress === "failed" && (
+              <div className="menu-item px-3">
+                <a href="#" className="menu-link px-3">
+                  <KTIcon iconName="arrows-circle" className="fs-3 me-3" />
+                  Try Again
+                </a>
+              </div>
+            )}
 
-          {/* Scanning State */}
-          {data?.progress === "scanning" && (
-            <button className="btn btn-icon  btn-bg-light btn-active-color-primary btn-sm me-1">
-              <span className="spinner-border spinner-border-sm align-middle"></span>
-            </button>
-          )}
-
-          {data.progress === "scanning" ? (
-            // stop Action
-            <button className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-              <i className="las la-ban"></i>
-            </button>
-          ) : (
-            // Delete Action
-            <button className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-              <KTIcon iconName="trash" className="fs-3" />
-            </button>
-          )}
+            <div className="menu-item px-3 my-1">
+              <a
+                href="#"
+                className="menu-link px-3 text-danger "
+                data-bs-toggle="tooltip"
+                title="Delete Test Price"
+              >
+                <KTIcon iconName="trash" className="fs-3 me-3" />
+                Delete Slide
+              </a>
+            </div>
+          </DropDownButton>
         </div>
       </td>
 

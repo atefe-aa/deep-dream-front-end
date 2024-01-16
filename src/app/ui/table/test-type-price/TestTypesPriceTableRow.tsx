@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
+import { DropDownButton } from "../../dropdown/DropDownButton";
 
 interface TestTypeArray {
   testName: string;
@@ -59,18 +60,25 @@ const TestTypesPriceTableRow: FC<Props> = ({ testTypeData, index }) => {
     
       <td>
         <div className="d-flex justify-content-end flex-shrink-0">
-          <a
-            href="#"
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-          >
-            <KTIcon iconName="pencil" className="fs-3" />
-          </a>
-          <a
-            href="#"
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-          >
-            <KTIcon iconName="trash" className="fs-3" />
-          </a>
+        <DropDownButton>
+            <div className="menu-item px-3">
+              <a href="#" className="menu-link px-3">
+                <KTIcon iconName="pencil" className="fs-3 me-3" />
+                Edit Info
+              </a>
+            </div>
+            <div className="menu-item px-3 my-1">
+              <a
+                href="#"
+                className="menu-link px-3 text-danger "
+                data-bs-toggle="tooltip"
+                title="Delete Test Price"
+              >
+                <KTIcon iconName="trash" className="fs-3 me-3" />
+                Delete Test Price
+              </a>
+            </div>
+          </DropDownButton>
         </div>
       </td>
     </tr>

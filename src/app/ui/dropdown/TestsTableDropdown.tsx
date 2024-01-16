@@ -1,12 +1,10 @@
 import { FC } from "react";
-import { KTIcon } from "../../_metronic/helpers";
+import { KTIcon } from "../../../_metronic/helpers";
+import { DropDownButton } from "./DropDownButton";
 
-const Dropdown: FC = () => {
+const TestsTableDropdown: FC = () => {
   return (
-    <div
-      className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3"
-      data-kt-menu="true"
-    >
+    <DropDownButton>
       <div className="menu-item px-3">
         <a href="#" className="menu-link px-3">
           <KTIcon iconName="pencil" className="fs-3 me-3" />
@@ -58,8 +56,8 @@ const Dropdown: FC = () => {
           Delete Test
         </a>
       </div>
-    </div>
+    </DropDownButton>
   );
 };
 
-export { Dropdown };
+export { TestsTableDropdown };

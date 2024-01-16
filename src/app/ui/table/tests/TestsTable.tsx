@@ -42,14 +42,14 @@ const TestsTable: React.FC<Props> = ({ className = "", testsData }) => {
               <tr className="fw-bold text-muted">
                 <th className="w-25px">#</th>
                 <th className="min-w-15px">Number</th>
-                <th className="min-w-150px">Patient</th>
-                <th className="min-w-130px">Price(R)</th>
-                <th className="min-w-80px">Number Of SLides</th>
-                <th className="min-w-150px">Admit Date & Time</th>
-                <th className="min-w-140px">Laboratory</th>
+                <th className="min-w-50px">Patient</th>
+                <th className="min-w-50px">Price(R)</th>
+                <th style={{width:"80px"}}>Number of SLides</th>
+                <th className="min-w-50px">Admit Date & Time</th>
+                <th className="min-w-50px">Laboratory</th>
                 <th className="min-w-50px" style={{width:"80px"}}>Scan Duration(min)</th>
-                <th className="min-w-120px">Progress</th>
-                <th className="min-w-100px ">Actions</th>
+                <th className="min-w-50px">Progress</th>
+                <th className="min-w-50px ">Actions</th>
               </tr>
             </thead>
             {/* end::Table head */}
