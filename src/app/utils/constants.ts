@@ -1513,14 +1513,14 @@ export const defaultAlerts = [
     icon: "message-text",
     state: "danger",
   },
-  // {
-  //   id: 5,
-  //   name: "Company HR",
-  //   description: "Made an annotation.",
-  //   time: "5 hrs",
-  //   icon: "map001",
-  //   state: "warning",
-  // },
+  {
+    id: 5,
+    name: "Dr. Nasr",
+    description: "Made an annotation.",
+    time: "5 hrs",
+    icon: "message-text",
+    state: "warning",
+  },
   // {
   //   id: 4,
   //   name: "Project Red",

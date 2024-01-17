@@ -264,18 +264,16 @@ export interface LogModel {
 }
 
 const defaultLogs: Array<LogModel> = [
-  {code: '200 OK', state: 'success', message: 'New order', time: 'Just now'},
-  {code: '500 ERR', state: 'danger', message: 'New customer', time: '2 hrs'},
-  {code: '200 OK', state: 'success', message: 'Payment process', time: '5 hrs'},
-  {code: '300 WRN', state: 'warning', message: 'Search query', time: '2 days'},
-  {code: '200 OK', state: 'success', message: 'API connection', time: '1 week'},
-  {code: '200 OK', state: 'success', message: 'Database restore', time: 'Mar 5'},
-  {code: '300 WRN', state: 'warning', message: 'System update', time: 'May 15'},
-  {code: '300 WRN', state: 'warning', message: 'Server OS update', time: 'Apr 3'},
-  {code: '300 WRN', state: 'warning', message: 'API rollback', time: 'Jun 30'},
-  {code: '500 ERR', state: 'danger', message: 'Refund process', time: 'Jul 10'},
-  {code: '500 ERR', state: 'danger', message: 'Withdrawal process', time: 'Sep 10'},
-  {code: '500 ERR', state: 'danger', message: 'Mail tasks', time: 'Dec 10'},
+  {code: '200 OK', state: 'success', message: 'Test number 65066 has been scanned.', time: 'Just now'},
+  {code: '500 ERR', state: 'danger', message: 'Test number 86004 scanning failed.', time: '2 hrs'},
+  {code: '200 OK', state: 'warning', message: 'Test number 40055 result has been approved.', time: '5 hrs'},
+  {code: '200 OK', state: 'success', message: 'Test number 65066 has been scanned.', time: 'Just now'},
+  {code: '500 ERR', state: 'danger', message: 'Test number 86004 scanning failed.', time: '2 hrs'},
+  {code: '200 OK', state: 'success', message: 'Test number 40055 result has been approved.', time: '5 hrs'},
+  {code: '200 OK', state: 'success', message: 'Test number 65066 has been scanned.', time: 'Just now'},
+  {code: '500 ERR', state: 'danger', message: 'Test number 86004 scanning failed.', time: '2 hrs'},
+  {code: '200 OK', state: 'success', message: 'Test number 40055 result has been approved.', time: '5 hrs'},
+
 ]
 
 export {defaultMessages, defaultUserInfos, defaultAlerts, defaultLogs, messageFromClient}
