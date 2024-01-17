@@ -4,8 +4,8 @@ type Props = {
 
 const CameraViewBox: React.FC<Props> = ({ targetComponentRef }) => {
   return (
-    <div className="col-lg-8 col-lx-9 p-0" ref={targetComponentRef}>
-      <div className="card  h-550px d-flex align-items-center justify-content-center">
+    <div className="col-lg-8 col-lx-9 p-0 h-100"   ref={targetComponentRef}>
+      <div className="card d-flex h-100 align-items-center justify-content-center">
         <div className="d-flex flex-column justify-content-center align-items-center">
           <img
             className="w-100px"

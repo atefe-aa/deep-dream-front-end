@@ -2,10 +2,10 @@ import { KTIcon } from "../../../_metronic/helpers";
 
 function ManualSettings() {
   return (
-    <div className="col-lg-4 col-lx-3">
-      <div className="card ">
+    <div className="col-lg-4 col-lx-3 h-100 d-flex ">
+      <div className="card h-100 w-100">
         {/* begin:: X Y Z axis settings */}
-        <div className="d-flex align-items-center justify-content-around border rounded m-2 mt-4 p-2">
+        <div className="d-flex align-items-center justify-content-around border rounded m-2  p-2">
           <div>
             <div className="d-flex justify-content-center mb-2">
               <div className="btn btn-icon btn-sm btn-primary btn-active-light">
@@ -166,7 +166,8 @@ function ManualSettings() {
         </div>
         {/* end::form ranges settings */}
 
-        <div className="d-flex flex-column align-items-center justify-content-around border rounded m-2 mb-4 p-4">
+        {/* begin::Brightness settings */}
+        <div className="d-flex flex-column align-items-center justify-content-around border rounded m-2  p-4">
           <div className="d-flex align-items-center ">
             <label className="form-label me-4" htmlFor="brightness">
               Brightness
@@ -176,6 +177,7 @@ function ManualSettings() {
               className="form-control form-control-sm "
               id="brightness"
               name="brightness"
+              placeholder="Enter Brightness %"
             />
           </div>
         </div>
