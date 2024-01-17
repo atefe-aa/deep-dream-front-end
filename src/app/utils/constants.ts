@@ -824,17 +824,32 @@ export const counsellorsData = [
   },
   {
     id: 2,
-    name: "Dr. Ahmadi",
+    name: "Dr. Sadeghi",
     phone: "09100520741",
   },
   {
     id: 3,
-    name: "Dr. Ahmadi",
+    name: "Dr. Nasr",
     phone: "09100520741",
   },
   {
     id: 4,
-    name: "Dr. Ahmadi",
+    name: "Dr. Fard",
+    phone: "09100520741",
+  },
+  {
+    id: 5,
+    name: "Dr. Fard",
+    phone: "09100520741",
+  },
+  {
+    id: 6,
+    name: "Dr. Fard",
+    phone: "09100520741",
+  },
+  {
+    id: 7,
+    name: "Dr. Fard",
     phone: "09100520741",
   },
 ];

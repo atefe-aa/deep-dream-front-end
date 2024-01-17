@@ -1,190 +1,120 @@
 import { FC, useState } from "react";
-import { KTIcon, defaultAlerts, toAbsoluteUrl, useIllustrationsPath } from "../../_metronic/helpers";
-import Select from "react-select";
-import { useFormik } from "formik";
-
-import * as Yup from "yup";
-import { Link } from "react-router-dom";
-import clsx from "clsx";
+import { toAbsoluteUrl } from "../../_metronic/helpers";
+import { Tab, Tabs } from "react-bootstrap";
+import { counsellorsData } from "../utils/constants";
 
 type Props = {
   backgrounUrl: string;
 };
 
-const addSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Name is required"),
-});
-
-const initialValues = {
-  name: "",
-};
-
 const ShareMenu: FC<Props> = ({ backgrounUrl }) => {
-  const [loading, setLoading] = useState(false);
+  const [counsellors, setCounsellors] = useState<number[]>([]);
 
-  const options = [
-    { value: 1, label: "Dr. Nasr" },
-    { value: 2, label: "Dr. Ahmadi" },
-    { value: 3, label: "Dr. Amini" },
-    { value: 4, label: "Dr. Mohammadi" },
-    { value: 5, label: "Dr. Ahmadi" },
-  ];
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    console.log(counsellors);
+  }
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema: addSchema,
-    onSubmit: async (values, { setStatus, setSubmitting }) => {
-      setLoading(true);
-      try {
-        console.log(values);
-        // const {data: auth} = await login(values.email, values.password)
-        // saveAuth(auth)
-        // const {data: user} = await getUserByToken(auth.api_token)
-        // setCurrentUser(user)
-      } catch (error) {
-        console.error(error);
-        // saveAuth(undefined)
-        setStatus("The login details are incorrect");
-        setSubmitting(false);
-        setLoading(false);
+  function HandleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, checked } = e.target;
+
+    setCounsellors((prevCounsellors) => {
+      if (checked) {
+        return [...prevCounsellors, Number(name)];
+      } else {
+        return prevCounsellors.filter((item) => item !== Number(name));
       }
-    },
-  });
-
+    });
+    console.log(counsellors);
+  }
+  const [key, setKey] = useState("share");
   return (
     <div
-      className="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px"
-      data-kt-menu="true"
+      className="d-flex flex-column bgi-no-repeat rounded-top"
+      style={{
+        backgroundImage: `url('${toAbsoluteUrl(backgrounUrl)}')`,
+        backgroundSize: "100% 106px ",
+      }}
     >
-      <div
-        className="d-flex flex-column bgi-no-repeat rounded-top"
-        style={{ backgroundImage: `url('${toAbsoluteUrl(backgrounUrl)}')` }}
-      >
+      <div>
         <h3 className="text-white fw-bold px-9 mt-10 mb-6">
           Share with your colleagues
         </h3>
-
-        <ul className='nav nav-line-tabs nav-line-tabs-2x nav-stretch fw-bold px-9'>
-        <li className='nav-item'>
-          <a
-            className='nav-link text-white opacity-75 opacity-state-100 pb-4 active'
-            data-bs-toggle='tab'
-            href='#kt_topbar_notifications_1'
-          >
-            Share
-          </a>
-        </li>
-
-        <li className='nav-item'>
-          <a
-            className='nav-link text-white opacity-75 opacity-state-100 pb-4 '
-            data-bs-toggle='tab'
-            href='#kt_topbar_notifications_2'
-          >
-            History
-          </a>
-        </li>
-      </ul>
       </div>
-
-      <div className="tab-content">
-        <div
-          className="tab-pane fade show active"
-          id="kt_topbar_notifications_2"
-          role="tabpanel"
-        >
+      <Tabs
+        id="controlled-tab"
+        activeKey={key}
+        onSelect={(k) => setKey(k || "share")}
+        className="mb-3"
+      >
+        <Tab eventKey="share" title="Share">
           <div className="d-flex flex-column px-9">
             <div className="pt-10 pb-0">
               <h3 className="text-gray-900 text-center fw-bolder">
-                Select a colleage
+                Select Counsellors
               </h3>
 
               <div className="text-center text-gray-600 fw-bold pt-1">
-                Select a colleage to send a link to this test.
+                Select a counsellor to send a link to this test.
               </div>
-              <Select
-                {...formik.getFieldProps("testType")}
-                theme={(theme) => ({
-                  ...theme,
-                  borderRadius: 7,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "var(--bs-success-text-emphasis)",
-                    neutral0: "var(--bs-modal-bg)",
-                    neutral20: "var(--bs-gray-300)",
-                    neutral80: "var(--bs-gray-700)",
-                  },
-                })}
-                options={options}
-                isSearchable={true}
-                placeholder="Choose the test type"
-                onChange={(option) =>
-                  formik.setFieldValue("testType", option?.value)
-                }
-                value={options.find(
-                  (option) => option.value === Number(formik.values.name)
-                )}
-              />
+              <div className="accordion" id="accordionExample">
+                <div className="accordion-item">
+                  <h2 className="accordion-header " id="headingOne">
+                    <button
+                      className="accordion-button h-30px collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseOne"
+                      aria-expanded="true"
+                      aria-controls="collapseOne"
+                    >
+                      Counsellors List
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseOne"
+                    className="accordion-collapse collapse h-150px scroll-y"
+                    aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div className="accordion-body">
+                      {counsellorsData.map((coun) => (
+                        <div
+                          className="d-flex"
+                          key={coun.id}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <div className="form-check form-check-custom form-check-solid">
+                            <label className="form-label fw-bolder text-gray-800 fs-6">
+                              <input
+                                className="form-check-input me-3"
+                                type="checkbox"
+                                checked={counsellors.includes(coun.id)}
+                                onChange={HandleOnChange}
+                                name={coun.id.toString()}
+                              />
+                              {coun.name}
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-              <div className="text-center mt-5 mb-9">
-                <a
-                  href="#"
-                  className="btn btn-sm btn-primary px-6"
-                  data-bs-toggle="modal"
-                  data-bs-target="#kt_modal_upgrade_plan"
-                >
+              <div className="text-center mt-5 mb-9" onClick={handleSubmit}>
+                <button className="btn btn-sm btn-primary px-6" type="submit">
                   Send
-                </a>
+                </button>
               </div>
-            </div>
-
-            <div className="text-center px-4">
-              <img
-                className="mw-100 mh-200px"
-                alt="metronic"
-                src={useIllustrationsPath("1.png")}
-              />
             </div>
           </div>
-        </div>
-        <div className='tab-pane fade' id='kt_topbar_notifications_1' role='tabpanel'>
-        <div className='scroll-y mh-325px my-5 px-8'>
-          {defaultAlerts.map((alert, index) => (
-            <div key={`alert${index}`} className='d-flex flex-stack py-4'>
-              <div className='d-flex align-items-center'>
-                <div className='symbol symbol-35px me-4'>
-                  <span className={clsx('symbol-label', `bg-light-${alert.state}`)}>
-                    {' '}
-                    <KTIcon iconName={alert.icon} className={`fs-2 text-${alert.state}`} />
-                  </span>
-                </div>
-
-                <div className='mb-0 me-2'>
-                  <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bolder'>
-                    {alert.title}
-                  </a>
-                  <div className='text-gray-500 fs-7'>{alert.description}</div>
-                </div>
-              </div>
-
-              <span className='badge badge-light fs-8'>{alert.time}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className='py-3 text-center border-top'>
-          <Link
-            to='/crafted/pages/profile'
-            className='btn btn-color-gray-600 btn-active-color-primary'
-          >
-            View All <KTIcon iconName='arrow-right' className='fs-5' />
-          </Link>
-        </div>
-      </div>
-      </div>
+        </Tab>
+        <Tab eventKey="history" title="History">
+          Tab content for history
+        </Tab>
+      </Tabs>
     </div>
   );
 };

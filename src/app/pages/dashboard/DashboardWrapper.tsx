@@ -20,7 +20,7 @@ import {
 import { LineChart } from "../../ui/charts/LineChart";
 import { RadarChart } from "../../ui/charts/RadarChart";
 import { CustomTable } from "../../ui/table/CustomTable";
-import { PatientsTableRow } from "../../ui/table/tests/PatientsTableRow";
+import { PatientsTableRow } from "../../ui/table/patients/PatientsTableRow";
 
 const data = FAKE_DATA;
 
@@ -156,9 +156,6 @@ const DashboardWrapper = () => {
   const intl = useIntl();
   return (
     <>
-      <PageTitle breadcrumbs={dashboardBreadCrumbs}>
-        {intl.formatMessage({ id: "MENU.DASHBOARD" })}
-      </PageTitle>
       <DashboardPage />
     </>
   );
