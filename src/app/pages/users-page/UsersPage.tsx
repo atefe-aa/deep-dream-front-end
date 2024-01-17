@@ -1,4 +1,4 @@
-import { CustomTable } from "../../ui/CustomTable";
+import { CustomTable } from "../../ui/table/CustomTable";
 import { LaboratoryTableRow } from "../../ui/table/labratories/LaboratoryTableRow";
 import { LABS_TESTS_DATA, counsellorsData } from "../../utils/constants";
 import { AddNewLaboratory } from "./AddNewLaboratory";

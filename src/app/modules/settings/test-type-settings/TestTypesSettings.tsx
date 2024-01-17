@@ -1,10 +1,7 @@
 import { useState } from "react";
-import SettingItem from "../machine-settings/SettingItem";
-import { LABS_TESTS_DATA, TEST_TYPES } from "../../../utils/constants";
-import { CustomTable } from "../../../ui/CustomTable";
+import {  TEST_TYPES } from "../../../utils/constants";
+import { CustomTable } from "../../../ui/table/CustomTable";
 import { TestTypesTableRow } from "../../../ui/table/test-types/TestTypesTableRow";
-import { TestTypesPriceTable } from "../../../ui/table/test-type-price/TestTypesPriceTable";
-import { TestTypesPriceTableRow } from "../../../ui/table/test-type-price/TestTypesPriceTableRow";
 
 function TestTypesSettings() {
   const [loading, setLoading] = useState(false);
@@ -50,34 +47,6 @@ function TestTypesSettings() {
               />
             ))}
           </CustomTable>
-
-          {/* <SettingItem
-            name="test_types_price"
-            label="Test Type Prices"
-            show={false}
-          >
-            {LABS_TESTS_DATA.map((lab) => (
-              <SettingItem
-                key={lab.id}
-                name={`${lab.labName}_test_types_price`}
-                label={`${lab.labName} Test Type Prices`}
-                show={false}
-              >
-                <TestTypesPriceTable
-                  tableTitle={lab.labName}
-                  className="mb-5 mb-xl-8"
-                >
-                  {lab.tests.map((test, _index) => (
-                    <TestTypesPriceTableRow
-                      key={test.id}
-                      index={_index + 1}
-                      testTypeData={test}
-                    />
-                  ))}
-                </TestTypesPriceTable>
-              </SettingItem>
-            ))}
-          </SettingItem> */}
         </div>
       </div>
     </div>

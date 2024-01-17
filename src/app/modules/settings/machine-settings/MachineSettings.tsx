@@ -5,7 +5,7 @@ import SettingFormGroup from "./SettingFormGroup";
 import Checkbox from "./Checkbox";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { CustomTable } from "../../../ui/CustomTable";
+import { CustomTable } from "../../../ui/table/CustomTable";
 import { SlidesPlacementTableRow } from "../../../ui/table/test-types/SlidesPlacementTableRow";
 import { capitalizeWords } from "../../../utils/helper";
 

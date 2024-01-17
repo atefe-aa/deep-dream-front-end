@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { KTIcon, toAbsoluteUrl } from "../../../../_metronic/helpers";
 import { DropDownButton } from "../../dropdown/DropDownButton";
-import { TestTypesPriceTable } from "../test-type-price/TestTypesPriceTable";
 import { TestTypesPriceTableRow } from "../test-type-price/TestTypesPriceTableRow";
+import { CustomTable } from "../CustomTable";
 
 interface TestsArray {
   id: number;
@@ -134,7 +134,9 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
         className="accordion-collapse collapse "
       >
         <td className="" colSpan={7}>
-          <TestTypesPriceTable
+          <CustomTable
+          modalId={`kt_modal_add_new_test_price_${labData.labName.toLocaleLowerCase()}`}
+          columns={['Title','Price(R)','Extra Slides Price(R)','Description']}
             className="bg-light border-info"
             tableTitle={labData.labName}
           >
@@ -145,7 +147,7 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
                 index={index + 1}
               />
             ))}
-          </TestTypesPriceTable>
+          </CustomTable>
         </td>
       </tr>
     </>

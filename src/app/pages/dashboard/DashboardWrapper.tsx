@@ -19,7 +19,8 @@ import {
 } from "../../utils/constants";
 import { LineChart } from "../../ui/charts/LineChart";
 import { RadarChart } from "../../ui/charts/RadarChart";
-import { TestsTable } from "../../ui/table/tests/TestsTable";
+import { CustomTable } from "../../ui/table/CustomTable";
+import { PatientsTableRow } from "../../ui/table/tests/PatientsTableRow";
 
 const data = FAKE_DATA;
 
@@ -123,10 +124,24 @@ const DashboardPage = () => {
       <div className="row gy-5 g-xl-8 mt-1">
         {/* begin::Col */}
         <div className="col-xxl-12">
-          <TestsTable
-            testsData={data}
+          <CustomTable
+            tableTitle="Tests Statistics"
             className="card-xxl-stretch mb-5 mb-xl-8"
-          />
+            columns={[
+              "Admit Patient",
+              "Patient",
+              "Price(R)",
+              "Number of Slides",
+              "Admit Date & Time",
+              "Sender Laboratory",
+              "Scan Duration",
+              "Progress",
+            ]}
+          >
+            {data.map((test, _index) => (
+              <PatientsTableRow key={_index} data={test} index={_index + 1} />
+            ))}
+          </CustomTable>
         </div>
         {/* end::Col */}
       </div>

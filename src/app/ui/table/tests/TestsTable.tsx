@@ -1,5 +1,4 @@
 import React from "react";
-import { TablesWidget9Row } from "./TableWidget9Row";
 
 type Props = {
   className: string;
@@ -44,10 +43,12 @@ const TestsTable: React.FC<Props> = ({ className = "", testsData }) => {
                 <th className="min-w-15px">Admit Patient</th>
                 <th className="min-w-50px">Patient</th>
                 <th className="min-w-50px">Price(R)</th>
-                <th style={{width:"80px"}}>Number of SLides</th>
+                <th style={{ width: "80px" }}>Number of SLides</th>
                 <th className="min-w-50px">Admit Date & Time</th>
                 <th className="min-w-50px">Sender Laboratory</th>
-                <th className="min-w-50px" style={{width:"80px"}}>Scan Duration(min)</th>
+                <th className="min-w-50px" style={{ width: "80px" }}>
+                  Scan Duration(min)
+                </th>
                 <th className="min-w-50px">Progress</th>
                 <th className="min-w-50px ">Actions</th>
               </tr>
@@ -55,9 +56,7 @@ const TestsTable: React.FC<Props> = ({ className = "", testsData }) => {
             {/* end::Table head */}
             {/* begin::Table body */}
             <tbody>
-              {testsData.map((data, _index) => (
-                <TablesWidget9Row key={_index} data={data} index={_index + 1} />
-              ))}
+             
             </tbody>
             {/* end::Table body */}
           </table>

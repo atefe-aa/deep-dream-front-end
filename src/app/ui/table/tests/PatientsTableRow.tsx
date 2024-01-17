@@ -1,6 +1,5 @@
 import React from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
-import { DropDownButton } from "../../dropdown/DropDownButton";
 import { ShareMenu } from "../../ShareMenu";
 import { TestsTableDropdown } from "../../dropdown/TestsTableDropdown";
 
@@ -31,7 +30,7 @@ type Props = {
   index: number;
 };
 
-const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
+const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
   const totalDuration = data.durations?.reduce(
     (acc, item) => acc + (item?.duration || 0),
     0
@@ -176,4 +175,4 @@ const TablesWidget9Row: React.FC<Props> = ({ data, index }) => {
   );
 };
 
-export { TablesWidget9Row };
+export { PatientsTableRow };

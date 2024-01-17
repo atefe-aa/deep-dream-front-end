@@ -5,34 +5,44 @@ type Props = {
   className: string;
   children: React.ReactNode;
   columns: Array<string>;
-  modalId: string;
-  tableTitle?:string;
+  modalId?: string;
+  tableTitle?: string;
+  accordionId?: string;
 };
 
-const CustomTable: FC<Props> = ({tableTitle, className, children, columns, modalId }) => {
+const CustomTable: FC<Props> = ({
+  tableTitle,
+  className,
+  children,
+  columns,
+  modalId,
+  accordionId,
+}) => {
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
       <div className="card-header border-0 pt-5">
         <h4>{tableTitle}</h4>
-        <div
-          className="card-toolbar"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          data-bs-trigger="hover"
-          title="Click to add a user"
-        >
-          <a
-            href="#"
-            className="btn btn-sm btn-light-primary"
-            data-bs-toggle="modal"
-            // data-bs-target="#kt_modal_add_new_test_type"
-            data-bs-target={`#${modalId}`}
+        {modalId && (
+          <div
+            className="card-toolbar"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-trigger="hover"
+            title="Click to add a new row"
           >
-            <KTIcon iconName="plus" className="fs-3" />
-            Add New
-          </a>
-        </div>
+            <a
+              href="#"
+              className="btn btn-sm btn-light-primary"
+              data-bs-toggle="modal"
+              // data-bs-target="#kt_modal_add_new_test_type"
+              data-bs-target={`#${modalId}`}
+            >
+              <KTIcon iconName="plus" className="fs-3" />
+              Add New
+            </a>
+          </div>
+        )}
       </div>
       {/* end::Header */}
       {/* begin::Body */}
@@ -59,7 +69,12 @@ const CustomTable: FC<Props> = ({tableTitle, className, children, columns, modal
             </thead>
             {/* end::Table head */}
             {/* begin::Table body */}
-            <tbody className="accordion" id="labsPanel">{children}</tbody>
+            <tbody
+              className={accordionId ? "accordion" : ""}
+              id={accordionId || undefined}
+            >
+              {children}
+            </tbody>
             {/* end::Table body */}
           </table>
           {/* end::Table */}
