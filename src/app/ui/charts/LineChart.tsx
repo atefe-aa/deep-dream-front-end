@@ -8,6 +8,7 @@ import {
   getCSSVariableValue,
 } from "../../../_metronic/assets/ts/_utils";
 import { FilterDropdown } from "../search-and-filter/FilterDropdown";
+import ScreenshotButton from "../ScreenShotButton";
 
 interface TotalItem {
   title: string;
@@ -82,9 +83,9 @@ const LineChart: React.FC<Props> = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chartRef, color, mode]);
-
+  const targetComponentRef = useRef(null);
   return (
-    <div className={`card ${className}`}>
+    <div className={`card ${className}`} ref={targetComponentRef}>
       {/* begin::Header  */}
       <div className={`card-header border-0  py-5`}>
         <div className="d-flex flex-column">
@@ -92,6 +93,10 @@ const LineChart: React.FC<Props> = ({
           <span className="text-muted fw-semibold mt-1">{description}</span>
         </div>
         <div className="card-toolbar">
+          <ScreenshotButton
+            withTitle={false}
+            targetComponentRef={targetComponentRef}
+          />
           {/* begin::Menu  */}
           <button
             type="button"
@@ -104,7 +109,7 @@ const LineChart: React.FC<Props> = ({
             data-kt-menu-placement="bottom-end"
             data-kt-menu-flip="top-end"
           >
-            <KTIcon iconName="category" className="fs-2" />
+            <KTIcon iconName="category" className="fs-2 text-info" />
           </button>
           <FilterDropdown filters={["lab", "date"]} />
           {/* end::Menu  */}

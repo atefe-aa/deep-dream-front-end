@@ -1,6 +1,4 @@
 import { useRef } from "react";
-import { KTIcon } from "../../../_metronic/helpers";
-import html2canvas from "html2canvas";
 import ManualSettings from "./ManualSettings";
 import CameraViewBox from "./CameraViewBox";
 import ScreenshotButton from "../../ui/ScreenShotButton";

@@ -1443,7 +1443,7 @@ export const testNumberSeries = [
 export const testPriceSeries = [
   {
     name: "Total Price",
-    data: LABS_TESTS_DATA.map((lab) => lab.totalPrice / 1000).sort(
+    data: LABS_TESTS_DATA.map((lab) => lab.totalPrice ).sort(
       (a, b) => b - a
     ),
   },

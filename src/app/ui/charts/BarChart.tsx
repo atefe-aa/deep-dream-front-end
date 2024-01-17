@@ -6,6 +6,7 @@ import { KTIcon } from "../../../_metronic/helpers";
 import clsx from "clsx";
 import { FilterDropdown } from "../search-and-filter/FilterDropdown";
 import { LABS_TESTS_DATA } from "../../utils/constants";
+import ScreenshotButton from "../ScreenShotButton";
 
 interface TotalItem {
   title: string;
@@ -40,6 +41,9 @@ const BarChart: FC<Props> = ({
   unit,
 }) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
+
+  const targetComponentRef = useRef(null);
+
   const { mode } = useThemeMode();
   const refreshChart = () => {
     if (!chartRef.current) {
@@ -69,12 +73,14 @@ const BarChart: FC<Props> = ({
   }, [chartRef, mode]);
 
   return (
-    <div className={`card ${className}`}>
+    <div className={`card ${className}`} ref={targetComponentRef}>
       {/* begin::Header  */}
-      <div className={`card-header border-0 bg-${chartColor} py-5`}>
-        <h3 className="card-title fw-bold text-white">{chartTitle}</h3>
+      <div className={`card-header border-0 py-5`}>
+        <h3 className="card-title fw-bold ">{chartTitle}</h3>
 
         <div className="card-toolbar">
+        <ScreenshotButton withTitle={false} targetComponentRef={targetComponentRef} />
+
           {/* begin::Menu  */}
           <button
             type="button"
@@ -87,10 +93,12 @@ const BarChart: FC<Props> = ({
             data-kt-menu-placement="bottom-end"
             data-kt-menu-flip="top-end"
           >
-            <KTIcon iconName="category" className="fs-2" />
+            <KTIcon iconName="category" className="fs-2 text-info" />
           </button>
           <FilterDropdown filters={["date"]} />
           {/* end::Menu  */}
+
+     
         </div>
       </div>
       {/* end::Header  */}
@@ -100,7 +108,7 @@ const BarChart: FC<Props> = ({
         {/* begin::Chart  */}
         <div
           ref={chartRef}
-          className={`mixed-widget-12-chart card-rounded-bottom bg-${chartColor}`}
+          className={`mixed-widget-12-chart card-rounded-bottom `}
         ></div>
         {/* end::Chart  */}
 
@@ -135,8 +143,9 @@ const chartOptions = (
   xaxisCategories: object,
   unit: string
 ): ApexOptions => {
-  const labelColor = getCSSVariableValue("--bs-gray-100");
-  const borderColor = getCSSVariableValue("--bs-gray-200");
+  const labelColor = getCSSVariableValue("--bs-gray-600");
+  const borderColor = getCSSVariableValue("--bs-gray-600");
+
 
   return {
     series: series,
@@ -225,14 +234,14 @@ const chartOptions = (
       },
       y: {
         formatter: function (val) {
-          return val + unit;
+          return val.toLocaleString() + unit;
         },
       },
       marker: {
         show: false,
       },
     },
-    colors: ["#ffffff", "#ffffff"],
+    colors: ["#31a539", "#ffffff"],
     grid: {
       borderColor: borderColor,
       strokeDashArray: 4,

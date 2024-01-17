@@ -54,7 +54,7 @@ const DashboardPage = () => {
         </div>
         <div className="col-lg-6">
           <BarChart
-            unit=" (1000 R)"
+            unit=" (R)"
             totals={BarChartTotalsPrice}
             series={testPriceSeries}
             chartTitle="Tests Price(R)"

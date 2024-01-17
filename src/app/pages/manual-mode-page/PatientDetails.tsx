@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { CustomTable } from "../../ui/table/CustomTable";
 import { PatientsTableRow } from "../../ui/table/patients/PatientsTableRow";
 import { FAKE_DATA } from "../../utils/constants";
