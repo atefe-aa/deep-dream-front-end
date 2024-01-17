@@ -138,8 +138,12 @@ const DashboardPage = () => {
               "Progress",
             ]}
           >
-            {data.map((test, _index) => (
-              <PatientsTableRow key={_index} data={test} index={_index + 1} />
+            {data.map((patient, _index) => (
+              <PatientsTableRow
+                key={patient.id}
+                data={patient}
+                index={_index + 1}
+              />
             ))}
           </CustomTable>
         </div>

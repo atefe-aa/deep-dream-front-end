@@ -11,6 +11,7 @@ interface DurationArray {
 
 interface DataType {
   name: string;
+  id: number;
   date: string;
   number: number;
   labNumber: string;
@@ -155,35 +156,22 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
       </td>
       <td>
         <div className="d-flex justify-content-center flex-shrink-0">
-        <div className="me-0" data-bs-toggle="tooltip" title="Share Options">
-      <button
-        className="btn btn-sm btn-icon btn-bg-light btn-active-color-primary"
-        data-kt-menu-trigger="click"
-        data-kt-menu-placement="bottom-end"
-        data-kt-menu-flip="top-end"
-      >
-       <KTIcon iconName="share" className="fs-3" />
-      </button>
-      <div
-        className="menu menu-sub menu-sub-dropdown menu-column menu-rounded  fw-bold  w-350px w-lg-375px"
-        data-kt-menu="true"
-      >
-       <ShareMenu backgrounUrl="/media/misc/pattern-1.jpg"  />
-      </div>
-    </div>
-          {/* <div
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-            data-bs-toggle="tooltip"
-            title="Share"
-            data-kt-menu-trigger="click"
-            data-kt-menu-overflow="true"
-            data-kt-menu-placement="bottom-end"
-            data-bs-placement="right"
-            data-bs-dismiss="click"
-          >
-            <KTIcon iconName="share" className="fs-3" />
-          </div> */}
-          {/* <ShareMenu backgrounUrl="/media/misc/pattern-1.jpg" /> */}
+          <div className="me-2" data-bs-toggle="tooltip" title="Share Options">
+            <button
+              className="btn btn-sm btn-icon btn-bg-light btn-active-color-primary"
+              data-kt-menu-trigger="click"
+              data-kt-menu-placement="bottom-end"
+              data-kt-menu-flip="top-end"
+            >
+              <KTIcon iconName="share" className="fs-3" />
+            </button>
+            <div
+              className="menu menu-sub menu-sub-dropdown menu-column menu-rounded mh-360px  fw-bold  w-350px w-lg-375px"
+              data-kt-menu="true"
+            >
+              <ShareMenu patientId={data.id} backgrounUrl="/media/misc/pattern-1.jpg" />
+            </div>
+          </div>
           <TestsTableDropdown />
         </div>
       </td>

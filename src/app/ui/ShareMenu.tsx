@@ -1,13 +1,16 @@
 import { FC, useState } from "react";
-import { toAbsoluteUrl } from "../../_metronic/helpers";
+import { KTIcon, toAbsoluteUrl } from "../../_metronic/helpers";
 import { Tab, Tabs } from "react-bootstrap";
-import { counsellorsData } from "../utils/constants";
+import { counsellorsData, defaultAlerts } from "../utils/constants";
+import { Link } from "react-router-dom";
+import clsx from "clsx";
 
 type Props = {
   backgrounUrl: string;
+  patientId: number;
 };
 
-const ShareMenu: FC<Props> = ({ backgrounUrl }) => {
+const ShareMenu: FC<Props> = ({ backgrounUrl, patientId }) => {
   const [counsellors, setCounsellors] = useState<number[]>([]);
 
   function handleSubmit(e: React.FormEvent) {
@@ -25,7 +28,6 @@ const ShareMenu: FC<Props> = ({ backgrounUrl }) => {
         return prevCounsellors.filter((item) => item !== Number(name));
       }
     });
-    console.log(counsellors);
   }
   const [key, setKey] = useState("share");
   return (
@@ -48,7 +50,7 @@ const ShareMenu: FC<Props> = ({ backgrounUrl }) => {
         className="mb-3"
       >
         <Tab eventKey="share" title="Share">
-          <div className="d-flex flex-column px-9">
+          <div className="d-flex flex-column px-9 scroll-y h-100">
             <div className="pt-10 pb-0">
               <h3 className="text-gray-900 text-center fw-bolder">
                 Select Counsellors
@@ -57,25 +59,25 @@ const ShareMenu: FC<Props> = ({ backgrounUrl }) => {
               <div className="text-center text-gray-600 fw-bold pt-1">
                 Select a counsellor to send a link to this test.
               </div>
-              <div className="accordion" id="accordionExample">
+              <div className="accordion" id={`accordion_${patientId}`}>
                 <div className="accordion-item">
-                  <h2 className="accordion-header " id="headingOne">
+                  <h2 className="accordion-header " id={`heading_${patientId}`}>
                     <button
                       className="accordion-button h-30px collapsed"
                       type="button"
                       data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne"
+                      data-bs-target={`#collapse_${patientId}`}
                       aria-expanded="true"
-                      aria-controls="collapseOne"
+                      aria-controls={`collapse_${patientId}`}
                     >
                       Counsellors List
                     </button>
                   </h2>
                   <div
-                    id="collapseOne"
+                    id={`collapse_${patientId}`}
                     className="accordion-collapse collapse h-150px scroll-y"
-                    aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample"
+                    aria-labelledby={`heading_${patientId}`}
+                    data-bs-parent={`#accordion_${patientId}`}
                   >
                     <div className="accordion-body">
                       {counsellorsData.map((coun) => (
@@ -103,8 +105,14 @@ const ShareMenu: FC<Props> = ({ backgrounUrl }) => {
                 </div>
               </div>
 
-              <div className="text-center mt-5 mb-9" onClick={handleSubmit}>
-                <button className="btn btn-sm btn-primary px-6" type="submit">
+              <div
+                className="text-center menu-item mt-5 mb-9 menu-link"
+                onClick={handleSubmit}
+              >
+                <button
+                  className="btn menu-link btn-sm btn-primary px-6"
+                  type="submit"
+                >
                   Send
                 </button>
               </div>
@@ -112,7 +120,41 @@ const ShareMenu: FC<Props> = ({ backgrounUrl }) => {
           </div>
         </Tab>
         <Tab eventKey="history" title="History">
-          Tab content for history
+          <div className="scroll-y  my-5 px-8 mh-200px">
+            {defaultAlerts.map((alert, index) => (
+              <div key={`alert${index}`} className="d-flex flex-stack py-4">
+                <div className="d-flex align-items-center">
+                  <div className="symbol symbol-35px me-4">
+                    <span
+                      className={clsx(
+                        "symbol-label",
+                        `bg-light-${alert.state}`
+                      )}
+                    >
+                      <KTIcon
+                        iconName={alert.icon}
+                        className={`fs-2 text-${alert.state}`}
+                      />
+                    </span>
+                  </div>
+
+                  <div className="mb-0 me-2">
+                    <a
+                      href="#"
+                      className="fs-6 text-gray-800 text-hover-primary fw-bolder"
+                    >
+                      {alert.name}
+                    </a>
+                    <div className="text-gray-500 fs-7">
+                      {alert.description}
+                    </div>
+                  </div>
+                </div>
+
+                <span className="badge badge-light fs-8">{alert.time}</span>
+              </div>
+            ))}
+          </div>
         </Tab>
       </Tabs>
     </div>
