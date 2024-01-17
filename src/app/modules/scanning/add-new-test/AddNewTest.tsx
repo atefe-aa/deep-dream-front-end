@@ -305,6 +305,7 @@ const AddNewTest: FC = () => {
             <label className="radio">
               <input
                 type="radio"
+                className="me-2"
                 {...formik.getFieldProps("sex")}
                 value="1"
                 checked={formik.values.sex === "1"}
@@ -315,8 +316,9 @@ const AddNewTest: FC = () => {
               <input
                 type="radio"
                 {...formik.getFieldProps("sex")}
-                className="ms-5"
+                className="ms-5 me-2"
                 value="2"
+               
                 checked={formik.values.sex === "2"}
               />
               Male

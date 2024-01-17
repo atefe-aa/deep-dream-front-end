@@ -3,7 +3,7 @@ import { FC } from "react";
 const Pagination: FC = () => {
   return (
     <div className="d-flex flex-stack flex-wrap pt-10">
-      <div className="fs-6 fw-bold text-gray-700">
+      <div className="fs-6 fw-bold text-gray-700 mb-4">
         Showing 1 to 10 of 50 entries
       </div>
 

@@ -9,7 +9,7 @@ import {
 } from "../../../_metronic/assets/ts/_utils";
 import { TEST_TYPES } from "../../utils/constants";
 import { FilterDropdown } from "../search-and-filter/FilterDropdown";
-import ScreenshotButton from "../ScreenShotButton";
+import ScreenshotButton from "../ScreenshotButton";
 
 interface TotalItem {
   title: string;
@@ -81,7 +81,10 @@ const RadarChart: React.FC<Props> = ({
           <span className="text-gray-900 fw-bold fs-2">{description}</span>
         </div>
         <div className="card-toolbar">
-        <ScreenshotButton withTitle={false} targetComponentRef={targetComponentRef} />
+          <ScreenshotButton
+            withTitle={false}
+            targetComponentRef={targetComponentRef}
+          />
           {/* begin::Menu  */}
           <button
             type="button"
@@ -113,10 +116,10 @@ const RadarChart: React.FC<Props> = ({
         {/* begin::Stats  */}
         <div className="card-rounded bg-secondary mt-n6 position-relative card-px py-15">
           {/* begin::Row  */}
-          <div className="row g-0">
+          <div className=" g-0  d-flex justify-content-around">
             {/* begin::Col  */}
             {totals.map((total) => (
-              <div key={total.title} className="col mx-5">
+              <div key={total.title} className=" mx-5">
                 <div className="fs-6 text-gray-700">{total.title}</div>
                 <div className="fs-5 fw-bold text-gray-800">
                   {total.value} {total.unit}
@@ -209,6 +212,59 @@ function getChartOptions(
         offsetY: 0,
       },
     },
+    responsive: [
+      {
+        breakpoint: 1300,
+        options: {
+          plotOptions: {
+            radar: {
+              size: 130,
+              offsetX: 0,
+              offsetY: 0,
+            },
+          },
+          legend: {
+            offsetX: 0,
+            offsetY: -20,
+          },
+          height: height + 100,
+        },
+      },
+      {
+        breakpoint: 1000,
+        options: {
+          plotOptions: {
+            radar: {
+              size: 180,
+              offsetX: 0,
+              offsetY: 0,
+            },
+          },
+          legend: {
+            offsetX: 0,
+            offsetY: 0,
+          },
+          height: height,
+        },
+      },
+      {
+        breakpoint: 700,
+        options: {
+          plotOptions: {
+            radar: {
+              size: 130,
+              offsetX: 0,
+              offsetY: 0,
+            },
+          },
+          legend: {
+            offsetX: 0,
+            offsetY: -20,
+          },
+          height: height + 100,
+        },
+      },
+    ],
     dataLabels: {
       enabled: false,
     },
@@ -301,8 +357,8 @@ function getChartOptions(
       },
     },
     markers: {
-      strokeColors:"var(--bs-gray-700",
-      colors:"var(--bs-gray-400",
+      strokeColors: "var(--bs-gray-700",
+      colors: "var(--bs-gray-400",
       // colors:[],
       size: 3,
       hover: {

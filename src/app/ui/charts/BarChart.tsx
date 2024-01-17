@@ -5,8 +5,7 @@ import { useThemeMode } from "../../../_metronic/partials";
 import { KTIcon } from "../../../_metronic/helpers";
 import clsx from "clsx";
 import { FilterDropdown } from "../search-and-filter/FilterDropdown";
-import { LABS_TESTS_DATA } from "../../utils/constants";
-import ScreenshotButton from "../ScreenShotButton";
+import ScreenshotButton from "../ScreenshotButton";
 
 interface TotalItem {
   title: string;
@@ -115,10 +114,10 @@ const BarChart: FC<Props> = ({
         {/* begin::Stats  */}
         <div className="card-rounded bg-secondary mt-n6 position-relative card-px py-15">
           {/* begin::Row  */}
-          <div className="row g-0">
+          <div className=" g-0 d-flex justify-content-around">
             {/* begin::Col  */}
             {totals.map((total) => (
-              <div key={total.title} className="col mx-5">
+              <div key={total.title} className=" mx-5">
                 <div className="fs-6 text-gray-700">{total.title}</div>
                 <div className="fs-5 fw-bold text-gray-800">
                   {total.value} {total.unit}
