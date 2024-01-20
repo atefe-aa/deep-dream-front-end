@@ -6,6 +6,7 @@ interface CounsellorDataArray {
   id: number;
   name: string;
   phone: string;
+  labName: string;
 }
 
 type Props = {
@@ -34,6 +35,13 @@ const CounsellorTableRow: FC<Props> = ({ counsellorData, index }) => {
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
           {counsellorData.phone}
+        </a>
+      </td> <td>
+        <a
+          href="#"
+          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
+        >
+          {counsellorData.labName}
         </a>
       </td>
       <td>

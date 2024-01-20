@@ -30,7 +30,7 @@ const UsersPage = () => {
         <CustomTable
           tableTitle="Counsellors List"
           className=""
-          columns={["Name", "Phone"]}
+          columns={["Name", "Phone", "Laboratory"]}
           modalId="kt_modal_add_new_counsellor"
         >
           {counsellorsData.map((counsellor, index) => (

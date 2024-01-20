@@ -829,36 +829,43 @@ export const LABS_TESTS_DATA = [
 export const counsellorsData = [
   {
     id: 1,
+    labName: "Milad",
     name: "Dr. Ahmadi",
     phone: "09100520741",
   },
   {
     id: 2,
+    labName: "Milad",
     name: "Dr. Sadeghi",
     phone: "09100520741",
   },
   {
     id: 3,
+    labName: "Milad",
     name: "Dr. Nasr",
     phone: "09100520741",
   },
   {
     id: 4,
+    labName: "Milad",
     name: "Dr. Fard",
     phone: "09100520741",
   },
   {
     id: 5,
+    labName: "Milad",
     name: "Dr. Fard",
     phone: "09100520741",
   },
   {
     id: 6,
+    labName: "Milad",
     name: "Dr. Fard",
     phone: "09100520741",
   },
   {
     id: 7,
+    labName: "Milad",
     name: "Dr. Fard",
     phone: "09100520741",
   },
@@ -1443,9 +1450,7 @@ export const testNumberSeries = [
 export const testPriceSeries = [
   {
     name: "Total Price",
-    data: LABS_TESTS_DATA.map((lab) => lab.totalPrice ).sort(
-      (a, b) => b - a
-    ),
+    data: LABS_TESTS_DATA.map((lab) => lab.totalPrice).sort((a, b) => b - a),
   },
 ];
 export const xaxisCategories = LABS_TESTS_DATA.map((lab) => lab.labName);

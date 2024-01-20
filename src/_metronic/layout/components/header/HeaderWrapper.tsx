@@ -42,7 +42,7 @@ export function HeaderWrapper() {
         )}
         id="kt_header_container"
       >
-         <DefaultTitle />
+         {/* <DefaultTitle /> */}
         {/* begin::Wrapper */}
         <div className="d-flex d-lg-none align-items-center ms-n2 me-2">
           {/* begin::Aside mobile toggle */}
