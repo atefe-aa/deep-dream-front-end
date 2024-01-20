@@ -64,7 +64,7 @@ const CustomTable: FC<Props> = ({
                     {col}
                   </th>
                 ))}
-                <th className="min-w-100px text-end">Actions</th>
+                <th className="min-w-100px text-center">Actions</th>
               </tr>
             </thead>
             {/* end::Table head */}

@@ -91,20 +91,7 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
         </td>
         <td>
           <div className="d-flex justify-content-end flex-shrink-0">
-            <div className="me-2" data-bs-toggle="tooltip" title="Price List">
-            <h2 className="accordion-header" id={`heading_labsPanel_${labData.id}`}>
-              <button
-                className=" btn text-center btn-active-color-primary btn-bg-light btn-sm  btn-icon collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target={`#labsPanel_${labData.id}`}
-                aria-expanded="true"
-                aria-controls={`labsPanel_${labData.id}`}
-              >
-                <KTIcon iconName="plus" className="fs-3" />
-              </button>
-              </h2>
-            </div>
+          
 
             <DropDownButton>
               <div className="menu-item px-3">

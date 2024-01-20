@@ -127,14 +127,16 @@ const DashboardPage = () => {
           <CustomTable
             tableTitle="Tests Statistics"
             className="card-xxl-stretch mb-5 mb-xl-8"
+            accordionId="patientsPanle"
             columns={[
               "Admit Patient",
               "Patient",
-              "Price(R)",
-              "Number of Slides",
+              "National ID",
+              // "Price(R)",
+              // "Number of Slides",
               "Admit Date & Time",
               "Sender Laboratory",
-              "Scan Duration",
+              // "Scan Duration",
               "Progress",
             ]}
           >
