@@ -22,22 +22,25 @@ const RegionSelector: React.FC<Props> = ({ image }) => {
   };
   return (
     <>
-      <AreaSelector
-        areas={areas}
-        unit="percentage"
-        onChange={onChangeHandler}
-        globalAreaStyle={{
-          border: "2px dashed blue",
-          opacity: "0.5",
-        }}
-      >
-        <img
-          onContextMenu={handleRightClick}
-          style={{ width: "100%", height: "100%", borderRadius: "5px" }}
-          src={image}
-          alt="slide image"
-        />
-      </AreaSelector>
+      <div className="region-selector-hover-scale">
+        <AreaSelector
+          areas={areas}
+          unit="percentage"
+          onChange={onChangeHandler}
+          globalAreaStyle={{
+            border: "1px dashed blue",
+            opacity: "0.8",
+          }}
+        >
+          <img
+            onContextMenu={handleRightClick}
+            style={{ width: "100%", height: "100%", borderRadius: "5px" }}
+            src={image}
+            alt="slide image"
+          />
+        </AreaSelector>
+      </div>
+
       <button
         className="btn btn-danger btn-active-color-primary mt-1 btn-sm"
         onClick={handleReset}
