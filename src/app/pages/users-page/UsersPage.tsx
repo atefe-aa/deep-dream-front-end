@@ -3,7 +3,7 @@ import { LABS_TESTS_DATA, counsellorsData } from "../../utils/constants";
 import { AddNewLaboratory } from "../../modules/user-management/laboratories/components/AddNewLaboratory";
 import { Pagination } from "../../ui/Pagination";
 import { AddNewCounsellor } from "../../modules/user-management/counsellors/components/AddNewCounsellor";
-import { AddNewTestPrice } from "../../modules/settings/test-type-price-setting/components/AddNewTestPrice";
+import { AddNewTestPrice } from "../../modules/user-management/laboratories/test-type-price-setting/components/AddNewTestPrice";
 import { UsersListSearchComponent } from "../../modules/user-management/laboratories/components/header/UsersListSearchComponent";
 import { LaboratoryTableRow } from "../../modules/user-management/laboratories/components/LaboratoryTableRow";
 import { CounsellorTableRow } from "../../modules/user-management/counsellors/components/CounsellorTableRow";

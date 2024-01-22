@@ -1,13 +1,11 @@
-import { FC } from "react";
 
 import { useState } from "react";
 import * as Yup from "yup";
 import clsx from "clsx";
 import { useFormik } from "formik";
-import { ModalLayout } from "../../../../ui/modals/ModalLayout";
-import Checkbox from "../../components/Checkbox";
-import { TEST_TYPES } from "../../../../utils/constants";
-import { ModalForm } from "../../../../ui/modals/ModalForm";
+import { ModalLayout } from "../../../../../ui/modals/ModalLayout";
+import { ModalForm } from "../../../../../ui/modals/ModalForm";
+import { TEST_TYPES } from "../../../../../utils/constants";
 
 const addSchema = Yup.object().shape({
   price: Yup.number()

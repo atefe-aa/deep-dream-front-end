@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { KTIcon } from "../../../../../_metronic/helpers";
-import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
+import { DropDownButton } from "../../../../../ui/dropdown/DropDownButton";
+import { KTIcon } from "../../../../../../_metronic/helpers";
 
 interface TestTypeArray {
   testName: string;

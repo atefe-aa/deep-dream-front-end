@@ -2,7 +2,7 @@ import { FC } from "react";
 import { KTIcon, toAbsoluteUrl } from "../../../../../_metronic/helpers";
 import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
 import { CustomTable } from "../../../../ui/table/CustomTable";
-import { TestTypesPriceTableRow } from "../../../settings/test-type-price-setting/components/TestTypesPriceTableRow";
+import { TestTypesPriceTableRow } from "../test-type-price-setting/components/TestTypesPriceTableRow";
 
 interface TestsArray {
   id: number;
