@@ -44,7 +44,7 @@ const TestTypesPriceTableRow: FC<Props> = ({ testTypeData, index }) => {
         >
           {testTypeData.testExtraPrice.toLocaleString()}
         </a>
-      </td>{" "}
+      </td>
       <td>
         <a
           href="#"

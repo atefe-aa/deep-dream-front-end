@@ -36,7 +36,7 @@ const CounsellorTableRow: FC<Props> = ({ counsellorData, index }) => {
         >
           {counsellorData.phone}
         </a>
-      </td>{" "}
+      </td>
       <td>
         <a
           href="#"
