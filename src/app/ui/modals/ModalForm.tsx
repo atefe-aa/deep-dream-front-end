@@ -5,9 +5,10 @@ type Props = {
   children: React.ReactNode;
   modalId: string;
   formik: any;
+  isError: boolean;
 };
 
-const ModalForm: React.FC<Props> = ({ children, modalId, formik }) => {
+const ModalForm: React.FC<Props> = ({ children, modalId, formik, isError }) => {
   return (
     <>
       <form
@@ -50,6 +51,7 @@ const ModalForm: React.FC<Props> = ({ children, modalId, formik }) => {
 
           <button
             type="submit"
+            data-bs-dismiss={isError ? "modal" : ""}
             className="btn btn-primary"
             data-kt-users-modal-action="submit"
             disabled={formik.isSubmitting || !formik.isValid || !formik.touched}

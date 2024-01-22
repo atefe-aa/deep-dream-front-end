@@ -1,4 +1,5 @@
-import { LabDataModel, LabsModel } from "./_models";
+import { handleRequestErrors } from "../../../../utils/requestHelpers";
+import { LabDataModel } from "./_models";
 
 const API_URL = import.meta.env.VITE_APP_API_URL_;
 
@@ -12,10 +13,10 @@ export async function getLaboratories() {
       Accept: "application/json",
     },
   });
-  const { data, error } = await res.json();
+  const { data, errors } = await res.json();
 
-  if (error) {
-    console.error(error);
+  if (errors) {
+    console.error(errors);
     throw new Error("Laboratories could not be found.");
   }
 
@@ -25,10 +26,10 @@ export async function getLaboratories() {
 export async function createLaboratory(labData: LabDataModel) {
   const formData = new FormData();
   Object.entries(labData).forEach(([key, value]) => {
-    formData.append(key, value);
+    if (value !== undefined) {
+      formData.append(key, value);
+    }
   });
-  console.log(labData);
-  console.log(formData);
 
   try {
     const res = await fetch(BASE_URL, {
@@ -39,16 +40,15 @@ export async function createLaboratory(labData: LabDataModel) {
       body: formData,
     });
 
-    const { data, success, error } = await res.json();
 
-    if (error) {
-      console.error(error);
-      throw new Error("Laboratory could not be created.");
+    if (!res.ok) {
+       await handleRequestErrors(res);
     }
 
-    return { data, success, error };
-  } catch (e) {
-    console.error(e);
-    throw new Error("Error creating laboratory.");
+    const { data } = await res.json();
+    return { data };
+  } catch (e: unknown) {
+    console.error((e as Error).message, e);
+    throw e;
   }
 }

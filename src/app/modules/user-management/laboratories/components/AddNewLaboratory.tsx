@@ -8,6 +8,7 @@ import { ModalLayout } from "../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
 import { KTIcon, toAbsoluteUrl } from "../../../../../_metronic/helpers";
 import { useCreateLaboratory } from "../hooks/useCreateLaboratory";
+import { error } from "console";
 
 const addSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -32,8 +33,7 @@ const addSchema = Yup.object().shape({
     .required("address is required"),
   description: Yup.string()
     .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("description is required"),
+    .max(50, "Maximum 50 symbols"),
   password: Yup.string()
     .min(7, "Password must be at least 7 charecter")
     .required("Password is required."),
@@ -41,6 +41,8 @@ const addSchema = Yup.object().shape({
     .oneOf([Yup.ref("password"), ""], "Passwords must match")
     .min(7, "Password must be at least 7 charecter")
     .required("Confirm the password."),
+  signature: Yup.mixed().required("Signature is required"),
+  header: Yup.mixed().required("Signature is required"),
 });
 
 const initialValues = {
@@ -59,7 +61,7 @@ const initialValues = {
 };
 
 const AddNewLaboratory: FC = () => {
-  const { createLaboratory, isCreating } = useCreateLaboratory();
+  const { createLaboratory, isCreating, error } = useCreateLaboratory();
 
   const blankImg = toAbsoluteUrl("/media/svg/avatars/blank.svg");
   const [showPasswprd, setShowPassword] = useState(false);
@@ -68,12 +70,15 @@ const AddNewLaboratory: FC = () => {
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
+      if (error?.message) {
+        setStatus(error.message);
+      }
       try {
-        console.log(values);
         createLaboratory(values);
       } catch (error) {
         console.error(error);
-        setStatus("The laboratory details are incorrect");
+        setStatus(error);
+      } finally {
         setSubmitting(false);
       }
     },
@@ -84,7 +89,11 @@ const AddNewLaboratory: FC = () => {
       modalId="kt_modal_add_new_laboratory"
       title="Add new laboratory"
     >
-      <ModalForm modalId="kt_modal_add_new_laboratory" formik={formik}>
+      <ModalForm
+        modalId="kt_modal_add_new_laboratory"
+        formik={formik}
+        isError={Boolean(error)}
+      >
         {/* begin::Avatar Input group */}
         <div className="fv-row mb-7">
           {/* begin::Label */}
@@ -243,7 +252,7 @@ const AddNewLaboratory: FC = () => {
           <input
             placeholder="Phone"
             {...formik.getFieldProps("phone")}
-            type="tel"
+            type="number"
             name="phone"
             className={clsx(
               "form-control form-control-solid mb-3 mb-lg-0",
