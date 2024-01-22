@@ -1,12 +1,12 @@
 import { CustomTable } from "../../ui/table/CustomTable";
-import { LaboratoryTableRow } from "../../ui/table/labratories/LaboratoryTableRow";
 import { LABS_TESTS_DATA, counsellorsData } from "../../utils/constants";
-import { AddNewLaboratory } from "./AddNewLaboratory";
-import { UsersListSearchComponent } from "../../modules/apps/user-management/users-list/components/header/UsersListSearchComponent";
+import { AddNewLaboratory } from "../../modules/user-management/laboratories/components/AddNewLaboratory";
 import { Pagination } from "../../ui/Pagination";
-import { CounsellorTableRow } from "../../ui/table/counsellors/CounsellorTableRow";
-import { AddNewCounsellor } from "./AddNewCounsellor";
-import { AddNewTestPrice } from "../../modules/settings/AddNewTestPrice";
+import { AddNewCounsellor } from "../../modules/user-management/counsellors/components/AddNewCounsellor";
+import { AddNewTestPrice } from "../../modules/settings/test-type-price-setting/components/AddNewTestPrice";
+import { UsersListSearchComponent } from "../../modules/user-management/laboratories/components/header/UsersListSearchComponent";
+import { LaboratoryTableRow } from "../../modules/user-management/laboratories/components/LaboratoryTableRow";
+import { CounsellorTableRow } from "../../modules/user-management/counsellors/components/CounsellorTableRow";
 
 const UsersPage = () => {
   return (

@@ -3,7 +3,7 @@ import { PageLink, PageTitle } from "../../../_metronic/layout/core";
 
 import { SearchAndFilter } from "../../ui/search-and-filter/SearchAndFilter";
 import { Pagination } from "../../ui/Pagination";
-import { BarChart } from "../../ui/charts/BarChart";
+import { BarChart } from "../../modules/statistics/components/BarChart";
 import {
   BarChartTotalsNumber,
   BarChartTotalsPrice,
@@ -17,10 +17,10 @@ import {
   xaxisCategories,
   xaxisTestTypeCategories,
 } from "../../utils/constants";
-import { LineChart } from "../../ui/charts/LineChart";
-import { RadarChart } from "../../ui/charts/RadarChart";
+import { LineChart } from "../../modules/statistics/components/LineChart";
+import { RadarChart } from "../../modules/statistics/components/RadarChart";
 import { CustomTable } from "../../ui/table/CustomTable";
-import { PatientsTableRow } from "../../ui/table/patients/PatientsTableRow";
+import { PatientsTableRow } from "../../modules/tests/components/PatientsTableRow";
 
 const data = FAKE_DATA;
 

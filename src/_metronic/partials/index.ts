@@ -25,7 +25,7 @@ export * from "./content/portal/Portal";
 // models
 export * from "./modals/create-app-stepper/CreateAppModal";
 export * from "./modals/select-location/SelectLocationModal";
-export * from "../../app/modules/scanning/add-new-test/AddNewTest";
+export * from "../../app/modules/tests/components/add-new-test/AddNewTest";
 export * from "./modals/upgrade-plan/UpgradePlan";
 
 // chat
