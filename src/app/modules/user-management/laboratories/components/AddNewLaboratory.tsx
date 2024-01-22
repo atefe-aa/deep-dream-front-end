@@ -7,9 +7,10 @@ import { useFormik } from "formik";
 import { ModalLayout } from "../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
 import { KTIcon, toAbsoluteUrl } from "../../../../../_metronic/helpers";
+import { useCreateLaboratory } from "../hooks/useCreateLaboratory";
 
 const addSchema = Yup.object().shape({
-  name: Yup.string()
+  fullName: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
     .required("Name is required"),
@@ -36,27 +37,30 @@ const addSchema = Yup.object().shape({
   password: Yup.string()
     .min(7, "Password must be at least 7 charecter")
     .required("Password is required."),
-  confirm_password: Yup.string()
+  password_confirmation: Yup.string()
+    .oneOf([Yup.ref("password"), ""], "Passwords must match")
     .min(7, "Password must be at least 7 charecter")
     .required("Confirm the password."),
 });
 
 const initialValues = {
-  name: "",
+  fullName: "",
   labName: "",
   username: "",
   phone: "",
   address: "",
   description: "",
   password: "",
-  confirm_password: "",
-  signature: "",
-  header: "",
-  footer: "",
+  password_confirmation: "",
+  avatar: undefined as File | undefined,
+  signature: undefined as File | undefined,
+  header: undefined as File | undefined,
+  footer: undefined as File | undefined,
 };
 
 const AddNewLaboratory: FC = () => {
-  const [loading, setLoading] = useState(false);
+  const { createLaboratory, isCreating } = useCreateLaboratory();
+
   const blankImg = toAbsoluteUrl("/media/svg/avatars/blank.svg");
   const [showPasswprd, setShowPassword] = useState(false);
 
@@ -64,19 +68,13 @@ const AddNewLaboratory: FC = () => {
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
-      setLoading(true);
       try {
         console.log(values);
-        // const {data: auth} = await login(values.email, values.password)
-        // saveAuth(auth)
-        // const {data: user} = await getUserByToken(auth.api_token)
-        // setCurrentUser(user)
+        createLaboratory(values);
       } catch (error) {
         console.error(error);
-        // saveAuth(undefined)
-        setStatus("The login details are incorrect");
+        setStatus("The laboratory details are incorrect");
         setSubmitting(false);
-        setLoading(false);
       }
     },
   });
@@ -100,10 +98,15 @@ const AddNewLaboratory: FC = () => {
             style={{ backgroundImage: `url('${blankImg}')` }}
           >
             {/* begin::Preview existing avatar */}
-            <div
+            <img
+              src={
+                formik.values.avatar
+                  ? URL.createObjectURL(formik.values.avatar)
+                  : blankImg
+              }
+              alt="Avatar Preview"
               className="image-input-wrapper w-125px h-125px"
-              style={{ backgroundImage: `url('${blankImg}')` }}
-            ></div>
+            />
             {/* end::Preview existing avatar */}
 
             {/* begin::Label */}
@@ -115,7 +118,17 @@ const AddNewLaboratory: FC = () => {
             >
               <i className="bi bi-pencil-fill fs-7"></i>
 
-              <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+              <input
+                type="file"
+                name="avatar"
+                accept=".png, .jpg, .jpeg"
+                onChange={(event) => {
+                  const file = event.currentTarget.files?.[0];
+                  if (file) {
+                    formik.setFieldValue("avatar", file);
+                  }
+                }}
+              />
               <input type="hidden" name="avatar_remove" />
             </label>
             {/* end::Label */}
@@ -172,7 +185,7 @@ const AddNewLaboratory: FC = () => {
               }
             )}
             autoComplete="off"
-            disabled={formik.isSubmitting || loading}
+            disabled={formik.isSubmitting || isCreating}
           />
           {formik.touched.labName && formik.errors.labName && (
             <div className="fv-plugins-message-container">
@@ -194,23 +207,25 @@ const AddNewLaboratory: FC = () => {
           {/* begin::Input */}
           <input
             placeholder="Full name"
-            {...formik.getFieldProps("name")}
+            {...formik.getFieldProps("fullName")}
             type="text"
-            name="name"
+            name="fullName"
             className={clsx(
               "form-control form-control-solid mb-3 mb-lg-0",
-              { "is-invalid": formik.touched.name && formik.errors.name },
               {
-                "is-valid": formik.touched.name && !formik.errors.name,
+                "is-invalid": formik.touched.fullName && formik.errors.fullName,
+              },
+              {
+                "is-valid": formik.touched.fullName && !formik.errors.fullName,
               }
             )}
             autoComplete="off"
-            disabled={formik.isSubmitting || loading}
+            disabled={formik.isSubmitting || isCreating}
           />
-          {formik.touched.name && formik.errors.name && (
+          {formik.touched.fullName && formik.errors.fullName && (
             <div className="fv-plugins-message-container">
               <div className="fv-help-block">
-                <span role="alert">{formik.errors.name}</span>
+                <span role="alert">{formik.errors.fullName}</span>
               </div>
             </div>
           )}
@@ -238,7 +253,7 @@ const AddNewLaboratory: FC = () => {
               }
             )}
             autoComplete="off"
-            disabled={formik.isSubmitting || loading}
+            disabled={formik.isSubmitting || isCreating}
           />
           {formik.touched.phone && formik.errors.phone && (
             <div className="fv-plugins-message-container">
@@ -273,7 +288,7 @@ const AddNewLaboratory: FC = () => {
               }
             )}
             autoComplete="off"
-            disabled={formik.isSubmitting || loading}
+            disabled={formik.isSubmitting || isCreating}
           />
           {formik.touched.address && formik.errors.address && (
             <div className="fv-plugins-message-container">
@@ -309,7 +324,7 @@ const AddNewLaboratory: FC = () => {
               }
             )}
             autoComplete="off"
-            disabled={formik.isSubmitting || loading}
+            disabled={formik.isSubmitting || isCreating}
           />
           {formik.touched.description && formik.errors.description && (
             <div className="fv-plugins-message-container">
@@ -344,12 +359,14 @@ const AddNewLaboratory: FC = () => {
             type="username"
             name="username"
             autoComplete="off"
-            disabled={formik.isSubmitting || loading}
+            disabled={formik.isSubmitting || isCreating}
           />
           {/* end::Input */}
           {formik.touched.username && formik.errors.username && (
             <div className="fv-plugins-message-container">
-              <span role="alert">{formik.errors.username}</span>
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.username}</span>
+              </div>
             </div>
           )}
         </div>
@@ -380,7 +397,7 @@ const AddNewLaboratory: FC = () => {
               type={showPasswprd ? "text" : "password"}
               name="password"
               autoComplete="off"
-              disabled={formik.isSubmitting || loading}
+              disabled={formik.isSubmitting || isCreating}
             />
             <div className="input-group-append">
               <span
@@ -398,7 +415,9 @@ const AddNewLaboratory: FC = () => {
           {/* end::Input */}
           {formik.touched.password && formik.errors.password && (
             <div className="fv-plugins-message-container">
-              <span role="alert">{formik.errors.password}</span>
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.password}</span>
+              </div>
             </div>
           )}
         </div>
@@ -414,24 +433,24 @@ const AddNewLaboratory: FC = () => {
           <div className="input-group">
             <input
               placeholder="Confirm Password"
-              {...formik.getFieldProps("confirm_password")}
+              {...formik.getFieldProps("password_confirmation")}
               className={clsx(
                 "form-control form-control-solid mb-3 mb-lg-0",
                 {
                   "is-invalid":
-                    formik.touched.confirm_password &&
-                    formik.errors.confirm_password,
+                    formik.touched.password_confirmation &&
+                    formik.errors.password_confirmation,
                 },
                 {
                   "is-valid":
-                    formik.touched.confirm_password &&
-                    !formik.errors.confirm_password,
+                    formik.touched.password_confirmation &&
+                    !formik.errors.password_confirmation,
                 }
               )}
               type={showPasswprd ? "text" : "password"}
-              name="confirm_password"
+              name="password_confirmation"
               autoComplete="off"
-              disabled={formik.isSubmitting || loading}
+              disabled={formik.isSubmitting || isCreating}
             />
             <div className="input-group-append">
               <span
@@ -447,10 +466,14 @@ const AddNewLaboratory: FC = () => {
           </div>
 
           {/* end::Input */}
-          {formik.touched.confirm_password &&
-            formik.errors.confirm_password && (
+          {formik.touched.password_confirmation &&
+            formik.errors.password_confirmation && (
               <div className="fv-plugins-message-container">
-                <span role="alert">{formik.errors.confirm_password}</span>
+                <div className="fv-help-block">
+                  <span role="alert">
+                    {formik.errors.password_confirmation}
+                  </span>
+                </div>
               </div>
             )}
         </div>
@@ -465,20 +488,16 @@ const AddNewLaboratory: FC = () => {
           {/* begin:: Input */}
           <input
             placeholder="signature"
-            {...formik.getFieldProps("signature")}
             type="file"
             name="signature"
-            className={clsx(
-              "form-control form-control-solid mb-3 mb-lg-0",
-              {
-                "is-invalid":
-                  formik.touched.signature && formik.errors.signature,
-              },
-              {
-                "is-valid":
-                  formik.touched.signature && !formik.errors.signature,
+            className="form-control form-control-solid mb-3 mb-lg-0"
+            accept=".png, .jpg, .jpeg, .svg"
+            onChange={(event) => {
+              const file = event.currentTarget.files?.[0];
+              if (file) {
+                formik.setFieldValue("signature", file);
               }
-            )}
+            }}
             autoComplete="off"
             disabled={formik.isSubmitting}
           />
@@ -502,16 +521,16 @@ const AddNewLaboratory: FC = () => {
           {/* begin:: Input */}
           <input
             placeholder="header"
-            {...formik.getFieldProps("header")}
             type="file"
             name="header"
-            className={clsx(
-              "form-control form-control-solid mb-3 mb-lg-0",
-              { "is-invalid": formik.touched.header && formik.errors.header },
-              {
-                "is-valid": formik.touched.header && !formik.errors.header,
+            className="form-control form-control-solid mb-3 mb-lg-0"
+            accept=".png, .jpg, .jpeg"
+            onChange={(event) => {
+              const file = event.currentTarget.files?.[0];
+              if (file) {
+                formik.setFieldValue("header", file);
               }
-            )}
+            }}
             autoComplete="off"
             disabled={formik.isSubmitting}
           />
@@ -535,16 +554,16 @@ const AddNewLaboratory: FC = () => {
           {/* begin:: Input */}
           <input
             placeholder="footer"
-            {...formik.getFieldProps("footer")}
             type="file"
             name="footer"
-            className={clsx(
-              "form-control form-control-solid mb-3 mb-lg-0",
-              { "is-invalid": formik.touched.footer && formik.errors.footer },
-              {
-                "is-valid": formik.touched.footer && !formik.errors.footer,
+            className="form-control form-control-solid mb-3 mb-lg-0"
+            accept=".png, .jpg, .jpeg"
+            onChange={(event) => {
+              const file = event.currentTarget.files?.[0];
+              if (file) {
+                formik.setFieldValue("footer", file);
               }
-            )}
+            }}
             autoComplete="off"
             disabled={formik.isSubmitting}
           />

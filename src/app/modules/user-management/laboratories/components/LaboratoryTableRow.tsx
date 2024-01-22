@@ -4,7 +4,8 @@ import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
 import { CustomTable } from "../../../../ui/table/CustomTable";
 import { TestTypesPriceTableRow } from "../test-type-price-setting/components/TestTypesPriceTableRow";
 import { LabsModel } from "../core/_models";
-
+import clsx from "clsx";
+import { randomState } from "../../../../utils/helper";
 
 type Props = {
   labData: LabsModel;
@@ -12,6 +13,8 @@ type Props = {
 };
 
 const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
+  const avatarState = randomState();
+
   return (
     <>
       <tr className="accordion-item">
@@ -25,13 +28,25 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
             {/* begin:: Avatar */}
             <div className="symbol symbol-circle symbol-50px overflow-hidden me-3">
               <a href="#">
-                <div className="symbol-label">
-                  <img
-                    src={labData.picture}
-                    alt={labData.labName}
-                    className="w-100"
-                  />
-                </div>
+                {labData.avatar ? (
+                  <div className="symbol-label">
+                    <img
+                      src={labData.avatar}
+                      alt={labData.labName}
+                      className="w-100"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className={clsx(
+                      "symbol-label fs-3",
+                      `bg-light-${avatarState}`,
+                      `text-${avatarState}`
+                    )}
+                  >
+                    {labData.labName[0]}
+                  </div>
+                )}
               </a>
             </div>
             <div className="d-flex flex-column">
