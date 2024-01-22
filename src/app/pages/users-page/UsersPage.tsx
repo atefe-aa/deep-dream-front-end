@@ -7,20 +7,32 @@ import { AddNewTestPrice } from "../../modules/user-management/laboratories/test
 import { UsersListSearchComponent } from "../../modules/user-management/laboratories/components/header/UsersListSearchComponent";
 import { LaboratoryTableRow } from "../../modules/user-management/laboratories/components/LaboratoryTableRow";
 import { CounsellorTableRow } from "../../modules/user-management/counsellors/components/CounsellorTableRow";
+import { useLaboratories } from "../../modules/user-management/laboratories/hooks/useLaboratories";
+import { ListLoading } from "../../ui/ListLoading";
+import { NoRecordRow } from "../../ui/table/NoRecordRow";
+import { LabsModel } from "../../modules/user-management/laboratories/core/_models";
 
 const UsersPage = () => {
+  const { isLoading: isLoadingLaboratories, laboratories } = useLaboratories();
+
   return (
     <>
       <UsersListSearchComponent />
+      {isLoadingLaboratories && <ListLoading />}
       <CustomTable
         className=""
         accordionId="labsPanel"
         columns={["Name", "username", "Phone", "Address", "Description"]}
         modalId="kt_modal_add_new_laboratory"
       >
-        {LABS_TESTS_DATA.map((lab, index) => (
-          <LaboratoryTableRow key={lab.id} labData={lab} index={index + 1} />
-        ))}
+      
+        {!isLoadingLaboratories && !laboratories && <NoRecordRow />}
+
+        {!isLoadingLaboratories &&
+          laboratories &&
+          laboratories.map((lab: LabsModel, index: number) => (
+            <LaboratoryTableRow key={lab.id} labData={lab} index={index + 1} />
+          ))}
       </CustomTable>
 
       <Pagination />

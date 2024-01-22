@@ -13,6 +13,7 @@
     "@bmunozg/react-image-area": "^1.1.0",
     "@formatjs/intl-relativetimeformat": "11.2.4",
     "@popperjs/core": "^2.11.6",
+    "@tanstack/react-query": "^5.17.19",
     "animate.css": "^4.1.1",
     "apexcharts": "3.35.0",
     "axios": "^1.6.3",

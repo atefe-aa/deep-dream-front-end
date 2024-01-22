@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useEffect, useState } from "react";
-import { useQueryRequest } from "../../core/QueryRequestProvider";
 import {
   useDebounce,
   initialQueryState,
@@ -9,7 +8,7 @@ import {
 } from "../../../../../../_metronic/helpers";
 
 const UsersListSearchComponent = () => {
-  const { updateState } = useQueryRequest();
+  // const { updateState } = useQueryRequest();
   const [searchTerm, setSearchTerm] = useState<string>("");
   // Debounce search term so that it only gives us latest value ...
   // ... if searchTerm has not been updated within last 500ms.
@@ -20,7 +19,7 @@ const UsersListSearchComponent = () => {
   useEffect(
     () => {
       if (debouncedSearchTerm !== undefined && searchTerm !== undefined) {
-        updateState({ search: debouncedSearchTerm, ...initialQueryState });
+        // updateState({ search: debouncedSearchTerm, ...initialQueryState });
       }
     },
     [debouncedSearchTerm] // Only call effect if debounced search term changes

@@ -3,29 +3,11 @@ import { KTIcon, toAbsoluteUrl } from "../../../../../_metronic/helpers";
 import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
 import { CustomTable } from "../../../../ui/table/CustomTable";
 import { TestTypesPriceTableRow } from "../test-type-price-setting/components/TestTypesPriceTableRow";
+import { LabsModel } from "../core/_models";
 
-interface TestsArray {
-  id: number;
-  testName: string;
-  testPrice: number;
-  description: string;
-  testExtraPrice: number;
-}
-
-interface LabDataArray {
-  id: number;
-  labName: string;
-  fullName: string;
-  phone: string;
-  address: string;
-  description: string;
-  username: string;
-  picture: string;
-  tests: TestsArray[];
-}
 
 type Props = {
-  labData: LabDataArray;
+  labData: LabsModel;
   index: number;
 };
 
@@ -45,7 +27,7 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
               <a href="#">
                 <div className="symbol-label">
                   <img
-                    src={toAbsoluteUrl(`/media/${labData.picture}`)}
+                    src={labData.picture}
                     alt={labData.labName}
                     className="w-100"
                   />
@@ -119,7 +101,7 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
         className="accordion-collapse collapse "
       >
         <td className="" colSpan={7}>
-          <CustomTable
+          {/* <CustomTable
             modalId={`kt_modal_add_new_test_price_${labData.labName.toLocaleLowerCase()}`}
             columns={[
               "Title",
@@ -137,7 +119,7 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
                 index={index + 1}
               />
             ))}
-          </CustomTable>
+          </CustomTable> */}
         </td>
       </tr>
     </>
