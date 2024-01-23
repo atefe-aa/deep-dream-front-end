@@ -1,6 +1,3 @@
-import { KTIcon } from "../../../_metronic/helpers";
-import { ModalLayout } from "./ModalLayout";
-
 type Props = {
   children: React.ReactNode;
   modalId: string;
@@ -68,13 +65,12 @@ const ModalForm: React.FC<Props> = ({
               isLoading
             }
           >
-            {formik.isSubmitting || isLoading ? (
+            {!isLoading && <span className="indicator-label">Submit</span>}
+            {isLoading && (
               <span className="indicator-progress">
                 Please wait...
                 <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
               </span>
-            ) : (
-              <span className="indicator-label">Submit</span>
             )}
           </button>
         </div>

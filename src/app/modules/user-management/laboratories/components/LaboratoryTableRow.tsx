@@ -9,6 +9,7 @@ import { Dropdown } from "react-bootstrap";
 import { CustomDropdown } from "../../../../ui/dropdown/CustomDropdown";
 import { CustomTable } from "../../../../ui/table/CustomTable";
 import { EditInfo } from "./modals/EditInfo";
+import { EditMedia } from "./modals/EditMedia";
 
 type Props = {
   labData: LabsModel;
@@ -133,6 +134,8 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
               </Dropdown.Item>
             </CustomDropdown>
 
+            {/* modals */}
+            <EditMedia labData={labData} />
             <EditInfo labData={labData} />
           </div>
         </td>

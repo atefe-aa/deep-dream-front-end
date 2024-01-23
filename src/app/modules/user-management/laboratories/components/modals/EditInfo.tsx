@@ -72,7 +72,7 @@ const EditInfo: FC<Props> = ({ labData }) => {
   });
 
   return (
-    <ModalLayout modalId={`edit_info${labData.id}`} title="Add new laboratory">
+    <ModalLayout modalId={`edit_info${labData.id}`} title="Update laboratory info">
       <ModalForm
         modalId={`edit_info${labData.id}`}
         formik={formik}
