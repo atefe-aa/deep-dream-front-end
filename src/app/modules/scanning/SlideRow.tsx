@@ -191,7 +191,12 @@ const SlideRow: React.FC<Props> = ({
             {/* View Action */}
             {data?.progress === "scanned" && (
               <div className="menu-item px-3">
-                <a href="#" className="menu-link px-3">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="http://magic.deepdream.ir/#/project/161/image/15163/slice/15164?viewer=6y64q4v83"
+                  className="menu-link px-3"
+                >
                   <KTIcon iconName="eye" className="fs-3 me-3" />
                   View Image
                 </a>
@@ -227,9 +232,9 @@ const SlideRow: React.FC<Props> = ({
         <div className="d-flex flex-column" style={{ width: "320px" }}>
           {data?.image ? (
             // <div className="region-selector-hover-scale">
-              <RegionSelector image={data.image} />
-            // </div>
+            <RegionSelector image={data.image} />
           ) : (
+            // </div>
             <h6 className="text-muted">No image yet.</h6>
           )}
         </div>

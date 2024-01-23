@@ -21,7 +21,7 @@ const TestsTableDropdown: FC = () => {
 
       <div className="menu-item px-3">
         <a
-          href="http://cytomine.local/#/project/3609/image/4107/slice/4108?viewer=izoeau5m2"
+          href="http://magic.deepdream.ir/#/project/161/image/15163/slice/15164?viewer=6y64q4v83"
           className="menu-link px-3"
           target="_blank"
           rel="noopener noreferrer"
