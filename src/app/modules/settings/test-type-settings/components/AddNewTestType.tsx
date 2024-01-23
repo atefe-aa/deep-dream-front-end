@@ -73,7 +73,7 @@ const AddNewTestType: FC = () => {
 
   return (
     <ModalLayout modalId="kt_modal_add_new_test_type" title="Add New Test Type">
-      <ModalForm modalId="kt_modal_add_new_test_type" formik={formik}>
+      <ModalForm  isError={false} isLoading={false}  modalId="kt_modal_add_new_test_type" formik={formik}>
         {/* begin::Title Form group */}
         <div className="fv-row mb-3">
           <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">

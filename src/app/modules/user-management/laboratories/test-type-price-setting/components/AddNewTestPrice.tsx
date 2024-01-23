@@ -64,6 +64,7 @@ const AddNewTestPrice: React.FC<Props> = ({ labName }) => {
       title={`${labName} Laboratory`}
     >
       <ModalForm
+       isError={false} isLoading={false} 
         modalId={`kt_modal_add_new_test_price_${labName.toLowerCase()}`}
         formik={formik}
       >

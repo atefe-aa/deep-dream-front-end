@@ -53,7 +53,7 @@ const AddNewCounsellor: FC = () => {
       modalId="kt_modal_add_new_counsellor"
       title="Add new counsellor"
     >
-      <ModalForm modalId="kt_modal_add_new_counsellor" formik={formik}>
+      <ModalForm  isError={false} isLoading={false}  modalId="kt_modal_add_new_counsellor" formik={formik}>
         {/* begin:: full name Input group */}
         <div className="fv-row mb-7">
           {/* begin::Label */}

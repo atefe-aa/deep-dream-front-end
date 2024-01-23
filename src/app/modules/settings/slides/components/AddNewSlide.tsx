@@ -55,7 +55,7 @@ const AddNewSlide: FC = () => {
 
   return (
     <ModalLayout modalId="kt_modal_add_new_slide" title="Add new slide">
-      <ModalForm modalId="kt_modal_add_new_slide" formik={formik}>
+      <ModalForm isError={false} isLoading={false} modalId="kt_modal_add_new_slide" formik={formik}>
         {/* begin::code Form group  */}
         <div className="fv-row mb-3">
           <label className="form-label required fs-6 fw-bolder text-gray-900">
