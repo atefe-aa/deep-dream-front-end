@@ -1,5 +1,5 @@
 import { handleRequestErrors } from "../../../../utils/requestHelpers";
-import { LabDataModel } from "./_models";
+import { LabDataModel, LabsModel } from "./_models";
 
 const API_URL = import.meta.env.VITE_APP_API_URL_;
 
@@ -62,6 +62,30 @@ export async function deleteLaboratory(labId: number) {
       headers: {
         Accept: "application/json",
       }
+    });
+
+    if (!res.ok) {
+       await handleRequestErrors(res);
+    }
+
+    const { data } = await res.json();
+    return { data };
+  } catch (e: unknown) {
+    console.error((e as Error).message, e);
+    throw e;
+  }
+}
+
+export async function editLaboratoryInfo(  labId: number, labData:LabsModel) {
+
+  try {
+    const res = await fetch(`${BASE_URL}/${labId}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(labData)
     });
 
     if (!res.ok) {

@@ -6,9 +6,16 @@ type Props = {
   modalId: string;
   formik: any;
   isError: boolean;
+  isLoading: boolean;
 };
 
-const ModalForm: React.FC<Props> = ({ children, modalId, formik, isError }) => {
+const ModalForm: React.FC<Props> = ({
+  children,
+  modalId,
+  formik,
+  isError,
+  isLoading,
+}) => {
   return (
     <>
       <form
@@ -44,7 +51,7 @@ const ModalForm: React.FC<Props> = ({ children, modalId, formik, isError }) => {
             onClick={() => formik.resetForm()}
             className="btn btn-light me-3"
             data-kt-users-modal-action="cancel"
-            disabled={formik.isSubmitting}
+            disabled={formik.isSubmitting || isLoading}
           >
             Discard
           </button>
@@ -54,14 +61,20 @@ const ModalForm: React.FC<Props> = ({ children, modalId, formik, isError }) => {
             data-bs-dismiss={isError ? "modal" : ""}
             className="btn btn-primary"
             data-kt-users-modal-action="submit"
-            disabled={formik.isSubmitting || !formik.isValid || !formik.touched}
+            disabled={
+              formik.isSubmitting ||
+              !formik.isValid ||
+              !formik.touched ||
+              isLoading
+            }
           >
-            <span className="indicator-label">Submit</span>
-            {formik.isSubmitting && (
+            {formik.isSubmitting || isLoading ? (
               <span className="indicator-progress">
                 Please wait...
                 <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
               </span>
+            ) : (
+              <span className="indicator-label">Submit</span>
             )}
           </button>
         </div>

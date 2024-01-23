@@ -19,7 +19,7 @@ const CustomDropdown: React.FC<Props> = ({ children }) => {
           <i className="bi bi-three-dots fs-3"></i>
         </Dropdown.Toggle>
 
-        <Dropdown.Menu className=" fw-bold w-200px py-3">
+        <Dropdown.Menu flip={true} className=" fw-bold w-200px py-3">
           {children}
         </Dropdown.Menu>
       </Dropdown>
@@ -27,4 +27,4 @@ const CustomDropdown: React.FC<Props> = ({ children }) => {
   );
 };
 
-export default CustomDropdown;
+export  {CustomDropdown};

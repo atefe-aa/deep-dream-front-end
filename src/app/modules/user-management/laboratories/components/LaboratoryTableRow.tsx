@@ -1,14 +1,14 @@
 import { FC } from "react";
-import { KTIcon, toAbsoluteUrl } from "../../../../../_metronic/helpers";
-import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
-import { CustomTable } from "../../../../ui/table/CustomTable";
+import { KTIcon } from "../../../../../_metronic/helpers";
 import { TestTypesPriceTableRow } from "../test-type-price-setting/components/TestTypesPriceTableRow";
 import { LabsModel } from "../core/_models";
 import clsx from "clsx";
 import { randomState } from "../../../../utils/helper";
 import { LABS_TESTS_DATA } from "../../../../utils/constants";
-import CustomDropdown from "../../../../ui/dropdown/CustomDropDown";
 import { Dropdown } from "react-bootstrap";
+import { CustomDropdown } from "../../../../ui/dropdown/CustomDropdown";
+import { CustomTable } from "../../../../ui/table/CustomTable";
+import { EditInfo } from "./modals/EditInfo";
 
 type Props = {
   labData: LabsModel;
@@ -109,12 +109,22 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
               </h2>
             </div>
             <CustomDropdown>
-              <Dropdown.Item>
+              <Dropdown.Item
+                data-bs-toggle="modal"
+                data-bs-target={`#edit_info${labData.id}`}
+              >
                 <KTIcon iconName="pencil" className="fs-3 me-3" />
                 Edit Info
               </Dropdown.Item>
               <Dropdown.Item
-              className="text-danger "
+                data-bs-toggle="modal"
+                data-bs-target={`#edit_media${labData.id}`}
+              >
+                <KTIcon iconName="picture" className="fs-3 me-3" />
+                Edit Media
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="text-danger "
                 data-bs-toggle="modal"
                 data-bs-target={`#confirm_delete${labData.id}`}
               >
@@ -122,6 +132,8 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
                 Delete Laboratory
               </Dropdown.Item>
             </CustomDropdown>
+
+            <EditInfo labData={labData} />
           </div>
         </td>
       </tr>

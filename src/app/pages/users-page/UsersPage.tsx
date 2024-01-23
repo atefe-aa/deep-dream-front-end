@@ -1,6 +1,6 @@
 import { CustomTable } from "../../ui/table/CustomTable";
 import { LABS_TESTS_DATA, counsellorsData } from "../../utils/constants";
-import { AddNewLaboratory } from "../../modules/user-management/laboratories/components/AddNewLaboratory";
+import { AddNewLaboratory } from "../../modules/user-management/laboratories/components/modals/AddNewLaboratory";
 import { Pagination } from "../../ui/Pagination";
 import { AddNewCounsellor } from "../../modules/user-management/counsellors/components/AddNewCounsellor";
 import { AddNewTestPrice } from "../../modules/user-management/laboratories/test-type-price-setting/components/AddNewTestPrice";
@@ -19,8 +19,7 @@ const UsersPage = () => {
 
   const { deleteLaboratory, isDeleting } = useDeleteLaboratory();
 
-  const handleDelete = (labId : number) => {
-    console.log("Deleting laboratory with ID:", labId);
+  const handleDelete = (labId: number) => {
     deleteLaboratory(labId);
   };
   return (
