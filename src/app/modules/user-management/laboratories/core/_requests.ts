@@ -52,3 +52,26 @@ export async function createLaboratory(labData: LabDataModel) {
     throw e;
   }
 }
+
+
+export async function deleteLaboratory(labId: number) {
+
+  try {
+    const res = await fetch(`${BASE_URL}/${labId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+      }
+    });
+
+    if (!res.ok) {
+       await handleRequestErrors(res);
+    }
+
+    const { data } = await res.json();
+    return { data };
+  } catch (e: unknown) {
+    console.error((e as Error).message, e);
+    throw e;
+  }
+}

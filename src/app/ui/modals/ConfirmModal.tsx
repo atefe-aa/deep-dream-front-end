@@ -18,7 +18,7 @@ type Props = {
 
 const ConfirmModal: React.FC<Props> = ({ actionName, message, onConfirm }) => {
   return (
-    <ModalLayout modalId={`confirm_${actionName}`} title="Confirm Sign-out">
+    <ModalLayout modalId={`confirm_${actionName}`} title="Confirm Action">
       <h4>{message}</h4>
       {/* begin::Actions */}
       <div className="text-center pt-15">

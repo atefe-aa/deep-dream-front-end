@@ -11,10 +11,18 @@ import { useLaboratories } from "../../modules/user-management/laboratories/hook
 import { ListLoading } from "../../ui/ListLoading";
 import { NoRecordRow } from "../../ui/table/NoRecordRow";
 import { LabsModel } from "../../modules/user-management/laboratories/core/_models";
+import { ConfirmModal } from "../../ui/modals/ConfirmModal";
+import { useDeleteLaboratory } from "../../modules/user-management/laboratories/hooks/useDeleteLaboratory";
 
 const UsersPage = () => {
   const { isLoading: isLoadingLaboratories, laboratories } = useLaboratories();
 
+  const { deleteLaboratory, isDeleting } = useDeleteLaboratory();
+
+  const handleDelete = (labId : number) => {
+    console.log("Deleting laboratory with ID:", labId);
+    deleteLaboratory(labId);
+  };
   return (
     <>
       <UsersListSearchComponent />
@@ -25,7 +33,6 @@ const UsersPage = () => {
         columns={["Name", "username", "Phone", "Address", "Description"]}
         modalId="kt_modal_add_new_laboratory"
       >
-      
         {!isLoadingLaboratories && !laboratories && <NoRecordRow />}
 
         {!isLoadingLaboratories &&
@@ -58,7 +65,22 @@ const UsersPage = () => {
       </div>
 
       {/* modal */}
+      {/* begin:: Modals */}
+      {!isLoadingLaboratories &&
+        laboratories &&
+        laboratories?.map((lab: LabsModel) => (
+          <ConfirmModal
+            key={lab.id}
+            actionName={`delete${lab.id}`}
+            onConfirm={() => handleDelete(lab.id)}
+            message={`Are you sure, you want to delete ${lab.labName}?`}
+          />
+        ))}
+
+      {/* end:: Modals */}
+
       <AddNewLaboratory />
+
       <AddNewCounsellor />
       {LABS_TESTS_DATA.map((lab) => (
         <AddNewTestPrice key={lab.id} labName={lab.labName} />

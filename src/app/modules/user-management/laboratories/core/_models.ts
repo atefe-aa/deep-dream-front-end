@@ -1,5 +1,5 @@
 export interface LabsModel {
-  id?: number;
+  id: number;
   labName: string;
   fullName: string;
   phone: string;

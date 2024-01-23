@@ -33,7 +33,7 @@ const addSchema = Yup.object().shape({
     .required("address is required"),
   description: Yup.string()
     .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols"),
+    .max(100, "Maximum 100 symbols"),
   password: Yup.string()
     .min(7, "Password must be at least 7 charecter")
     .required("Password is required."),

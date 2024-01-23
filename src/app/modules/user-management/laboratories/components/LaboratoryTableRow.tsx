@@ -6,6 +6,9 @@ import { TestTypesPriceTableRow } from "../test-type-price-setting/components/Te
 import { LabsModel } from "../core/_models";
 import clsx from "clsx";
 import { randomState } from "../../../../utils/helper";
+import { LABS_TESTS_DATA } from "../../../../utils/constants";
+import CustomDropdown from "../../../../ui/dropdown/CustomDropDown";
+import { Dropdown } from "react-bootstrap";
 
 type Props = {
   labData: LabsModel;
@@ -88,25 +91,37 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
         </td>
         <td>
           <div className="d-flex justify-content-end flex-shrink-0">
-            <DropDownButton>
-              <div className="menu-item px-3">
-                <a href="#" className="menu-link px-3">
-                  <KTIcon iconName="pencil" className="fs-3 me-3" />
-                  Edit Info
-                </a>
-              </div>
-              <div className="menu-item px-3 my-1">
-                <a
-                  href="#"
-                  className="menu-link px-3 text-danger "
-                  data-bs-toggle="tooltip"
-                  title="Delete Test Price"
+            <div className="me-2" data-bs-toggle="tooltip" title="Test info">
+              <h2
+                className="accordion-header"
+                id={`heading_labsPanel_${labData.labName.toLowerCase()}`}
+              >
+                <button
+                  className=" btn text-center btn-active-color-primary btn-bg-light btn-sm  btn-icon collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target={`#kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
+                  aria-expanded="true"
+                  aria-controls={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
                 >
-                  <KTIcon iconName="trash" className="fs-3 me-3" />
-                  Delete Laboratory
-                </a>
-              </div>
-            </DropDownButton>
+                  <KTIcon iconName="plus" className="fs-3" />
+                </button>
+              </h2>
+            </div>
+            <CustomDropdown>
+              <Dropdown.Item>
+                <KTIcon iconName="pencil" className="fs-3 me-3" />
+                Edit Info
+              </Dropdown.Item>
+              <Dropdown.Item
+              className="text-danger "
+                data-bs-toggle="modal"
+                data-bs-target={`#confirm_delete${labData.id}`}
+              >
+                <KTIcon iconName="trash" className="fs-3 me-3" />
+                Delete Laboratory
+              </Dropdown.Item>
+            </CustomDropdown>
           </div>
         </td>
       </tr>
@@ -116,8 +131,8 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
         className="accordion-collapse collapse "
       >
         <td className="" colSpan={7}>
-          {/* <CustomTable
-            modalId={`kt_modal_add_new_test_price_${labData.labName.toLocaleLowerCase()}`}
+          <CustomTable
+            modalId={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
             columns={[
               "Title",
               "Price(R)",
@@ -127,14 +142,14 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
             className="bg-light border-info"
             tableTitle={labData.labName}
           >
-            {labData.tests.map((test, index) => (
+            {LABS_TESTS_DATA[0].tests.map((test, index) => (
               <TestTypesPriceTableRow
                 testTypeData={test}
                 key={test.id}
                 index={index + 1}
               />
             ))}
-          </CustomTable> */}
+          </CustomTable>
         </td>
       </tr>
     </>
