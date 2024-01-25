@@ -10,6 +10,9 @@ import { CustomDropdown } from "../../../../ui/dropdown/CustomDropdown";
 import { CustomTable } from "../../../../ui/table/CustomTable";
 import { EditInfo } from "./modals/EditInfo";
 import { EditMedia } from "./modals/EditMedia";
+import { CustomTableHead } from "../../../../ui/table/CustomTableHead";
+import { CustomHeaderCell } from "../../../../ui/table/CustomHeaderCell";
+import { CustomTableBody } from "../../../../ui/table/CustomTableBody";
 
 type Props = {
   labData: LabsModel;
@@ -19,6 +22,7 @@ type Props = {
 const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
   const avatarState = randomState();
 
+  const columns = ["Title", "Price(R)", "Extra Slides Price(R)", "Description"];
   return (
     <>
       <tr className="accordion-item">
@@ -92,18 +96,18 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
         </td>
         <td>
           <div className="d-flex justify-content-end flex-shrink-0">
-            <div className="me-2" data-bs-toggle="tooltip" title="Test info">
+            <div className="me-2" data-bs-toggle="tooltip" title="Prices info">
               <h2
                 className="accordion-header"
-                id={`heading_labsPanel_${labData.labName.toLowerCase()}`}
+                id={`heading_labsPanel_${labData.id}`}
               >
                 <button
                   className=" btn text-center btn-active-color-primary btn-bg-light btn-sm  btn-icon collapsed"
                   type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target={`#kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
+                  data-bs-target={`#labsPanel_${labData.id}`}
                   aria-expanded="true"
-                  aria-controls={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
+                  aria-controls={`labsPanel_${labData.id}`}
+                  data-bs-toggle="collapse"
                 >
                   <KTIcon iconName="plus" className="fs-3" />
                 </button>
@@ -141,29 +145,32 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
         </td>
       </tr>
 
-      <tr
-        id={`labsPanel_${labData.id}`}
-        className="accordion-collapse collapse "
-      >
+      <tr id={`labsPanel_${labData.id}`} className="accordion-collapse collapse ">
         <td className="" colSpan={7}>
           <CustomTable
             modalId={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
-            columns={[
-              "Title",
-              "Price(R)",
-              "Extra Slides Price(R)",
-              "Description",
-            ]}
             className="bg-light border-info"
             tableTitle={labData.labName}
           >
-            {LABS_TESTS_DATA[0].tests.map((test, index) => (
-              <TestTypesPriceTableRow
-                testTypeData={test}
-                key={test.id}
-                index={index + 1}
-              />
-            ))}
+            <CustomTableHead>
+              {columns.map((col) => (
+                <CustomHeaderCell
+                  key={col}
+                  className=""
+                  title={col.toLocaleUpperCase()}
+                  elementId={col.replace(" ", "-")}
+                />
+              ))}
+            </CustomTableHead>
+            <CustomTableBody>
+              {LABS_TESTS_DATA[0].tests.map((test, index) => (
+                <TestTypesPriceTableRow
+                  testTypeData={test}
+                  key={test.id}
+                  index={index + 1}
+                />
+              ))}
+            </CustomTableBody>
           </CustomTable>
         </td>
       </tr>

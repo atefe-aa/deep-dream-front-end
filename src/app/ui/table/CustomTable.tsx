@@ -1,25 +1,18 @@
 import { FC } from "react";
 import { KTIcon } from "../../../_metronic/helpers";
-import { QueryRequestProvider } from "./QueryRequestProvider";
-import { CustomHeader } from "./CustomHeader";
-import { Search } from "../search-and-filter/Search";
 
 type Props = {
   className: string;
   children: React.ReactNode;
-  columns: Array<string>;
   modalId?: string;
   tableTitle?: string;
-  accordionId?: string;
 };
 
 const CustomTable: FC<Props> = ({
   tableTitle,
   className,
   children,
-  columns,
   modalId,
-  accordionId,
 }) => {
   return (
     <div className={`card ${className}`}>
@@ -54,37 +47,7 @@ const CustomTable: FC<Props> = ({
         <div className="table-responsive">
           {/* begin::Table */}
           <table className="table text-center table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
-            {/* begin::Table head */}
-            <thead>
-              <tr className="fw-bold text-muted">
-                <th className="w-25px">
-                  <div className="form-check form-check-sm form-check-custom form-check-solid">
-                    #
-                  </div>
-                </th>
-                {columns.map((col) => (
-                  // <th key={col} className="min-w-50px">
-                  //   {col}
-                  // </th>
-                  <CustomHeader
-                    key={col}
-                    className=""
-                    title={col.toLocaleUpperCase()}
-                    elementId={col.replace(" ", "-")}
-                  />
-                ))}
-                <th className="min-w-100px text-center">Actions</th>
-              </tr>
-            </thead>
-            {/* end::Table head */}
-            {/* begin::Table body */}
-            <tbody
-              className={accordionId ? "accordion" : ""}
-              id={accordionId || undefined}
-            >
-              {children}
-            </tbody>
-            {/* end::Table body */}
+            {children}
           </table>
           {/* end::Table */}
         </div>

@@ -21,7 +21,7 @@ const Pagination: FC<PaginationProps> = ({ meta, onPageChange }) => {
   return (
     <div className="d-flex flex-stack flex-wrap pt-10">
       <div className="fs-6 fw-bold text-gray-700 mb-4">
-        Showing {meta.from} to {meta.to} of {meta.total} entries
+        Showing {meta.from || 0} to {meta.to || 0} of {meta.total} entries
       </div>
 
       <ul className="pagination">

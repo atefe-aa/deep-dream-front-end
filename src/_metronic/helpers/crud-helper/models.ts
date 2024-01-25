@@ -4,7 +4,7 @@ export type ID = undefined | null | number
 
 export type PaginationState = {
   page: number
-  items_per_page: 10 | 30 | 50 | 100
+  per_page: 10 | 30 | 50 | 100
   links?: Array<{label: string; active: boolean; url: string | null; page: number | null}>
 }
 
@@ -31,23 +31,48 @@ export type Response<T> = {
     pagination?: PaginationState
   }
 }
-
 export type QueryState = PaginationState & SortState & FilterState & SearchState
-
-export type QueryRequestContextProps = {
-  state: QueryState
-  updateState: (updates: Partial<QueryState>) => void
-}
 
 export const initialQueryState: QueryState = {
   page: 1,
-  items_per_page: 10,
+  per_page: 10,
 }
-
+export const initialEntityQueryState: EntityQueryState = {
+  patients: initialQueryState,
+  counsellors: initialQueryState,
+  laboratories: initialQueryState,
+  // Initialize other entities similarly
+};
 export const initialQueryRequest: QueryRequestContextProps = {
-  state: initialQueryState,
+  state: initialEntityQueryState,
   updateState: () => {},
-}
+};
+
+export type EntityQueryState = {
+  patients: QueryState;
+  counsellors: QueryState;
+  laboratories: QueryState;
+  // Add more entities as needed
+};
+export type QueryRequestContextProps = {
+  state: EntityQueryState;
+  updateState: (entity: keyof EntityQueryState, updates: Partial<QueryState>) => void;
+};
+
+
+
+// export const initialQueryRequest: QueryRequestContextProps = {
+//   state: initialEntityQueryState,
+//   updateState: () => {},
+// };
+
+
+// export type QueryRequestContextProps = {
+//   state: QueryState
+//   updateState: (updates: Partial<QueryState>) => void
+// }
+
+
 
 export type QueryResponseContextProps<T> = {
   response?: Response<Array<T>> | undefined

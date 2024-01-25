@@ -4,18 +4,29 @@ import {
   QueryRequestContextProps,
   QueryState,
   initialQueryRequest,
-  WithChildren,
-} from "../../../_metronic/helpers";
+  initialEntityQueryState,
+  EntityQueryState,
+} from "../../_metronic/helpers";
 
 const QueryRequestContext =
   createContext<QueryRequestContextProps>(initialQueryRequest);
 
-const QueryRequestProvider: FC<WithChildren> = ({ children }) => {
-  const [state, setState] = useState<QueryState>(initialQueryRequest.state);
+const QueryRequestProvider: FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [state, setState] = useState(initialEntityQueryState);
 
-  const updateState = (updates: Partial<QueryState>) => {
-    const updatedState = { ...state, ...updates } as QueryState;
-    setState(updatedState);
+  const updateState = (
+    entity: keyof EntityQueryState,
+    updates: Partial<QueryState>
+  ) => {
+    setState((prevState) => ({
+      ...prevState,
+      [entity]: {
+        ...prevState[entity],
+        ...updates,
+      },
+    }));
   };
 
   return (

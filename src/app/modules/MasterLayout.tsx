@@ -10,6 +10,7 @@ import { MenuComponent } from "../../_metronic/assets/ts/components";
 import { AsideDefault } from "../ui/aside/AsideDefault";
 import { ConfirmModal } from "../ui/modals/ConfirmModal";
 import { useAuth } from "./auth";
+import { QueryRequestProvider } from "./QueryRequestProvider";
 
 const MasterLayout = () => {
   const location = useLocation();
@@ -39,9 +40,11 @@ const MasterLayout = () => {
               id="kt_content"
               className="content d-flex flex-column flex-column-fluid "
             >
-              <Content>
-                <Outlet />
-              </Content>
+              <QueryRequestProvider>
+                <Content>
+                  <Outlet />
+                </Content>
+              </QueryRequestProvider>
             </div>
             {/* end::Content */}
             <Footer />
