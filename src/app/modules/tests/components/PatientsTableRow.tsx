@@ -2,49 +2,21 @@ import React from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { ShareMenu } from "./ShareMenu";
 import { TestsTableDropdown } from "./TestsTableDropdown";
+import { TestsModel } from "../core/_models";
 
-interface DurationArray {
-  id?: number;
-  magnification?: string;
-  duration?: number;
-}
-
-interface DataType {
-  name: string;
-  id: number;
-  date: string;
-  img?: string;
-  number: number;
-  nationalId: number;
-  labNumber: string;
-  testType: string;
-  age: number;
-  price: number;
-  numberOfSlides: number;
-  sex: string;
-  description: string;
-  laboratory: string;
-  progress: string;
-  durations?: DurationArray[];
-}
 const customImg =
   "http://magic.deepdream.ir/#/project/161/image/15163/slice/15164?viewer=6y64q4v83";
 
 type Props = {
-  data: DataType;
+  data: TestsModel;
   index: number;
 };
 
 const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
-  const totalDuration = data.durations?.reduce(
-    (acc, item) => acc + (item?.duration || 0),
-    0
-  );
-
   let progressPercent = 0;
   let progressBg = "danger";
   switch (data.progress.toLowerCase()) {
-    case "new":
+    case "registered":
       progressPercent = 20;
       progressBg = "danger";
       break;
@@ -60,13 +32,17 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
       progressPercent = 80;
       progressBg = "success";
       break;
-    case "confirmed":
+    case "approved":
       progressPercent = 100;
       progressBg = "primary";
       break;
-    case "deleted":
-      progressPercent = 0;
+    case "failed":
+      progressPercent = 100;
       progressBg = "danger";
+      break;
+    case "suspended":
+      progressPercent = 0;
+      progressBg = "secondary";
       break;
   }
   return (
@@ -76,10 +52,10 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
         <td>
           <div className="d-flex justify-content-start flex-column">
             <div className="text-gray-900 fw-bold text-hover-primary fs-6">
-              {data.number}
+              {data.registrationCode}
             </div>
             <span className="text-muted fw-semibold text-muted d-block fs-7">
-              {data.labNumber}
+              {data.senderRegistrationCode}
             </span>
           </div>
         </td>
@@ -89,7 +65,7 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
               {data.name}
             </div>
             <span className="text-muted fw-semibold text-muted d-block fs-7">
-              {data.age} , {data.sex}
+              {data.age} {data.ageUnit} , {data.gender}
             </span>
           </div>
         </td>
@@ -200,25 +176,11 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
 
               <div className="d-flex justify-content-between mx-10">
                 <h6>Scan Duration:</h6>
-                {data.durations ? (
-                  <>
-                    <div className="d-flex justify-content-around text-gray-800 fw-bold text-hover-primary d-block fs-6">
-                      {/* <span>Total: </span> */}
-                      {totalDuration} (min)
-                    </div>
-                    {/* {data.durations.map((item) => (
-                    <span
-                      key={item?.id}
-                      className="d-flex justify-content-around text-muted fw-semibold text-muted d-block fs-7"
-                    >
-                      <span>{item?.magnification}: </span>
-                      {item?.duration}
-                    </span>
-                  ))} */}
-                  </>
-                ) : (
-                  "-"
-                )}
+
+                <div className="d-flex justify-content-around text-gray-800 fw-bold text-hover-primary d-block fs-6">
+                  {/* <span>Total: </span> */}
+                  {data.durations} (min)
+                </div>
               </div>
             </div>
             <div className="card col me-2 p-4 bg-light-primary ">

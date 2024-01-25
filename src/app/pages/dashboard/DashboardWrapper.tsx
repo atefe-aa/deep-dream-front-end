@@ -21,6 +21,14 @@ import { LineChart } from "../../modules/statistics/components/LineChart";
 import { RadarChart } from "../../modules/statistics/components/RadarChart";
 import { CustomTable } from "../../ui/table/CustomTable";
 import { PatientsTableRow } from "../../modules/tests/components/PatientsTableRow";
+import { useRegistration } from "../../modules/tests/hooks/useRegistrations";
+import { KTCardBody, stringifyRequestQuery } from "../../../_metronic/helpers";
+import { Search } from "../../ui/search-and-filter/Search";
+import { NoRecordRow } from "../../ui/table/NoRecordRow";
+import { TestsModel } from "../../modules/tests/core/_models";
+import { ListLoading } from "../../ui/ListLoading";
+import { useEffect, useMemo, useState } from "react";
+import { useQueryRequest } from "../../ui/table/QueryRequestProvider";
 
 const data = FAKE_DATA;
 
@@ -34,6 +42,24 @@ const dashboardBreadCrumbs: Array<PageLink> = [
 ];
 
 const DashboardPage = () => {
+  const { state, updateState } = useQueryRequest();
+  const [query, setQuery] = useState<string>(stringifyRequestQuery(state));
+  const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state]);
+
+  useEffect(() => {
+    if (query !== updatedQuery) {
+      setQuery(updatedQuery);
+    }
+  }, [updatedQuery]);
+  const {
+    isLoading: isLoadingRegistration,
+    registrations,
+    meta,
+  } = useRegistration();
+
+  const onChangePage = (page: number) => {
+    updateState({ ...state, page });
+  };
   return (
     <>
       {/* begin::Row */}
@@ -75,7 +101,7 @@ const DashboardPage = () => {
             className=" mb-5 mb-xl-8"
             color="danger"
             description="Test Types Prices(R)"
-            change="All Laboratories"
+            change="All registrations"
           />
         </div>
         <div className="col-lg-6">
@@ -89,7 +115,7 @@ const DashboardPage = () => {
             className=" mb-xl-8"
             color="success"
             description="Test Types Numbers"
-            change="All Laboratories"
+            change="All registrations"
           />
         </div>
         <div className="col-lg-6">
@@ -118,42 +144,38 @@ const DashboardPage = () => {
       </div>
       {/* end::Row */}
 
-      <SearchAndFilter />
-
-      {/* begin::Row */}
-      <div className="row gy-5 g-xl-8 mt-1">
-        {/* begin::Col */}
-        <div className="col-xxl-12">
+      <KTCardBody className="py-4">
+        <Search />
+        <div className="table-responsive">
           <CustomTable
-            tableTitle="Tests Statistics"
-            className="card-xxl-stretch mb-5 mb-xl-8"
-            accordionId="patientsPanle"
+            className=""
+            accordionId="labsPanel"
             columns={[
-              "Admit Patient",
+              "registration",
               "Patient",
               "National ID",
-              // "Price(R)",
-              // "Number of Slides",
-              "Admit Date & Time",
+              "registration Date & Time",
               "Sender Laboratory",
-              // "Scan Duration",
               "Progress",
             ]}
+            modalId="kt_modal_add_new_laboratory"
           >
-            {data.map((patient, _index) => (
-              <PatientsTableRow
-                key={patient.id}
-                data={patient}
-                index={_index + 1}
-              />
-            ))}
+            {!isLoadingRegistration && !registrations && <NoRecordRow />}
+
+            {!isLoadingRegistration &&
+              registrations &&
+              registrations.map((tets: TestsModel, index: number) => (
+                <PatientsTableRow key={tets.id} data={tets} index={index + 1} />
+              ))}
           </CustomTable>
         </div>
-        {/* end::Col */}
-      </div>
-      {/* end::Row */}
+        {!isLoadingRegistration && registrations && (
+          <Pagination onPageChange={onChangePage} meta={meta} />
+        )}
+        {isLoadingRegistration && <ListLoading />}
+      </KTCardBody>
 
-      <Pagination />
+      {/* <Pagination /> */}
     </>
   );
 };
