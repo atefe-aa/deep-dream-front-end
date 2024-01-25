@@ -2,7 +2,7 @@ export const SlidesFakeData = [
   {
     image: "",
     slide: 1,
-    cytomine:"",
+    cytomine: "",
     laboratory: "",
     testNumber: 0,
     testType: "",
@@ -12,7 +12,7 @@ export const SlidesFakeData = [
   {
     image: "/media/slides/slide1.png",
     slide: 2,
-    cytomine:"",
+    cytomine: "",
     laboratory: "Milad",
     testNumber: 550036,
     testType: "CC",
@@ -38,7 +38,7 @@ export const SlidesFakeData = [
   {
     image: "/media/slides/slide1.png",
     slide: 3,
-    cytomine:"",
+    cytomine: "",
     laboratory: "Milad",
     testNumber: 550037,
     testType: "CC",
@@ -64,7 +64,7 @@ export const SlidesFakeData = [
   {
     image: "/media/slides/slide1.png",
     slide: 4,
-    cytomine:"",
+    cytomine: "",
     laboratory: "Milad",
     testNumber: 550038,
     testType: "CC",
@@ -85,7 +85,7 @@ export const SlidesFakeData = [
   {
     image: "/media/slides/slide1.png",
     slide: 5,
-    cytomine:"",
+    cytomine: "",
     laboratory: "Milad",
     testNumber: 550039,
     testType: "CC",
@@ -106,7 +106,7 @@ export const SlidesFakeData = [
   {
     image: "/media/slides/slide1.png",
     slide: 6,
-    cytomine:"",
+    cytomine: "",
     laboratory: "Milad",
     testNumber: 550040,
     testType: "CC",
@@ -127,7 +127,7 @@ export const SlidesFakeData = [
   {
     image: "/media/slides/slide1.png",
     slide: 7,
-    cytomine:"",
+    cytomine: "",
     laboratory: "Milad",
     testNumber: 550041,
     testType: "CC",
@@ -148,7 +148,7 @@ export const SlidesFakeData = [
   {
     image: "/media/slides/slide1.png",
     slide: 8,
-    cytomine:"",
+    cytomine: "",
     laboratory: "Milad",
     testNumber: 550042,
     testType: "CC",
@@ -169,7 +169,7 @@ export const SlidesFakeData = [
   {
     image: "/media/slides/slide1.png",
     slide: 9,
-    cytomine:"",
+    cytomine: "",
     laboratory: "Milad",
     testNumber: 550043,
     testType: "CC",
@@ -190,7 +190,7 @@ export const SlidesFakeData = [
   {
     image: "/media/slides/slide1.png",
     slide: 10,
-    cytomine:"",
+    cytomine: "",
     laboratory: "Milad",
     testNumber: 0,
     testType: "CC",
@@ -210,6 +210,15 @@ export const SlidesFakeData = [
   },
 ];
 
+export const imgURL1 =
+  "http://magic.deepdream.ir/#/project/44973/image/45407/slice/45408?viewer=faf05z19e";
+
+export const imgURL2 =
+  "http://magic.deepdream.ir/#/project/44973/image/45448/slice/45449?viewer=rspvwop20";
+
+export const imgURL3 =
+  "http://magic.deepdream.ir/#/project/44973/image/45487/slice/45488?viewer=gy38kob63";
+
 export const FAKE_DATA = [
   {
     name: "Azam Ghasemi",
@@ -217,6 +226,7 @@ export const FAKE_DATA = [
     id: 10,
     number: 86203,
     nationalId: 1234567890,
+    img: imgURL1,
     labNumber: "C02-4788",
     testType: "PBS",
     age: 35,
@@ -257,6 +267,7 @@ export const FAKE_DATA = [
     id: 9,
     number: 56001,
     nationalId: 1234567890,
+    img: imgURL2,
     testType: "Papsmear",
     age: 37,
     sex: "Female",
@@ -286,6 +297,7 @@ export const FAKE_DATA = [
     id: 8,
     number: 67201,
     nationalId: 1234567890,
+    img: imgURL3,
     testType: "Gastric",
     age: 72,
     sex: "Male",
@@ -1589,3 +1601,4 @@ export const defaultAlerts = [
   //   state: "warning",
   // },
 ];
+

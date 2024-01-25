@@ -13,6 +13,7 @@ interface DataType {
   name: string;
   id: number;
   date: string;
+  img?: string;
   number: number;
   nationalId: number;
   labNumber: string;
@@ -26,6 +27,8 @@ interface DataType {
   progress: string;
   durations?: DurationArray[];
 }
+const customImg =
+  "http://magic.deepdream.ir/#/project/161/image/15163/slice/15164?viewer=6y64q4v83";
 
 type Props = {
   data: DataType;
@@ -173,7 +176,7 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
                 />
               </div>
             </div>
-            <TestsTableDropdown />
+            <TestsTableDropdown img={data.img ? data.img : customImg} />
           </div>
         </td>
       </tr>

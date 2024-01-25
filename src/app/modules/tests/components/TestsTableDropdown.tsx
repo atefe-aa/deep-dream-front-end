@@ -2,7 +2,11 @@ import { FC } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
 
-const TestsTableDropdown: FC = () => {
+type Props = {
+  img?: string;
+};
+
+const TestsTableDropdown: FC<Props> = ({ img }) => {
   return (
     <DropDownButton>
       <div className="menu-item px-3">
@@ -21,7 +25,7 @@ const TestsTableDropdown: FC = () => {
 
       <div className="menu-item px-3">
         <a
-          href="http://magic.deepdream.ir/#/project/161/image/15163/slice/15164?viewer=6y64q4v83"
+          href={img}
           className="menu-link px-3"
           target="_blank"
           rel="noopener noreferrer"
