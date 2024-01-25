@@ -13,38 +13,70 @@ import { NoRecordRow } from "../../ui/table/NoRecordRow";
 import { LabsModel } from "../../modules/user-management/laboratories/core/_models";
 import { ConfirmModal } from "../../ui/modals/ConfirmModal";
 import { useDeleteLaboratory } from "../../modules/user-management/laboratories/hooks/useDeleteLaboratory";
+import { KTCardBody, stringifyRequestQuery } from "../../../_metronic/helpers";
+import { useQueryRequest } from "../../ui/table/QueryRequestProvider";
+import { useEffect, useMemo, useState } from "react";
+import { Search } from "../../ui/search-and-filter/Search";
 
 const UsersPage = () => {
-  const { isLoading: isLoadingLaboratories, laboratories } = useLaboratories();
+  const { state, updateState } = useQueryRequest();
+  const [query, setQuery] = useState<string>(stringifyRequestQuery(state));
+  const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state]);
+
+  useEffect(() => {
+    if (query !== updatedQuery) {
+      setQuery(updatedQuery);
+    }
+  }, [updatedQuery]);
+
+  const { isLoading: isLoadingLaboratories, laboratories, meta } =
+    useLaboratories(query);
 
   const { deleteLaboratory, isDeleting } = useDeleteLaboratory();
 
   const handleDelete = (labId: number) => {
     deleteLaboratory(labId);
   };
+
+  const onChangePage = (page: number) => {
+    updateState({ ...state, page });
+  };
+
+
   return (
     <>
-      <UsersListSearchComponent />
-      {isLoadingLaboratories && <ListLoading />}
-      <CustomTable
-        className=""
-        accordionId="labsPanel"
-        columns={["Name", "username", "Phone", "Address", "Description"]}
-        modalId="kt_modal_add_new_laboratory"
-      >
-        {!isLoadingLaboratories && !laboratories && <NoRecordRow />}
+      <KTCardBody className="py-4">
+        <Search />
+        <div className="table-responsive">
+          <CustomTable
+            className=""
+            accordionId="labsPanel"
+            columns={["Name", "username", "Phone", "Address", "Description"]}
+            modalId="kt_modal_add_new_laboratory"
+          >
+            {!isLoadingLaboratories && !laboratories && <NoRecordRow />}
 
-        {!isLoadingLaboratories &&
-          laboratories &&
-          laboratories.map((lab: LabsModel, index: number) => (
-            <LaboratoryTableRow key={lab.id} labData={lab} index={index + 1} />
-          ))}
-      </CustomTable>
-
-      <Pagination />
+            {!isLoadingLaboratories &&
+              laboratories &&
+              laboratories.map((lab: LabsModel, index: number) => (
+                <LaboratoryTableRow
+                  key={lab.id}
+                  labData={lab}
+                  index={index + 1}
+                />
+              ))}
+          </CustomTable>
+        </div>
+        {!isLoadingLaboratories && laboratories && (
+          <Pagination
+          onPageChange={onChangePage}
+           meta={meta}
+          />
+        )}
+        {isLoadingLaboratories && <ListLoading />}
+      </KTCardBody>
 
       <div className="mt-10">
-        <UsersListSearchComponent />
         <CustomTable
           tableTitle="Counsellors List"
           className=""
@@ -60,7 +92,7 @@ const UsersPage = () => {
           ))}
         </CustomTable>
 
-        <Pagination />
+        {/* <Pagination totalItems={laboratories?.length()} itemsPerPage={} currentPage={} onPageChange={} /> */}
       </div>
 
       {/* modal */}

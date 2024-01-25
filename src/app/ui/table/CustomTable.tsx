@@ -1,5 +1,8 @@
 import { FC } from "react";
 import { KTIcon } from "../../../_metronic/helpers";
+import { QueryRequestProvider } from "./QueryRequestProvider";
+import { CustomHeader } from "./CustomHeader";
+import { Search } from "../search-and-filter/Search";
 
 type Props = {
   className: string;
@@ -60,9 +63,15 @@ const CustomTable: FC<Props> = ({
                   </div>
                 </th>
                 {columns.map((col) => (
-                  <th key={col} className="min-w-50px">
-                    {col}
-                  </th>
+                  // <th key={col} className="min-w-50px">
+                  //   {col}
+                  // </th>
+                  <CustomHeader
+                    key={col}
+                    className=""
+                    title={col.toLocaleUpperCase()}
+                    elementId={col.replace(" ", "-")}
+                  />
                 ))}
                 <th className="min-w-100px text-center">Actions</th>
               </tr>

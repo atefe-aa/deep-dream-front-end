@@ -5,22 +5,24 @@ const API_URL = import.meta.env.VITE_APP_API_URL_;
 
 const BASE_URL = `${API_URL}/laboratory`;
 
-export async function getLaboratories() {
-  const res = await fetch(BASE_URL, {
+export async function getLaboratories(query = "") {
+  const queryString = query ? `?${query}` : "";
+
+  const res = await fetch(`${BASE_URL}${queryString}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
   });
-  const { data, errors } = await res.json();
+  const { data, meta, errors } = await res.json();
 
   if (errors) {
     console.error(errors);
     throw new Error("Laboratories could not be found.");
   }
 
-  return data;
+  return { data, meta };
 }
 
 export async function createLaboratory(labData: LabDataModel) {
@@ -40,9 +42,8 @@ export async function createLaboratory(labData: LabDataModel) {
       body: formData,
     });
 
-
     if (!res.ok) {
-       await handleRequestErrors(res);
+      await handleRequestErrors(res);
     }
 
     const { data } = await res.json();
@@ -53,19 +54,17 @@ export async function createLaboratory(labData: LabDataModel) {
   }
 }
 
-
 export async function deleteLaboratory(labId: number) {
-
   try {
     const res = await fetch(`${BASE_URL}/${labId}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
-      }
+      },
     });
 
     if (!res.ok) {
-       await handleRequestErrors(res);
+      await handleRequestErrors(res);
     }
 
     const { data } = await res.json();
@@ -76,20 +75,19 @@ export async function deleteLaboratory(labId: number) {
   }
 }
 
-export async function editLaboratoryInfo(  labId: number, labData:LabsModel) {
-
+export async function editLaboratoryInfo(labId: number, labData: LabsModel) {
   try {
     const res = await fetch(`${BASE_URL}/${labId}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
-      body: JSON.stringify(labData)
+      body: JSON.stringify(labData),
     });
 
     if (!res.ok) {
-       await handleRequestErrors(res);
+      await handleRequestErrors(res);
     }
 
     const { data } = await res.json();
@@ -100,8 +98,7 @@ export async function editLaboratoryInfo(  labId: number, labData:LabsModel) {
   }
 }
 
-
-export async function editLaboratoryMedia(  labId: number, labData:LabsModel) {
+export async function editLaboratoryMedia(labId: number, labData: LabsModel) {
   const formData = new FormData();
   Object.entries(labData).forEach(([key, value]) => {
     if (value !== undefined) {
@@ -114,11 +111,11 @@ export async function editLaboratoryMedia(  labId: number, labData:LabsModel) {
       headers: {
         Accept: "application/json",
       },
-      body: formData
+      body: formData,
     });
 
     if (!res.ok) {
-       await handleRequestErrors(res);
+      await handleRequestErrors(res);
     }
 
     const { data } = await res.json();

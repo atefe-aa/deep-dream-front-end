@@ -8,6 +8,7 @@ import { WithChildren } from "../../_metronic/helpers";
 import { ScanningPage } from "../pages/scanning/ScanningPage";
 import ManualModePage from "../pages/manual-mode-page/ManualModePage";
 import SettingsPage from "../pages/settings-page/SettingsPage";
+import { QueryRequestProvider } from "../ui/table/QueryRequestProvider";
 
 const PrivateRoutes = () => {
   const UsersPage = lazy(() => import("../pages/users-page/UsersPage"));
@@ -28,7 +29,9 @@ const PrivateRoutes = () => {
           path="/user-management/*"
           element={
             <SuspensedView>
-              <UsersPage />
+              <QueryRequestProvider>
+                <UsersPage />
+              </QueryRequestProvider>
             </SuspensedView>
           }
         />

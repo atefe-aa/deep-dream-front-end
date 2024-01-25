@@ -1,12 +1,35 @@
-import { FC } from "react";
-import { KTIcon } from "../../../_metronic/helpers";
+import { FC, useEffect, useState } from "react";
+import { KTIcon, useDebounce } from "../../../_metronic/helpers";
+import { useQueryRequest } from "../table/QueryRequestProvider";
+
+import { initialQueryState } from '../../../_metronic/helpers'
 
 const Search: FC = () => {
+
+  const {updateState} = useQueryRequest()
+  const [searchTerm, setSearchTerm] = useState<string>('')
+  // Debounce search term so that it only gives us latest value ...
+  // ... if searchTerm has not been updated within last 500ms.
+  // The goal is to only have the API call fire when user stops typing ...
+  // ... so that we aren't hitting our API rapidly.
+  const debouncedSearchTerm = useDebounce(searchTerm, 150)
+  // Effect for API call
+  useEffect(
+    () => {
+      if (debouncedSearchTerm !== undefined && searchTerm !== undefined) {
+        updateState({search: debouncedSearchTerm, ...initialQueryState})
+      }
+    },
+    [debouncedSearchTerm] // Only call effect if debounced search term changes
+    // More details about useDebounce: https://usehooks.com/useDebounce/
+  )
+
+
   return (
     <>
       <div
         id="kt_header_search"
-        className="header-search d-flex align-items-center w-100"
+        className="header-search d-flex align-items-center "
         data-kt-search-keypress="true"
         data-kt-search-min-length="2"
         data-kt-search-enter="enter"
@@ -19,7 +42,7 @@ const Search: FC = () => {
       >
         <form
           data-kt-search-element="form"
-          className="w-100 position-relative mb-5 mb-lg-0"
+          className=" position-relative mb-5"
           autoComplete="off"
         >
           <KTIcon
@@ -33,6 +56,8 @@ const Search: FC = () => {
             name="search"
             placeholder="Search..."
             data-kt-search-element="input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           {/*end::Input*/}
           {/*begin::Spinner*/}
