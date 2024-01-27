@@ -1,13 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getLaboratories } from "../core/_requests";
 
-export function useLaboratories(query="") {
-  const {
-    data,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ["laboratories", query], // Include the query in the queryKey for cache differentiation
+export function useLaboratories(query = "") {
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["laboratories", query],
     queryFn: () => getLaboratories(query),
   });
 

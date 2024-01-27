@@ -1,17 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { createLaboratory as createLaboratoryApi } from "../core/_requests";
+import { createRegistration as createRegistrationApi } from "../core/_requests";
 
-export function useCreateLaboratory() {
+export function useCreateRegistration() {
   const queryClient = useQueryClient();
   const {
-    mutate: createLaboratory,
+    mutate: createRegistration,
     isPending: isCreating,
     error,
+    data
   } = useMutation({
-    mutationFn: createLaboratoryApi,
+    mutationFn: createRegistrationApi,
     onSuccess: () => {
-      toast.success("New Laboratory successfully created.");
+      toast.success("New Registration successfully created.");
       queryClient.invalidateQueries({ queryKey: ["laboratories"] });
     },
     onError: (err) => {
@@ -21,8 +22,9 @@ export function useCreateLaboratory() {
   });
 
   return {
-    createLaboratory,
+    createRegistration,
     isCreating,
     error,
+    data
   };
 }

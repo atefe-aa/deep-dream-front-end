@@ -17,3 +17,18 @@ export interface TestsModel {
   numberOfSlides: number;
   durations: number;
 }
+
+export interface RegistrationRequestModel {
+  name: string;
+  nationalId: string;
+  age: string;
+  doctorName: string;
+  ageUnit:  "year" | "day";
+  gender: "male" | "female";
+  testType: number;
+  laboratoryId: number;
+  description: string;
+  senderRegisterCode: string;
+  isMultiSlide: boolean;
+  numberOfSlides: number;
+}

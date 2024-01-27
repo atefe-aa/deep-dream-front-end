@@ -1,12 +1,8 @@
-import { json } from "stream/consumers";
-import { handleRequestErrors } from "../../../utils/requestHelpers";
-import { RegistrationRequestModel } from "./_models";
-
 const API_URL = import.meta.env.VITE_APP_API_URL_;
 
-const BASE_URL = `${API_URL}/registration`;
+const BASE_URL = `${API_URL}/test-type`;
 
-export async function getRegistration(query = "") {
+export async function getTestTypes(query = "") {
   const queryString = query ? `?${query}` : "";
 
   const res = await fetch(`${BASE_URL}${queryString}`, {
@@ -20,38 +16,42 @@ export async function getRegistration(query = "") {
 
   if (errors) {
     console.error(errors);
-    throw new Error("Registrations could not be found.");
+    throw new Error("TestTypes could not be found.");
   }
 
   return { data, meta };
 }
 
-export async function createRegistration(
-  registrationData: RegistrationRequestModel
-) {
-  try {
-    const res = await fetch(BASE_URL, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(registrationData),
-    });
+// export async function createLaboratory(labData: LabDataModel) {
+//   const formData = new FormData();
+//   Object.entries(labData).forEach(([key, value]) => {
+//     if (value !== undefined) {
+//       formData.append(key, value);
+//     }
+//   });
 
-    if (!res.ok) {
-      await handleRequestErrors(res);
-    }
+//   try {
+//     const res = await fetch(BASE_URL, {
+//       method: "POST",
+//       headers: {
+//         Accept: "application/json",
+//       },
+//       body: formData,
+//     });
 
-    const { data } = await res.json();
-    return { data };
-  } catch (e: unknown) {
-    console.error((e as Error).message, e);
-    throw e;
-  }
-}
+//     if (!res.ok) {
+//       await handleRequestErrors(res);
+//     }
 
-// export async function deleteRegistration(labId: number) {
+//     const { data } = await res.json();
+//     return { data };
+//   } catch (e: unknown) {
+//     console.error((e as Error).message, e);
+//     throw e;
+//   }
+// }
+
+// export async function deleteLaboratory(labId: number) {
 //   try {
 //     const res = await fetch(`${BASE_URL}/${labId}`, {
 //       method: "DELETE",
@@ -72,7 +72,7 @@ export async function createRegistration(
 //   }
 // }
 
-// export async function editRegistrationInfo(labId: number, labData: LabsModel) {
+// export async function editLaboratoryInfo(labId: number, labData: LabsModel) {
 //   try {
 //     const res = await fetch(`${BASE_URL}/${labId}`, {
 //       method: "PUT",
@@ -95,7 +95,7 @@ export async function createRegistration(
 //   }
 // }
 
-// export async function editRegistrationMedia(labId: number, labData: LabsModel) {
+// export async function editLaboratoryMedia(labId: number, labData: LabsModel) {
 //   const formData = new FormData();
 //   Object.entries(labData).forEach(([key, value]) => {
 //     if (value !== undefined) {
