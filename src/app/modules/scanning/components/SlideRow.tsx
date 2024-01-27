@@ -1,8 +1,8 @@
 import React from "react";
-import { KTIcon } from "../../../_metronic/helpers";
+import { KTIcon } from "../../../../_metronic/helpers";
 import { RegionSelector } from "./RegionSelector";
 import clsx from "clsx";
-import { DropDownButton } from "../../ui/dropdown/DropDownButton";
+import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
 
 interface TimeType {
   magnification?: string;

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import * as Yup from "yup";
 import clsx from "clsx";
 import { useFormik } from "formik";
@@ -49,13 +49,19 @@ const initialValues = {
 
 const AddNewTest: FC = () => {
   const { isCreating, createRegistration, data } = useCreateRegistration();
+  const [qrCode, setQrCode] = useState(null);
 
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
-        createRegistration(values);
+ 
+       createRegistration(values);
+        if(!isCreating && data){
+          setQrCode(data.data.id);
+             // TODO: Add label printer logic here
+        } 
       } catch (error) {
         console.error(error);
         setStatus("The login details are incorrect");

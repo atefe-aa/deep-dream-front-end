@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { SlidesTable } from "../../modules/scanning/SlidesTable";
-import { SlideRow } from "../../modules/scanning/SlideRow";
+import { SlidesTable } from "../../modules/scanning/components/SlidesTable";
+import { SlideRow } from "../../modules/scanning/components/SlideRow";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import Timer from "../../modules/scanning/Timer";
+import Timer from "../../modules/scanning/components/Timer";
 import { SlidesFakeData } from "../../utils/constants";
-
 
 interface FormValues {
   selectedCheckboxes: number[];
@@ -107,7 +106,9 @@ const ScanningPage = () => {
             className="btn btn-primary"
             disabled={formik.isSubmitting || !formik.isValid}
           >
-            {!loading && <span className="indicator-label">Start Scanning</span>}
+            {!loading && (
+              <span className="indicator-label">Start Scanning</span>
+            )}
             {loading && (
               <span className="indicator-progress" style={{ display: "block" }}>
                 Please wait...
