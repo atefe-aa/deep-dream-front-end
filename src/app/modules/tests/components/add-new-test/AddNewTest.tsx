@@ -40,7 +40,7 @@ const initialValues = {
   ageUnit: "year" as "year" | "day",
   gender: "female" as "female" | "male",
   testType: 0,
-  laboratoryId: 0,
+  laboratoryId: 1,
   description: "",
   senderRegisterCode: "",
   isMultiSlide: false,
@@ -50,7 +50,7 @@ const initialValues = {
 const AddNewTest: FC = () => {
   const { isCreating, createRegistration, data } = useCreateRegistration();
   const [qrCode, setQrCode] = useState(null);
-
+  
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,

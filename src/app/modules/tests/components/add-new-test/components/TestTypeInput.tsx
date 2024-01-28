@@ -12,7 +12,8 @@ interface TestOption {
 }
 
 function TestTypeInput({ formik }: Props) {
-  const { isLoading, testTypes } = useTestTypes();
+  const query = `laboratory=${formik.values.laboratoryId}`;
+  const { isLoading, testTypes } = useTestTypes(query);
 
   const testTypeOptions =
     !isLoading &&

@@ -26,6 +26,7 @@ export async function getRegistration(query = "") {
   return { data, meta };
 }
 
+
 export async function createRegistration(
   registrationData: RegistrationRequestModel
 ) {
