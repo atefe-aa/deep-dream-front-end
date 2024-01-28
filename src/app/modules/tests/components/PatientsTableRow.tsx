@@ -3,6 +3,7 @@ import { KTIcon } from "../../../../_metronic/helpers";
 import { ShareMenu } from "./ShareMenu";
 import { TestsTableDropdown } from "./TestsTableDropdown";
 import { TestsModel } from "../core/_models";
+import { ShareMenuDropdown } from "./ShareMenuDropdown";
 
 const customImg =
   "http://magic.deepdream.ir/#/project/161/image/15163/slice/15164?viewer=6y64q4v83";
@@ -128,30 +129,13 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
                 </button>
               </h2>
             </div>
-
-            <div
-              className="me-2"
-              data-bs-toggle="tooltip"
-              title="Share Options"
-            >
-              <button
-                className="btn btn-sm btn-icon btn-bg-light btn-active-color-primary"
-                data-kt-menu-trigger="click"
-                data-kt-menu-placement="bottom-end"
-                data-kt-menu-flip="top-end"
-              >
-                <KTIcon iconName="share" className="fs-3" />
-              </button>
-              <div
-                className="menu menu-sub menu-sub-dropdown menu-column menu-rounded mh-360px  fw-bold  w-350px w-lg-375px"
-                data-kt-menu="true"
-              >
-                <ShareMenu
-                  patientId={data.id}
-                  backgrounUrl="/media/misc/pattern-1.jpg"
-                />
-              </div>
-            </div>
+            <ShareMenuDropdown>
+              <ShareMenu
+                patientId={data.id}
+                backgrounUrl="/media/misc/pattern-1.jpg"
+              />
+            </ShareMenuDropdown>
+            
             <TestsTableDropdown img={data.img ? data.img : customImg} />
           </div>
         </td>

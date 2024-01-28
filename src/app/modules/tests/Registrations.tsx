@@ -87,7 +87,7 @@ export function Registrations() {
           </CustomTableBody>
         </CustomTable>
       </div>
-      {!isLoadingRegistration && registrations && (
+      {!isLoadingRegistration && registrations && registrations.length > 0 && (
         <Pagination onPageChange={onChangePage} meta={meta} />
       )}
       {isLoadingRegistration && <ListLoading />}

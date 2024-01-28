@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
-import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
+import { CustomDropdown } from "../../../ui/dropdown/CustomDropdown";
+import { Dropdown } from "react-bootstrap";
 
 type Props = {
   img?: string;
@@ -8,59 +9,55 @@ type Props = {
 
 const TestsTableDropdown: FC<Props> = ({ img }) => {
   return (
-    <DropDownButton>
-      <div className="menu-item px-3">
-        <a href="#" className="menu-link px-3">
+    <>
+      <CustomDropdown>
+        <Dropdown.Item
+          data-bs-toggle="modal"
+          // data-bs-target={`#edit_info${labData.id}`}
+        >
           <KTIcon iconName="pencil" className="fs-3 me-3" />
           Edit Info
-        </a>
-      </div>
-
-      <div className="menu-item px-3">
-        <a href="#" className="menu-link px-3">
+        </Dropdown.Item>
+        <Dropdown.Item
+          data-bs-toggle="modal"
+          // data-bs-target={`#edit_media${labData.id}`}
+        >
           <KTIcon iconName="printer" className="fs-3 me-3" />
           Print Label
-        </a>
-      </div>
-
-      <div className="menu-item px-3">
-        <a
-          href={img}
-          className="menu-link px-3"
-          target="_blank"
-          rel="noopener noreferrer"
+        </Dropdown.Item>
+        <Dropdown.Item
+          data-bs-toggle="modal"
+          // data-bs-target={`#edit_media${labData.id}`}
         >
-          <KTIcon iconName="eye" className="fs-3 me-3" />
-          View Image
-        </a>
-      </div>
-
-      <div className="menu-item px-3">
-        <a href="#" className="menu-link px-3">
+          <a href={img} className="text-gray-900  text-hover-primary fs-6" >
+            <KTIcon iconName="eye" className="fs-3 me-3" />
+            View Image
+          </a>
+        </Dropdown.Item>
+        <Dropdown.Item
+          data-bs-toggle="modal"
+          // data-bs-target={`#edit_media${labData.id}`}
+        >
           <KTIcon iconName="document" className="fs-3 me-3" />
           Download Report
-        </a>
-      </div>
-
-      <div className="menu-item px-3">
-        <a href="#" className="menu-link px-3">
+        </Dropdown.Item>{" "}
+        <Dropdown.Item
+          data-bs-toggle="modal"
+          // data-bs-target={`#edit_media${labData.id}`}
+        >
           <KTIcon iconName="picture" className="fs-3 me-3" />
           View Slide Image
-        </a>
-      </div>
-
-      <div className="menu-item px-3 my-1">
-        <a
-          href="#"
-          className="menu-link px-3 text-danger "
-          data-bs-toggle="tooltip"
-          title="Delete Test"
+        </Dropdown.Item>
+        <Dropdown.Item
+          className="text-danger "
+          data-bs-toggle="modal"
+          // data-bs-target={`#confirm_delete${labData.id}`}
         >
           <KTIcon iconName="trash" className="fs-3 me-3" />
           Delete Test
-        </a>
-      </div>
-    </DropDownButton>
+        </Dropdown.Item>
+      </CustomDropdown>
+    </>
   );
 };
 
