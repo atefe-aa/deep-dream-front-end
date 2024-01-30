@@ -18,7 +18,7 @@ interface FetchOptions {
 }
 
 // Helper function to get the auth token
-const getAuthToken = () => {
+export const getAuthToken = () => {
   const auth = getAuth(); // Replace this with your auth retrieval logic
   return auth && auth.api_token ? `Bearer ${auth.api_token}` : null;
 };

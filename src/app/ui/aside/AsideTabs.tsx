@@ -74,7 +74,7 @@ const AsideTabs: FC<Props> = ({ link, setLink }) => {
               />
             </div>
           </div>
-          <span className="fs-7 text-muted fw-bold ">{currentUser?.data.labName}</span>
+          <span className="fs-7 text-muted fw-bold ">{currentUser?.data.labName || currentUser?.data.name}</span>
           {/* end::User */}
         </li>
         {/* begin::Nav item */}

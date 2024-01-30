@@ -1,4 +1,4 @@
-import { handleRequestErrors } from "../../../../utils/requestHelpers";
+import { getAuthToken, handleRequestErrors } from "../../../../utils/requestHelpers";
 // import { customFetch } from "../../../auth";
 import { LabDataModel, LabsModel } from "./_models";
 
@@ -6,39 +6,7 @@ const API_URL = import.meta.env.VITE_APP_API_URL_;
 
 const BASE_URL = `${API_URL}/laboratory`;
 
-
-// export async function getLaboratories(query = "") {
-//   const queryString = query ? `?${query}` : "";
-//   const res = await customFetch(`${BASE_URL}${queryString}`);
-//   const { data, meta, errors } = await res.json();
-
-//   if (errors) {
-//     console.error(errors);
-//     throw new Error("Registrations could not be found.");
-//   }
-
-//   return { data, meta };
-// }
-
-// export async function getLaboratories(query = "") {
-//   const queryString = query ? `?${query}` : "";
-
-//   const res = await fetch(`${BASE_URL}${queryString}`, {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Accept: "application/json",
-//     },
-//   });
-//   const { data, meta, errors } = await res.json();
-
-//   if (errors) {
-//     console.error(errors);
-//     throw new Error("Laboratories could not be found.");
-//   }
-
-//   return { data, meta };
-// }
+const authToken = getAuthToken();
 
 export async function createLaboratory(labData: LabDataModel) {
   const formData = new FormData();
@@ -53,6 +21,7 @@ export async function createLaboratory(labData: LabDataModel) {
       method: "POST",
       headers: {
         Accept: "application/json",
+        'Authorization' : authToken || ""
       },
       body: formData,
     });
@@ -75,6 +44,7 @@ export async function deleteLaboratory(labId: number) {
       method: "DELETE",
       headers: {
         Accept: "application/json",
+        'Authorization' : authToken || ""
       },
     });
 
@@ -125,6 +95,7 @@ export async function editLaboratoryMedia(labId: number, labData: LabsModel) {
       method: "POST",
       headers: {
         Accept: "application/json",
+        'Authorization' : authToken || ""
       },
       body: formData,
     });
