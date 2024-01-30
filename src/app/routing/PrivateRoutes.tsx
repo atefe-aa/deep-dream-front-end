@@ -9,8 +9,11 @@ import { ScanningPage } from "../pages/scanning/ScanningPage";
 import ManualModePage from "../pages/manual-mode-page/ManualModePage";
 import SettingsPage from "../pages/settings-page/SettingsPage";
 import { QueryRequestProvider } from "../modules/QueryRequestProvider";
+import { hasRole } from "../utils/helper";
+import { useAuth } from "../modules/auth";
 
 const PrivateRoutes = () => {
+  const {currentUser} = useAuth();
   const UsersPage = lazy(() => import("../pages/users-page/UsersPage"));
 
   return (
@@ -20,9 +23,13 @@ const PrivateRoutes = () => {
         <Route path="auth/*" element={<Navigate to="/dashboard" />} />
         {/* Pages */}
         <Route path="dashboard" element={<DashboardWrapper />} />
-        <Route path="scanning" element={<ScanningPage />} />
-        <Route path="settings/*" element={<SettingsPage />} />
-        <Route path="manual-mode" element={<ManualModePage />} />
+        {currentUser  && hasRole(currentUser,["superAdmin", "operator"]) && (
+          <>
+            <Route path="scanning" element={<ScanningPage />} />
+            <Route path="settings/*" element={<SettingsPage />} />
+            <Route path="manual-mode" element={<ManualModePage />} />
+          </>
+        )}
 
         {/* Lazy Modules */}
         <Route

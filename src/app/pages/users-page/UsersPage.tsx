@@ -3,37 +3,27 @@ import { AddNewLaboratory } from "../../modules/user-management/laboratories/com
 import { AddNewCounsellor } from "../../modules/user-management/counsellors/components/AddNewCounsellor";
 import { AddNewTestPrice } from "../../modules/user-management/laboratories/test-type-price-setting/components/AddNewTestPrice";
 import { Laboratories } from "../../modules/user-management/laboratories/components/Laboratories";
+import { hasRole } from "../../utils/helper";
+import { Counsellors } from "../../modules/user-management/counsellors/components/Counsellors";
+import { useAuth } from "../../modules/auth";
 
 const UsersPage = () => {
+  const {currentUser} = useAuth();
   return (
     <>
-      <Laboratories />
-
-      {/* <div className="mt-10">
-        <CustomTable
-          tableTitle="Counsellors List"
-          className=""
-          columns={["Name", "Phone", "Laboratory"]}
-          modalId="kt_modal_add_new_counsellor"
-        >
-          {counsellorsData.map((counsellor, index) => (
-            <CounsellorTableRow
-              key={counsellor.id}
-              counsellorData={counsellor}
-              index={index + 1}
-            />
+      {currentUser && hasRole(currentUser,"superAdmin") && (
+        <>
+          <Laboratories /> <AddNewLaboratory />
+          {LABS_TESTS_DATA.map((lab) => (
+            <AddNewTestPrice key={lab.id} labName={lab.labName} />
           ))}
-        </CustomTable> */}
+        </>
+      )}
 
-      {/* <Pagination totalItems={laboratories?.length()} itemsPerPage={} currentPage={} onPageChange={} /> */}
-      {/* </div> */}
+      <Counsellors />
 
       {/* begin:: Modals */}
-      <AddNewLaboratory />
       <AddNewCounsellor />
-      {LABS_TESTS_DATA.map((lab) => (
-        <AddNewTestPrice key={lab.id} labName={lab.labName} />
-      ))}
       {/* end:: Modals */}
     </>
   );

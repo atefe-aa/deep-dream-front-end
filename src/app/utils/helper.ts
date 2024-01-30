@@ -1,3 +1,4 @@
+import { UserModel, useAuth } from "../modules/auth";
 import { MetaModel } from "../modules/user-management/laboratories/core/_models";
 
 export function capitalizeWords(str: string) {
@@ -42,4 +43,20 @@ export const getPageNumbers = (meta: MetaModel) => {
   }
 
   return pages;
+};
+
+export const hasRole = (
+  currentUser: UserModel,
+  roles: string | Array<string>
+) => {
+  // Ensure roles is always an array
+  const rolesArray = Array.isArray(roles) ? roles : [roles];
+
+  return rolesArray.some(
+    (role) =>
+      currentUser &&
+      currentUser.data &&
+      currentUser.data.roles &&
+      currentUser.data?.roles.includes(role)
+  );
 };

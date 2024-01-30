@@ -1,27 +1,10 @@
 import clsx from "clsx";
-import { Dispatch, FC, SetStateAction } from "react";
+import { Dispatch, FC, SetStateAction, useMemo } from "react";
 import { KTIcon, toAbsoluteUrl } from "../../../_metronic/helpers";
 import { Link } from "react-router-dom";
 import { HeaderNotificationsMenu } from "../../../_metronic/partials";
 import { useAuth } from "../../modules/auth";
-
-const tabs: ReadonlyArray<{ link: string; icon: string; tooltip: string }> = [
-  {
-    link: "/manual-mode",
-    icon: "joystick",
-    tooltip: "Manual Mode",
-  },
-  {
-    link: "/user-management/users",
-    icon: "people",
-    tooltip: "Laboratories",
-  },
-  {
-    link: "/settings/all",
-    icon: "setting-4",
-    tooltip: "Settings",
-  },
-];
+import { hasRole } from "../../utils/helper";
 
 type Props = {
   link: string;
@@ -29,7 +12,40 @@ type Props = {
 };
 
 const AsideTabs: FC<Props> = ({ link, setLink }) => {
-  const { logout } = useAuth();
+  const { currentUser } = useAuth();
+
+  // Function to generate tabs based on roles
+  const generateTabs = () => {
+    let baseTabs = [
+      {
+        link: "/user-management/users",
+        icon: "people",
+        tooltip: "Laboratories",
+      },
+    ];
+
+    if (currentUser && hasRole(currentUser,"superAdmin")) {
+      baseTabs = [
+        ...baseTabs,
+        {
+          link: "/settings/all",
+          icon: "setting-4",
+          tooltip: "Settings",
+        },
+        {
+          link: "/manual-mode",
+          icon: "joystick",
+          tooltip: "Manual Mode",
+        },
+      ];
+    }
+
+    return baseTabs;
+  };
+
+  // Use useMemo to memoize the tabs array
+  const tabs = useMemo(generateTabs, [currentUser]);
+
   return (
     <div
       className="hover-scroll-y mb-10"
