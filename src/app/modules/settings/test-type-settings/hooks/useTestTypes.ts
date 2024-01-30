@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTestTypes } from "../core/_requests";
+import { getMethodRequest } from "../../../../utils/requestHelpers";
+
+const API_URL = import.meta.env.VITE_APP_API_URL_;
+const BASE_URL = `${API_URL}/test-type`;
 
 export function useTestTypes(query = "") {
   const { data, error, isLoading } = useQuery({
     queryKey: ["TestTypes", query],
-    queryFn: () => getTestTypes(query),
+    queryFn: () => getMethodRequest(query, 'Test Type',BASE_URL),
   });
 
   const testTypes = data?.data || [];

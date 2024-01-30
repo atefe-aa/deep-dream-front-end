@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { getLaboratories } from "../core/_requests";
+import { getMethodRequest } from "../../../../utils/requestHelpers";
+
+const API_URL = import.meta.env.VITE_APP_API_URL_;
+const BASE_URL = `${API_URL}/laboratory`;
 
 export function useLaboratories(query = "") {
   const { data, error, isLoading } = useQuery({
     queryKey: ["laboratories", query],
-    queryFn: () => getLaboratories(query),
+    queryFn: () => getMethodRequest(query, "Laboratory", BASE_URL),
   });
 
   const laboratories = data?.data || [];

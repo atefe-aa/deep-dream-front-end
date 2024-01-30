@@ -17,15 +17,9 @@ const loginSchema = Yup.object().shape({
 });
 
 const initialValues = {
-  username: "admin@demo.com",
-  password: "demo",
+  username: "superadmin",
+  password: "1-7EAYk6oc(v7P",
 };
-
-/*
-  Formik+YUP+Typescript:
-  https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
-  https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e
-*/
 
 export function Login() {
   const [loading, setLoading] = useState(false);
@@ -39,7 +33,7 @@ export function Login() {
       try {
         const { data: auth } = await login(values.username, values.password);
         saveAuth(auth);
-        const { data: user } = await getUserByToken(auth.api_token);
+        const { data: user } = await getUserByToken();
         setCurrentUser(user);
       } catch (error) {
         console.error(error);
@@ -73,7 +67,9 @@ export function Login() {
 
       {/* begin::Form group */}
       <div className="fv-row mb-8">
-        <label className="form-label fs-6 fw-bolder text-gray-900">Username</label>
+        <label className="form-label fs-6 fw-bolder text-gray-900">
+          Username
+        </label>
         <input
           placeholder="Username"
           {...formik.getFieldProps("username")}
