@@ -101,6 +101,8 @@ export function Login() {
           type="password"
           autoComplete="on"
           {...formik.getFieldProps("password")}
+          name="password"
+          placeholder="Password"
           className={clsx(
             "form-control bg-transparent",
             {
