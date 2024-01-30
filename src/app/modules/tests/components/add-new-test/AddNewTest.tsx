@@ -7,6 +7,8 @@ import { ModalForm } from "../../../../ui/modals/ModalForm";
 import { LaboratoryInput } from "./components/LaboratoryInput";
 import { TestTypeInput } from "./components/TestTypeInput";
 import { useCreateRegistration } from "../../hooks/useCreateRegistration";
+import { useAuth } from "../../../auth";
+import { hasRole } from "../../../../utils/helper";
 
 const addSchema = Yup.object().shape({
   name: Yup.string()
@@ -32,36 +34,36 @@ const addSchema = Yup.object().shape({
     .max(10, "Maximum 300 symbols"),
 });
 
-const initialValues = {
-  name: "",
-  nationalId: "",
-  age: "",
-  doctorName: "",
-  ageUnit: "year" as "year" | "day",
-  gender: "female" as "female" | "male",
-  testType: 0,
-  laboratoryId: 1,
-  description: "",
-  senderRegisterCode: "",
-  isMultiSlide: false,
-  numberOfSlides: 1,
-};
-
 const AddNewTest: FC = () => {
+  const { currentUser } = useAuth();
+
+  const initialValues = {
+    name: "",
+    nationalId: "",
+    age: "",
+    doctorName: "",
+    ageUnit: "year" as "year" | "day",
+    gender: "female" as "female" | "male",
+    testType: 0,
+    laboratoryId: (currentUser && currentUser.data.laboratory) || 1,
+    description: "",
+    senderRegisterCode: "",
+    isMultiSlide: false,
+    numberOfSlides: 1,
+  };
   const { isCreating, createRegistration, data } = useCreateRegistration();
   const [qrCode, setQrCode] = useState(null);
-  
+
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
- 
-       createRegistration(values);
-        if(!isCreating && data){
+        createRegistration(values);
+        if (!isCreating && data) {
           setQrCode(data.data.id);
-             // TODO: Add label printer logic here
-        } 
+          // TODO: Add label printer logic here
+        }
       } catch (error) {
         console.error(error);
         setStatus("The login details are incorrect");
@@ -82,7 +84,9 @@ const AddNewTest: FC = () => {
           formik={formik}
         >
           {/* begin::Form group */}
-          <LaboratoryInput formik={formik} />
+          {currentUser && hasRole(currentUser, ["superAdmin", "operator"]) && (
+            <LaboratoryInput formik={formik} />
+          )}
           {/* end::Form group */}
 
           {/* begin::Form group */}

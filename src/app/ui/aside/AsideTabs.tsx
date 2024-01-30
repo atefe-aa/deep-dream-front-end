@@ -58,23 +58,23 @@ const AsideTabs: FC<Props> = ({ link, setLink }) => {
     >
       {/* begin::Nav */}
       <ul className="nav flex-column" id="kt_aside_nav_tabs">
-        <li className="mb-10">
+        <li className="mb-10 text-center">
           {/* begin::User */}
           <div
             className="d-flex align-items-center justify-content-center mb-1"
             id="kt_header_user_menu_toggle"
           >
             <div
-              className=" cursor-pointer symbol symbol-40px"
+              className=" cursor-pointer symbol symbol-40px "
               title="User profile"
             >
               <img
-                src={toAbsoluteUrl("/media/avatars/300-1.jpg")}
+                src={currentUser?.data.picture || toAbsoluteUrl("/media/avatars/blank.png")}
                 alt="avatar"
               />
             </div>
           </div>
-          <span className="fs-7 text-muted fw-bold">Milad Lab.</span>
+          <span className="fs-7 text-muted fw-bold ">{currentUser?.data.labName}</span>
           {/* end::User */}
         </li>
         {/* begin::Nav item */}

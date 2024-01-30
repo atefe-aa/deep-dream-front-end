@@ -7,6 +7,7 @@ export interface UserModel {
  data:{
   id: number;
   username: string;
+  laboratory?: number | null;
   labName?: string | null;
   name: string;
   phone?: string;

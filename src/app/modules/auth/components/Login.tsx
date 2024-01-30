@@ -17,8 +17,8 @@ const loginSchema = Yup.object().shape({
 });
 
 const initialValues = {
-  username: "superadmin",
-  password: "1-7EAYk6oc(v7P",
+  username: "",
+  password: "",
 };
 
 export function Login() {
@@ -82,7 +82,7 @@ export function Login() {
           )}
           type="text"
           name="username"
-          autoComplete="off"
+          autoComplete="on"
         />
         {formik.touched.username && formik.errors.username && (
           <div className="fv-plugins-message-container">
@@ -99,7 +99,7 @@ export function Login() {
         </label>
         <input
           type="password"
-          autoComplete="off"
+          autoComplete="on"
           {...formik.getFieldProps("password")}
           className={clsx(
             "form-control bg-transparent",
