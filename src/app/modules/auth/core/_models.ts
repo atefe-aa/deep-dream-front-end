@@ -4,6 +4,7 @@ export interface AuthModel {
 }
 
 export interface UserModel {
+ data:{
   id: number;
   username: string;
   labName?: string | null;
@@ -11,4 +12,5 @@ export interface UserModel {
   phone?: string;
   roles?: Array<string>;
   picture?: string | null;
+ } 
 }

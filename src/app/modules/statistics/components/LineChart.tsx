@@ -22,7 +22,7 @@ interface ChartDataItem {
 type Props = {
   className: string;
   color: string;
-  change: string;
+  change: string | null | undefined;
   description: string;
   chartHeight: string;
   chartTitle: string;
