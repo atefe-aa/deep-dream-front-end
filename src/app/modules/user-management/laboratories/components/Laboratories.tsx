@@ -41,7 +41,7 @@ function Laboratories() {
     laboratories,
     meta,
   } = useLaboratories(query);
-  console.log(laboratories);
+
   const onChangePage = (page: number) => {
     updateState("laboratories", { ...laboratoriesState, page });
   };
@@ -67,7 +67,11 @@ function Laboratories() {
       <KTCardBody className="py-4">
         <Search updateState={search} />
         <div className="table-responsive">
-          <CustomTable className="" modalId="kt_modal_add_new_laboratory">
+          <CustomTable
+            tableTitle="Laboratories List"
+            className=""
+            modalId="kt_modal_add_new_laboratory"
+          >
             <CustomTableHead>
               {columns.map((col) => (
                 <CustomHeaderCell
@@ -103,12 +107,12 @@ function Laboratories() {
         )}
         {isLoadingLaboratories && <ListLoading />}
       </KTCardBody>
-      
+
       {/* begin:: Modals */}
       {!isLoadingLaboratories &&
         laboratories &&
         laboratories.map((lab: LabsModel) => (
-          < div key={lab.id}>
+          <div key={lab.id}>
             <ConfirmModal
               key={lab.id}
               actionName={`delete${lab.id}`}
@@ -116,7 +120,7 @@ function Laboratories() {
               isLoading={isDeleting}
               message={`Are you sure, you want to delete ${lab.labName}?`}
             />
-            <AddNewTestPrice key={lab.id + lab.labName} labName={lab.labName} />
+            <AddNewTestPrice key={lab.id + lab.labName} labData={lab} />
           </div>
         ))}
     </>

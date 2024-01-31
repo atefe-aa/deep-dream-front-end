@@ -1,9 +1,10 @@
 export interface PriceModel {
-  id: number;
-  testName: string;
-  testPrice: number;
+  id?: number;
+  labId?: number | null | undefined;
+  testName?: string;
+  price: number | undefined;
   description: string;
-  testExtraPrice: number;
+  extraPrice: number | undefined;
 }
 export interface LabsModel {
   id: number;

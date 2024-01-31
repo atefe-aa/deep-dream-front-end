@@ -154,7 +154,7 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
             <CustomTable
               modalId={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
               className="bg-light border-info"
-              tableTitle={labData.labName}
+              // tableTitle={}
             >
               <CustomTableHead>
                 {columns.map((col) => (

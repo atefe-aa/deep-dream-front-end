@@ -1,16 +1,11 @@
 import { FC } from "react";
 import { DropDownButton } from "../../../../../ui/dropdown/DropDownButton";
 import { KTIcon } from "../../../../../../_metronic/helpers";
+import { PriceModel } from "../../core/_models";
 
-interface TestTypeArray {
-  testName: string;
-  description: string;
-  testPrice: number;
-  testExtraPrice: number;
-}
 
 type Props = {
-  testTypeData: TestTypeArray;
+  testTypeData: PriceModel;
   index: number;
 };
 
@@ -34,7 +29,7 @@ const TestTypesPriceTableRow: FC<Props> = ({ testTypeData, index }) => {
           href="#"
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
-          {testTypeData.testPrice.toLocaleString()}
+          {testTypeData.price.toLocaleString()}
         </a>
       </td>
       <td>
@@ -42,7 +37,7 @@ const TestTypesPriceTableRow: FC<Props> = ({ testTypeData, index }) => {
           href="#"
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
-          {testTypeData.testExtraPrice.toLocaleString()}
+          {testTypeData.extraPrice.toLocaleString()}
         </a>
       </td>
       <td>

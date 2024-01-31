@@ -1,11 +1,11 @@
-
-import { useState } from "react";
 import * as Yup from "yup";
 import clsx from "clsx";
 import { useFormik } from "formik";
 import { ModalLayout } from "../../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../../ui/modals/ModalForm";
-import { TEST_TYPES } from "../../../../../utils/constants";
+import { TestTypeInput } from "../../../../tests/components/add-new-test/components/TestTypeInput";
+import { useCreatePrice } from "../hooks/useCreatePrice";
+import { LabsModel } from "../../core/_models";
 
 const addSchema = Yup.object().shape({
   price: Yup.number()
@@ -19,102 +19,45 @@ const addSchema = Yup.object().shape({
 
 const initialValues = {
   testType: "",
-  price: "",
-  extraPrice: "",
+  price: undefined as number | undefined,
+  extraPrice: undefined as number | undefined,
   description: "",
 };
 
 type Props = {
-  labName: string;
+  labData: LabsModel;
 };
 
-/*
-  Formik+YUP+Typescript:
-  https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
-  https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e
-*/
-
-const AddNewTestPrice: React.FC<Props> = ({ labName }) => {
-  const [loading, setLoading] = useState(false);
+const AddNewTestPrice: React.FC<Props> = ({ labData }) => {
+  const { isCreating, createPrice } = useCreatePrice();
 
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
-      setLoading(true);
       try {
-        console.log(values);
-        // const {data: auth} = await login(values.email, values.password)
-        // saveAuth(auth)
-        // const {data: user} = await getUserByToken(auth.api_token)
-        // setCurrentUser(user)
+        createPrice({ ...values, labId: labData.id });
       } catch (error) {
         console.error(error);
-        // saveAuth(undefined)
-        setStatus("The login details are incorrect");
+        setStatus("Somthing went wrong creating new price. Try again later.");
         setSubmitting(false);
-        setLoading(false);
       }
     },
   });
 
   return (
     <ModalLayout
-      modalId={`kt_modal_add_new_test_price_${labName.toLowerCase()}`}
-      title={`${labName} Laboratory`}
+      modalId={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
+      title={`${labData.labName} Laboratory`}
     >
       <ModalForm
-       isError={false} isLoading={false} 
-        modalId={`kt_modal_add_new_test_price_${labName.toLowerCase()}`}
+        isError={false}
+        isLoading={isCreating}
+        modalId={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
         formik={formik}
       >
         {/* begin::test type Form group */}
-        <div className="fv-row mb-3">
-          <label className="form-label required fw-bolder text-gray-900 fs-6 mb-0">
-            Test Type
-          </label>
-          <div
-            className={clsx(
-              "mt-3 mb-5 bg-transparent",
-              {
-                "is-invalid": formik.touched.testType && formik.errors.testType,
-              },
-              {
-                "is-valid": formik.touched.testType && !formik.errors.testType,
-              }
-            )}
-          >
-            <select
-              {...formik.getFieldProps("testType")}
-              className={clsx(
-                "form-select",
-                {
-                  "is-invalid":
-                    formik.touched.testType && formik.errors.testType,
-                },
-                {
-                  "is-valid":
-                    formik.touched.testType && !formik.errors.testType,
-                }
-              )}
-              aria-label="Select Laboratory Title"
-            >
-              <option>Choose Test Type</option>
-              {TEST_TYPES.map((test) => (
-                <option key={test.id} value={test.id}>
-                  {test.title}
-                </option>
-              ))}
-            </select>
-          </div>
-          {formik.touched.testType && formik.errors.testType && (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">
-                <span role="alert">{formik.errors.testType}</span>
-              </div>
-            </div>
-          )}
-        </div>
+        <TestTypeInput formik={formik} labId={labData.id} />
         {/* end::Form group */}
 
         {/* begin::price Form group  */}
@@ -123,6 +66,7 @@ const AddNewTestPrice: React.FC<Props> = ({ labName }) => {
             Price (R)
           </label>
           <input
+            disabled={isCreating}
             placeholder="Test Price (R)"
             {...formik.getFieldProps("price")}
             className={clsx(
@@ -134,6 +78,13 @@ const AddNewTestPrice: React.FC<Props> = ({ labName }) => {
                 "is-valid": formik.touched.price && !formik.errors.price,
               }
             )}
+            value={formik.values.price !== undefined ? formik.values.price : ""}
+            onChange={(e) =>
+              formik.setFieldValue(
+                "price",
+                e.target.value !== "" ? Number(e.target.value) : undefined
+              )
+            }
             type="number"
             name="price"
             autoComplete="off"
@@ -154,8 +105,20 @@ const AddNewTestPrice: React.FC<Props> = ({ labName }) => {
             Extra Slides Price (R)
           </label>
           <input
+            disabled={isCreating}
             placeholder="Extra Price Per Slide"
             {...formik.getFieldProps("extraPrice")}
+            value={
+              formik.values.extraPrice !== undefined
+                ? formik.values.extraPrice
+                : ""
+            }
+            onChange={(e) =>
+              formik.setFieldValue(
+                "extraPrice",
+                e.target.value !== "" ? Number(e.target.value) : undefined
+              )
+            }
             className={clsx(
               "form-control bg-transparent",
               {

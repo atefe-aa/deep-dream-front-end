@@ -4,6 +4,7 @@ import Select, { SingleValue } from "react-select";
 
 interface Props {
   formik: any;
+  labId?: number;
 }
 
 interface TestOption {
@@ -11,8 +12,10 @@ interface TestOption {
   label: string;
 }
 
-function TestTypeInput({ formik }: Props) {
-  const query = `laboratory=${formik.values.laboratoryId}`;
+function TestTypeInput({ formik, labId }: Props) {
+  const query = `laboratory=${
+    formik.values.laboratoryId ? formik.values.laboratoryId : labId
+  }&noPaginate=true&noPrice=true`;
   const { isLoading, testTypes } = useTestTypes(query);
 
   const testTypeOptions =

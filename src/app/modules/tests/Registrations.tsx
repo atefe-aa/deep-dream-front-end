@@ -61,7 +61,7 @@ export function Registrations() {
     <KTCardBody className="py-4">
       <Search updateState={searchFunction} />
       <div className="table-responsive">
-        <CustomTable className="" modalId="kt_modal_add_new_laboratory">
+        <CustomTable tableTitle="Registrations List" className="" modalId="kt_modal_add_new_laboratory">
           <CustomTableHead>
             {columns.map((col) => (
               <CustomHeaderCell
