@@ -17,6 +17,7 @@ import { Pagination } from "../../../../ui/Pagination";
 import { ListLoading } from "../../../../ui/ListLoading";
 import { ConfirmModal } from "../../../../ui/modals/ConfirmModal";
 import { useDeleteLaboratory } from "../hooks/useDeleteLaboratory";
+import { AddNewTestPrice } from "../test-type-price-setting/components/AddNewTestPrice";
 
 function Laboratories() {
   const { state, updateState } = useQueryRequest();
@@ -40,7 +41,7 @@ function Laboratories() {
     laboratories,
     meta,
   } = useLaboratories(query);
-
+  console.log(laboratories);
   const onChangePage = (page: number) => {
     updateState("laboratories", { ...laboratoriesState, page });
   };
@@ -102,17 +103,21 @@ function Laboratories() {
         )}
         {isLoadingLaboratories && <ListLoading />}
       </KTCardBody>
+      
       {/* begin:: Modals */}
       {!isLoadingLaboratories &&
         laboratories &&
-        laboratories?.map((lab: LabsModel) => (
-          <ConfirmModal
-            key={lab.id}
-            actionName={`delete${lab.id}`}
-            onConfirm={() => handleDelete(lab.id)}
-            isLoading={isDeleting}
-            message={`Are you sure, you want to delete ${lab.labName}?`}
-          />
+        laboratories.map((lab: LabsModel) => (
+          < div key={lab.id}>
+            <ConfirmModal
+              key={lab.id}
+              actionName={`delete${lab.id}`}
+              onConfirm={() => handleDelete(lab.id)}
+              isLoading={isDeleting}
+              message={`Are you sure, you want to delete ${lab.labName}?`}
+            />
+            <AddNewTestPrice key={lab.id + lab.labName} labName={lab.labName} />
+          </div>
         ))}
     </>
   );

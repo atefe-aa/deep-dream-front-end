@@ -145,33 +145,61 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
         </td>
       </tr>
 
-      <tr id={`labsPanel_${labData.id}`} className="accordion-collapse collapse ">
+      <tr
+        id={`labsPanel_${labData.id}`}
+        className="accordion-collapse collapse "
+      >
         <td className="" colSpan={7}>
-          <CustomTable
-            modalId={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
-            className="bg-light border-info"
-            tableTitle={labData.labName}
-          >
-            <CustomTableHead>
-              {columns.map((col) => (
-                <CustomHeaderCell
-                  key={col}
-                  className=""
-                  title={col.toLocaleUpperCase()}
-                  elementId={col.replace(" ", "-")}
-                />
-              ))}
-            </CustomTableHead>
-            <CustomTableBody>
-              {LABS_TESTS_DATA[0].tests.map((test, index) => (
-                <TestTypesPriceTableRow
-                  testTypeData={test}
-                  key={test.id}
-                  index={index + 1}
-                />
-              ))}
-            </CustomTableBody>
-          </CustomTable>
+          {labData.prices && labData.prices.length > 0 ? (
+            <CustomTable
+              modalId={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
+              className="bg-light border-info"
+              tableTitle={labData.labName}
+            >
+              <CustomTableHead>
+                {columns.map((col) => (
+                  <CustomHeaderCell
+                    key={col}
+                    className=""
+                    updateState={() => {}}
+                    state={""}
+                    title={col.toLocaleUpperCase()}
+                    elementId={col.replace(" ", "_")}
+                  />
+                ))}
+              </CustomTableHead>
+              <CustomTableBody>
+                {labData.prices.map((test, index) => (
+                  <TestTypesPriceTableRow
+                    testTypeData={test}
+                    key={test.id}
+                    index={index + 1}
+                  />
+                ))}
+              </CustomTableBody>
+            </CustomTable>
+          ) : (
+            <span className="d-flex align-items-center justify-content-center">
+              No price available.
+              <div
+                className="ms-3"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-trigger="hover"
+                title="Click to add a new row"
+              >
+                <a
+                  href="#"
+                  className="btn-light-primary"
+                  data-bs-toggle="modal"
+                  // data-bs-target="#kt_modal_add_new_test_type"
+                  data-bs-target={`#kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
+                >
+                  Add New Test Price
+                </a>
+              </div>
+            </span>
+          )}
         </td>
       </tr>
     </>

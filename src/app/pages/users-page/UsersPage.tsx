@@ -8,15 +8,13 @@ import { Counsellors } from "../../modules/user-management/counsellors/component
 import { useAuth } from "../../modules/auth";
 
 const UsersPage = () => {
-  const {currentUser} = useAuth();
+  const { currentUser } = useAuth();
   return (
     <>
-      {currentUser && hasRole(currentUser,"superAdmin") && (
+      {currentUser && hasRole(currentUser, "superAdmin") && (
         <>
-          <Laboratories /> <AddNewLaboratory />
-          {LABS_TESTS_DATA.map((lab) => (
-            <AddNewTestPrice key={lab.id} labName={lab.labName} />
-          ))}
+          <Laboratories />
+          <AddNewLaboratory />
         </>
       )}
 
@@ -24,6 +22,7 @@ const UsersPage = () => {
 
       {/* begin:: Modals */}
       <AddNewCounsellor />
+      
       {/* end:: Modals */}
     </>
   );

@@ -1,3 +1,10 @@
+export interface PriceModel {
+  id: number;
+  testName: string;
+  testPrice: number;
+  description: string;
+  testExtraPrice: number;
+}
 export interface LabsModel {
   id: number;
   labName: string;
@@ -10,6 +17,7 @@ export interface LabsModel {
   header?: string;
   footer?: string;
   signature?: string;
+  prices?: Array<PriceModel>;
 }
 
 export interface LabDataModel {
