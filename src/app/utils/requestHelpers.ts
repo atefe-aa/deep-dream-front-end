@@ -28,6 +28,7 @@ export async function customFetch(url: string, options: FetchOptions = {}) {
   const authToken = getAuthToken();
   if (authToken) {
     defaultHeaders["Authorization"] = authToken;
+    defaultHeaders["Accept"] = "application/json";
   }
   // Merge custom options with defaults
   const mergedOptions = {
@@ -86,4 +87,33 @@ export async function getMethodRequest(
   }
 
   return { data, meta };
+}
+
+export async function postMethodRequest(
+  query = "",
+  title = "Data",
+  BASE_URL: string,
+  postData: any
+) {
+  const options = {
+    method: "POST",
+    Headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(postData),
+  };
+
+  const queryString = query ? `?${query}` : "";
+  try {
+    const res = await customFetch(`${BASE_URL}${queryString}`, options);
+    if (!res.ok) {
+      await handleRequestErrors(res);
+    }
+
+    const { data } = await res.json();
+    return { data };
+  } catch (e: unknown) {
+    console.error((e as Error).message, e);
+    throw Error(`${title} could not be fetched.`);
+  }
 }

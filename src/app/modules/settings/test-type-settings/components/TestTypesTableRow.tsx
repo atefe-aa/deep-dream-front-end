@@ -2,23 +2,11 @@ import { FC } from "react";
 import { KTIcon } from "../../../../../_metronic/helpers";
 import { title } from "process";
 import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
+import { TestTypesModel } from "../core/_models";
 
-interface TestTypeArray {
-  id: number;
-  title: string;
-  code: number;
-  numberOfLayers: number;
-  z: number;
-  condenseur: number;
-  brightness: number;
-  sex: string;
-  type: string;
-  description: string;
-  magnifications: Array<number>;
-}
 
 type Props = {
-  testTypeData: TestTypeArray;
+  testTypeData: TestTypesModel;
   index: number;
 };
 
@@ -26,12 +14,12 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
   return (
     <tr>
       <td>
-        <div className="form-check form-check-sm form-check-custom form-check-solid">
+        <div className="">
           {index}
         </div>
       </td>
       <td>
-        <div className="d-flex align-items-center">
+        <div className="">
           <div className="d-flex justify-content-start flex-column">
             <a
               href="#"
@@ -55,7 +43,7 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
           href="#"
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
-          {testTypeData.sex}
+          {testTypeData.gender}
         </a>
       </td>
       <td>
@@ -71,16 +59,6 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
           href="#"
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
-          {testTypeData.magnifications.map((mag) => (
-            <span key={mag}>{mag}x, </span>
-          ))}
-        </a>
-      </td>
-      <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
           {testTypeData.numberOfLayers}
         </a>
       </td>
@@ -89,7 +67,7 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
           href="#"
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
-          {testTypeData.z}
+          {testTypeData.z  || "default"}
         </a>
       </td>
       <td>
@@ -97,7 +75,7 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
           href="#"
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
-          {testTypeData.condenseur}
+          {testTypeData.condenser || "default"}
         </a>
       </td>
       <td>
@@ -105,7 +83,15 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
           href="#"
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
-          {testTypeData.brightness}
+          {testTypeData.brightness  || "default"}
+        </a>
+      </td>
+      <td>
+        <a
+          href="#"
+          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
+        >
+          {testTypeData.magnification}
         </a>
       </td>
       <td>

@@ -1,50 +1,14 @@
-// import { customFetch } from "../../../auth";
+// import { handleRequestErrors } from "../../../../utils/requestHelpers";
+// import { TestTypesModel } from "./_models";
+
 
 // const API_URL = import.meta.env.VITE_APP_API_URL_;
 
 // const BASE_URL = `${API_URL}/test-type`;
 
-// export async function getTestTypes(query = "") {
-//   const queryString = query ? `?${query}` : "";
-//   const res = await customFetch(`${BASE_URL}${queryString}`);
-//   const { data, meta, errors } = await res.json();
-
-//   if (errors) {
-//     console.error(errors);
-//     throw new Error("Registrations could not be found.");
-//   }
-
-//   return { data, meta };
-// }
 
 
-// export async function getTestTypes(query = "") {
-//   const queryString = query ? `?${query}` : "";
-
-//   const res = await fetch(`${BASE_URL}${queryString}`, {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Accept: "application/json",
-//     },
-//   });
-//   const { data, meta, errors } = await res.json();
-
-//   if (errors) {
-//     console.error(errors);
-//     throw new Error("TestTypes could not be found.");
-//   }
-
-//   return { data, meta };
-// }
-
-// export async function createLaboratory(labData: LabDataModel) {
-//   const formData = new FormData();
-//   Object.entries(labData).forEach(([key, value]) => {
-//     if (value !== undefined) {
-//       formData.append(key, value);
-//     }
-//   });
+// export async function createTestType(testTypeData: TestTypesModel) {
 
 //   try {
 //     const res = await fetch(BASE_URL, {
@@ -52,7 +16,7 @@
 //       headers: {
 //         Accept: "application/json",
 //       },
-//       body: formData,
+//       body: JSON.stringify(data),
 //     });
 
 //     if (!res.ok) {

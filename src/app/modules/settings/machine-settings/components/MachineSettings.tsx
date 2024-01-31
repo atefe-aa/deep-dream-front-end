@@ -119,7 +119,7 @@ function MachineSettings() {
               label="Slide Placement"
               show={false}
             >
-              <CustomTable
+              {/* <CustomTable
                 modalId="kt_modal_add_new_slide"
                 className="mb-5 mb-xl-8"
                 columns={["Number", "x", "y"]}
@@ -131,7 +131,7 @@ function MachineSettings() {
                     data={slide}
                   />
                 ))}
-              </CustomTable>
+              </CustomTable> */}
             </SettingItem>
 
             <div className="card-footer d-flex justify-content-end py-6 px-9">

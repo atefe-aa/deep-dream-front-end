@@ -19,7 +19,7 @@ const Checkbox: React.FC<Props> = ({ label, inputName, formik }) => {
           <div className="form-check form-check-custom form-check-solid form-switch">
             <input
               className="form-check-input"
-              id={inputName}
+          
               type="checkbox"
               checked={formik.values[inputName]}
               onChange={formik.handleChange}

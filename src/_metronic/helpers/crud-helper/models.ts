@@ -41,6 +41,7 @@ export const initialEntityQueryState: EntityQueryState = {
   patients: initialQueryState,
   counsellors: initialQueryState,
   laboratories: initialQueryState,
+  testTypes: initialQueryState,
   // Initialize other entities similarly
 };
 export const initialQueryRequest: QueryRequestContextProps = {
@@ -52,6 +53,7 @@ export type EntityQueryState = {
   patients: QueryState;
   counsellors: QueryState;
   laboratories: QueryState;
+  testTypes: QueryState;
   // Add more entities as needed
 };
 export type QueryRequestContextProps = {
