@@ -1,12 +1,10 @@
 import { FC } from "react";
 
-import { useState } from "react";
 import * as Yup from "yup";
 import clsx from "clsx";
 import { useFormik } from "formik";
 import { ModalLayout } from "../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
-import { useAbsoluteLayout } from "react-table";
 import { useAuth } from "../../../auth";
 import { hasRole } from "../../../../utils/helper";
 import { useCreateCounsellor } from "../hooks/useCreateCounsellor";

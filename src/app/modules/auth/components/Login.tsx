@@ -70,6 +70,7 @@ export function Login() {
           Username
         </label>
         <input
+        autoComplete="username"
           placeholder="Username"
           {...formik.getFieldProps("username")}
           className={clsx(
@@ -81,7 +82,6 @@ export function Login() {
           )}
           type="text"
           name="username"
-          autoComplete="on"
         />
         {formik.touched.username && formik.errors.username && (
           <div className="fv-plugins-message-container">
@@ -98,7 +98,7 @@ export function Login() {
         </label>
         <input
           type="password"
-          autoComplete="on"
+          autoComplete="current-password"
           {...formik.getFieldProps("password")}
           name="password"
           placeholder="Password"
