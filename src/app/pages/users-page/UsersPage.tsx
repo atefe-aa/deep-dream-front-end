@@ -19,10 +19,8 @@ const UsersPage = () => {
       )}
 
       <Counsellors />
-
       {/* begin:: Modals */}
       <AddNewCounsellor />
-      
       {/* end:: Modals */}
     </>
   );

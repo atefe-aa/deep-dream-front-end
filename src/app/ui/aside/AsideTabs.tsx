@@ -57,7 +57,7 @@ const AsideTabs: FC<Props> = ({ link, setLink }) => {
       data-kt-scroll-offset="0px"
     >
       {/* begin::Nav */}
-      <ul className="nav flex-column" id="kt_aside_nav_tabs">
+      <ul className="nav flex-column d-flex align-items-center justify-content-center" id="kt_aside_nav_tabs">
         <li className="mb-10 text-center">
           {/* begin::User */}
           <div

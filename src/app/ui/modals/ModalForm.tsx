@@ -1,3 +1,5 @@
+import { Spinner } from "react-bootstrap";
+
 type Props = {
   children: React.ReactNode;
   modalId: string;
@@ -67,9 +69,9 @@ const ModalForm: React.FC<Props> = ({
           >
             {!isLoading && <span className="indicator-label">Submit</span>}
             {isLoading && (
-              <span className="indicator-progress">
+              <span >
+                <Spinner animation="grow" size="sm" />
                 Please wait...
-                <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
               </span>
             )}
           </button>

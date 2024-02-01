@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQueryRequest } from "../../../QueryRequestProvider";
-// import { useLaboratories } from "../hooks/useLaboratories";
+// import { usecounsellors } from "../hooks/usecounsellors";
 import {
   KTCardBody,
   stringifyRequestQuery,
@@ -12,22 +12,25 @@ import { CustomHeaderCell } from "../../../../ui/table/CustomHeaderCell";
 import { CustomTableBody } from "../../../../ui/table/CustomTableBody";
 import { NoRecordRow } from "../../../../ui/table/NoRecordRow";
 // import { LabsModel } from "../core/_models";
-// import { LaboratoryTableRow } from "./LaboratoryTableRow";
+// import { CounsellorTableRow } from "./CounsellorTableRow";
 import { Pagination } from "../../../../ui/Pagination";
 import { ListLoading } from "../../../../ui/ListLoading";
 import { ConfirmModal } from "../../../../ui/modals/ConfirmModal";
-// import { useDeleteLaboratory } from "../hooks/useDeleteLaboratory";
+import { CounsellorTableRow } from "./CounsellorTableRow";
+import { CounsellorModel } from "../core/_models";
+import { useCounsellors } from "../hooks/useCounsellors";
+// import { useDeleteCounsellor } from "../hooks/useDeleteCounsellor";
 
 function Counsellors() {
   const { state, updateState } = useQueryRequest();
-  const laboratoriesState = state.laboratories;
+  const counsellorsState = state.counsellors;
 
   const [query, setQuery] = useState<string>(
-    stringifyRequestQuery(laboratoriesState)
+    stringifyRequestQuery(counsellorsState)
   );
   const updatedQuery = useMemo(
-    () => stringifyRequestQuery(laboratoriesState),
-    [laboratoriesState]
+    () => stringifyRequestQuery(counsellorsState),
+    [counsellorsState]
   );
 
   useEffect(() => {
@@ -35,43 +38,43 @@ function Counsellors() {
       setQuery(updatedQuery);
     }
   }, [updatedQuery, query]);
-  // const {
-  //   isLoading: isLoadingLaboratories,
-  //   laboratories,
-  //   meta,
-  // } = useLaboratories(query);
+  const {
+    isLoading: isLoadingCounsellors,
+    counsellors,
+    meta,
+  } = useCounsellors(query);
 
   const onChangePage = (page: number) => {
-    updateState("laboratories", { ...laboratoriesState, page });
+    updateState("counsellors", { ...counsellorsState, page });
   };
 
   const search = (searchTerm: string) => {
-    updateState("laboratories", {
-      ...laboratoriesState,
+    updateState("counsellors", {
+      ...counsellorsState,
       search: searchTerm,
       page: 1,
     });
   };
   const sort = (sort: string, order: "asc" | "desc" | undefined) => {
-    updateState("laboratories", { ...laboratoriesState, sort, order, page: 1 });
+    updateState("counsellors", { ...counsellorsState, sort, order, page: 1 });
   };
-  // const { deleteLaboratory, isDeleting } = useDeleteLaboratory();
+  // const { deleteCounsellor, isDeleting } = useDeleteCounsellor();
 
   const handleDelete = (labId: number) => {
-    // deleteLaboratory(labId);
+    // deleteCounsellor(labId);
   };
-  const columns = ["Name", "username", "Phone", "Address", "Description"];
+  const columns = ["Name","laboratory",  "Phone",  "Description"];
   return (
     <>
       <KTCardBody className="py-4">
         <Search updateState={search} />
         <div className="table-responsive">
-          <CustomTable className="" modalId="kt_modal_add_new_laboratory">
+          <CustomTable className="" modalId="kt_modal_add_new_counsellor">
             <CustomTableHead>
               {columns.map((col) => (
                 <CustomHeaderCell
                   updateState={sort}
-                  state={laboratoriesState}
+                  state={counsellorsState}
                   key={col}
                   className=""
                   title={col.toLocaleUpperCase()}
@@ -80,40 +83,40 @@ function Counsellors() {
               ))}
             </CustomTableHead>
             <CustomTableBody accordionId="labsPanel">
-              {/* {!isLoadingLaboratories &&
-                (laboratories?.length === 0 || !laboratories) && (
+              {!isLoadingCounsellors &&
+                (counsellors?.length === 0 || !counsellors) && (
                   <NoRecordRow />
-                )} */}
+                )}
 
-              {/* {!isLoadingLaboratories &&
-                laboratories &&
-                laboratories.map((lab: LabsModel, index: number) => (
-                  <LaboratoryTableRow
-                    key={lab.id}
-                    labData={lab}
+              {!isLoadingCounsellors &&
+                counsellors &&
+                counsellors.map((counsellor: CounsellorModel, index: number) => (
+                  <CounsellorTableRow
+                    key={counsellor.id}
+                    counsellorData={counsellor}
                     index={index + 1}
                   />
-                ))} */}
+                ))}
             </CustomTableBody>
           </CustomTable>
         </div>
-        {/* {!isLoadingLaboratories && laboratories && (
+        {!isLoadingCounsellors && counsellors && (
           <Pagination onPageChange={onChangePage} meta={meta} />
-        )} */}
-        {/* {isLoadingLaboratories && <ListLoading />} */}
+        )}
+        {isLoadingCounsellors && <ListLoading />}
       </KTCardBody>
       {/* begin:: Modals */}
-      {/* {!isLoadingLaboratories &&
-        laboratories &&
-        laboratories?.map((lab: LabsModel) => (
+      {!isLoadingCounsellors &&
+        counsellors &&
+        counsellors?.map((counsellor: CounsellorModel) => (
           <ConfirmModal
-            key={lab.id}
-            actionName={`delete${lab.id}`}
-            onConfirm={() => handleDelete(lab.id)}
-            isLoading={isDeleting}
-            message={`Are you sure, you want to delete ${lab.labName}?`}
+            key={counsellor.id}
+            actionName={`delete${counsellor.id}`}
+            onConfirm={() => {}}
+            isLoading={false}
+            message={`Are you sure, you want to delete ${counsellor.name}?`}
           />
-        ))} */}
+        ))}
     </>
   );
 }

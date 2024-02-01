@@ -1,16 +1,10 @@
 import { FC } from "react";
 import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
 import { KTIcon } from "../../../../../_metronic/helpers";
-
-interface CounsellorDataArray {
-  id: number;
-  name: string;
-  phone: string;
-  labName: string;
-}
+import { CounsellorModel } from "../core/_models";
 
 type Props = {
-  counsellorData: CounsellorDataArray;
+  counsellorData: CounsellorModel;
   index: number;
 };
 
@@ -26,6 +20,13 @@ const CounsellorTableRow: FC<Props> = ({ counsellorData, index }) => {
         <div className="d-flex flex-column">
           <a href="#" className="text-gray-800 text-hover-primary mb-1">
             {counsellorData.name}
+          </a>
+        </div>
+      </td>
+      <td>
+        <div className="d-flex flex-column">
+          <a href="#" className="text-gray-800 text-hover-primary mb-1">
+            {counsellorData.labName}
           </a>
         </div>
       </td>

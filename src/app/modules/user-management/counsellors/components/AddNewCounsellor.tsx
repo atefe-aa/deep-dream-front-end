@@ -6,44 +6,49 @@ import clsx from "clsx";
 import { useFormik } from "formik";
 import { ModalLayout } from "../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
-import { KTIcon, toAbsoluteUrl } from "../../../../../_metronic/helpers";
-
-const addSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Name is required"),
-  phone: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("phone is required"),
-});
-
-const initialValues = {
-  name: "",
-  phone: "",
-};
+import { useAbsoluteLayout } from "react-table";
+import { useAuth } from "../../../auth";
+import { hasRole } from "../../../../utils/helper";
+import { useCreateCounsellor } from "../hooks/useCreateCounsellor";
+import { LaboratoryInput } from "../../../tests/components/add-new-test/components/LaboratoryInput";
 
 const AddNewCounsellor: FC = () => {
-  const [loading, setLoading] = useState(false);
+  const { currentUser } = useAuth();
+  const isSuperAdmin = currentUser && hasRole(currentUser, ["superAdmin"]);
+
+  const initialValues = {
+    name: "",
+    phone: "",
+    ...(isSuperAdmin && { labId: 0 }), // Add labId for superAdmin
+  };
+
+  const addSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(3, "Minimum 3 symbols")
+      .max(50, "Maximum 50 symbols")
+      .required("Name is required"),
+    phone: Yup.string()
+      .min(3, "Minimum 3 symbols")
+      .max(50, "Maximum 50 symbols")
+      .required("Phone is required"),
+    ...(isSuperAdmin && {
+      labId: Yup.number().required("Laboratory is required"),
+    }),
+  });
+
+  const { isCreating, createCounsellor } = useCreateCounsellor();
 
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
-      setLoading(true);
       try {
         console.log(values);
-        // const {data: auth} = await login(values.email, values.password)
-        // saveAuth(auth)
-        // const {data: user} = await getUserByToken(auth.api_token)
-        // setCurrentUser(user)
+        createCounsellor(values);
       } catch (error) {
         console.error(error);
-        // saveAuth(undefined)
-        setStatus("The login details are incorrect");
+        setStatus("Creating counsellor failed.");
         setSubmitting(false);
-        setLoading(false);
       }
     },
   });
@@ -53,7 +58,14 @@ const AddNewCounsellor: FC = () => {
       modalId="kt_modal_add_new_counsellor"
       title="Add new counsellor"
     >
-      <ModalForm  isError={false} isLoading={false}  modalId="kt_modal_add_new_counsellor" formik={formik}>
+      <ModalForm
+        isError={false}
+        isLoading={isCreating}
+        modalId="kt_modal_add_new_counsellor"
+        formik={formik}
+      >
+        {isSuperAdmin && <LaboratoryInput formik={formik} />}
+
         {/* begin:: full name Input group */}
         <div className="fv-row mb-7">
           {/* begin::Label */}
@@ -73,8 +85,8 @@ const AddNewCounsellor: FC = () => {
                 "is-valid": formik.touched.name && !formik.errors.name,
               }
             )}
-            autoComplete="off"
-            disabled={formik.isSubmitting || loading}
+            autoComplete="on"
+            disabled={formik.isSubmitting || isCreating}
           />
           {formik.touched.name && formik.errors.name && (
             <div className="fv-plugins-message-container">
@@ -106,8 +118,8 @@ const AddNewCounsellor: FC = () => {
                 "is-valid": formik.touched.phone && !formik.errors.phone,
               }
             )}
-            autoComplete="off"
-            disabled={formik.isSubmitting || loading}
+            autoComplete="on"
+            disabled={formik.isSubmitting || isCreating}
           />
           {formik.touched.phone && formik.errors.phone && (
             <div className="fv-plugins-message-container">
