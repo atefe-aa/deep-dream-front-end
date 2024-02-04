@@ -79,10 +79,7 @@ const ScanningPage = () => {
     }
   };
   const [isScanning, setIsScanning] = useState(false);
-  const [scanningStatus, setScanningStatus] = useState('');
-  usePusher('slides-channel', '.FullSlideScanned', (data:any) => {
-    setScanningStatus(data.data.error);
-  });
+
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -119,11 +116,6 @@ const ScanningPage = () => {
           )}
 
         <div className="col-xl-12">
-          {isStarting ? (
-            <div>Starting....</div>
-          ) : (
-            <div>scanning status: {scanningStatus}</div>
-          )}
           <div className="card-xl-stretch mb-xl-8">
             <SlidesTable
               handleSelectAllChange={handleSelectAllChange}

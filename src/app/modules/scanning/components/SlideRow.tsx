@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { RegionSelector } from "./RegionSelector";
 import clsx from "clsx";
 import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
+import { usePusher } from "../../hooks/usePusher";
 
 interface TimeType {
   magnification?: string;
@@ -33,6 +34,15 @@ const SlideRow: React.FC<Props> = ({
   formik,
   handleCheckboxChange,
 }) => {
+
+
+  const [scanningStatus, setScanningStatus] = useState("");
+  usePusher(`slides.${data.slide}`, ".FullSlideScanned", (data: any) => {
+    // Append new status to the array
+    setScanningStatus(data.data.error);
+  });
+
+
   const totalDuration = data.durations?.reduce(
     (acc, item) => acc + (item.duration ? item.duration : 0),
     0
@@ -82,7 +92,9 @@ const SlideRow: React.FC<Props> = ({
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
             {data.slide}
-          </a>
+          </a><div>
+               status: {scanningStatus}
+              </div>
         </div>
       </td>
       <td className="text-center">
@@ -92,7 +104,7 @@ const SlideRow: React.FC<Props> = ({
               href="#"
               className="text-gray-900 fw-bold text-hover-primary fs-6"
             >
-              {data.testNumber}
+              {data.testNumber} 
             </a>
           ) : (
             <input
