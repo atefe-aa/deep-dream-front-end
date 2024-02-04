@@ -6,6 +6,9 @@ import { useFormik } from "formik";
 import Timer from "../../modules/scanning/components/Timer";
 import { SlidesFakeData } from "../../utils/constants";
 
+import { useStartFullSlideScanning } from "../../modules/scanning/hooks/useStartFullSlideScanning";
+import { usePusher } from "../../modules/hooks/usePusher";
+
 interface FormValues {
   selectedCheckboxes: number[];
   selectAll: boolean;
@@ -23,22 +26,21 @@ const addSchema = Yup.object().shape({
 });
 
 const ScanningPage = () => {
-  const [loading, setLoading] = useState(false);
+  const { isStarting, startFullSlideScanning } = useStartFullSlideScanning();
 
   const checkboxes = Array.from({ length: 10 }, (_, index) => index + 1);
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
-      setLoading(true);
       try {
         console.log(values);
+        startFullSlideScanning(values.selectedCheckboxes);
       } catch (error) {
         console.error(error);
 
         setStatus("The scanning details are incorrect");
         setSubmitting(false);
-        setLoading(false);
       }
     },
   });
@@ -77,24 +79,10 @@ const ScanningPage = () => {
     }
   };
   const [isScanning, setIsScanning] = useState(false);
-
-  // useEffect(() => {
-  //   const isSelectAll =
-  //     formik.values.selectedCheckboxes.length === checkboxes.length;
-  //   if (!isSelectAll) {
-  //     formik.setFieldValue("selectAll", false);
-  //   }
-
-  // }, [formik.values.selectedCheckboxes]);
-
-  useEffect(
-    function () {
-      SlidesFakeData.map(
-        (data) => data.progress === "scanning" && setIsScanning(true)
-      );
-    },
-    [SlidesFakeData]
-  );
+  const [scanningStatus, setScanningStatus] = useState('');
+  usePusher('slides-channel', '.FullSlideScanned', (data:any) => {
+    setScanningStatus(data.data.error);
+  });
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -106,10 +94,10 @@ const ScanningPage = () => {
             className="btn btn-primary"
             disabled={formik.isSubmitting || !formik.isValid}
           >
-            {!loading && (
+            {!isStarting && (
               <span className="indicator-label">Start Scanning</span>
             )}
-            {loading && (
+            {isStarting && (
               <span className="indicator-progress" style={{ display: "block" }}>
                 Please wait...
                 <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
@@ -131,6 +119,11 @@ const ScanningPage = () => {
           )}
 
         <div className="col-xl-12">
+          {isStarting ? (
+            <div>Starting....</div>
+          ) : (
+            <div>scanning status: {scanningStatus}</div>
+          )}
           <div className="card-xl-stretch mb-xl-8">
             <SlidesTable
               handleSelectAllChange={handleSelectAllChange}
