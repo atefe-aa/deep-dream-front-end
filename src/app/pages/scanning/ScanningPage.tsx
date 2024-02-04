@@ -8,6 +8,7 @@ import { SlidesFakeData } from "../../utils/constants";
 
 import { useStartFullSlideScanning } from "../../modules/scanning/hooks/useStartFullSlideScanning";
 import { usePusher } from "../../modules/hooks/usePusher";
+import { useSlides } from "../../modules/scanning/hooks/useSlides";
 
 interface FormValues {
   selectedCheckboxes: number[];
@@ -78,8 +79,8 @@ const ScanningPage = () => {
       formik.setFieldValue("selectAll", false);
     }
   };
-  const [isScanning, setIsScanning] = useState(false);
 
+  const { isLoading, slides } = useSlides();
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -122,13 +123,12 @@ const ScanningPage = () => {
               formik={formik}
               className="card-xl-stretch mb-xl-8"
             >
-              {SlidesFakeData.map((data, _index) => (
+              {!isLoading && slides && slides.length>0 && slides.map((data:SlideModel, _index:number) => (
                 <SlideRow
                   handleCheckboxChange={handleCheckboxChange}
                   formik={formik}
                   key={_index}
                   data={data}
-                  isScanning={isScanning}
                 />
               ))}
             </SlidesTable>
