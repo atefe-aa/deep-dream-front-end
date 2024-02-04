@@ -6,3 +6,15 @@ interface SlideModel {
   ne_x: number;
   ne_y: number;
 }
+
+interface ScanModel {
+  id?: number;
+  nth?: number;
+  image?: string;
+  cytomine?: string;
+  laboratory?: string;
+  testNumber?: number;
+  testType?: string;
+  progress?: string;
+  duration?: number;
+}

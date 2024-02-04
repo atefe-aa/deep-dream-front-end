@@ -9,6 +9,7 @@ import { SlidesFakeData } from "../../utils/constants";
 import { useStartFullSlideScanning } from "../../modules/scanning/hooks/useStartFullSlideScanning";
 import { usePusher } from "../../modules/hooks/usePusher";
 import { useSlides } from "../../modules/scanning/hooks/useSlides";
+import { log } from "console";
 
 interface FormValues {
   selectedCheckboxes: number[];
@@ -27,7 +28,9 @@ const addSchema = Yup.object().shape({
 });
 
 const ScanningPage = () => {
-  const { isStarting, startFullSlideScanning } = useStartFullSlideScanning();
+  const { isStarting, startFullSlideScanning, data } =
+    useStartFullSlideScanning();
+
 
   const checkboxes = Array.from({ length: 10 }, (_, index) => index + 1);
   const formik = useFormik({
@@ -123,14 +126,24 @@ const ScanningPage = () => {
               formik={formik}
               className="card-xl-stretch mb-xl-8"
             >
-              {!isLoading && slides && slides.length>0 && slides.map((data:SlideModel, _index:number) => (
-                <SlideRow
-                  handleCheckboxChange={handleCheckboxChange}
-                  formik={formik}
-                  key={_index}
-                  data={data}
-                />
-              ))}
+              {!isLoading &&
+                slides &&
+                slides.length > 0 &&
+                slides.map((slide: SlideModel, _index: number) => {
+                  const scan = data?.data.find(
+                    (item: ScanModel) => item.nth === slide.nth
+                  );
+
+                  return (
+                    <SlideRow
+                      handleCheckboxChange={handleCheckboxChange}
+                      formik={formik}
+                      key={_index}
+                      slide={slide}
+                      scan={scan}
+                    />
+                  );
+                })}
             </SlidesTable>
           </div>
         </div>

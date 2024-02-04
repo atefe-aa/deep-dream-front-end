@@ -7,46 +7,50 @@ import { usePusher } from "../../hooks/usePusher";
 
 
 type Props = {
-  data: SlideModel;
+  slide: SlideModel;
+  scan:ScanModel;
   formik: any;
   handleCheckboxChange: Function;
 };
 
 const SlideRow: React.FC<Props> = ({
-  data,
+  slide,
+  scan,
   formik,
   handleCheckboxChange,
 }) => {
 
-
-  const [scanningStatus, setScanningStatus] = useState("");
-  usePusher(`slides.${data.nth}`, ".FullSlideScanned", (data: any) => {
-    // Append new status to the array
-    setScanningStatus(data.data.error);
-  });
+  console.log(slide, scan)
+  // const [scanningStatus, setScanningStatus] = useState("");
+  // usePusher(`slides.${slide.nth}`, ".FullSlideScanned", (data: any) => {
+  //   setScanningStatus(data.data.error);
+  // });
 
 
   let progressPercent = 0;
   let progressBg = "info";
-  // switch (data.progress) {
-  //   case "ready":
-  //     progressPercent = 5;
-  //     progressBg = "warning";
-  //     break;
-  //   case "scanning":
-  //     progressPercent = 50;
-  //     progressBg = "primary";
-  //     break;
-  //   case "scanned":
-  //     progressPercent = 100;
-  //     progressBg = "success";
-  //     break;
+  if(scan){
+      switch (scan.progress) {
+    case "ready":
+      progressPercent = 5;
+      progressBg = "warning";
+      break;
+    case "scanning":
+      progressPercent = 50;
+      progressBg = "primary";
+      break;
+    case "scanned":
+      progressPercent = 100;
+      progressBg = "success";
+      break;
 
-  //   case "failed":
-  //     progressPercent = 100;
-  //     progressBg = "danger";
-  //     break;
-  // }
+    case "failed":
+      progressPercent = 100;
+      progressBg = "danger";
+      break;
+  }
+
+  }
 
   return (
     <tr>
@@ -56,33 +60,31 @@ const SlideRow: React.FC<Props> = ({
             {...formik.getFieldProps("selectedCheckboxes")}
             checked={
               formik.values.selectAll ||
-              formik.values.selectedCheckboxes.includes(data.nth)
+              formik.values.selectedCheckboxes.includes(slide.nth)
             }
             onChange={handleCheckboxChange}
             className="form-check-input widget-9-check"
             type="checkbox"
-            value={data.nth}
-            id={`slide${data.nth}`}
+            value={slide.nth}
+            id={`slide${slide.nth}`}
           />
         </div>
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {data.nth}
-          </a><div>
-               status: {scanningStatus}
-              </div>
+            {slide.nth}
+          </a>
         </div>
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
-          {/* {data?.testNumber ? (
+          {scan && scan?.testNumber ? (
             <a
               href="#"
               className="text-gray-900 fw-bold text-hover-primary fs-6"
             >
-              {data.testNumber} 
+              {scan.testNumber} 
             </a>
           ) : (
             <input
@@ -103,7 +105,7 @@ const SlideRow: React.FC<Props> = ({
                 }
               )}
             />
-          )} */}
+          )}
           {formik.touched.testNumber && formik.errors.testNumber && (
             <div className="fv-plugins-message-container">
               <div className="fv-help-block">
@@ -116,14 +118,14 @@ const SlideRow: React.FC<Props> = ({
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {/* {data.testType} */}
+            {scan && scan.testType}
           </a>
         </div>
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {/* {data.laboratory} */}
+            {scan && scan.laboratory}
           </a>
         </div>
       </td>
@@ -131,7 +133,7 @@ const SlideRow: React.FC<Props> = ({
         <div className="d-flex flex-column w-100 me-2">
           <div className="d-flex flex-stack mb-2">
             <span className="text-muted me-2 fs-7 fw-semibold">
-              {/* {data.progress} */}
+              {scan && scan.progress}
             </span>
           </div>
           <div className="progress h-6px w-100">
@@ -146,20 +148,10 @@ const SlideRow: React.FC<Props> = ({
 
       {/* start::Durations */}
       <td className="text-center">
-        <div className="d-flex flex-column text-gray-900 fw-bold text-hover-primary fs-6">
-          {/* {data?.durations && (
-            <div className="d-flex justify-content-between">
-              <span>Total: </span>
-              <span>{totalDuration}</span>
-            </div>
-          )} */}
-          {/* {data.durations &&
-            data.durations.map((item) => (
-              <div key={item.id} className="d-flex justify-content-between">
-                <span className="text-muted fs-7">{item.magnification}: </span>
-                <span className="text-muted fs-7">{item.duration}</span>
-              </div>
-            ))} */}
+        <div className="d-flex justify-content-start flex-column">
+          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+            {scan && scan.duration}
+          </a>
         </div>
       </td>
       {/* end::Durations */}
@@ -169,17 +161,17 @@ const SlideRow: React.FC<Props> = ({
         <div className="d-flex justify-content-end flex-shrink-0">
           <DropDownButton>
             {/* Start Action */}
-            {/* {data?.progress === "ready" && (
+            {scan && scan?.progress === "ready" && (
               <div className="menu-item px-3">
                 <a href="#" className="menu-link px-3">
                   <KTIcon iconName="to-right" className="fs-3 me-3" />
                   Start Scanning
                 </a>
               </div>
-            )} */}
+            )}
 
             {/* View Action */}
-            {/* {data?.progress === "scanned" && (
+            {scan && scan?.progress === "scanned" && (
               <div className="menu-item px-3">
                 <a
                   target="_blank"
@@ -191,17 +183,17 @@ const SlideRow: React.FC<Props> = ({
                   View Image
                 </a>
               </div>
-            )} */}
+            )}
 
             {/* Try Again Action */}
-            {/* {data?.progress === "failed" && (
+            {scan && scan?.progress === "failed" && (
               <div className="menu-item px-3">
                 <a href="#" className="menu-link px-3">
                   <KTIcon iconName="arrows-circle" className="fs-3 me-3" />
                   Try Again
                 </a>
               </div>
-            )} */}
+            )}
 
             <div className="menu-item px-3 my-1">
               <a
@@ -220,11 +212,11 @@ const SlideRow: React.FC<Props> = ({
 
       <td className="text-center">
         <div className="d-flex flex-column " style={{ width: "max-content" }}>
-          {/* {data?.image ? (
-            <RegionSelector image={data.image} />
+          {scan && scan?.image ? (
+            <RegionSelector image={scan.image} />
           ) : (
             <h6 className="text-muted">No image yet.</h6>
-          )} */}
+          )}
         </div>
       </td>
     </tr>
