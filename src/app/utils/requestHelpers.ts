@@ -58,6 +58,7 @@ export async function handleRequestErrors(res: Response): Promise<void> {
     const { message, errors } = await res.json();
     if (message) {
       console.error(message);
+      errorText += ` ${message}`;
     }
     if (errors) {
       const errorMessages = Object.entries(errors)

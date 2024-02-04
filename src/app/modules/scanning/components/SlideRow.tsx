@@ -229,12 +229,10 @@ const SlideRow: React.FC<Props> = ({
       </td>
 
       <td className="text-center">
-        <div className="d-flex flex-column" style={{ width: "320px" }}>
+        <div className="d-flex flex-column " style={{ width: "max-content" }}>
           {data?.image ? (
-            // <div className="region-selector-hover-scale">
             <RegionSelector image={data.image} />
           ) : (
-            // </div>
             <h6 className="text-muted">No image yet.</h6>
           )}
         </div>
