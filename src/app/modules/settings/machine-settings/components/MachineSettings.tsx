@@ -11,59 +11,19 @@ import { useFormik } from "formik";
 import { CustomTable } from "../../../../ui/table/CustomTable";
 import { SlidesPlacementTableRow } from "../../slides/components/SlidesPlacementTableRow";
 import { capitalizeWords } from "../../../../utils/helper";
-
-const addSchema = Yup.object().shape({
-  title: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Title is required"),
-  code: Yup.number().required("Test code is required."),
-  type: Yup.string().required("Type is required"),
-  sex: Yup.string().required("Gender is required"),
-  discription: Yup.string()
-    .min(1, "Minimum 1 symbols")
-    .max(300, "Maximum 300 symbols"),
-});
-
-const initialValues = {
-  microStep: "",
-  brightness: "",
-  x: "",
-  y: "",
-  z: "",
-  condenseur: "",
-  multiLayer: false,
-  numberOfLayers: 1,
-  steps: 1,
-  mag4x: true,
-  mag10x: false,
-  mag40x: false,
-  mag100x: false,
-};
+import { useSettings } from "../hooks/useSettings";
+import { Spinner } from "react-bootstrap";
+import { SettingModel } from "../core/_models";
+import { useUpdateSetting } from "../hooks/useUpdateSetting";
 
 function MachineSettings() {
-  const [loading, setLoading] = useState(false);
-
-  const formik = useFormik({
-    initialValues,
-    validationSchema: addSchema,
-    onSubmit: async (values, { setStatus, setSubmitting }) => {
-      setLoading(true);
-      try {
-        console.log(values);
-        // const {data: auth} = await login(values.email, values.password)
-        // saveAuth(auth)
-        // const {data: user} = await getUserByToken(auth.api_token)
-        // setCurrentUser(user)
-      } catch (error) {
-        console.error(error);
-        // saveAuth(undefined)
-        setStatus("The login details are incorrect");
-        setSubmitting(false);
-        setLoading(false);
-      }
-    },
-  });
+  const { isLoading, settings } = useSettings();
+  const { isUpdating, updateSetting } = useUpdateSetting();
+  function handleUpdateSetting(e: any, id: number) {
+    const { value } = e.target;
+    if (!value) return;
+    updateSetting({ value, id });
+  }
 
   return (
     <div className="card mb-5 mb-xl-10">
@@ -82,9 +42,12 @@ function MachineSettings() {
 
       <div id="machine_settings" className="collapse show">
         <div className="accordion px-10" id="accordionExample">
-          <form onSubmit={formik.handleSubmit} noValidate className="form">
-            {DEFAULT_SETTINGS.map(
-              (set, _index) =>
+          {isLoading ? (
+            <Spinner animation="grow" />
+          ) : (
+            settings &&
+            settings.map(
+              (set: SettingModel, _index: number) =>
                 set.title !== "slides placement" && (
                   <SettingItem
                     key={set.id}
@@ -92,34 +55,30 @@ function MachineSettings() {
                     name={capitalizeWords(set.title)}
                     show={false}
                   >
-                    {set.settings.map((setting) =>
-                      setting.type === "checkbox" ? (
-                        <Checkbox
-                          formik={formik}
-                          key={setting.id}
-                          label={capitalizeWords(setting.title)}
-                          inputName={setting.title}
-                        />
-                      ) : (
-                        <SettingFormGroup
-                          key={setting.id}
-                          label={capitalizeWords(setting.title)}
-                          type={setting.type}
-                          placeHolder={capitalizeWords(setting.title)}
-                          inputName={setting.title}
-                          formik={formik}
-                        />
-                      )
-                    )}
+                    {set.settings.map((item) => (
+                      <SettingFormGroup
+                        value={item.value}
+                        key={item.id}
+                        label={capitalizeWords(item.key)}
+                        type="number"
+                        placeHolder={capitalizeWords(item.key)}
+                        isLoading={isUpdating}
+                        id={item.id}
+                        inputName={item.key}
+                        unit={item.unit}
+                        handleBlur={handleUpdateSetting}
+                      />
+                    ))}
                   </SettingItem>
                 )
-            )}
-            <SettingItem
-              name="slide_placement"
-              label="Slide Placement"
-              show={false}
-            >
-              {/* <CustomTable
+            )
+          )}
+          <SettingItem
+            name="slide_placement"
+            label="Slide Placement"
+            show={false}
+          >
+            {/* <CustomTable
                 modalId="kt_modal_add_new_slide"
                 className="mb-5 mb-xl-8"
                 columns={["Number", "x", "y"]}
@@ -132,27 +91,7 @@ function MachineSettings() {
                   />
                 ))}
               </CustomTable> */}
-            </SettingItem>
-
-            <div className="card-footer d-flex justify-content-end py-6 px-9">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={loading}
-              >
-                {!loading && "Save Changes"}
-                {loading && (
-                  <span
-                    className="indicator-progress"
-                    style={{ display: "block" }}
-                  >
-                    Please wait...{" "}
-                    <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                  </span>
-                )}
-              </button>
-            </div>
-          </form>
+          </SettingItem>
         </div>
       </div>
     </div>

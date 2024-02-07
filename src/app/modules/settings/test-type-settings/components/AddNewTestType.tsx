@@ -223,7 +223,6 @@ const AddNewTestType: FC = () => {
         {formik.values.multiLayer && (
           <>
             <SettingFormGroup
-              fullWidth={true}
               label="Number Of Layers"
               type="number"
               placeHolder="Number Of Layers"
@@ -231,7 +230,6 @@ const AddNewTestType: FC = () => {
               formik={formik}
             />
             <SettingFormGroup
-              fullWidth={true}
               label="Step"
               type="number"
               placeHolder="Step"
@@ -239,7 +237,6 @@ const AddNewTestType: FC = () => {
               formik={formik}
             />
             <SettingFormGroup
-              fullWidth={true}
               label="Micro Step (mm)"
               type="number"
               placeHolder="Micro Step (mm)"
@@ -250,7 +247,6 @@ const AddNewTestType: FC = () => {
         )}
         <SettingFormGroup
           required={false}
-          fullWidth={true}
           label="Z"
           type="number"
           placeHolder="Z"
@@ -259,7 +255,6 @@ const AddNewTestType: FC = () => {
         />
         <SettingFormGroup
           required={false}
-          fullWidth={true}
           label="Brightness"
           type="number"
           placeHolder="Brightness"
@@ -268,7 +263,6 @@ const AddNewTestType: FC = () => {
         />
         <SettingFormGroup
           required={false}
-          fullWidth={true}
           label="Condenseur"
           type="number"
           placeHolder="Condenseur"

@@ -118,3 +118,67 @@ export async function postMethodRequest(
     throw Error(`${title} could not be fetched.`);
   }
 }
+
+export async function putMethodRequest(
+  query = "",
+  title = "Data",
+  BASE_URL: string,
+  postData: any,
+  id: number
+) {
+  const options = {
+    method: "PUT",
+    Headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(postData),
+  };
+
+  const queryString = query ? `?${query}` : "";
+  try {
+    const res = await customFetch(`${BASE_URL}/${id}${queryString}`, options);
+    if (!res.ok) {
+      await handleRequestErrors(res);
+    }
+
+    const { data } = await res.json();
+    return { data };
+  } catch (e: unknown) {
+    console.error((e as Error).message, e);
+    throw Error(`${title} could not be fetched.`);
+  }
+}
+
+export async function request(
+  query = "",
+  title = "Data",
+  BASE_URL: string,
+  outgoingData: any,
+  method = "GET",
+  id?: number
+) {
+  const options = {
+    method: method,
+    Headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(outgoingData),
+  };
+
+  const queryString = query ? `?${query}` : "";
+  try {
+    const res = await customFetch(
+      `${BASE_URL}${id && `/${id}`}${queryString}`,
+      options
+    );
+    if (!res.ok) {
+      await handleRequestErrors(res);
+    }
+
+    const { data } = await res.json();
+    return { data };
+  } catch (e: unknown) {
+    console.error((e as Error).message, e);
+    throw Error(`${title} could not be fetched.`);
+  }
+}
