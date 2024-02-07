@@ -69,7 +69,7 @@ function Counsellors() {
       <KTCardBody className="py-4">
         <Search updateState={search} />
         <div className="table-responsive">
-          <CustomTable className="" modalId="kt_modal_add_new_counsellor">
+          <CustomTable tableTitle="Counsellors List" className="" modalId="kt_modal_add_new_counsellor">
             <CustomTableHead>
               {columns.map((col) => (
                 <CustomHeaderCell

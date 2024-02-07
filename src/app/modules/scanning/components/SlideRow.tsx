@@ -29,40 +29,11 @@ const SlideRow: React.FC<Props> = ({
 }) => {
 
   // console.log(slide, scan)
-  const [scanningStatus, setScanningStatus] = useState("");
-  usePusher(`slides.${slide.nth}`, 'FullSlideScanned', (data: any) => {
-    setScanningStatus(data.data.error);
-  });
-console.log(scanningStatus);
+  // const [scanningStatus, setScanningStatus] = useState("");
+  // usePusher(`slides.${slide.nth}`, 'FullSlideScanned', (data: any) => {
+  //   setScanningStatus(data.data.error);
+  // });
 
-
-// useEffect(() => {
-//   window.Echo = new Echo({
-//     broadcaster: "pusher",
-//     key: import.meta.env.VITE_PUSHER_APP_KEY,
-//     cluster: "mt1",
-//     encrypted: true,
-
-//     wsHost: '127.0.0.1',
-//     wsPort: 6001,
-//     wssPort: 6001, // Use if you have SSL configured for localhost
-//     forceTLS: false, // Set to false for local development without SSL
-//     disableStatus: true,
-//     enabledTransports: ["ws"],
-//   });
-
-//   // Listening for an event
-//   window.Echo.channel("test-channel").listen(".testing", (e: string) => {
-//     console.log("Event data:", e);
-//     console.log(666666);
-//   });
-
-//   return () => {
-//     if (window.Echo) {
-//       window.Echo.disconnect();
-//     }
-//   };
-// }, []);
 
   let progressPercent = 0;
   let progressBg = "info";
@@ -112,7 +83,6 @@ console.log(scanningStatus);
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
             {slide.nth}
           </a>
-          {scanningStatus}
         </div>
       </td>
       <td className="text-center">
