@@ -1,13 +1,6 @@
-import { useState } from "react";
+
 import SettingItem from "../../components/SettingItem";
-import {
-  DEFAULT_SETTINGS,
-  Slides_Placements,
-} from "../../../../utils/constants";
 import SettingFormGroup from "../../components/SettingFormGroup";
-import Checkbox from "../../components/Checkbox";
-import * as Yup from "yup";
-import { useFormik } from "formik";
 import { CustomTable } from "../../../../ui/table/CustomTable";
 import { SlidesPlacementTableRow } from "../../slides/components/SlidesPlacementTableRow";
 import { capitalizeWords } from "../../../../utils/helper";
@@ -15,6 +8,11 @@ import { useSettings } from "../hooks/useSettings";
 import { Spinner } from "react-bootstrap";
 import { SettingModel } from "../core/_models";
 import { useUpdateSetting } from "../hooks/useUpdateSetting";
+import { CustomTableHead } from "../../../../ui/table/CustomTableHead";
+import { CustomHeaderCell } from "../../../../ui/table/CustomHeaderCell";
+import { CustomTableBody } from "../../../../ui/table/CustomTableBody";
+import { useSlides } from "../../../scanning/hooks/useSlides";
+import { NoRecordRow } from "../../../../ui/table/NoRecordRow";
 
 function MachineSettings() {
   const { isLoading, settings } = useSettings();
@@ -25,8 +23,10 @@ function MachineSettings() {
     updateSetting({ value, id });
   }
 
+  const { slides, isLoading: isLoadingSlides } = useSlides();
+  const slidesColumns = ["Number", "SW x", "SW y", "NE x", "NE y"];
   return (
-    <div className="card mb-5 mb-xl-10">
+    <div className="card mb-5 mb-xl-10 pb-10">
       <div
         className="card-header border-0 cursor-pointer"
         role="button"
@@ -64,7 +64,7 @@ function MachineSettings() {
                         placeHolder={capitalizeWords(item.key)}
                         isLoading={isUpdating}
                         id={item.id}
-                        inputName={item.key}
+                        inputName={`${item.key}-${item.id}-${set.id}`}
                         unit={item.unit}
                         handleBlur={handleUpdateSetting}
                       />
@@ -73,11 +73,56 @@ function MachineSettings() {
                 )
             )
           )}
+
           <SettingItem
             name="slide_placement"
             label="Slide Placement"
             show={false}
           >
+            <div className="table-responsive">
+              <CustomTable
+                tableTitle="Slides List"
+                modalId="kt_modal_add_new_slide"
+                className="mb-5 mb-xl-8"
+              >
+                <CustomTableHead>
+                  {slidesColumns.map((col) => (
+                    <CustomHeaderCell
+                      updateState={() => {}}
+                      state={""}
+                      key={col}
+                      className=""
+                      title={col.toLocaleUpperCase()}
+                      elementId={col.replace(" ", "-")}
+                    />
+                  ))}
+                </CustomTableHead>
+                <CustomTableBody>
+                  {!isLoadingSlides && (slides?.length === 0 || !slides) && (
+                    <NoRecordRow />
+                  )}
+
+                  {isLoadingSlides ? (
+                    <tr>
+                      <td colSpan={20}>
+                        <div className="d-flex text-center w-100 align-content-center justify-content-center">
+                          <Spinner animation="grow" />
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
+                    slides &&
+                    slides.map((slide: SlideModel, index: number) => (
+                      <SlidesPlacementTableRow
+                        key={slide.id}
+                        data={slide}
+                        index={index + 1}
+                      />
+                    ))
+                  )}
+                </CustomTableBody>
+              </CustomTable>
+            </div>
             {/* <CustomTable
                 modalId="kt_modal_add_new_slide"
                 className="mb-5 mb-xl-8"

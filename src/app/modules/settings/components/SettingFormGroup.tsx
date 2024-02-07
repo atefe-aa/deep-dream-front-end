@@ -52,7 +52,7 @@ const SettingFormGroup: React.FC<Props> = ({
             <input
               {...inputProps}
               onBlur={(e: any) => handleBlur && handleBlur(e, id)}
-            />{" "}
+            />
             {/* Use inputProps here */}
             {formik?.touched[inputName] && formik?.errors[inputName] && (
               <div className="fv-plugins-message-container">

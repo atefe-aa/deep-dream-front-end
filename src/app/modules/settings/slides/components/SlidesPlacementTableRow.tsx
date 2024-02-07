@@ -1,22 +1,9 @@
 import { FC } from "react";
 import { KTIcon } from "../../../../../_metronic/helpers";
-import { title } from "process";
 import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
 
-interface CoordinatesArray {
-  id: number;
-  title: string;
-  value: number;
-}
-
-interface DataArray {
-  id: number;
-  title: string;
-  coordinates: CoordinatesArray[];
-}
-
 type Props = {
-  data: DataArray;
+  data: SlideModel;
   index: number;
 };
 
@@ -31,20 +18,42 @@ const SlidesPlacementTableRow: FC<Props> = ({ data, index }) => {
       <td>
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {data.title}
+            {data.nth}
           </a>
         </div>
       </td>
-      {data.coordinates.map((coor) => (
-        <td key={coor.id}>
-          <a
-            href="#"
-            className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-          >
-            {coor.value}
-          </a>
-        </td>
-      ))}
+      <td>
+        <a
+          href="#"
+          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
+        >
+          {data.sw_x}
+        </a>
+      </td>
+      <td>
+        <a
+          href="#"
+          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
+        >
+          {data.sw_y}
+        </a>
+      </td>
+      <td>
+        <a
+          href="#"
+          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
+        >
+          {data.ne_x}
+        </a>
+      </td>
+      <td>
+        <a
+          href="#"
+          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
+        >
+          {data.ne_y}
+        </a>
+      </td>
       <td>
         <div className="d-flex justify-content-end flex-shrink-0">
           <DropDownButton>

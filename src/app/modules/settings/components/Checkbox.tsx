@@ -8,7 +8,6 @@ const Checkbox: React.FC<Props> = ({ label, inputName, formik }) => {
   return (
     <div className="row align-items-center">
       <label
-        htmlFor={inputName}
         className="col-4 col-form-label  fw-bold fs-6"
       >
         {label}

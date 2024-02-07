@@ -1,9 +1,8 @@
 
-import { TEST_TYPES } from "../../../../utils/constants";
+
 import { CustomTable } from "../../../../ui/table/CustomTable";
 import { TestTypesTableRow } from "./TestTypesTableRow";
 import { KTCardBody, stringifyRequestQuery } from "../../../../../_metronic/helpers";
-import { Search } from "../../../../ui/search-and-filter/Search";
 import { CustomTableHead } from "../../../../ui/table/CustomTableHead";
 import { CustomHeaderCell } from "../../../../ui/table/CustomHeaderCell";
 import { CustomTableBody } from "../../../../ui/table/CustomTableBody";
@@ -42,10 +41,6 @@ function TestTypesSettings() {
 
   const onChangePage = (page: number) => {
     updateState("testTypes", { ...testTypesState, page });
-  };
-
-  const searchFunction = (searchTerm: string) => {
-    updateState("testTypes", { ...testTypesState, search: searchTerm, page: 1 });
   };
 
   const sortFunction = (sort: string, order: "asc" | "desc" | undefined) => {
