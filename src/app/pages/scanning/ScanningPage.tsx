@@ -8,7 +8,7 @@ import { SlidesFakeData } from "../../utils/constants";
 
 import { useStartFullSlideScanning } from "../../modules/scanning/hooks/useStartFullSlideScanning";
 import { usePusher } from "../../modules/hooks/usePusher";
-import { useSlides } from "../../modules/scanning/hooks/useSlides";
+import { useSlides } from "../../modules/settings/slides/hooks/useSlides";
 import { log } from "console";
 
 interface FormValues {
@@ -30,7 +30,6 @@ const addSchema = Yup.object().shape({
 const ScanningPage = () => {
   const { isStarting, startFullSlideScanning, data } =
     useStartFullSlideScanning();
-
 
   const checkboxes = Array.from({ length: 10 }, (_, index) => index + 1);
   const formik = useFormik({

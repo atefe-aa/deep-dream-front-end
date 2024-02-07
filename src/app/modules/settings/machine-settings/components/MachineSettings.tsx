@@ -1,4 +1,3 @@
-
 import SettingItem from "../../components/SettingItem";
 import SettingFormGroup from "../../components/SettingFormGroup";
 import { CustomTable } from "../../../../ui/table/CustomTable";
@@ -11,7 +10,7 @@ import { useUpdateSetting } from "../hooks/useUpdateSetting";
 import { CustomTableHead } from "../../../../ui/table/CustomTableHead";
 import { CustomHeaderCell } from "../../../../ui/table/CustomHeaderCell";
 import { CustomTableBody } from "../../../../ui/table/CustomTableBody";
-import { useSlides } from "../../../scanning/hooks/useSlides";
+import { useSlides } from "../../slides/hooks/useSlides";
 import { NoRecordRow } from "../../../../ui/table/NoRecordRow";
 
 function MachineSettings() {

@@ -1,6 +1,9 @@
 import { FC } from "react";
 import { KTIcon } from "../../../../../_metronic/helpers";
-import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
+import { CustomDropdown } from "../../../../ui/dropdown/CustomDropdown";
+import { Dropdown } from "react-bootstrap";
+import { ConfirmModal } from "../../../../ui/modals/ConfirmModal";
+import { useDeleteSlide } from "../hooks/useDeleteSlide";
 
 type Props = {
   data: SlideModel;
@@ -8,6 +11,10 @@ type Props = {
 };
 
 const SlidesPlacementTableRow: FC<Props> = ({ data, index }) => {
+  const { isDeleting, deleteSlide } = useDeleteSlide();
+  function handleDelete() {
+    deleteSlide(data.id);
+  }
   return (
     <tr>
       <td>
@@ -56,25 +63,32 @@ const SlidesPlacementTableRow: FC<Props> = ({ data, index }) => {
       </td>
       <td>
         <div className="d-flex justify-content-end flex-shrink-0">
-          <DropDownButton>
-            <div className="menu-item px-3">
-              <a href="#" className="menu-link px-3">
-                <KTIcon iconName="pencil" className="fs-3 me-3" />
-                Edit Info
-              </a>
-            </div>
-            <div className="menu-item px-3 my-1">
-              <a
-                href="#"
-                className="menu-link px-3 text-danger "
-                data-bs-toggle="tooltip"
-                title="Delete Slide"
-              >
-                <KTIcon iconName="trash" className="fs-3 me-3" />
-                Delete Slide
-              </a>
-            </div>
-          </DropDownButton>
+          <CustomDropdown>
+            <Dropdown.Item
+              data-bs-toggle="modal"
+              data-bs-target={`#edit_slide${data.id}`}
+            >
+              <KTIcon iconName="pencil" className="fs-3 me-3" />
+              Edit Info
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              className="text-danger "
+              data-bs-toggle="modal"
+              data-bs-target={`#confirm_delete_slide${data.id}`}
+            >
+              <KTIcon iconName="trash" className="fs-3 me-3" />
+              Delete Slide
+            </Dropdown.Item>
+          </CustomDropdown>
+
+          {/* modals */}
+          <ConfirmModal
+            actionName={`delete_slide${data.id}`}
+            onConfirm={handleDelete}
+            isLoading={isDeleting}
+            message={`Are you sure, you want to delete Slide ${data.nth}?`}
+          />
         </div>
       </td>
     </tr>

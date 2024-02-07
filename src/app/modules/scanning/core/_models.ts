@@ -1,5 +1,5 @@
 interface SlideModel {
-  id?: number;
+  id: number;
   nth: number;
   sw_x: number;
   sw_y: number;
