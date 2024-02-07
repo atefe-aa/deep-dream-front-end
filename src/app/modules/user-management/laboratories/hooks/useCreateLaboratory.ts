@@ -5,6 +5,7 @@ import { createLaboratory as createLaboratoryApi } from "../core/_requests";
 export function useCreateLaboratory() {
   const queryClient = useQueryClient();
   const {
+    data,
     mutate: createLaboratory,
     isPending: isCreating,
     error,
@@ -24,5 +25,6 @@ export function useCreateLaboratory() {
     createLaboratory,
     isCreating,
     error,
+    data
   };
 }

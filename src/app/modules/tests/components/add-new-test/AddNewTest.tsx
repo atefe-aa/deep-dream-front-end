@@ -9,6 +9,7 @@ import { TestTypeInput } from "./components/TestTypeInput";
 import { useCreateRegistration } from "../../hooks/useCreateRegistration";
 import { useAuth } from "../../../auth";
 import { hasRole } from "../../../../utils/helper";
+import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
 
 const addSchema = Yup.object().shape({
   name: Yup.string()
@@ -71,7 +72,7 @@ const AddNewTest: FC = () => {
       }
     },
   });
-
+  useCloseModalOnSuccess("kt_modal_add_new_test", data, formik);
   return (
     <ModalLayout modalId="kt_modal_add_new_test" title="Add New Test">
       {!isCreating && data ? (

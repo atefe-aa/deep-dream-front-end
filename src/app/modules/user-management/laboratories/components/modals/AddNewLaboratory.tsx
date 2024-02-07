@@ -9,6 +9,7 @@ import { ModalForm } from "../../../../../ui/modals/ModalForm";
 import { KTIcon, toAbsoluteUrl } from "../../../../../../_metronic/helpers";
 import { useCreateLaboratory } from "../../hooks/useCreateLaboratory";
 import { LabsModel } from "../../core/_models";
+import { useCloseModalOnSuccess } from "../../../../hooks/useCloseModalOnSuccess";
 
 const addSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -65,7 +66,7 @@ type Props = {
 };
 
 const AddNewLaboratory: FC<Props> = () => {
-  const { createLaboratory, isCreating, error } = useCreateLaboratory();
+  const { createLaboratory, isCreating, error, data } = useCreateLaboratory();
 
   const blankImg = toAbsoluteUrl("/media/svg/avatars/blank.svg");
   const [showPasswprd, setShowPassword] = useState(false);
@@ -87,7 +88,7 @@ const AddNewLaboratory: FC<Props> = () => {
       }
     },
   });
-
+  useCloseModalOnSuccess("kt_modal_add_new_counsellor", data, formik);
   return (
     <ModalLayout
       modalId="kt_modal_add_new_laboratory"
@@ -199,7 +200,7 @@ const AddNewLaboratory: FC<Props> = () => {
               }
             )}
             autoComplete="off"
-            disabled={ isCreating}
+            disabled={isCreating}
           />
           {formik.touched.labName && formik.errors.labName && (
             <div className="fv-plugins-message-container">
@@ -234,7 +235,7 @@ const AddNewLaboratory: FC<Props> = () => {
               }
             )}
             autoComplete="off"
-            disabled={ isCreating}
+            disabled={isCreating}
           />
           {formik.touched.fullName && formik.errors.fullName && (
             <div className="fv-plugins-message-container">
@@ -267,7 +268,7 @@ const AddNewLaboratory: FC<Props> = () => {
               }
             )}
             autoComplete="off"
-            disabled={ isCreating}
+            disabled={isCreating}
           />
           {formik.touched.phone && formik.errors.phone && (
             <div className="fv-plugins-message-container">
@@ -302,7 +303,7 @@ const AddNewLaboratory: FC<Props> = () => {
               }
             )}
             autoComplete="off"
-            disabled={ isCreating}
+            disabled={isCreating}
           />
           {formik.touched.address && formik.errors.address && (
             <div className="fv-plugins-message-container">
@@ -373,7 +374,7 @@ const AddNewLaboratory: FC<Props> = () => {
             type="username"
             name="username"
             autoComplete="off"
-            disabled={ isCreating}
+            disabled={isCreating}
           />
           {/* end::Input */}
           {formik.touched.username && formik.errors.username && (
@@ -411,7 +412,7 @@ const AddNewLaboratory: FC<Props> = () => {
               type={showPasswprd ? "text" : "password"}
               name="password"
               autoComplete="off"
-              disabled={ isCreating}
+              disabled={isCreating}
             />
             <div className="input-group-append">
               <span
@@ -464,7 +465,7 @@ const AddNewLaboratory: FC<Props> = () => {
               type={showPasswprd ? "text" : "password"}
               name="password_confirmation"
               autoComplete="off"
-              disabled={ isCreating}
+              disabled={isCreating}
             />
             <div className="input-group-append">
               <span

@@ -6,6 +6,7 @@ import { ModalForm } from "../../../../../ui/modals/ModalForm";
 import { TestTypeInput } from "../../../../tests/components/add-new-test/components/TestTypeInput";
 import { useCreatePrice } from "../hooks/useCreatePrice";
 import { LabsModel } from "../../core/_models";
+import { useCloseModalOnSuccess } from "../../../../hooks/useCloseModalOnSuccess";
 
 const addSchema = Yup.object().shape({
   price: Yup.number()
@@ -29,7 +30,7 @@ type Props = {
 };
 
 const AddNewTestPrice: React.FC<Props> = ({ labData }) => {
-  const { isCreating, createPrice } = useCreatePrice();
+  const { isCreating, createPrice, data } = useCreatePrice();
 
   const formik = useFormik({
     initialValues,
@@ -44,7 +45,11 @@ const AddNewTestPrice: React.FC<Props> = ({ labData }) => {
       }
     },
   });
-
+  useCloseModalOnSuccess(
+    `kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`,
+    data,
+    formik
+  );
   return (
     <ModalLayout
       modalId={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}

@@ -8,6 +8,7 @@ type Error ={message: string}
 export function useEditInfo() {
   const queryClient = useQueryClient();
   const {
+    data,
     mutate: editLaboratoryInfo,
     isPending,
     error,
@@ -27,5 +28,6 @@ export function useEditInfo() {
     editLaboratoryInfo,
     isPending,
     error,
+    data
   };
 }

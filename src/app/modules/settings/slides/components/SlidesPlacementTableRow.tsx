@@ -4,6 +4,7 @@ import { CustomDropdown } from "../../../../ui/dropdown/CustomDropdown";
 import { Dropdown } from "react-bootstrap";
 import { ConfirmModal } from "../../../../ui/modals/ConfirmModal";
 import { useDeleteSlide } from "../hooks/useDeleteSlide";
+import { EditSlide } from "./EditSlide";
 
 type Props = {
   data: SlideModel;
@@ -66,7 +67,7 @@ const SlidesPlacementTableRow: FC<Props> = ({ data, index }) => {
           <CustomDropdown>
             <Dropdown.Item
               data-bs-toggle="modal"
-              data-bs-target={`#edit_slide${data.id}`}
+              data-bs-target={`#edit_slide_info${data.id}`}
             >
               <KTIcon iconName="pencil" className="fs-3 me-3" />
               Edit Info
@@ -89,6 +90,7 @@ const SlidesPlacementTableRow: FC<Props> = ({ data, index }) => {
             isLoading={isDeleting}
             message={`Are you sure, you want to delete Slide ${data.nth}?`}
           />
+          <EditSlide slideData={data} />
         </div>
       </td>
     </tr>

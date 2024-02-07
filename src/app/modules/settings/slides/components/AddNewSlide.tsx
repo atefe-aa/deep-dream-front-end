@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import * as Yup from "yup";
 import clsx from "clsx";
@@ -7,19 +7,34 @@ import { ModalLayout } from "../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
 import { useCreateSlide } from "../hooks/useCreateSlide";
 import { useSlides } from "../hooks/useSlides";
+import { Modal } from "bootstrap";
+import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
 
 const AddNewSlide: FC = () => {
   const { isLoading, slides } = useSlides();
-  const initialNth =
-    !isLoading &&
-    slides &&
-    slides.sort((a: SlideModel, b: SlideModel) => b.nth - a.nth)[0].nth + 1;
-  console.log(initialNth);
+
+  const nthUnique = (value: number, context: Yup.TestContext) => {
+    if (isLoading) {
+      return true; // skip validation if slides are still loading
+    }
+    // Check if nth value is  not present in other slides
+    const isUnique = !slides.some((slide: SlideModel) => slide.nth === value);
+    return (
+      isUnique ||
+      context.createError({
+        message: "The slide number must be unique.",
+      })
+    );
+  };
 
   const addSchema = Yup.object().shape({
     nth: Yup.number()
-      .min(initialNth, "The slide number is already taken.")
-      .required("Slide Number is required."),
+      .required("Slide Number is required.")
+      .test(
+        "is-unique",
+        "The slide number must be unique or unchanged.",
+        nthUnique
+      ),
     sw_x: Yup.number().required("SW x  is required."),
     sw_y: Yup.number().required("SW y  is required."),
     ne_x: Yup.number().required("NE x  is required."),
@@ -34,13 +49,14 @@ const AddNewSlide: FC = () => {
     ne_y: 0,
   };
 
-  const { isCreating, createSlide } = useCreateSlide();
+  const { isCreating, createSlide, data } = useCreateSlide();
+
+
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
-        console.log(values);
         createSlide(values);
       } catch (error) {
         console.error(error);
@@ -49,7 +65,8 @@ const AddNewSlide: FC = () => {
       }
     },
   });
-
+  
+  useCloseModalOnSuccess("kt_modal_add_new_slide", data, formik);
   return (
     <ModalLayout modalId="kt_modal_add_new_slide" title="Add new slide">
       <ModalForm

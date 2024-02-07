@@ -10,6 +10,7 @@ import { KTIcon, toAbsoluteUrl } from "../../../../../../_metronic/helpers";
 import { useCreateLaboratory } from "../../hooks/useCreateLaboratory";
 import { LabsModel } from "../../core/_models";
 import { useUpdateMedia } from "../../hooks/useUpdateMedia";
+import { useCloseModalOnSuccess } from "../../../../hooks/useCloseModalOnSuccess";
 
 const addSchema = Yup.object().shape({});
 
@@ -25,7 +26,7 @@ const EditMedia: FC<Props> = ({ labData }) => {
     footer: undefined as File | undefined,
   };
 
-  const { updateMedia, isPending, error } = useUpdateMedia();
+  const { updateMedia, isPending, error,data } = useUpdateMedia();
 
   const blankAvatar = toAbsoluteUrl("/media/svg/avatars/blank.svg");
   const blankImg = toAbsoluteUrl("/media/svg/files/blank-image.svg");
@@ -48,6 +49,7 @@ const EditMedia: FC<Props> = ({ labData }) => {
     },
   });
 
+  useCloseModalOnSuccess(`edit_media${labData.id}`, data, formik);
   return (
     <ModalLayout modalId={`edit_media${labData.id}`} title="Update laboratory media">
       <ModalForm

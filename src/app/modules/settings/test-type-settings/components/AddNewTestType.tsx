@@ -8,6 +8,7 @@ import Checkbox from "../../components/Checkbox";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
 import SettingFormGroup from "../../components/SettingFormGroup";
 import { useCreateTestType } from "../hooks/useCreateTestType";
+import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
 
 const addSchema = Yup.object().shape({
   title: Yup.string()
@@ -21,6 +22,7 @@ const addSchema = Yup.object().shape({
     .min(1, "Minimum 1 symbols")
     .max(300, "Maximum 300 symbols"),
   magnification: Yup.string().required("Magnification is required"),
+  numberOfLayers: Yup.number().min(1,'Number of layers is at leat 1.')
 });
 
 const initialValues = {
@@ -30,17 +32,17 @@ const initialValues = {
   gender: "both" as "male" | "female" | "both",
   description: "",
   numberOfLayers: 1,
-  step: undefined,
-  microStep: undefined,
-  z: undefined,
-  brightness: undefined,
-  condenser: undefined,
+  step: 0,
+  microStep: 0,
+  z: 0,
+  brightness: 0,
+  condenser: 0,
   multiLayer: false,
   magnification: 2 as 2 | 10 | 40 | 100,
 };
 
 const AddNewTestType: FC = () => {
-  const { createTestType, isCreating } = useCreateTestType();
+  const { createTestType, isCreating, data } = useCreateTestType();
 
   const formik = useFormik({
     initialValues,
@@ -58,6 +60,8 @@ const AddNewTestType: FC = () => {
       }
     },
   });
+
+  useCloseModalOnSuccess("kt_modal_add_new_test_type", data, formik);
 
   return (
     <ModalLayout modalId="kt_modal_add_new_test_type" title="Add New Test Type">
@@ -263,10 +267,10 @@ const AddNewTestType: FC = () => {
         />
         <SettingFormGroup
           required={false}
-          label="Condenseur"
+          label="Condenser"
           type="number"
-          placeHolder="Condenseur"
-          inputName="condenseur"
+          placeHolder="Condenser"
+          inputName="condenser"
           formik={formik}
         />
         {/* begin:: description Form group */}

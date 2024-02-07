@@ -4,17 +4,18 @@ import { request } from "../../../../utils/requestHelpers";
 const API_URL = import.meta.env.VITE_APP_API_URL_;
 const BASE_URL = `${API_URL}/scan/slide`;
 
-export function useCreateSlide() {
+
+export function useUpdateSlide() {
   const queryClient = useQueryClient();
   const {
-    mutate: createSlide,
-    isPending: isCreating,
     data,
+    mutate: updateSlide,
+    isPending: isUpdating,
     error,
   } = useMutation({
-    mutationFn: (values: any) => request("", "Slide", BASE_URL, values, "POST"),
+    mutationFn: (slideData: SlideModel) => request("", "Slide", BASE_URL, slideData, "PUT",slideData.id),
     onSuccess: () => {
-      toast.success("Slide successfully added.");
+      toast.success("Slide successfully updated.");
       queryClient.invalidateQueries({ queryKey: ["slides"] });
     },
     onError: (err) => {
@@ -24,8 +25,8 @@ export function useCreateSlide() {
   });
 
   return {
-    createSlide,
-    isCreating,
+    updateSlide,
+    isUpdating,
     error,
     data
   };

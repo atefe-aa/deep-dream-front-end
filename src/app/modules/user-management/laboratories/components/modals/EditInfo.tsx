@@ -10,6 +10,7 @@ import { KTIcon, toAbsoluteUrl } from "../../../../../../_metronic/helpers";
 import { LabsModel } from "../../core/_models";
 import { useEditInfo } from "../../hooks/useEditInfo";
 import { FormLabel } from "react-bootstrap";
+import { useCloseModalOnSuccess } from "../../../../hooks/useCloseModalOnSuccess";
 
 const addSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -50,7 +51,7 @@ const EditInfo: FC<Props> = ({ labData }) => {
     password_confirmation: "",
   };
 
-  const { editLaboratoryInfo, isPending, error } = useEditInfo();
+  const { editLaboratoryInfo, isPending, error,data } = useEditInfo();
   const [showPasswprd, setShowPassword] = useState(false);
 
   const formik = useFormik({
@@ -71,6 +72,7 @@ const EditInfo: FC<Props> = ({ labData }) => {
     },
   });
 
+  useCloseModalOnSuccess(`edit_info${labData.id}`, data, formik);
   return (
     <ModalLayout modalId={`edit_info${labData.id}`} title="Update laboratory info">
       <ModalForm

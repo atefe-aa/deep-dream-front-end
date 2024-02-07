@@ -8,6 +8,7 @@ type Error = { message: string };
 export function useUpdateMedia() {
   const queryClient = useQueryClient();
   const {
+    data,
     mutate: updateMedia,
     isPending,
     error,
@@ -27,5 +28,6 @@ export function useUpdateMedia() {
     updateMedia,
     isPending,
     error,
+    data
   };
 }

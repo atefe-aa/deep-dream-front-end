@@ -9,6 +9,7 @@ import { useAuth } from "../../../auth";
 import { hasRole } from "../../../../utils/helper";
 import { useCreateCounsellor } from "../hooks/useCreateCounsellor";
 import { LaboratoryInput } from "../../../tests/components/add-new-test/components/LaboratoryInput";
+import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
 
 const AddNewCounsellor: FC = () => {
   const { currentUser } = useAuth();
@@ -34,7 +35,7 @@ const AddNewCounsellor: FC = () => {
     }),
   });
 
-  const { isCreating, createCounsellor } = useCreateCounsellor();
+  const { isCreating, createCounsellor,data } = useCreateCounsellor();
 
   const formik = useFormik({
     initialValues,
@@ -50,7 +51,7 @@ const AddNewCounsellor: FC = () => {
       }
     },
   });
-
+  useCloseModalOnSuccess("kt_modal_add_new_counsellor", data, formik);
   return (
     <ModalLayout
       modalId="kt_modal_add_new_counsellor"

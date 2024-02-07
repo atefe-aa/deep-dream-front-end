@@ -10,8 +10,9 @@ import { useUpdateSetting } from "../hooks/useUpdateSetting";
 import { CustomTableHead } from "../../../../ui/table/CustomTableHead";
 import { CustomHeaderCell } from "../../../../ui/table/CustomHeaderCell";
 import { CustomTableBody } from "../../../../ui/table/CustomTableBody";
-import { useSlides } from "../../slides/hooks/useSlides";
+
 import { NoRecordRow } from "../../../../ui/table/NoRecordRow";
+import { useSlides } from "../../slides/hooks/useSlides";
 
 function MachineSettings() {
   const { isLoading, settings } = useSettings();
