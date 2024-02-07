@@ -39,14 +39,7 @@ export async function customFetch(url: string, options: FetchOptions = {}) {
     },
   };
 
-  // Make the fetch call
   const response = await fetch(url, mergedOptions);
-
-  // Handle response errors if needed
-  if (!response.ok) {
-    // Handle errors
-    throw new Error("Network response was not ok");
-  }
 
   return response;
 }
@@ -67,10 +60,9 @@ export async function handleRequestErrors(res: Response): Promise<void> {
       errorText += ` Details: ${errorMessages}`;
     }
   } catch (jsonError) {
-    errorText += ` Non-JSON error: ${res.statusText}`;
-  }
+    errorText += ` Non-JSON error: ${res.statusText}`; 
 
-  throw new Error(errorText);
+  }     throw new Error(errorText);
 }
 
 export async function getMethodRequest(
@@ -168,7 +160,7 @@ export async function request(
   const queryString = query ? `?${query}` : "";
   try {
     const res = await customFetch(
-      `${BASE_URL}${id && `/${id}`}${queryString}`,
+      `${BASE_URL}${id? `/${id}`:""}${queryString}`,
       options
     );
     if (!res.ok) {
@@ -178,7 +170,7 @@ export async function request(
     const { data } = await res.json();
     return { data };
   } catch (e: unknown) {
-    console.error((e as Error).message, e);
-    throw Error(`${title} could not be fetched.`);
+    throw Error((e as Error).message);
+    // throw Error(`${title} could not be fetched.`);
   }
 }

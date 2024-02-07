@@ -1,61 +1,63 @@
 import { FC } from "react";
 
-import { useState } from "react";
 import * as Yup from "yup";
 import clsx from "clsx";
 import { useFormik } from "formik";
 import { ModalLayout } from "../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
-
-const addSchema = Yup.object().shape({
-  number: Yup.number().required("Slide Number is required."),
-  xPosition: Yup.number().required("X Position is required."),
-  yPosition: Yup.number().required("Y Position is required."),
-});
-
-const initialValues = {
-  number: 0,
-  xPosition: 0,
-  yPosition: 0,
-};
-
-// type Props = {
-//   labName: string;
-// };
-
-/*
-  Formik+YUP+Typescript:
-  https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
-  https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e
-*/
+import { useCreateSlide } from "../hooks/useCreateSlide";
+import { useSlides } from "../hooks/useSlides";
 
 const AddNewSlide: FC = () => {
-  const [loading, setLoading] = useState(false);
+  const { isLoading, slides } = useSlides();
+  const initialNth =
+    !isLoading &&
+    slides &&
+    slides.sort((a: SlideModel, b: SlideModel) => b.nth - a.nth)[0].nth + 1;
+  console.log(initialNth);
 
+  const addSchema = Yup.object().shape({
+    nth: Yup.number()
+      .min(initialNth, "The slide number is already taken.")
+      .required("Slide Number is required."),
+    sw_x: Yup.number().required("SW x  is required."),
+    sw_y: Yup.number().required("SW y  is required."),
+    ne_x: Yup.number().required("NE x  is required."),
+    ne_y: Yup.number().required("NE y  is required."),
+  });
+
+  const initialValues = {
+    nth: 1,
+    sw_x: 0,
+    sw_y: 0,
+    ne_x: 0,
+    ne_y: 0,
+  };
+
+  const { isCreating, createSlide } = useCreateSlide();
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
-      setLoading(true);
       try {
         console.log(values);
-        // const {data: auth} = await login(values.email, values.password)
-        // saveAuth(auth)
-        // const {data: user} = await getUserByToken(auth.api_token)
-        // setCurrentUser(user)
+        createSlide(values);
       } catch (error) {
         console.error(error);
-        // saveAuth(undefined)
-        setStatus("The login details are incorrect");
+        setStatus("Somthing went wrong adding new slide.");
         setSubmitting(false);
-        setLoading(false);
       }
     },
   });
 
   return (
     <ModalLayout modalId="kt_modal_add_new_slide" title="Add new slide">
-      <ModalForm isError={false} isLoading={false} modalId="kt_modal_add_new_slide" formik={formik}>
+      <ModalForm
+        isError={false}
+        isLoading={isCreating}
+        modalId="kt_modal_add_new_slide"
+        formik={formik}
+      >
         {/* begin::code Form group  */}
         <div className="fv-row mb-3">
           <label className="form-label required fs-6 fw-bolder text-gray-900">
@@ -63,90 +65,143 @@ const AddNewSlide: FC = () => {
           </label>
           <input
             placeholder="Slide Number"
-            {...formik.getFieldProps("number")}
+            {...formik.getFieldProps("nth")}
             className={clsx(
               "form-control bg-transparent",
               {
-                "is-invalid": formik.touched.number && formik.errors.number,
+                "is-invalid": formik.touched.nth && formik.errors.nth,
               },
               {
-                "is-valid": formik.touched.number && !formik.errors.number,
+                "is-valid": formik.touched.nth && !formik.errors.nth,
               }
             )}
             type="number"
-            name="number"
+            name="nth"
             autoComplete="off"
           />
-          {formik.touched.number && formik.errors.number && (
+          {formik.touched.nth && formik.errors.nth && (
             <div className="fv-plugins-message-container">
               <div className="fv-help-block">
-                <span role="alert">{formik.errors.number}</span>
+                <span role="alert">{formik.errors.nth}</span>
               </div>
             </div>
           )}
         </div>
         {/* end::Form group */}
-
         {/* begin::code Form group  */}
         <div className="fv-row mb-3">
           <label className="form-label required fs-6 fw-bolder text-gray-900">
-            X position
+            SW x
           </label>
           <input
-            placeholder="X Position"
-            {...formik.getFieldProps("xPosition")}
+            placeholder="SW X"
+            {...formik.getFieldProps("sw_x")}
             className={clsx(
               "form-control bg-transparent",
               {
-                "is-invalid":
-                  formik.touched.xPosition && formik.errors.xPosition,
+                "is-invalid": formik.touched.sw_x && formik.errors.sw_x,
               },
               {
-                "is-valid":
-                  formik.touched.xPosition && !formik.errors.xPosition,
+                "is-valid": formik.touched.sw_x && !formik.errors.sw_x,
               }
             )}
             type="number"
-            name="xPosition"
+            name="sw_x"
             autoComplete="off"
           />
-          {formik.touched.xPosition && formik.errors.xPosition && (
+          {formik.touched.sw_x && formik.errors.sw_x && (
             <div className="fv-plugins-message-container">
               <div className="fv-help-block">
-                <span role="alert">{formik.errors.xPosition}</span>
+                <span role="alert">{formik.errors.sw_x}</span>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* end::Form group */} {/* begin::code Form group  */}
+        <div className="fv-row mb-3">
+          <label className="form-label required fs-6 fw-bolder text-gray-900">
+            SW y
+          </label>
+          <input
+            placeholder="SW Y"
+            {...formik.getFieldProps("sw_y")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid": formik.touched.sw_y && formik.errors.sw_y,
+              },
+              {
+                "is-valid": formik.touched.sw_y && !formik.errors.sw_y,
+              }
+            )}
+            type="number"
+            name="sw_y"
+            autoComplete="off"
+          />
+          {formik.touched.sw_y && formik.errors.sw_y && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.sw_y}</span>
               </div>
             </div>
           )}
         </div>
         {/* end::Form group */}
-
         {/* begin::code Form group  */}
         <div className="fv-row mb-3">
           <label className="form-label required fs-6 fw-bolder text-gray-900">
-            Y Position
+            NE x
           </label>
           <input
-            placeholder="Y Position"
-            {...formik.getFieldProps("yPosition")}
+            placeholder="NE X"
+            {...formik.getFieldProps("ne_x")}
             className={clsx(
               "form-control bg-transparent",
               {
-                "is-invalid":
-                  formik.touched.yPosition && formik.errors.yPosition,
+                "is-invalid": formik.touched.ne_x && formik.errors.ne_x,
               },
               {
-                "is-valid":
-                  formik.touched.yPosition && !formik.errors.yPosition,
+                "is-valid": formik.touched.ne_x && !formik.errors.ne_x,
               }
             )}
             type="number"
-            name="yPosition"
+            name="ne_x"
             autoComplete="off"
           />
-          {formik.touched.yPosition && formik.errors.yPosition && (
+          {formik.touched.ne_x && formik.errors.ne_x && (
             <div className="fv-plugins-message-container">
               <div className="fv-help-block">
-                <span role="alert">{formik.errors.yPosition}</span>
+                <span role="alert">{formik.errors.ne_x}</span>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* end::Form group */}
+        {/* begin::code Form group  */}
+        <div className="fv-row mb-3">
+          <label className="form-label required fs-6 fw-bolder text-gray-900">
+            NE y
+          </label>
+          <input
+            placeholder="NE y"
+            {...formik.getFieldProps("ne_y")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid": formik.touched.ne_y && formik.errors.ne_y,
+              },
+              {
+                "is-valid": formik.touched.ne_y && !formik.errors.ne_y,
+              }
+            )}
+            type="number"
+            name="ne_y"
+            autoComplete="off"
+          />
+          {formik.touched.ne_y && formik.errors.ne_y && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.ne_y}</span>
               </div>
             </div>
           )}
