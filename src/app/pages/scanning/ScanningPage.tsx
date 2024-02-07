@@ -130,9 +130,9 @@ const ScanningPage = () => {
                 slides &&
                 slides.length > 0 &&
                 slides.map((slide: SlideModel, _index: number) => {
-                  const scan = data?.data.find(
-                    (item: ScanModel) => item.nth === slide.nth
-                  );
+                  // const scan = data?.data.find(
+                  //   (item: ScanModel) => item.nth === slide.nth
+                  // );
 
                   return (
                     <SlideRow
@@ -140,7 +140,7 @@ const ScanningPage = () => {
                       formik={formik}
                       key={_index}
                       slide={slide}
-                      scan={scan}
+                      // scan={scan}
                     />
                   );
                 })}

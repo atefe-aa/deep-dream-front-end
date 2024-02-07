@@ -1,56 +1,93 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { RegionSelector } from "./RegionSelector";
 import clsx from "clsx";
 import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
 import { usePusher } from "../../hooks/usePusher";
-
+import Echo from "laravel-echo";
+import Pusher from "pusher-js";
+declare global {
+  interface Window {
+    Echo: Echo;
+    Pusher: typeof Pusher;
+  }
+}
+window.Pusher = Pusher;
 
 type Props = {
   slide: SlideModel;
-  scan:ScanModel;
+  // scan:ScanModel;
   formik: any;
   handleCheckboxChange: Function;
 };
 
 const SlideRow: React.FC<Props> = ({
   slide,
-  scan,
+  // scan,
   formik,
   handleCheckboxChange,
 }) => {
 
-  console.log(slide, scan)
-  // const [scanningStatus, setScanningStatus] = useState("");
-  // usePusher(`slides.${slide.nth}`, ".FullSlideScanned", (data: any) => {
-  //   setScanningStatus(data.data.error);
-  // });
+  // console.log(slide, scan)
+  const [scanningStatus, setScanningStatus] = useState("");
+  usePusher(`slides.${slide.nth}`, 'FullSlideScanned', (data: any) => {
+    setScanningStatus(data.data.error);
+  });
+console.log(scanningStatus);
 
+
+// useEffect(() => {
+//   window.Echo = new Echo({
+//     broadcaster: "pusher",
+//     key: import.meta.env.VITE_PUSHER_APP_KEY,
+//     cluster: "mt1",
+//     encrypted: true,
+
+//     wsHost: '127.0.0.1',
+//     wsPort: 6001,
+//     wssPort: 6001, // Use if you have SSL configured for localhost
+//     forceTLS: false, // Set to false for local development without SSL
+//     disableStatus: true,
+//     enabledTransports: ["ws"],
+//   });
+
+//   // Listening for an event
+//   window.Echo.channel("test-channel").listen(".testing", (e: string) => {
+//     console.log("Event data:", e);
+//     console.log(666666);
+//   });
+
+//   return () => {
+//     if (window.Echo) {
+//       window.Echo.disconnect();
+//     }
+//   };
+// }, []);
 
   let progressPercent = 0;
   let progressBg = "info";
-  if(scan){
-      switch (scan.progress) {
-    case "ready":
-      progressPercent = 5;
-      progressBg = "warning";
-      break;
-    case "scanning":
-      progressPercent = 50;
-      progressBg = "primary";
-      break;
-    case "scanned":
-      progressPercent = 100;
-      progressBg = "success";
-      break;
+  // if(scan){
+  //     switch (scan.progress) {
+  //   case "ready":
+  //     progressPercent = 5;
+  //     progressBg = "warning";
+  //     break;
+  //   case "scanning":
+  //     progressPercent = 50;
+  //     progressBg = "primary";
+  //     break;
+  //   case "scanned":
+  //     progressPercent = 100;
+  //     progressBg = "success";
+  //     break;
 
-    case "failed":
-      progressPercent = 100;
-      progressBg = "danger";
-      break;
-  }
+  //   case "failed":
+  //     progressPercent = 100;
+  //     progressBg = "danger";
+  //     break;
+  // }
 
-  }
+  // }
 
   return (
     <tr>
@@ -75,11 +112,12 @@ const SlideRow: React.FC<Props> = ({
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
             {slide.nth}
           </a>
+          {scanningStatus}
         </div>
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
-          {scan && scan?.testNumber ? (
+          {/* {scan && scan?.testNumber ? (
             <a
               href="#"
               className="text-gray-900 fw-bold text-hover-primary fs-6"
@@ -105,7 +143,7 @@ const SlideRow: React.FC<Props> = ({
                 }
               )}
             />
-          )}
+          )} */}
           {formik.touched.testNumber && formik.errors.testNumber && (
             <div className="fv-plugins-message-container">
               <div className="fv-help-block">
@@ -118,14 +156,14 @@ const SlideRow: React.FC<Props> = ({
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {scan && scan.testType}
+            {/* {scan && scan.testType} */}
           </a>
         </div>
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {scan && scan.laboratory}
+            {/* {scan && scan.laboratory} */}
           </a>
         </div>
       </td>
@@ -133,7 +171,7 @@ const SlideRow: React.FC<Props> = ({
         <div className="d-flex flex-column w-100 me-2">
           <div className="d-flex flex-stack mb-2">
             <span className="text-muted me-2 fs-7 fw-semibold">
-              {scan && scan.progress}
+              {/* {scan && scan.progress} */}
             </span>
           </div>
           <div className="progress h-6px w-100">
@@ -150,7 +188,7 @@ const SlideRow: React.FC<Props> = ({
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {scan && scan.duration}
+            {/* {scan && scan.duration} */}
           </a>
         </div>
       </td>
@@ -161,17 +199,17 @@ const SlideRow: React.FC<Props> = ({
         <div className="d-flex justify-content-end flex-shrink-0">
           <DropDownButton>
             {/* Start Action */}
-            {scan && scan?.progress === "ready" && (
+            {/* {scan && scan?.progress === "ready" && (
               <div className="menu-item px-3">
                 <a href="#" className="menu-link px-3">
                   <KTIcon iconName="to-right" className="fs-3 me-3" />
                   Start Scanning
                 </a>
               </div>
-            )}
+            )} */}
 
             {/* View Action */}
-            {scan && scan?.progress === "scanned" && (
+            {/* {scan && scan?.progress === "scanned" && (
               <div className="menu-item px-3">
                 <a
                   target="_blank"
@@ -183,17 +221,17 @@ const SlideRow: React.FC<Props> = ({
                   View Image
                 </a>
               </div>
-            )}
+            )} */}
 
             {/* Try Again Action */}
-            {scan && scan?.progress === "failed" && (
+            {/* {scan && scan?.progress === "failed" && (
               <div className="menu-item px-3">
                 <a href="#" className="menu-link px-3">
                   <KTIcon iconName="arrows-circle" className="fs-3 me-3" />
                   Try Again
                 </a>
               </div>
-            )}
+            )} */}
 
             <div className="menu-item px-3 my-1">
               <a
@@ -212,11 +250,11 @@ const SlideRow: React.FC<Props> = ({
 
       <td className="text-center">
         <div className="d-flex flex-column " style={{ width: "max-content" }}>
-          {scan && scan?.image ? (
+          {/* {scan && scan?.image ? (
             <RegionSelector image={scan.image} />
           ) : (
             <h6 className="text-muted">No image yet.</h6>
-          )}
+          )} */}
         </div>
       </td>
     </tr>
