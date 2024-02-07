@@ -1,9 +1,11 @@
 import { FC, useState } from "react";
 import { KTIcon, toAbsoluteUrl } from "../../../../_metronic/helpers";
-import { Tab, Tabs } from "react-bootstrap";
+import { Spinner, Tab, Tabs } from "react-bootstrap";
 import { counsellorsData, defaultAlerts } from "../../../utils/constants";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
+import { useCounsellors } from "../../user-management/counsellors/hooks/useCounsellors";
+import { CounsellorModel } from "../../user-management/counsellors/core/_models";
 
 type Props = {
   backgrounUrl: string;
@@ -30,6 +32,8 @@ const ShareMenu: FC<Props> = ({ backgrounUrl, patientId }) => {
     });
   }
   const [key, setKey] = useState("share");
+
+  const {isLoading,counsellors:counsellorsList} = useCounsellors('noPaginate=true')
   return (
     <div
       className="d-flex flex-column bgi-no-repeat rounded-top"
@@ -80,7 +84,7 @@ const ShareMenu: FC<Props> = ({ backgrounUrl, patientId }) => {
                     data-bs-parent={`#accordion_${patientId}`}
                   >
                     <div className="accordion-body">
-                      {counsellorsData.map((coun) => (
+                      {isLoading?<Spinner animation="grow" /> : counsellorsList.map((coun:CounsellorModel) => (
                         <div
                           className="d-flex"
                           key={coun.id}

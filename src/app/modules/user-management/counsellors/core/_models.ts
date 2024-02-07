@@ -1,6 +1,6 @@
 export interface CounsellorModel {
   name: string;
-  id?: number;
+  id: number;
   phone: string;
   labId?: number;
   labName?: string;
