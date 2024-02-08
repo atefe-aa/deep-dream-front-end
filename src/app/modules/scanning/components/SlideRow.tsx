@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { RegionSelector } from "./RegionSelector";
 import clsx from "clsx";
@@ -6,6 +6,7 @@ import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
 import { usePusher } from "../../hooks/usePusher";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
+import { IArea } from "@bmunozg/react-image-area";
 declare global {
   interface Window {
     Echo: Echo;
@@ -19,12 +20,14 @@ type Props = {
   // scan:ScanModel;
   formik: any;
   handleCheckboxChange: Function;
+  handleSetAreas: (slideId: number, regions: IArea[]) => void;
 };
 
 const SlideRow: React.FC<Props> = ({
   slide,
   // scan,
   formik,
+  handleSetAreas,
   handleCheckboxChange,
 }) => {
 
@@ -220,6 +223,7 @@ const SlideRow: React.FC<Props> = ({
 
       <td className="text-center">
         <div className="d-flex flex-column " style={{ width: "max-content" }}>
+        <RegionSelector handleSetAreas={handleSetAreas} slideId={slide.id} image="media/slides/slide1.png" />
           {/* {scan && scan?.image ? (
             <RegionSelector image={scan.image} />
           ) : (

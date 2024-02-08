@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
 import { SlidesTable } from "../../modules/scanning/components/SlidesTable";
 import { SlideRow } from "../../modules/scanning/components/SlideRow";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Timer from "../../modules/scanning/components/Timer";
-import { SlidesFakeData } from "../../utils/constants";
 
 import { useStartFullSlideScanning } from "../../modules/scanning/hooks/useStartFullSlideScanning";
-import { usePusher } from "../../modules/hooks/usePusher";
 import { useSlides } from "../../modules/settings/slides/hooks/useSlides";
-import { log } from "console";
+import { useState } from "react";
+import { RegionSelector } from "../../modules/scanning/components/RegionSelector";
+import { IArea } from "@bmunozg/react-image-area";
 
 interface FormValues {
   selectedCheckboxes: number[];
@@ -26,8 +25,31 @@ const addSchema = Yup.object().shape({
     .min(1, "Select at least one slide!")
     .required("Select at least one slide!"),
 });
-
+export interface SelectedRegion {
+  slideId: number;
+  regions: IArea[];
+}
 const ScanningPage = () => {
+  const [selectedRegions, setSelectedRegions] = useState<SelectedRegion[]>([]);
+
+  const handleRegionSelection = (slideId: number, regions: IArea[]) => {
+    setSelectedRegions((prevRegions) => {
+      // Check if there's already an entry for this slide
+      const existingIndex = prevRegions.findIndex((entry) => entry.slideId === slideId);
+  
+      if (existingIndex !== -1) {
+        // Update the existing entry with the new regions
+        const updatedRegions = [...prevRegions];
+        updatedRegions[existingIndex] = { slideId, regions };
+        return updatedRegions;
+      } else {
+        // Add a new entry for this slide
+        return [...prevRegions, { slideId, regions }];
+      }
+    });
+  };
+  
+
   const { isStarting, startFullSlideScanning, data } =
     useStartFullSlideScanning();
 
@@ -105,7 +127,7 @@ const ScanningPage = () => {
             )}
           </button>
           <div>
-            <Timer />
+            <Timer selectedRegions={selectedRegions}  />
           </div>
         </div>
         {/* end::Action */}
@@ -139,6 +161,7 @@ const ScanningPage = () => {
                       formik={formik}
                       key={_index}
                       slide={slide}
+                      handleSetAreas={handleRegionSelection}
                       // scan={scan}
                     />
                   );
