@@ -4,10 +4,10 @@ import { RegionSelector } from "./RegionSelector";
 import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
-import { IArea } from "@bmunozg/react-image-area";
 import { useScan } from "../hooks/useScan";
 import { useUpdateScan } from "../hooks/useUpdateScan";
 import { Spinner } from "react-bootstrap";
+import { AreaModel, SlideModel } from "../core/_models";
 declare global {
   interface Window {
     Echo: Echo;
@@ -20,7 +20,7 @@ type Props = {
   slide: SlideModel;
   formik: any;
   handleCheckboxChange: Function;
-  handleSetAreas: (scanId: number, regions: IArea[]) => void;
+  handleSetAreas: (scanId: number, regions: AreaModel[]) => void;
 };
 
 const SlideRow: React.FC<Props> = ({
@@ -44,13 +44,13 @@ const SlideRow: React.FC<Props> = ({
       setScanData((prev) => ({ ...prev, [name]: numericValue, id: scan?.id }));
     }
   }
+
   useEffect(() => {
-   
     if (scanData.slideNumber > 0 && scanData.testId > 0) {
       updateScan(scanData);
     }
-  }, [scanData, updateScan]); 
-  
+  }, [scanData, updateScan]);
+
   // const [scanningStatus, setScanningStatus] = useState("");
   // usePusher(`slides.${slide.nth}`, 'FullSlideScanned', (data: any) => {
   //   setScanningStatus(data.data.error);
@@ -100,11 +100,12 @@ const SlideRow: React.FC<Props> = ({
           <input
             {...formik.getFieldProps("selectedCheckboxes")}
             checked={
-              formik.values.selectAll ||
-              formik.values.selectedCheckboxes.includes(slide.nth)
+              ((!isLoading && !scan) || !scan.id) &&
+              (formik.values.selectAll ||
+                formik.values.selectedCheckboxes.includes(slide.nth))
             }
             onChange={handleCheckboxChange}
-            disabled={!isLoading && scan && scan.length > 0}
+            disabled={!isLoading && scan && scan.id}
             className="form-check-input widget-9-check"
             type="checkbox"
             value={slide.nth}
@@ -129,16 +130,20 @@ const SlideRow: React.FC<Props> = ({
               {scan.testNumber}
             </a>
           ) : (
-            <input
-              type="number"
-              min={0}
-              autoComplete="off"
-              placeholder="Enter Test Number"
-              onBlur={handleUpdateScan}
-              disabled={isUpdating}
-              name="testId"
-              className="p-2 rounded text-center w-80px bg-transparent"
-            />
+            scan &&
+            scan.id &&
+            !scan.testNumber && scan.progress === '2x-scanned' && (
+              <input
+                type="number"
+                min={0}
+                autoComplete="off"
+                placeholder="Enter Test Number"
+                onBlur={handleUpdateScan}
+                disabled={isUpdating}
+                name="testId"
+                className="p-2 rounded text-center w-80px bg-transparent"
+              />
+            )
           )}
         </div>
       </td>
@@ -152,16 +157,20 @@ const SlideRow: React.FC<Props> = ({
               {scan.slideNumber}
             </a>
           ) : (
-            <input
-              type="number"
-              min={0}
-              autoComplete="off"
-              placeholder="Enter Slide Number"
-              onBlur={handleUpdateScan}
-              disabled={isUpdating}
-              name="slideNumber"
-              className="p-2 rounded text-center w-80px bg-transparent"
-            />
+            scan &&
+            scan.id &&
+            !scan.testNumber && scan.progress === '2x-scanned' && (
+              <input
+                type="number"
+                min={0}
+                autoComplete="off"
+                placeholder="Enter Slide Number"
+                onBlur={handleUpdateScan}
+                disabled={isUpdating}
+                name="slideNumber"
+                className="p-2 rounded text-center w-80px bg-transparent"
+              />
+            )
           )}
         </div>
       </td>

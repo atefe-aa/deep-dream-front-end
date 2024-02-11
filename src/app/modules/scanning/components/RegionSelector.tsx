@@ -1,34 +1,42 @@
 import { AreaSelector, IArea } from "@bmunozg/react-image-area";
 import { useState } from "react";
+import { AreaModel } from "../core/_models";
 
 const slide = {
   width: 75,
   height: 25,
 };
 
+
+
 type Props = {
   image: string;
   scanId: number;
-  handleSetAreas: (scanId: number, regions: IArea[]) => void;
+  handleSetAreas: (scanId: number, regions: AreaModel[]) => void;
 };
 const RegionSelector: React.FC<Props> = ({ image, scanId, handleSetAreas }) => {
   const [areas, setAreas] = useState<IArea[]>([]);
 
   const getCoordinates = (area: IArea) => {
     return {
-      start: {
+      sw: {
         x: (area.x * slide.width) / 100,
         y: (area.y * slide.height) / 100,
       },
-      end: {
+      ne: {
         x: (area.x * slide.width) / 100 + (area.width * slide.width) / 100,
         y: (area.y * slide.height) / 100 + (area.height * slide.height) / 100,
       },
     };
   };
+  const jjj = {
+    sw: { x: "$this->sw_x", y: "$this->sw_y" },
+    ne: { x: "$this->ne_x", y: "$this->ne_y" },
+  };
   const onChangeHandler = (areas: IArea[]) => {
     setAreas(areas);
-    handleSetAreas(scanId, areas);
+    const convertedAreas = areas.map((area) => getCoordinates(area));
+    handleSetAreas(scanId, convertedAreas);
   };
 
   const handleReset = () => {
@@ -46,25 +54,25 @@ const RegionSelector: React.FC<Props> = ({ image, scanId, handleSetAreas }) => {
                 <div className="me-3">
                   NW x:{" "}
                   <span className="text-muted">
-                    {Math.round(coordinates.start.x)}
+                    {Math.round(coordinates.sw.x)}
                   </span>
                 </div>
                 <div className="me-3">
                   NW y:{" "}
                   <span className="text-muted">
-                    {Math.round(coordinates.start.y)}
+                    {Math.round(coordinates.sw.y)}
                   </span>
                 </div>{" "}
                 <div className="me-3">
                   SE x:{" "}
                   <span className="text-muted">
-                    {Math.round(coordinates.end.x)}
+                    {Math.round(coordinates.ne.x)}
                   </span>
                 </div>
                 <div className="me-3">
                   SE y:{" "}
                   <span className="text-muted">
-                    {Math.round(coordinates.end.y)}
+                    {Math.round(coordinates.ne.y)}
                   </span>
                 </div>
               </div>

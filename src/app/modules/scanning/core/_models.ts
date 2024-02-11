@@ -1,4 +1,4 @@
-interface SlideModel {
+export interface SlideModel {
   id: number;
   nth: number;
   sw_x: number;
@@ -7,7 +7,7 @@ interface SlideModel {
   ne_y: number;
 }
 
-interface ScanModel {
+export interface ScanModel {
   id?: number;
   nth?: number;
   slideNumber?: number;
@@ -18,4 +18,15 @@ interface ScanModel {
   testType?: string;
   progress?: string;
   duration?: number;
+}
+
+export interface AreaModel {
+  sw: {
+    x: number;
+    y: number;
+  };
+  ne: {
+    x: number;
+    y: number;
+  };
 }

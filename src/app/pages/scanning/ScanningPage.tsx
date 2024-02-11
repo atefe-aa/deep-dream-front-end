@@ -7,8 +7,7 @@ import Timer from "../../modules/scanning/components/Timer";
 import { useStartFullSlideScanning } from "../../modules/scanning/hooks/useStartFullSlideScanning";
 import { useSlides } from "../../modules/settings/slides/hooks/useSlides";
 import { useState } from "react";
-import { RegionSelector } from "../../modules/scanning/components/RegionSelector";
-import { IArea } from "@bmunozg/react-image-area";
+import { AreaModel, SlideModel } from "../../modules/scanning/core/_models";
 
 interface FormValues {
   selectedCheckboxes: number[];
@@ -27,12 +26,12 @@ const addSchema = Yup.object().shape({
 });
 export interface SelectedRegion {
   scanId: number;
-  regions: IArea[];
+  regions: AreaModel[];
 }
 const ScanningPage = () => {
   const [selectedRegions, setSelectedRegions] = useState<SelectedRegion[]>([]);
 
-  const handleRegionSelection = (scanId: number, regions: IArea[]) => {
+  const handleRegionSelection = (scanId: number, regions: AreaModel[]) => {
     setSelectedRegions((prevRegions) => {
       // Check if there's already an entry for this slide
       const existingIndex = prevRegions.findIndex(
@@ -152,10 +151,6 @@ const ScanningPage = () => {
                 slides &&
                 slides.length > 0 &&
                 slides.map((slide: SlideModel, _index: number) => {
-                  // const scan = data?.data.find(
-                  //   (item: ScanModel) => item.nth === slide.nth
-                  // );
-
                   return (
                     <SlideRow
                       handleCheckboxChange={handleCheckboxChange}
