@@ -10,6 +10,7 @@ interface SlideModel {
 interface ScanModel {
   id?: number;
   nth?: number;
+  slideNumber?: number;
   image?: string;
   slideImage?: string;
   laboratory?: string;

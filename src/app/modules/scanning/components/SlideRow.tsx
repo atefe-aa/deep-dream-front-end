@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { RegionSelector } from "./RegionSelector";
 import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
@@ -6,7 +6,8 @@ import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 import { IArea } from "@bmunozg/react-image-area";
 import { useScan } from "../hooks/useScan";
-import clsx from "clsx";
+import { useUpdateScan } from "../hooks/useUpdateScan";
+import { Spinner } from "react-bootstrap";
 declare global {
   interface Window {
     Echo: Echo;
@@ -28,10 +29,28 @@ const SlideRow: React.FC<Props> = ({
   handleSetAreas,
   handleCheckboxChange,
 }) => {
+  const { scan, isLoading } = useScan(slide.nth);
+  const [scanData, setScanData] = useState({
+    testId: 0,
+    slideNumber: 0,
+    id: scan?.id,
+  });
+  const { updateScan, isUpdating } = useUpdateScan(slide.nth);
 
-  const {scan, isLoading}=useScan(slide.nth);
-  if (isLoading) return;
-  console.log( scan)
+  function handleUpdateScan(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value, name } = e.target;
+    const numericValue = parseInt(value, 10); // Convert value to a number
+    if (name === "testId" || name === "slideNumber") {
+      setScanData((prev) => ({ ...prev, [name]: numericValue, id: scan?.id }));
+    }
+  }
+  useEffect(() => {
+   
+    if (scanData.slideNumber > 0 && scanData.testId > 0) {
+      updateScan(scanData);
+    }
+  }, [scanData, updateScan]); 
+  
   // const [scanningStatus, setScanningStatus] = useState("");
   // usePusher(`slides.${slide.nth}`, 'FullSlideScanned', (data: any) => {
   //   setScanningStatus(data.data.error);
@@ -39,33 +58,41 @@ const SlideRow: React.FC<Props> = ({
 
   let progressPercent = 0;
   let progressBg = "info";
-  if(!isLoading && scan){
-      switch (scan.progress) {
-    case "ready":
-      progressPercent = 5;
-      progressBg = "warning";
-      break;
-    case "scanning":
-      progressPercent = 50;
-      progressBg = "primary";
-      break;
-    case "2x-scanned":
-      progressPercent = 50;
-      progressBg = "success";
-      break;
-    case "scanned":
-      progressPercent = 100;
-      progressBg = "success";
-      break;
+  if (!isLoading && scan) {
+    switch (scan.progress) {
+      case "ready":
+        progressPercent = 5;
+        progressBg = "warning";
+        break;
+      case "scanning":
+        progressPercent = 50;
+        progressBg = "primary";
+        break;
+      case "2x-scanned":
+        progressPercent = 50;
+        progressBg = "success";
+        break;
+      case "scanned":
+        progressPercent = 100;
+        progressBg = "success";
+        break;
 
-    case "failed":
-      progressPercent = 100;
-      progressBg = "danger";
-      break;
+      case "failed":
+        progressPercent = 100;
+        progressBg = "danger";
+        break;
+    }
   }
-
+  if (isLoading) {
+    return (
+      <tr>
+        <td colSpan={20} className="text-center">
+          <span className="text-muted"> Loading...</span>
+          <Spinner animation="border" size="sm" />
+        </td>
+      </tr>
+    ); // Or any other loading indicator
   }
-
   return (
     <tr>
       <td className="text-center">
@@ -99,7 +126,7 @@ const SlideRow: React.FC<Props> = ({
               href="#"
               className="text-gray-900 fw-bold text-hover-primary fs-6"
             >
-              {scan.testNumber} 
+              {scan.testNumber}
             </a>
           ) : (
             <input
@@ -107,12 +134,35 @@ const SlideRow: React.FC<Props> = ({
               min={0}
               autoComplete="off"
               placeholder="Enter Test Number"
-            
-              className=
-                "p-2 rounded text-center w-80px bg-transparent"
+              onBlur={handleUpdateScan}
+              disabled={isUpdating}
+              name="testId"
+              className="p-2 rounded text-center w-80px bg-transparent"
             />
           )}
-         
+        </div>
+      </td>
+      <td className="text-center">
+        <div className="d-flex justify-content-start flex-column">
+          {scan && scan?.slideNumber ? (
+            <a
+              href="#"
+              className="text-gray-900 fw-bold text-hover-primary fs-6"
+            >
+              {scan.slideNumber}
+            </a>
+          ) : (
+            <input
+              type="number"
+              min={0}
+              autoComplete="off"
+              placeholder="Enter Slide Number"
+              onBlur={handleUpdateScan}
+              disabled={isUpdating}
+              name="slideNumber"
+              className="p-2 rounded text-center w-80px bg-transparent"
+            />
+          )}
         </div>
       </td>
       <td className="text-center">
@@ -145,7 +195,6 @@ const SlideRow: React.FC<Props> = ({
           </div>
         </div>
       </td>
-
       {/* start::Durations */}
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
@@ -155,7 +204,6 @@ const SlideRow: React.FC<Props> = ({
         </div>
       </td>
       {/* end::Durations */}
-
       <td className="text-center">
         {/* Actions */}
         <div className="d-flex justify-content-end flex-shrink-0">
@@ -209,14 +257,14 @@ const SlideRow: React.FC<Props> = ({
           </DropDownButton>
         </div>
       </td>
-
       <td className="text-center">
         <div className="d-flex flex-column " style={{ width: "max-content" }}>
-        
           {scan && scan?.slideImage ? (
-            <RegionSelector     handleSetAreas={handleSetAreas}
-            scanId={scan.id}
-            image={scan.slideImage} />
+            <RegionSelector
+              handleSetAreas={handleSetAreas}
+              scanId={scan.id}
+              image={scan.slideImage}
+            />
           ) : (
             <h6 className="text-muted">No image yet.</h6>
           )}

@@ -1,18 +1,19 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { request } from "../../../../utils/requestHelpers";
-
+import { request } from "../../../utils/requestHelpers";
 
 const API_URL = import.meta.env.VITE_APP_API_URL_;
-const BASE_URL = `${API_URL}/settings`;
+const BASE_URL = `${API_URL}/scan/addTestId`;
+
 interface dataModel {
-  value: number;
+  testId: number;
+  slideNumber: number;
   id: number;
 }
-export function useUpdateSetting() {
+export function useUpdateScan(nthSlide :number) {
   const queryClient = useQueryClient();
   const {
-    mutate: updateSetting,
+    mutate: updateScan,
     isPending: isUpdating,
     error,
     data,
@@ -20,15 +21,15 @@ export function useUpdateSetting() {
     mutationFn: (itemData: dataModel) =>
       request(
         "",
-        "Setting",
+        "Scan",
         BASE_URL,
-        { value: itemData.value },
-        "PUT",
+        { testId: itemData.testId, slideNumber: itemData.slideNumber },
+        "POST",
         itemData.id
       ),
     onSuccess: () => {
-      toast.success("Setting's updated.");
-      queryClient.invalidateQueries({ queryKey: ["settings"] });
+      toast.success("Scan's updated.");
+      queryClient.invalidateQueries({ queryKey: ["scan", nthSlide] });
     },
     onError: (err) => {
       toast.error(err.message);
@@ -37,7 +38,7 @@ export function useUpdateSetting() {
   });
 
   return {
-    updateSetting,
+    updateScan,
     isUpdating,
     error,
     data,

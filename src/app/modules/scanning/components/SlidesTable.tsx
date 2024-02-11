@@ -38,6 +38,7 @@ const SlidesTable: React.FC<Props> = ({
                 </th>
                 <th className="min-w-50px text-center">Slide</th>
                 <th className="min-w-80px text-center">Number</th>
+                <th className="min-w-80px text-center">Slide Number</th>
                 <th className="min-w-50px text-center">Test Type</th>
                 <th className="min-w-50px text-center">Laboratory</th>
                 <th className="min-w-50px text-center">Status</th>
