@@ -8,14 +8,10 @@ const slide = {
 
 type Props = {
   image: string;
-  slideId: number;
-  handleSetAreas: (slideId: number, regions: IArea[]) => void;
+  scanId: number;
+  handleSetAreas: (scanId: number, regions: IArea[]) => void;
 };
-const RegionSelector: React.FC<Props> = ({
-  image,
-  slideId,
-  handleSetAreas,
-}) => {
+const RegionSelector: React.FC<Props> = ({ image, scanId, handleSetAreas }) => {
   const [areas, setAreas] = useState<IArea[]>([]);
 
   const getCoordinates = (area: IArea) => {
@@ -32,7 +28,7 @@ const RegionSelector: React.FC<Props> = ({
   };
   const onChangeHandler = (areas: IArea[]) => {
     setAreas(areas);
-    handleSetAreas(slideId,areas);
+    handleSetAreas(scanId, areas);
   };
 
   const handleReset = () => {
@@ -46,7 +42,7 @@ const RegionSelector: React.FC<Props> = ({
           areas.map((area) => {
             const coordinates = getCoordinates(area);
             return (
-              <div key={area.x+area.y} className=" d-flex">
+              <div key={area.x + area.y} className=" d-flex">
                 <div className="me-3">
                   NW x:{" "}
                   <span className="text-muted">

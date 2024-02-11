@@ -11,7 +11,7 @@ interface ScanModel {
   id?: number;
   nth?: number;
   image?: string;
-  cytomine?: string;
+  slideImage?: string;
   laboratory?: string;
   testNumber?: number;
   testType?: string;

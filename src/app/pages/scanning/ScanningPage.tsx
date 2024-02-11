@@ -26,29 +26,30 @@ const addSchema = Yup.object().shape({
     .required("Select at least one slide!"),
 });
 export interface SelectedRegion {
-  slideId: number;
+  scanId: number;
   regions: IArea[];
 }
 const ScanningPage = () => {
   const [selectedRegions, setSelectedRegions] = useState<SelectedRegion[]>([]);
 
-  const handleRegionSelection = (slideId: number, regions: IArea[]) => {
+  const handleRegionSelection = (scanId: number, regions: IArea[]) => {
     setSelectedRegions((prevRegions) => {
       // Check if there's already an entry for this slide
-      const existingIndex = prevRegions.findIndex((entry) => entry.slideId === slideId);
-  
+      const existingIndex = prevRegions.findIndex(
+        (entry) => entry.scanId === scanId
+      );
+
       if (existingIndex !== -1) {
         // Update the existing entry with the new regions
         const updatedRegions = [...prevRegions];
-        updatedRegions[existingIndex] = { slideId, regions };
+        updatedRegions[existingIndex] = { scanId, regions };
         return updatedRegions;
       } else {
         // Add a new entry for this slide
-        return [...prevRegions, { slideId, regions }];
+        return [...prevRegions, { scanId, regions }];
       }
     });
   };
-  
 
   const { isStarting, startFullSlideScanning, data } =
     useStartFullSlideScanning();
@@ -127,7 +128,7 @@ const ScanningPage = () => {
             )}
           </button>
           <div>
-            <Timer selectedRegions={selectedRegions}  />
+            <Timer selectedRegions={selectedRegions} />
           </div>
         </div>
         {/* end::Action */}
@@ -162,7 +163,6 @@ const ScanningPage = () => {
                       key={_index}
                       slide={slide}
                       handleSetAreas={handleRegionSelection}
-                      // scan={scan}
                     />
                   );
                 })}

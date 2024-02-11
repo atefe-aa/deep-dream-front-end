@@ -1,12 +1,12 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { RegionSelector } from "./RegionSelector";
-import clsx from "clsx";
 import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
-import { usePusher } from "../../hooks/usePusher";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 import { IArea } from "@bmunozg/react-image-area";
+import { useScan } from "../hooks/useScan";
+import clsx from "clsx";
 declare global {
   interface Window {
     Echo: Echo;
@@ -17,51 +17,54 @@ window.Pusher = Pusher;
 
 type Props = {
   slide: SlideModel;
-  // scan:ScanModel;
   formik: any;
   handleCheckboxChange: Function;
-  handleSetAreas: (slideId: number, regions: IArea[]) => void;
+  handleSetAreas: (scanId: number, regions: IArea[]) => void;
 };
 
 const SlideRow: React.FC<Props> = ({
   slide,
-  // scan,
   formik,
   handleSetAreas,
   handleCheckboxChange,
 }) => {
 
-  // console.log(slide, scan)
+  const {scan, isLoading}=useScan(slide.nth);
+  if (isLoading) return;
+  console.log( scan)
   // const [scanningStatus, setScanningStatus] = useState("");
   // usePusher(`slides.${slide.nth}`, 'FullSlideScanned', (data: any) => {
   //   setScanningStatus(data.data.error);
   // });
 
-
   let progressPercent = 0;
   let progressBg = "info";
-  // if(scan){
-  //     switch (scan.progress) {
-  //   case "ready":
-  //     progressPercent = 5;
-  //     progressBg = "warning";
-  //     break;
-  //   case "scanning":
-  //     progressPercent = 50;
-  //     progressBg = "primary";
-  //     break;
-  //   case "scanned":
-  //     progressPercent = 100;
-  //     progressBg = "success";
-  //     break;
+  if(!isLoading && scan){
+      switch (scan.progress) {
+    case "ready":
+      progressPercent = 5;
+      progressBg = "warning";
+      break;
+    case "scanning":
+      progressPercent = 50;
+      progressBg = "primary";
+      break;
+    case "2x-scanned":
+      progressPercent = 50;
+      progressBg = "success";
+      break;
+    case "scanned":
+      progressPercent = 100;
+      progressBg = "success";
+      break;
 
-  //   case "failed":
-  //     progressPercent = 100;
-  //     progressBg = "danger";
-  //     break;
-  // }
+    case "failed":
+      progressPercent = 100;
+      progressBg = "danger";
+      break;
+  }
 
-  // }
+  }
 
   return (
     <tr>
@@ -74,6 +77,7 @@ const SlideRow: React.FC<Props> = ({
               formik.values.selectedCheckboxes.includes(slide.nth)
             }
             onChange={handleCheckboxChange}
+            disabled={!isLoading && scan && scan.length > 0}
             className="form-check-input widget-9-check"
             type="checkbox"
             value={slide.nth}
@@ -90,7 +94,7 @@ const SlideRow: React.FC<Props> = ({
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
-          {/* {scan && scan?.testNumber ? (
+          {scan && scan?.testNumber ? (
             <a
               href="#"
               className="text-gray-900 fw-bold text-hover-primary fs-6"
@@ -103,40 +107,25 @@ const SlideRow: React.FC<Props> = ({
               min={0}
               autoComplete="off"
               placeholder="Enter Test Number"
-              {...formik.getFieldProps("testNumber")}
-              className={clsx(
-                "p-2 rounded text-center w-80px bg-transparent",
-                {
-                  "is-invalid":
-                    formik.touched.testNumber && formik.errors.testNumber,
-                },
-                {
-                  "is-valid":
-                    formik.touched.testNumber && !formik.errors.testNumber,
-                }
-              )}
+            
+              className=
+                "p-2 rounded text-center w-80px bg-transparent"
             />
-          )} */}
-          {formik.touched.testNumber && formik.errors.testNumber && (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">
-                <span role="alert">{formik.errors.testNumber}</span>
-              </div>
-            </div>
           )}
+         
         </div>
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {/* {scan && scan.testType} */}
+            {scan && scan.testType}
           </a>
         </div>
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {/* {scan && scan.laboratory} */}
+            {scan && scan.laboratory}
           </a>
         </div>
       </td>
@@ -144,7 +133,7 @@ const SlideRow: React.FC<Props> = ({
         <div className="d-flex flex-column w-100 me-2">
           <div className="d-flex flex-stack mb-2">
             <span className="text-muted me-2 fs-7 fw-semibold">
-              {/* {scan && scan.progress} */}
+              {scan && scan.progress}
             </span>
           </div>
           <div className="progress h-6px w-100">
@@ -161,7 +150,7 @@ const SlideRow: React.FC<Props> = ({
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {/* {scan && scan.duration} */}
+            {scan && scan.duration}
           </a>
         </div>
       </td>
@@ -172,39 +161,39 @@ const SlideRow: React.FC<Props> = ({
         <div className="d-flex justify-content-end flex-shrink-0">
           <DropDownButton>
             {/* Start Action */}
-            {/* {scan && scan?.progress === "ready" && (
+            {scan && scan?.progress === "ready" && (
               <div className="menu-item px-3">
                 <a href="#" className="menu-link px-3">
                   <KTIcon iconName="to-right" className="fs-3 me-3" />
                   Start Scanning
                 </a>
               </div>
-            )} */}
+            )}
 
             {/* View Action */}
-            {/* {scan && scan?.progress === "scanned" && (
+            {scan && scan?.progress === "scanned" && (
               <div className="menu-item px-3">
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="http://magic.deepdream.ir/#/project/161/image/15163/slice/15164?viewer=6y64q4v83"
+                  href={scan.image}
                   className="menu-link px-3"
                 >
                   <KTIcon iconName="eye" className="fs-3 me-3" />
                   View Image
                 </a>
               </div>
-            )} */}
+            )}
 
             {/* Try Again Action */}
-            {/* {scan && scan?.progress === "failed" && (
+            {scan && scan?.progress === "failed" && (
               <div className="menu-item px-3">
                 <a href="#" className="menu-link px-3">
                   <KTIcon iconName="arrows-circle" className="fs-3 me-3" />
                   Try Again
                 </a>
               </div>
-            )} */}
+            )}
 
             <div className="menu-item px-3 my-1">
               <a
@@ -223,12 +212,14 @@ const SlideRow: React.FC<Props> = ({
 
       <td className="text-center">
         <div className="d-flex flex-column " style={{ width: "max-content" }}>
-        <RegionSelector handleSetAreas={handleSetAreas} slideId={slide.id} image="media/slides/slide1.png" />
-          {/* {scan && scan?.image ? (
-            <RegionSelector image={scan.image} />
+        
+          {scan && scan?.slideImage ? (
+            <RegionSelector     handleSetAreas={handleSetAreas}
+            scanId={scan.id}
+            image={scan.slideImage} />
           ) : (
             <h6 className="text-muted">No image yet.</h6>
-          )} */}
+          )}
         </div>
       </td>
     </tr>

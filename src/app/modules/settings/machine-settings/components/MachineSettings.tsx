@@ -59,9 +59,9 @@ function MachineSettings() {
                       <SettingFormGroup
                         value={item.value}
                         key={item.id}
-                        label={capitalizeWords(item.key)}
+                        label={capitalizeWords(item.key.replace(/-/g,' '))}
                         type="number"
-                        placeHolder={capitalizeWords(item.key)}
+                        placeHolder={capitalizeWords(item.key.replace(/-/g,' '))}
                         isLoading={isUpdating}
                         id={item.id}
                         inputName={`${item.key}-${item.id}-${set.id}`}
