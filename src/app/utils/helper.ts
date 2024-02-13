@@ -60,3 +60,34 @@ export const hasRole = (
       currentUser.data?.roles.includes(role)
   );
 };
+
+export function getProgressUI(progress: string) {
+  let progressPercent = 0;
+  let progressBg = "info";
+
+  switch (progress) {
+    case "ready":
+      progressPercent = 5;
+      progressBg = "warning";
+      break;
+    case "scanning":
+      progressPercent = 50;
+      progressBg = "primary";
+      break;
+    case "2x-scanned":
+      progressPercent = 50;
+      progressBg = "success";
+      break;
+    case "scanned":
+      progressPercent = 100;
+      progressBg = "success";
+      break;
+
+    case "failed":
+      progressPercent = 100;
+      progressBg = "danger";
+      break;
+  }
+
+  return { progressPercent, progressBg };
+}

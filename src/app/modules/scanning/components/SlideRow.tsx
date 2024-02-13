@@ -4,11 +4,17 @@ import { RegionSelector } from "./RegionSelector";
 import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
 
 import { useScan } from "../hooks/useScan";
-import { useUpdateScan } from "../hooks/useUpdateScan";
 import { Spinner } from "react-bootstrap";
 import { AreaModel, ScanModel, SlideModel } from "../core/_models";
 import { usePusher } from "../../hooks/usePusher";
-
+import { getProgressUI } from "../../../utils/helper";
+import useHandleUpdateScan from "../hooks/useHandleUpdateScan";
+  
+const initialScanData = {
+  testId: 0,
+  slideNumber: 0,
+  id: 0,
+}
 type Props = {
   slide: SlideModel;
   formik: any;
@@ -23,26 +29,8 @@ const SlideRow: React.FC<Props> = ({
   handleCheckboxChange,
 }) => {
   const { scan, isLoading } = useScan(slide.nth);
-  const [scanData, setScanData] = useState({
-    testId: 0,
-    slideNumber: 0,
-    id: scan?.id,
-  });
-  const { updateScan, isUpdating } = useUpdateScan(slide.nth);
 
-  function handleUpdateScan(e: React.ChangeEvent<HTMLInputElement>) {
-    const { value, name } = e.target;
-    const numericValue = parseInt(value, 10); // Convert value to a number
-    if (name === "testId" || name === "slideNumber") {
-      setScanData((prev) => ({ ...prev, [name]: numericValue, id: scan?.id }));
-    }
-  }
-
-  useEffect(() => {
-    if (scanData.slideNumber > 0 && scanData.testId > 0) {
-      updateScan(scanData);
-    }
-  }, [scanData, updateScan]);
+  const { handleUpdateScan, isUpdating } = useHandleUpdateScan(slide.nth,scan?.id, initialScanData);
 
   const { scan: liveScan } = usePusher(`scan.${scan?.id}`, "ScanUpdated");
 
@@ -55,34 +43,11 @@ const SlideRow: React.FC<Props> = ({
       setTableData(liveScan);
     }
   }, [liveScan, scan]);
-  let progressPercent = 0;
-  let progressBg = "info";
 
-  if (!isLoading && scan) {
-    switch (tableData?.progress) {
-      case "ready":
-        progressPercent = 5;
-        progressBg = "warning";
-        break;
-      case "scanning":
-        progressPercent = 50;
-        progressBg = "primary";
-        break;
-      case "2x-scanned":
-        progressPercent = 50;
-        progressBg = "success";
-        break;
-      case "scanned":
-        progressPercent = 100;
-        progressBg = "success";
-        break;
-
-      case "failed":
-        progressPercent = 100;
-        progressBg = "danger";
-        break;
-    }
-  }
+  const { progressBg, progressPercent } = getProgressUI(
+    tableData?.progress || ""
+  );
+  
   if (isLoading) {
     return (
       <tr>
