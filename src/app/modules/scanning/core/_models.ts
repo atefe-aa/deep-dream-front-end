@@ -30,3 +30,11 @@ export interface AreaModel {
     y: number;
   };
 }
+
+export interface ScanUpdatedEvent {
+  status: string;
+  currentRegion: number;
+  totalRegions: number;
+  imageUrl?: string;
+  slideImageUrl?: string;
+}

@@ -2,19 +2,12 @@ import React, { useEffect, useState } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { RegionSelector } from "./RegionSelector";
 import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
-import Echo from "laravel-echo";
-import Pusher from "pusher-js";
+
 import { useScan } from "../hooks/useScan";
 import { useUpdateScan } from "../hooks/useUpdateScan";
 import { Spinner } from "react-bootstrap";
-import { AreaModel, SlideModel } from "../core/_models";
-declare global {
-  interface Window {
-    Echo: Echo;
-    Pusher: typeof Pusher;
-  }
-}
-window.Pusher = Pusher;
+import { AreaModel, ScanModel, SlideModel } from "../core/_models";
+import { usePusher } from "../../hooks/usePusher";
 
 type Props = {
   slide: SlideModel;
@@ -51,15 +44,22 @@ const SlideRow: React.FC<Props> = ({
     }
   }, [scanData, updateScan]);
 
-  // const [scanningStatus, setScanningStatus] = useState("");
-  // usePusher(`slides.${slide.nth}`, 'FullSlideScanned', (data: any) => {
-  //   setScanningStatus(data.data.error);
-  // });
+  const { scan: liveScan } = usePusher(`scan.${scan?.id}`, "ScanUpdated");
 
+  const [tableData, setTableData] = useState<ScanModel>();
+  useEffect(() => {
+    if (!isLoading && scan && liveScan === undefined) {
+      setTableData(scan);
+    }
+    if (liveScan !== undefined) {
+      setTableData(liveScan);
+    }
+  }, [liveScan, scan]);
   let progressPercent = 0;
   let progressBg = "info";
+
   if (!isLoading && scan) {
-    switch (scan.progress) {
+    switch (tableData?.progress) {
       case "ready":
         progressPercent = 5;
         progressBg = "warning";
@@ -91,7 +91,7 @@ const SlideRow: React.FC<Props> = ({
           <Spinner animation="border" size="sm" />
         </td>
       </tr>
-    ); // Or any other loading indicator
+    );
   }
   return (
     <tr>
@@ -122,17 +122,18 @@ const SlideRow: React.FC<Props> = ({
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
-          {scan && scan?.testNumber ? (
+          {scan && tableData?.testNumber ? (
             <a
               href="#"
               className="text-gray-900 fw-bold text-hover-primary fs-6"
             >
-              {scan.testNumber}
+              {tableData?.testNumber}
             </a>
           ) : (
             scan &&
             scan.id &&
-            !scan.testNumber && scan.progress === '2x-scanned' && (
+            !tableData?.testNumber &&
+            tableData?.progress === "2x-scanned" && (
               <input
                 type="number"
                 min={0}
@@ -149,17 +150,18 @@ const SlideRow: React.FC<Props> = ({
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
-          {scan && scan?.slideNumber ? (
+          {scan && tableData?.slideNumber ? (
             <a
               href="#"
               className="text-gray-900 fw-bold text-hover-primary fs-6"
             >
-              {scan.slideNumber}
+              {tableData?.slideNumber}
             </a>
           ) : (
             scan &&
             scan.id &&
-            !scan.testNumber && scan.progress === '2x-scanned' && (
+            !tableData?.testNumber &&
+            tableData?.progress === "2x-scanned" && (
               <input
                 type="number"
                 min={0}
@@ -177,14 +179,14 @@ const SlideRow: React.FC<Props> = ({
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {scan && scan.testType}
+            {scan && tableData?.testType}
           </a>
         </div>
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {scan && scan.laboratory}
+            {scan && tableData?.laboratory}
           </a>
         </div>
       </td>
@@ -192,7 +194,7 @@ const SlideRow: React.FC<Props> = ({
         <div className="d-flex flex-column w-100 me-2">
           <div className="d-flex flex-stack mb-2">
             <span className="text-muted me-2 fs-7 fw-semibold">
-              {scan && scan.progress}
+              {tableData?.progress}
             </span>
           </div>
           <div className="progress h-6px w-100">
@@ -208,7 +210,7 @@ const SlideRow: React.FC<Props> = ({
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {scan && scan.duration}
+            {tableData?.duration}
           </a>
         </div>
       </td>
@@ -218,7 +220,7 @@ const SlideRow: React.FC<Props> = ({
         <div className="d-flex justify-content-end flex-shrink-0">
           <DropDownButton>
             {/* Start Action */}
-            {scan && scan?.progress === "ready" && (
+            {tableData?.progress === "ready" && (
               <div className="menu-item px-3">
                 <a href="#" className="menu-link px-3">
                   <KTIcon iconName="to-right" className="fs-3 me-3" />
@@ -228,12 +230,12 @@ const SlideRow: React.FC<Props> = ({
             )}
 
             {/* View Action */}
-            {scan && scan?.progress === "scanned" && (
+            { tableData?.progress === "scanned" && (
               <div className="menu-item px-3">
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={scan.image}
+                  href={tableData.image}
                   className="menu-link px-3"
                 >
                   <KTIcon iconName="eye" className="fs-3 me-3" />
@@ -243,7 +245,7 @@ const SlideRow: React.FC<Props> = ({
             )}
 
             {/* Try Again Action */}
-            {scan && scan?.progress === "failed" && (
+            {tableData?.progress === "failed" && (
               <div className="menu-item px-3">
                 <a href="#" className="menu-link px-3">
                   <KTIcon iconName="arrows-circle" className="fs-3 me-3" />
@@ -268,11 +270,11 @@ const SlideRow: React.FC<Props> = ({
       </td>
       <td className="text-center">
         <div className="d-flex flex-column " style={{ width: "max-content" }}>
-          {scan && scan?.slideImage ? (
+          {tableData?.slideImage ? (
             <RegionSelector
               handleSetAreas={handleSetAreas}
               scanId={scan.id}
-              image={scan.slideImage}
+              image={tableData.slideImage}
             />
           ) : (
             <h6 className="text-muted">No image yet.</h6>
