@@ -9,6 +9,7 @@ import { useSlides } from "../../modules/settings/slides/hooks/useSlides";
 import { useState } from "react";
 import { AreaModel, SlideModel } from "../../modules/scanning/core/_models";
 import { ClearSlotsButton } from "../../modules/scanning/components/CleareSlotsButton";
+import StartRegionScanButton from "../../modules/scanning/components/StartRegionScanButton";
 
 interface FormValues {
   selectedCheckboxes: number[];
@@ -108,7 +109,7 @@ const ScanningPage = () => {
   const { isLoading, slides } = useSlides();
 
   return (
-  
+    <form onSubmit={formik.handleSubmit}>
       <div className="row g-5 g-xl-8">
         {/* begin::Action */}
         <div className="d-flex align-items-center justify-content-between">
@@ -130,7 +131,7 @@ const ScanningPage = () => {
           </button>
          
           <div>
-            <Timer selectedRegions={selectedRegions} />
+          <StartRegionScanButton selectedRegions={selectedRegions} />
           </div>
           </div>
            <ClearSlotsButton isLoading={isLoading || isStarting} />
@@ -170,7 +171,7 @@ const ScanningPage = () => {
           </div>
         </div>
       </div>
-
+    </form>
   );
 };
 

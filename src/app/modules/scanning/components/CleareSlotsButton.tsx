@@ -11,6 +11,7 @@ function ClearSlotsButton({ isLoading }: Props) {
   return (
     <>
       <button
+        type="button"
         data-bs-toggle="modal"
         data-bs-target="#confirm_cleareSlots"
         className="btn btn-danger ms-4"
