@@ -37,17 +37,33 @@ const SlideRow: React.FC<Props> = ({
   );
 
   const { scan: liveScan } = usePusher(`scan.${scan?.id}`, "ScanUpdated");
+  // const liveScan = undefined;
   const [tableData, setTableData] = useState<ScanModel>();
 
+  // useEffect(() => {
+  //   if (!isLoading && scan && liveScan === undefined) {
+  //     setTableData(scan);
+  //   }
+  //   if (liveScan !== undefined && JSON.stringify(liveScan) !== JSON.stringify(tableData)) {
+  //     setTableData(liveScan);
+  //   }
+  // }, [isLoading, scan, liveScan, tableData]);
   useEffect(() => {
-    if (!isLoading && scan && liveScan === undefined) {
+    if (!isLoading && scan && scan.length === undefined && liveScan === undefined) {
       setTableData(scan);
     }
-    if (liveScan !== undefined && JSON.stringify(liveScan) !== JSON.stringify(tableData)) {
+  }, [isLoading, scan, liveScan]);
+  
+  useEffect(() => {
+    if (liveScan !== undefined && !isEqual(liveScan, tableData)) {
       setTableData(liveScan);
     }
-  }, [isLoading, scan, liveScan, tableData]);
+  }, [liveScan]);
   
+  function isEqual<T>(obj1: T, obj2: T): boolean {
+    // Implement a more efficient deep comparison logic here
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+  }
   const { progressBg, progressPercent } = getProgressUI(
     tableData?.progress || ""
   );

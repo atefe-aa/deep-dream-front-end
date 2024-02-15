@@ -8,6 +8,7 @@ import { useStartFullSlideScanning } from "../../modules/scanning/hooks/useStart
 import { useSlides } from "../../modules/settings/slides/hooks/useSlides";
 import { useState } from "react";
 import { AreaModel, SlideModel } from "../../modules/scanning/core/_models";
+import { ClearSlotsButton } from "../../modules/scanning/components/CleareSlotsButton";
 
 interface FormValues {
   selectedCheckboxes: number[];
@@ -107,11 +108,12 @@ const ScanningPage = () => {
   const { isLoading, slides } = useSlides();
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+  
       <div className="row g-5 g-xl-8">
         {/* begin::Action */}
-        <div className="d-flex align-items-center">
-          <button
+        <div className="d-flex align-items-center justify-content-between">
+          <div className="d-flex align-items-center">
+            <button
             type="submit"
             className="btn btn-primary"
             disabled={formik.isSubmitting || !formik.isValid}
@@ -126,24 +128,12 @@ const ScanningPage = () => {
               </span>
             )}
           </button>
-          <button
-            className="btn btn-warning ms-4"
-            // disabled={formik.isSubmitting || !formik.isValid}
-          >
-            {/* {!isStarting && (
-              <span className="indicator-label">Cleare Slots</span>
-            )} */}
-                  <span className="indicator-label">Cleare Slots</span>
-            {isStarting && (
-              <span className="indicator-progress" style={{ display: "block" }}>
-                Please wait...
-                <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-              </span>
-            )}
-          </button>
+         
           <div>
             <Timer selectedRegions={selectedRegions} />
           </div>
+          </div>
+           <ClearSlotsButton isLoading={isLoading || isStarting} />
         </div>
         {/* end::Action */}
         {formik.touched.selectedCheckboxes &&
@@ -180,7 +170,7 @@ const ScanningPage = () => {
           </div>
         </div>
       </div>
-    </form>
+
   );
 };
 
