@@ -6,13 +6,15 @@ import { getAuthToken } from "./requestHelpers";
 
 export const echoInstance = new Echo({
   broadcaster: "pusher",
-  key: process.env.REACT_APP_PUSHER_APP_KEY,
-  cluster: process.env.REACT_APP_PUSHER_APP_CLUSTER,
-  wsHost: window.location.hostname,
+  key: import.meta.env.VITE_PUSHER_APP_KEY,
+  cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+  wsHost: '127.0.0.1',
   wsPort: 6001,
+  wssPort: 6001,
   forceTLS: false,
   disableStatus: true,
-  enabledTransports: ["ws", "wss"], // Depending on your setup, you might want to support both
+  enabledTransports: ["ws"],
+  authEndpoint: import.meta.env.VITE_AUTH_ENDPOINT,
   auth: {
     headers: {
       Authorization: getAuthToken(),
