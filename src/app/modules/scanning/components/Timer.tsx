@@ -32,7 +32,7 @@ const Timer: React.FC<TimerProps> = ({ selectedRegions }) => {
         disabled={isStarting}
         onClick={start}
       >
-        Scan All
+        Start Scanning Regions 
       </button>
       <span className="fs-2">
         {String(Math.floor(time / 3600)).padStart(2, "0")}

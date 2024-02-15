@@ -9,12 +9,12 @@ import { AreaModel, ScanModel, SlideModel } from "../core/_models";
 import { usePusher } from "../../hooks/usePusher";
 import { getProgressUI } from "../../../utils/helper";
 import useHandleUpdateScan from "../hooks/useHandleUpdateScan";
-  
+
 const initialScanData = {
   testId: 0,
   slideNumber: 0,
   id: 0,
-}
+};
 type Props = {
   slide: SlideModel;
   formik: any;
@@ -30,24 +30,28 @@ const SlideRow: React.FC<Props> = ({
 }) => {
   const { scan, isLoading } = useScan(slide.nth);
 
-  const { handleUpdateScan, isUpdating } = useHandleUpdateScan(slide.nth,scan?.id, initialScanData);
+  const { handleUpdateScan, isUpdating } = useHandleUpdateScan(
+    slide.nth,
+    scan?.id,
+    initialScanData
+  );
 
   const { scan: liveScan } = usePusher(`scan.${scan?.id}`, "ScanUpdated");
-
   const [tableData, setTableData] = useState<ScanModel>();
+
   useEffect(() => {
     if (!isLoading && scan && liveScan === undefined) {
       setTableData(scan);
     }
-    if (liveScan !== undefined) {
+    if (liveScan !== undefined && JSON.stringify(liveScan) !== JSON.stringify(tableData)) {
       setTableData(liveScan);
     }
-  }, [liveScan, scan]);
-
+  }, [isLoading, scan, liveScan, tableData]);
+  
   const { progressBg, progressPercent } = getProgressUI(
     tableData?.progress || ""
   );
-  
+
   if (isLoading) {
     return (
       <tr>
@@ -195,7 +199,7 @@ const SlideRow: React.FC<Props> = ({
             )}
 
             {/* View Action */}
-            { tableData?.progress === "scanned" && (
+            {tableData?.progress === "scanned" && (
               <div className="menu-item px-3">
                 <a
                   target="_blank"

@@ -117,8 +117,23 @@ const ScanningPage = () => {
             disabled={formik.isSubmitting || !formik.isValid}
           >
             {!isStarting && (
-              <span className="indicator-label">Start Scanning</span>
+              <span className="indicator-label">Start 2x Scanning</span>
             )}
+            {isStarting && (
+              <span className="indicator-progress" style={{ display: "block" }}>
+                Please wait...
+                <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span>
+            )}
+          </button>
+          <button
+            className="btn btn-warning ms-4"
+            // disabled={formik.isSubmitting || !formik.isValid}
+          >
+            {/* {!isStarting && (
+              <span className="indicator-label">Cleare Slots</span>
+            )} */}
+                  <span className="indicator-label">Cleare Slots</span>
             {isStarting && (
               <span className="indicator-progress" style={{ display: "block" }}>
                 Please wait...
