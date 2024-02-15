@@ -9,6 +9,7 @@ import { AreaModel, ScanModel, SlideModel } from "../core/_models";
 import { usePusher } from "../../hooks/usePusher";
 import { getProgressUI } from "../../../utils/helper";
 import useHandleUpdateScan from "../hooks/useHandleUpdateScan";
+import Timer from "./Timer";
 
 const initialScanData = {
   testId: 0,
@@ -49,17 +50,22 @@ const SlideRow: React.FC<Props> = ({
   //   }
   // }, [isLoading, scan, liveScan, tableData]);
   useEffect(() => {
-    if (!isLoading && scan && scan.length === undefined && liveScan === undefined) {
+    if (
+      !isLoading &&
+      scan &&
+      scan.length === undefined &&
+      liveScan === undefined
+    ) {
       setTableData(scan);
     }
   }, [isLoading, scan, liveScan]);
-  
+
   useEffect(() => {
     if (liveScan !== undefined && !isEqual(liveScan, tableData)) {
       setTableData(liveScan);
     }
   }, [liveScan]);
-  
+
   function isEqual<T>(obj1: T, obj2: T): boolean {
     // Implement a more efficient deep comparison logic here
     return JSON.stringify(obj1) === JSON.stringify(obj2);
@@ -179,7 +185,7 @@ const SlideRow: React.FC<Props> = ({
         <div className="d-flex flex-column w-100 me-2">
           <div className="d-flex flex-stack mb-2">
             <span className="text-muted me-2 fs-7 fw-semibold">
-              {tableData?.progress}
+              {tableData?.progress?.replace(/-/g,' ')}
             </span>
           </div>
           <div className="progress h-6px w-100">
@@ -191,11 +197,21 @@ const SlideRow: React.FC<Props> = ({
           </div>
         </div>
       </td>
+      {/* start::Time Left */}
+      <td className="text-center">
+        <div className="d-flex justify-content-start flex-column">
+         
+          {!isLoading && tableData && tableData?.secondsLeft && tableData?.progress === "scanning" && (
+            <Timer secondsLeft={tableData?.secondsLeft} />
+          )}
+        </div>
+      </td>
+      {/* end::Time Left */}
       {/* start::Durations */}
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {tableData?.duration}
+            {tableData?.duration && Math.round(tableData?.duration/60)}
           </a>
         </div>
       </td>

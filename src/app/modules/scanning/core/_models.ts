@@ -18,6 +18,7 @@ export interface ScanModel {
   testType?: string;
   progress?: string;
   duration?: number;
+  secondsLeft?: number;
 }
 
 export interface AreaModel {

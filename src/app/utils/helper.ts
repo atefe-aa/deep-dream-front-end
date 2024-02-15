@@ -78,14 +78,18 @@ export function getProgressUI(progress: string) {
       progressPercent = 50;
       progressBg = "success";
       break;
+    case "2x-image-ready":
+      progressPercent = 70;
+      progressBg = "info";
+      break;
     case "scanned":
-      progressPercent = 100;
+      progressPercent = 90;
       progressBg = "success";
       break;
 
-    case "failed":
+    case "image-ready":
       progressPercent = 100;
-      progressBg = "danger";
+      progressBg = "primary";
       break;
   }
 
