@@ -8,17 +8,17 @@ export interface SlideModel {
 }
 
 export interface ScanModel {
-  id?: number;
-  nth?: number;
-  slideNumber?: number;
-  image?: string;
-  slideImage?: string;
-  laboratory?: string;
-  testNumber?: number;
-  testType?: string;
-  progress?: string;
-  duration?: number;
-  secondsLeft?: number;
+  id: number;
+  nth: number;
+  slideNumber: number;
+  image: string;
+  slideImage: string;
+  laboratory: string;
+  testNumber: number;
+  testType: string;
+  progress: string;
+  duration: number;
+  secondsLeft: number;
 }
 
 export interface AreaModel {

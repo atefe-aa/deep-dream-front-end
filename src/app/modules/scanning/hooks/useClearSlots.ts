@@ -19,7 +19,7 @@ export function useClearSlots() {
     mutationFn: () => request('','Slots',BASE_URL,undefined,'GET',undefined),
     onSuccess: () => {
       toast.success("Slots are clear now.");
-      queryClient.invalidateQueries({ queryKey: ["scan"] });
+      queryClient.invalidateQueries({ queryKey: ["scans"] });
     },
     onError: (err) => {
       toast.error(err.message);

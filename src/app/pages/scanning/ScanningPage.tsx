@@ -7,9 +7,15 @@ import Timer from "../../modules/scanning/components/Timer";
 import { useStartFullSlideScanning } from "../../modules/scanning/hooks/useStartFullSlideScanning";
 import { useSlides } from "../../modules/settings/slides/hooks/useSlides";
 import { useState } from "react";
-import { AreaModel, SlideModel } from "../../modules/scanning/core/_models";
+import {
+  AreaModel,
+  ScanModel,
+  SlideModel,
+} from "../../modules/scanning/core/_models";
 import { ClearSlotsButton } from "../../modules/scanning/components/CleareSlotsButton";
 import StartRegionScanButton from "../../modules/scanning/components/StartRegionScanButton";
+import { useScans } from "../../modules/scanning/hooks/useScans";
+import { Spinner } from "react-bootstrap";
 
 interface FormValues {
   selectedCheckboxes: number[];
@@ -106,7 +112,8 @@ const ScanningPage = () => {
     }
   };
 
-  const { isLoading, slides } = useSlides();
+  const { isLoading: isLoadingSlides, slides } = useSlides();
+  const { isLoading: isLoadingScans, scans } = useScans();
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -115,26 +122,31 @@ const ScanningPage = () => {
         <div className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
             <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={formik.isSubmitting || !formik.isValid}
-          >
-            {!isStarting && (
-              <span className="indicator-label">Start 2x Scanning</span>
-            )}
-            {isStarting && (
-              <span className="indicator-progress" style={{ display: "block" }}>
-                Please wait...
-                <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-              </span>
-            )}
-          </button>
-         
-          <div>
-          <StartRegionScanButton selectedRegions={selectedRegions} />
+              type="submit"
+              className="btn btn-primary"
+              disabled={formik.isSubmitting || !formik.isValid}
+            >
+              {!isStarting && (
+                <span className="indicator-label">Start 2x Scanning</span>
+              )}
+              {isStarting && (
+                <span
+                  className="indicator-progress"
+                  style={{ display: "block" }}
+                >
+                  Please wait...
+                  <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+              )}
+            </button>
+
+            <div>
+              <StartRegionScanButton selectedRegions={selectedRegions} />
+            </div>
           </div>
-          </div>
-           <ClearSlotsButton isLoading={isLoading || isStarting} />
+          <ClearSlotsButton
+            isLoading={isLoadingScans || isLoadingSlides || isStarting}
+          />
         </div>
         {/* end::Action */}
         {formik.touched.selectedCheckboxes &&
@@ -153,16 +165,31 @@ const ScanningPage = () => {
               formik={formik}
               className="card-xl-stretch mb-xl-8"
             >
-              {!isLoading &&
+              {isLoadingScans && isLoadingSlides && (
+                <tr>
+                  <td colSpan={20} className="text-center">
+                    <span className="text-muted"> Loading...</span>
+                    <Spinner animation="border" size="sm" />
+                  </td>
+                </tr>
+              )}
+              {!isLoadingScans &&
+                !isLoadingSlides &&
                 slides &&
                 slides.length > 0 &&
                 slides.map((slide: SlideModel, _index: number) => {
+                  // Find the corresponding scan for this slide
+                  const matchingScan = scans.find(
+                    (scan: ScanModel) => scan.nth === slide.nth
+                  );
+
                   return (
                     <SlideRow
                       handleCheckboxChange={handleCheckboxChange}
                       formik={formik}
                       key={_index}
                       slide={slide}
+                      scan={matchingScan} // Pass the found scan object to the SlideRow
                       handleSetAreas={handleRegionSelection}
                     />
                   );

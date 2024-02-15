@@ -91,6 +91,10 @@ export function getProgressUI(progress: string) {
       progressPercent = 100;
       progressBg = "primary";
       break;
+      default:
+        progressPercent = 100;
+        progressBg = "danger";
+
   }
 
   return { progressPercent, progressBg };

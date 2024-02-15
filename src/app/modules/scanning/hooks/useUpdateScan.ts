@@ -10,7 +10,7 @@ interface dataModel {
   slideNumber: number;
   id: number;
 }
-export function useUpdateScan(nthSlide :number) {
+export function useUpdateScan(nthSlide: number) {
   const queryClient = useQueryClient();
   const {
     mutate: updateScan,
@@ -18,18 +18,20 @@ export function useUpdateScan(nthSlide :number) {
     error,
     data,
   } = useMutation({
-    mutationFn: (itemData: dataModel) =>
-      request(
+    mutationFn: (itemData: dataModel) => {
+    
+     return request(
         "",
         "Scan",
         BASE_URL,
         { testId: itemData.testId, slideNumber: itemData.slideNumber },
         "POST",
         itemData.id
-      ),
+      );
+    },
     onSuccess: () => {
       toast.success("Scan's updated.");
-      queryClient.invalidateQueries({ queryKey: ["scan", nthSlide] });
+      queryClient.invalidateQueries({ queryKey:  ["scans"] });
     },
     onError: (err) => {
       toast.error(err.message);

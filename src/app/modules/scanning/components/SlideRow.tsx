@@ -19,6 +19,7 @@ const initialScanData = {
 type Props = {
   slide: SlideModel;
   formik: any;
+  scan:ScanModel;
   handleCheckboxChange: Function;
   handleSetAreas: (scanId: number, regions: AreaModel[]) => void;
 };
@@ -26,39 +27,28 @@ type Props = {
 const SlideRow: React.FC<Props> = ({
   slide,
   formik,
+  scan, // This might be undefined if no matching scan is found
   handleSetAreas,
   handleCheckboxChange,
 }) => {
-  const { scan, isLoading } = useScan(slide.nth);
+
+  // Safely handle potentially undefined scan object
+  const safeScanId = scan?.id || 0; // Use 0 or some safe fallback value if scan is undefined
 
   const { handleUpdateScan, isUpdating } = useHandleUpdateScan(
     slide.nth,
-    scan?.id,
+    safeScanId, // Use the safe ID
     initialScanData
   );
 
-  const { scan: liveScan } = usePusher(`scan.${scan?.id}`, "ScanUpdated");
-  // const liveScan = undefined;
+  const { scan: liveScan } = usePusher(`scan.${safeScanId}`, "ScanUpdated"); // Use the safe ID
   const [tableData, setTableData] = useState<ScanModel>();
 
-  // useEffect(() => {
-  //   if (!isLoading && scan && liveScan === undefined) {
-  //     setTableData(scan);
-  //   }
-  //   if (liveScan !== undefined && JSON.stringify(liveScan) !== JSON.stringify(tableData)) {
-  //     setTableData(liveScan);
-  //   }
-  // }, [isLoading, scan, liveScan, tableData]);
   useEffect(() => {
-    if (
-      !isLoading &&
-      scan &&
-      scan.length === undefined &&
-      liveScan === undefined
-    ) {
+    if (scan && safeScanId!==0 && liveScan === undefined) {
       setTableData(scan);
     }
-  }, [isLoading, scan, liveScan]);
+  }, [scan, liveScan]);
 
   useEffect(() => {
     if (liveScan !== undefined && !isEqual(liveScan, tableData)) {
@@ -67,23 +57,13 @@ const SlideRow: React.FC<Props> = ({
   }, [liveScan]);
 
   function isEqual<T>(obj1: T, obj2: T): boolean {
-    // Implement a more efficient deep comparison logic here
     return JSON.stringify(obj1) === JSON.stringify(obj2);
   }
+
   const { progressBg, progressPercent } = getProgressUI(
     tableData?.progress || ""
   );
-
-  if (isLoading) {
-    return (
-      <tr>
-        <td colSpan={20} className="text-center">
-          <span className="text-muted"> Loading...</span>
-          <Spinner animation="border" size="sm" />
-        </td>
-      </tr>
-    );
-  }
+ 
   return (
     <tr>
       <td className="text-center">
@@ -91,12 +71,12 @@ const SlideRow: React.FC<Props> = ({
           <input
             {...formik.getFieldProps("selectedCheckboxes")}
             checked={
-              ((!isLoading && !scan) || !scan.id) &&
+              ((!scan) || !scan.id) &&
               (formik.values.selectAll ||
                 formik.values.selectedCheckboxes.includes(slide.nth))
             }
             onChange={handleCheckboxChange}
-            disabled={!isLoading && scan && scan.id}
+            disabled={scan && safeScanId!==0}
             className="form-check-input widget-9-check"
             type="checkbox"
             value={slide.nth}
@@ -201,7 +181,7 @@ const SlideRow: React.FC<Props> = ({
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
          
-          {!isLoading && tableData && tableData?.secondsLeft && tableData?.progress === "scanning" && (
+          { tableData && tableData?.secondsLeft && tableData?.progress === "scanning" && (
             <Timer secondsLeft={tableData?.secondsLeft} />
           )}
         </div>

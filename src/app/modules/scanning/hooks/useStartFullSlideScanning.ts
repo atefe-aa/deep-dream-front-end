@@ -17,7 +17,7 @@ export function useStartFullSlideScanning() {
       request("", "Scanning", BASE_URL, {slides},"POST"),
     onSuccess: () => {
       toast.success("Scanning started.");
-      queryClient.invalidateQueries({ queryKey: ["slides"] });
+      queryClient.invalidateQueries({ queryKey: ["scans"] });
     },
     onError: (err) => {
       toast.error(err.message);
