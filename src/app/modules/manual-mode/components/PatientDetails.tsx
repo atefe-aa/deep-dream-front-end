@@ -19,7 +19,7 @@ function PatientDetails() {
           />
         </div>
         <div className="card mt-4 p-5">
-          <CustomTable
+          {/* <CustomTable
             tableTitle="Patient Information"
             className="card-xxl-stretch mb-5 mb-xl-8"
             columns={[
@@ -32,7 +32,7 @@ function PatientDetails() {
             ]}
           >
             <PatientsTableRow data={FAKE_DATA[0]} index={1} />
-          </CustomTable>
+          </CustomTable> */}
         </div>
       </div>
     </div>
