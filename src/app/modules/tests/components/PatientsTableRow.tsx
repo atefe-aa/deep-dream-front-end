@@ -131,7 +131,7 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
             </div>
             <ShareMenuDropdown>
               <ShareMenu
-                patientId={data.id}
+                testId={data.id}
                 backgrounUrl="/media/misc/pattern-1.jpg"
               />
             </ShareMenuDropdown>
