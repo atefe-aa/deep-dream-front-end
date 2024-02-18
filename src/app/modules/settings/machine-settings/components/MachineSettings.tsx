@@ -13,6 +13,7 @@ import { CustomTableBody } from "../../../../ui/table/CustomTableBody";
 
 import { NoRecordRow } from "../../../../ui/table/NoRecordRow";
 import { useSlides } from "../../slides/hooks/useSlides";
+import { SlideModel } from "../../../scanning/core/_models";
 
 function MachineSettings() {
   const { isLoading, settings } = useSettings();
@@ -123,19 +124,6 @@ function MachineSettings() {
                 </CustomTableBody>
               </CustomTable>
             </div>
-            {/* <CustomTable
-                modalId="kt_modal_add_new_slide"
-                className="mb-5 mb-xl-8"
-                columns={["Number", "x", "y"]}
-              >
-                {Slides_Placements.map((slide, index) => (
-                  <SlidesPlacementTableRow
-                    key={slide.id}
-                    index={index + 1}
-                    data={slide}
-                  />
-                ))}
-              </CustomTable> */}
           </SettingItem>
         </div>
       </div>
