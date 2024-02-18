@@ -147,7 +147,7 @@ export async function request(
   BASE_URL: string,
   outgoingData: any,
   method = "GET",
-  id?: number
+  id?: number|string
 ) {
   const options = {
     method: method,

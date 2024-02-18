@@ -3,9 +3,11 @@ import { KTIcon } from "../../../../_metronic/helpers";
 import { useCheckNotifications } from "../hooks/useCheckNotifications";
 import { NewIndicator } from "./NewIndicator";
 import { NotificationsMenu } from "./NotificationsMenu";
+import { useNotifications } from "../hooks/useNotifications";
 
 function NotificationsButton() {
-  const {isLoading,isNew} = useCheckNotifications();
+  const { isLoading, isNew } = useCheckNotifications();
+
 
   return (
     <div className="d-flex align-items-center ">
@@ -22,7 +24,7 @@ function NotificationsButton() {
       >
         <KTIcon iconName="notification" className="fs-2 text-lg-1" />
         {isLoading && <Spinner animation="grow" size="sm" />}
-      {!isLoading && isNew &&  <NewIndicator />}
+        {!isLoading && isNew && <NewIndicator />}
       </div>
       {/* end::Menu wrapper */}
       <NotificationsMenu backgrounUrl="/media/misc/pattern-1.jpg" />
