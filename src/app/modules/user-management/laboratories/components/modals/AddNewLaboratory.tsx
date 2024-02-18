@@ -88,7 +88,7 @@ const AddNewLaboratory: FC<Props> = () => {
       }
     },
   });
-  useCloseModalOnSuccess("kt_modal_add_new_counsellor", data, formik);
+  useCloseModalOnSuccess("kt_modal_add_new_laboratory", data, formik);
   return (
     <ModalLayout
       modalId="kt_modal_add_new_laboratory"

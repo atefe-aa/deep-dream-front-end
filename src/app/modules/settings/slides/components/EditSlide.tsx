@@ -9,6 +9,7 @@ import { useSlides } from "../hooks/useSlides";
 import { useUpdateSlide } from "../hooks/useUpdateSlide";
 import { TestContext } from "yup";
 import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
+import { SlideModel } from "../../../scanning/core/_models";
 
 type Props = {
   slideData: SlideModel;

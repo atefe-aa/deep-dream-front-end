@@ -7,18 +7,23 @@ import { ModalLayout } from "../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
 import { useAuth } from "../../../auth";
 import { hasRole } from "../../../../utils/helper";
-import { useCreateCounsellor } from "../hooks/useCreateCounsellor";
 import { LaboratoryInput } from "../../../tests/components/add-new-test/components/LaboratoryInput";
 import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
+import { CounsellorModel } from "../core/_models";
+import { useUpdateCounsellor } from "../hooks/useUpdateCounsellor";
 
-const AddNewCounsellor: FC = () => {
+type Props = {
+  counsellorData: CounsellorModel;
+};
+
+const EditCounsellor: FC<Props> = ({ counsellorData }) => {
   const { currentUser } = useAuth();
   const isSuperAdmin = currentUser && hasRole(currentUser, ["superAdmin"]);
 
   const initialValues = {
-    name: "",
-    phone: "",
-    ...(isSuperAdmin && { laboratoryId: 0 }), // Add labId for superAdmin
+    name: counsellorData.name || "",
+    phone: counsellorData.phone || "",
+    ...(isSuperAdmin && { laboratoryId: counsellorData.labId  }), // Add labId for superAdmin
   };
 
   const addSchema = Yup.object().shape({
@@ -31,18 +36,18 @@ const AddNewCounsellor: FC = () => {
       .max(50, "Maximum 50 symbols")
       .required("Phone is required"),
     ...(isSuperAdmin && {
-      laboratoryId: Yup.number().required("Laboratory is required"),
+        laboratoryId: Yup.number().required("Laboratory is required"),
     }),
   });
 
-  const { isCreating, createCounsellor,data } = useCreateCounsellor();
+  const { isUpdating, updateCounsellor, data } = useUpdateCounsellor();
 
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
-        createCounsellor(values);
+        updateCounsellor({ ...values, id: counsellorData.id });
       } catch (error) {
         console.error(error);
         setStatus("Creating counsellor failed.");
@@ -50,24 +55,25 @@ const AddNewCounsellor: FC = () => {
       }
     },
   });
-  useCloseModalOnSuccess("kt_modal_add_new_counsellor", data, formik);
+  useCloseModalOnSuccess(`edit_counsellor_info${counsellorData.id}`, data, formik);
+
   return (
     <ModalLayout
-      modalId="kt_modal_add_new_counsellor"
-      title="Add new counsellor"
+      modalId={`edit_counsellor_info${counsellorData.id}`}
+      title="Edit counsellor info"
     >
       <ModalForm
         isError={false}
-        isLoading={isCreating}
-        modalId="kt_modal_add_new_counsellor"
+        isLoading={isUpdating}
+        modalId={`edit_counsellor_info${counsellorData.id}`}
         formik={formik}
       >
         {isSuperAdmin && <LaboratoryInput formik={formik} />}
 
         {/* begin:: full name Input group */}
-        <div className="fv-row mb-7">
+        <div className="fv-row mb-7 text-start text-start">
           {/* begin::Label */}
-          <label className="required fw-bold fs-6 mb-2">Full Name</label>
+          <label className="required  fw-bold fs-6 mb-2">Full Name</label>
           {/* end::Label */}
 
           {/* begin::Input */}
@@ -84,7 +90,7 @@ const AddNewCounsellor: FC = () => {
               }
             )}
             autoComplete="on"
-            disabled={formik.isSubmitting || isCreating}
+            disabled={formik.isSubmitting || isUpdating}
           />
           {formik.touched.name && formik.errors.name && (
             <div className="fv-plugins-message-container">
@@ -98,7 +104,7 @@ const AddNewCounsellor: FC = () => {
         {/* end::Input group */}
 
         {/* begin:: phone Input group */}
-        <div className="fv-row mb-7">
+        <div className="fv-row mb-7 text-start">
           {/* begin::Label */}
           <label className="required fw-bold fs-6 mb-2">Phone</label>
           {/* end::Label */}
@@ -117,7 +123,7 @@ const AddNewCounsellor: FC = () => {
               }
             )}
             autoComplete="on"
-            disabled={formik.isSubmitting || isCreating}
+            disabled={formik.isSubmitting || isUpdating}
           />
           {formik.touched.phone && formik.errors.phone && (
             <div className="fv-plugins-message-container">
@@ -134,4 +140,4 @@ const AddNewCounsellor: FC = () => {
   );
 };
 
-export { AddNewCounsellor };
+export { EditCounsellor };

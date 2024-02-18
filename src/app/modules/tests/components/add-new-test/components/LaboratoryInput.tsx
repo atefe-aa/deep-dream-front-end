@@ -7,10 +7,11 @@ interface Props {
 }
 
 function LaboratoryInput({ formik }: Props) {
-  const { isLoading: isLoadingLaboratories, laboratories } = useLaboratories();
+  const { isLoading: isLoadingLaboratories, laboratories } =
+    useLaboratories("noPaginate=true");
 
   return (
-    <div className="fv-row mb-3">
+    <div className="fv-row mb-3 text-start">
       {isLoadingLaboratories ? (
         <span>Loading Laboratories List...</span>
       ) : (
@@ -18,6 +19,7 @@ function LaboratoryInput({ formik }: Props) {
           <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
             Sender Laboratory<span className="text-danger">*</span>
           </label>
+
           <select
             {...formik.getFieldProps("laboratoryId")}
             className={clsx(
@@ -32,7 +34,9 @@ function LaboratoryInput({ formik }: Props) {
               }
             )}
             aria-label="Select Laboratory Title"
-            onChange={(e) => formik.setFieldValue("laboratoryId", parseInt(e.target.value, 10))}
+            onChange={(e) =>
+              formik.setFieldValue("laboratoryId", parseInt(e.target.value, 10))
+            }
           >
             <option>Choose Laboratory</option>
             {!isLoadingLaboratories &&

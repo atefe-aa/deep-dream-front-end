@@ -6,6 +6,7 @@ import { useDeleteCounsellor } from "../hooks/useDeleteCounsellor";
 import { ConfirmModal } from "../../../../ui/modals/ConfirmModal";
 import { CustomDropdown } from "../../../../ui/dropdown/CustomDropdown";
 import { Dropdown } from "react-bootstrap";
+import { EditCounsellor } from "./EditCounsellor";
 
 type Props = {
   counsellorData: CounsellorModel;
@@ -83,6 +84,7 @@ const CounsellorTableRow: FC<Props> = ({ counsellorData, index }) => {
             isLoading={isDeleting}
             message={`Are you sure, you want to delete ${counsellorData.name}?`}
           />
+          <EditCounsellor counsellorData={counsellorData} />
         </div>
       </td>
     </tr>
