@@ -6,7 +6,7 @@ const BASE_URL = `${API_URL}/test-type`;
 
 export function useTestTypes(query = "") {
   const { data, error, isLoading } = useQuery({
-    queryKey: ["TestTypes", query],
+    queryKey: ["testTypes", query],
     queryFn: () => getMethodRequest(query, 'Test Type',BASE_URL),
   });
 

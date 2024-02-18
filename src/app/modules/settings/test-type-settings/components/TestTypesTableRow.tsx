@@ -3,6 +3,10 @@ import { KTIcon } from "../../../../../_metronic/helpers";
 import { title } from "process";
 import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
 import { TestTypesModel } from "../core/_models";
+import { useDeleteTestType } from "../hooks/useDeleteTestType";
+import { CustomDropdown } from "../../../../ui/dropdown/CustomDropdown";
+import { Dropdown } from "react-bootstrap";
+import { ConfirmModal } from "../../../../ui/modals/ConfirmModal";
 
 
 type Props = {
@@ -11,6 +15,11 @@ type Props = {
 };
 
 const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
+  const { isDeleting, deleteTestType } = useDeleteTestType();
+  function handleDelete() {
+    deleteTestType(testTypeData.id);
+  }
+
   return (
     <tr>
       <td>
@@ -104,25 +113,32 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
       </td>
       <td>
         <div className="d-flex justify-content-end flex-shrink-0">
-          <DropDownButton>
-            <div className="menu-item px-3">
-              <a href="#" className="menu-link px-3">
-                <KTIcon iconName="pencil" className="fs-3 me-3" />
-                Edit Info
-              </a>
-            </div>
-            <div className="menu-item px-3 my-1">
-              <a
-                href="#"
-                className="menu-link px-3 text-danger "
-                data-bs-toggle="tooltip"
-                title="Delete Test Type"
-              >
-                <KTIcon iconName="trash" className="fs-3 me-3" />
-                Delete Test Type
-              </a>
-            </div>
-          </DropDownButton>
+        <CustomDropdown>
+            <Dropdown.Item
+              data-bs-toggle="modal"
+              data-bs-target={`#edit_counsellor_info${testTypeData.id}`}
+            >
+              <KTIcon iconName="pencil" className="fs-3 me-3" />
+              Edit Info
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              className="text-danger "
+              data-bs-toggle="modal"
+              data-bs-target={`#confirm_delete_test_type${testTypeData.id}`}
+            >
+              <KTIcon iconName="trash" className="fs-3 me-3" />
+              Delete Test Type
+            </Dropdown.Item>
+          </CustomDropdown>
+
+            {/* modals */}
+            <ConfirmModal
+            actionName={`delete_test_type${testTypeData.id}`}
+            onConfirm={handleDelete}
+            isLoading={isDeleting}
+            message={`Are you sure, you want to delete ${testTypeData.title}?`}
+          />
         </div>
       </td>
     </tr>

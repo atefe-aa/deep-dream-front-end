@@ -1,5 +1,5 @@
 export interface TestTypesModel {
-  id?: number;
+  id: number;
   title: string;
   code: string;
   gender: "male" | "female" | "both";

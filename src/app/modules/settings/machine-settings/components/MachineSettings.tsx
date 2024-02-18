@@ -43,7 +43,7 @@ function MachineSettings() {
       <div id="machine_settings" className="collapse show">
         <div className="accordion px-10" id="accordionExample">
           {isLoading ? (
-            <Spinner animation="grow" />
+          <div className="w-100 d-flex justify-content-center">Loading ... <Spinner animation="border" /></div>
           ) : (
             settings &&
             settings.map(
