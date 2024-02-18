@@ -2,12 +2,16 @@ import { FC } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { CustomDropdown } from "../../../ui/dropdown/CustomDropdown";
 import { Dropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 type Props = {
-  img?: string;
+  img: string|null;
+  project: string|null;
 };
 
-const TestsTableDropdown: FC<Props> = ({ img }) => {
+const TestsTableDropdown: FC<Props> = ({ img,project }) => {
+
+  const queryStr = `?project=${project}&image=${img}`;
   return (
     <>
       <CustomDropdown>
@@ -25,22 +29,21 @@ const TestsTableDropdown: FC<Props> = ({ img }) => {
           <KTIcon iconName="printer" className="fs-3 me-3" />
           Print Label
         </Dropdown.Item>
-        <Dropdown.Item
-          data-bs-toggle="modal"
-          // data-bs-target={`#edit_media${labData.id}`}
+       {img && project && <Dropdown.Item
+      
         >
-          <a href={img} className="text-gray-900  text-hover-primary fs-6" >
+          <Link to={`/image${queryStr}`} className="text-gray-900  text-hover-primary fs-6" >
             <KTIcon iconName="eye" className="fs-3 me-3" />
             View Image
-          </a>
-        </Dropdown.Item>
+          </Link>
+        </Dropdown.Item>}
         <Dropdown.Item
           data-bs-toggle="modal"
           // data-bs-target={`#edit_media${labData.id}`}
         >
           <KTIcon iconName="document" className="fs-3 me-3" />
           Download Report
-        </Dropdown.Item>{" "}
+        </Dropdown.Item>
         <Dropdown.Item
           data-bs-toggle="modal"
           // data-bs-target={`#edit_media${labData.id}`}

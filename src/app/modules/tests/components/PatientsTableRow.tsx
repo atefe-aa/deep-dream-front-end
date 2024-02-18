@@ -136,7 +136,7 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
               />
             </ShareMenuDropdown>
             
-            <TestsTableDropdown img={data.img ? data.img : customImg} />
+            <TestsTableDropdown img={data.img} project={data.project} />
           </div>
         </td>
       </tr>

@@ -8,6 +8,7 @@ export interface TestsModel {
   date: string;
   registrationCode: number;
   img: string | null;
+  project: string | null;
   senderRegistrationCode: string;
   testType: string;
   description: string;
