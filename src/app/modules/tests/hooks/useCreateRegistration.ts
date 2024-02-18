@@ -13,7 +13,7 @@ export function useCreateRegistration() {
     mutationFn: createRegistrationApi,
     onSuccess: () => {
       toast.success("New Registration successfully created.");
-      queryClient.invalidateQueries({ queryKey: ["laboratories"] });
+      queryClient.invalidateQueries({ queryKey: ["registrations"] });
     },
     onError: (err) => {
       toast.error(err.message);

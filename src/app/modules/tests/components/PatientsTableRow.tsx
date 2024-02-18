@@ -4,9 +4,9 @@ import { ShareMenu } from "./ShareMenu";
 import { TestsTableDropdown } from "./TestsTableDropdown";
 import { TestsModel } from "../core/_models";
 import { ShareMenuDropdown } from "./ShareMenuDropdown";
+import { ConfirmModal } from "../../../ui/modals/ConfirmModal";
+import { useDeleteRegistration } from "../hooks/useDeleteRegistration";
 
-const customImg =
-  "http://magic.deepdream.ir/#/project/161/image/15163/slice/15164?viewer=6y64q4v83";
 
 type Props = {
   data: TestsModel;
@@ -14,6 +14,10 @@ type Props = {
 };
 
 const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
+  const { isDeleting, deleteRegistration } = useDeleteRegistration();
+  function handleDelete() {
+    deleteRegistration(data.id);
+  }
   let progressPercent = 0;
   let progressBg = "danger";
   switch (data.progress.toLowerCase()) {
@@ -136,7 +140,15 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
               />
             </ShareMenuDropdown>
             
-            <TestsTableDropdown img={data.img} project={data.project} />
+            <TestsTableDropdown data={data}  />
+
+                {/* modals */}
+                <ConfirmModal
+            actionName={`delete_test${data.id}`}
+            onConfirm={handleDelete}
+            isLoading={isDeleting}
+            message={`Are you sure, you want to delete ${data.name}'s test?`}
+          />
           </div>
         </td>
       </tr>

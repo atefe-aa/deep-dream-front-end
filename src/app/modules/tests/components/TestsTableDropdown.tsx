@@ -3,15 +3,14 @@ import { KTIcon } from "../../../../_metronic/helpers";
 import { CustomDropdown } from "../../../ui/dropdown/CustomDropdown";
 import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { TestsModel } from "../core/_models";
 
 type Props = {
-  img: string|null;
-  project: string|null;
+  data: TestsModel;
 };
 
-const TestsTableDropdown: FC<Props> = ({ img,project }) => {
-
-  const queryStr = `?project=${project}&image=${img}`;
+const TestsTableDropdown: FC<Props> = ({ data }) => {
+  const queryStr = `?project=${data.project}&image=${data.img}`;
   return (
     <>
       <CustomDropdown>
@@ -29,14 +28,17 @@ const TestsTableDropdown: FC<Props> = ({ img,project }) => {
           <KTIcon iconName="printer" className="fs-3 me-3" />
           Print Label
         </Dropdown.Item>
-       {img && project && <Dropdown.Item
-      
-        >
-          <Link to={`/image${queryStr}`} className="text-gray-900  text-hover-primary fs-6" >
-            <KTIcon iconName="eye" className="fs-3 me-3" />
-            View Image
-          </Link>
-        </Dropdown.Item>}
+        {data.img && data.project && (
+          <Dropdown.Item>
+            <Link
+              to={`/image${queryStr}`}
+              className="text-gray-900  text-hover-primary fs-6"
+            >
+              <KTIcon iconName="eye" className="fs-3 me-3" />
+              View Image
+            </Link>
+          </Dropdown.Item>
+        )}
         <Dropdown.Item
           data-bs-toggle="modal"
           // data-bs-target={`#edit_media${labData.id}`}
@@ -54,7 +56,7 @@ const TestsTableDropdown: FC<Props> = ({ img,project }) => {
         <Dropdown.Item
           className="text-danger "
           data-bs-toggle="modal"
-          // data-bs-target={`#confirm_delete${labData.id}`}
+          data-bs-target={`#confirm_delete_test${data.id}`}
         >
           <KTIcon iconName="trash" className="fs-3 me-3" />
           Delete Test
