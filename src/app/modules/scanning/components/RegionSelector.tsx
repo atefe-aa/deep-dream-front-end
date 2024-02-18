@@ -1,20 +1,21 @@
 import { AreaSelector, IArea } from "@bmunozg/react-image-area";
 import { useState } from "react";
-import { AreaModel } from "../core/_models";
-
-const slide = {
-  width: 75,
-  height: 25,
-};
-
-
+import { AreaModel, ScanModel } from "../core/_models";
 
 type Props = {
   image: string;
-  scanId: number;
+  scan: ScanModel;
   handleSetAreas: (scanId: number, regions: AreaModel[]) => void;
 };
-const RegionSelector: React.FC<Props> = ({ image, scanId, handleSetAreas }) => {
+const RegionSelector: React.FC<Props> = ({ image, scan, handleSetAreas }) => {
+
+const slideCoordinats = scan.coordinates;
+const slide = {
+  width:slideCoordinats.ne.x -slideCoordinats.sw.x,
+  height:slideCoordinats.ne.y -slideCoordinats.sw.y
+}
+console.log(slide);
+
   const [areas, setAreas] = useState<IArea[]>([]);
 
   const getCoordinates = (area: IArea) => {
@@ -36,7 +37,7 @@ const RegionSelector: React.FC<Props> = ({ image, scanId, handleSetAreas }) => {
   const onChangeHandler = (areas: IArea[]) => {
     setAreas(areas);
     const convertedAreas = areas.map((area) => getCoordinates(area));
-    handleSetAreas(scanId, convertedAreas);
+    handleSetAreas(scan.id, convertedAreas);
   };
 
   const handleReset = () => {

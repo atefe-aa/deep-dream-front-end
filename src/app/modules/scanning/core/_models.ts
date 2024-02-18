@@ -7,6 +7,16 @@ export interface SlideModel {
   ne_y: number;
 }
 
+export interface CoordinatesModel {
+  sw: {
+    x: 31;
+    y: 1.23;
+  };
+  ne: {
+    x: 1.66;
+    y: 1;
+  };
+}
 export interface ScanModel {
   id: number;
   nth: number;
@@ -19,6 +29,7 @@ export interface ScanModel {
   progress: string;
   duration: number;
   secondsLeft: number;
+  coordinates: CoordinatesModel;
 }
 
 export interface AreaModel {

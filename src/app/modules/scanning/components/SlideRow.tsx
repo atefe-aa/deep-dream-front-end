@@ -254,7 +254,7 @@ const SlideRow: React.FC<Props> = ({
           {tableData?.slideImage ? (
             <RegionSelector
               handleSetAreas={handleSetAreas}
-              scanId={scan.id}
+              scan={scan}
               image={tableData.slideImage}
             />
           ) : (
