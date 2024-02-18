@@ -5,6 +5,7 @@ import { Dropdown } from "react-bootstrap";
 import { ConfirmModal } from "../../../../ui/modals/ConfirmModal";
 import { useDeleteSlide } from "../hooks/useDeleteSlide";
 import { EditSlide } from "./EditSlide";
+import { SlideModel } from "../../../scanning/core/_models";
 
 type Props = {
   data: SlideModel;

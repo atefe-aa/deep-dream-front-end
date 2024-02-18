@@ -2,6 +2,10 @@ import { FC } from "react";
 import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
 import { KTIcon } from "../../../../../_metronic/helpers";
 import { CounsellorModel } from "../core/_models";
+import { useDeleteCounsellor } from "../hooks/useDeleteCounsellor";
+import { ConfirmModal } from "../../../../ui/modals/ConfirmModal";
+import { CustomDropdown } from "../../../../ui/dropdown/CustomDropdown";
+import { Dropdown } from "react-bootstrap";
 
 type Props = {
   counsellorData: CounsellorModel;
@@ -9,6 +13,10 @@ type Props = {
 };
 
 const CounsellorTableRow: FC<Props> = ({ counsellorData, index }) => {
+  const { isDeleting, deleteCounsellor } = useDeleteCounsellor();
+  function handleDelete() {
+    deleteCounsellor(counsellorData.id);
+  }
   return (
     <tr>
       <td>
@@ -48,25 +56,32 @@ const CounsellorTableRow: FC<Props> = ({ counsellorData, index }) => {
       </td>
       <td>
         <div className="d-flex justify-content-end flex-shrink-0">
-          <DropDownButton>
-            <div className="menu-item px-3">
-              <a href="#" className="menu-link px-3">
-                <KTIcon iconName="pencil" className="fs-3 me-3" />
-                Edit Info
-              </a>
-            </div>
-            <div className="menu-item px-3 my-1">
-              <a
-                href="#"
-                className="menu-link px-3 text-danger "
-                data-bs-toggle="tooltip"
-                title="Delete Test Price"
-              >
-                <KTIcon iconName="trash" className="fs-3 me-3" />
-                Delete Counsellor
-              </a>
-            </div>
-          </DropDownButton>
+        <CustomDropdown>
+            <Dropdown.Item
+              data-bs-toggle="modal"
+              data-bs-target={`#edit_counsellor_info${counsellorData.id}`}
+            >
+              <KTIcon iconName="pencil" className="fs-3 me-3" />
+              Edit Info
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              className="text-danger "
+              data-bs-toggle="modal"
+              data-bs-target={`#confirm_delete_counsellor${counsellorData.id}`}
+            >
+              <KTIcon iconName="trash" className="fs-3 me-3" />
+              Delete Counsellor
+            </Dropdown.Item>
+          </CustomDropdown>
+
+            {/* modals */}
+            <ConfirmModal
+            actionName={`delete_counsellor${counsellorData.id}`}
+            onConfirm={handleDelete}
+            isLoading={isDeleting}
+            message={`Are you sure, you want to delete ${counsellorData.name}?`}
+          />
         </div>
       </td>
     </tr>
