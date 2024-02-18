@@ -50,10 +50,10 @@ export function Registrations() {
   };
 
   const columns = [
-    "registration",
+    "admit number",
     "Patient",
     "National ID",
-    "registration Date & Time",
+    "admit Date & Time",
     "Sender Laboratory",
     "Progress",
   ];
@@ -61,7 +61,7 @@ export function Registrations() {
     <KTCardBody className="py-4">
       <Search updateState={searchFunction} />
       <div className="table-responsive">
-        <CustomTable tableTitle="Registrations List" className="" modalId="kt_modal_add_new_laboratory">
+        <CustomTable tableTitle="Admits List" className="" modalId="kt_modal_add_new_laboratory">
           <CustomTableHead>
             {columns.map((col) => (
               <CustomHeaderCell
