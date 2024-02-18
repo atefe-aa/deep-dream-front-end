@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { HeaderNotificationsMenu } from "../../../_metronic/partials";
 import { useAuth } from "../../modules/auth";
 import { hasRole } from "../../utils/helper";
+import { NewIndicator } from "../NewIndicator";
+import { NotificationsButton } from "../../modules/notifications/NotificationsButton";
 
 type Props = {
   link: string;
@@ -24,7 +26,7 @@ const AsideTabs: FC<Props> = ({ link, setLink }) => {
       },
     ];
 
-    if (currentUser && hasRole(currentUser,"superAdmin")) {
+    if (currentUser && hasRole(currentUser, "superAdmin")) {
       baseTabs = [
         ...baseTabs,
         {
@@ -57,7 +59,10 @@ const AsideTabs: FC<Props> = ({ link, setLink }) => {
       data-kt-scroll-offset="0px"
     >
       {/* begin::Nav */}
-      <ul className="nav flex-column d-flex align-items-center justify-content-center" id="kt_aside_nav_tabs">
+      <ul
+        className="nav flex-column d-flex align-items-center justify-content-center"
+        id="kt_aside_nav_tabs"
+      >
         <li className="mb-10 text-center">
           {/* begin::User */}
           <div
@@ -69,12 +74,17 @@ const AsideTabs: FC<Props> = ({ link, setLink }) => {
               title="User profile"
             >
               <img
-                src={currentUser?.data.picture || toAbsoluteUrl("/media/avatars/blank.png")}
+                src={
+                  currentUser?.data.picture ||
+                  toAbsoluteUrl("/media/avatars/blank.png")
+                }
                 alt="avatar"
               />
             </div>
           </div>
-          <span className="fs-7 text-muted fw-bold ">{currentUser?.data.labName || currentUser?.data.name}</span>
+          <span className="fs-7 text-muted fw-bold ">
+            {currentUser?.data.labName || currentUser?.data.name}
+          </span>
           {/* end::User */}
         </li>
         {/* begin::Nav item */}
@@ -96,23 +106,7 @@ const AsideTabs: FC<Props> = ({ link, setLink }) => {
         ))}
         <li>
           {/* begin::Notifications */}
-          <div className="d-flex align-items-center ">
-            {/* begin::Menu wrapper */}
-            <div
-              className="btn btn-icon btn-active-color-primary btn-color-gray-500 btn-active-light"
-              data-kt-menu-trigger="click"
-              data-kt-menu-placement="bottom-start"
-              data-kt-menu-flip="top-end"
-              data-bs-toggle="tooltip"
-              data-bs-placement="right"
-              data-bs-dismiss="click"
-              title="Notifications"
-            >
-              <KTIcon iconName="notification" className="fs-2 text-lg-1" />
-            </div>
-            {/* end::Menu wrapper */}
-            <HeaderNotificationsMenu backgrounUrl="/media/misc/pattern-1.jpg" />
-          </div>
+          <NotificationsButton />
           {/* end::Notifications */}
         </li>
 
