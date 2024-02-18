@@ -15,6 +15,7 @@ type Props = {
 const CounsellorTableRow: FC<Props> = ({ counsellorData, index }) => {
   const { isDeleting, deleteCounsellor } = useDeleteCounsellor();
   function handleDelete() {
+    if(counsellorData.id)
     deleteCounsellor(counsellorData.id);
   }
   return (
