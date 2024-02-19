@@ -53,7 +53,7 @@ export function Registrations() {
     "admit number",
     "Patient",
     "National ID",
-    "admit Date & Time",
+    "Admit Date & Time",
     "Sender Laboratory",
     "Progress",
   ];
@@ -70,7 +70,7 @@ export function Registrations() {
                 key={col}
                 className=""
                 title={col.toLocaleUpperCase()}
-                elementId={col==="registration Date & Time" ? 'date': col.replace(" ", "-")}
+                elementId={col==="Admit Date & Time" ? 'date': col.replace(" ", "-")}
               />
             ))}
           </CustomTableHead>

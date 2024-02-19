@@ -11,8 +11,8 @@ const RegionSelector: React.FC<Props> = ({ image, scan, handleSetAreas }) => {
 
 const slideCoordinats = scan.coordinates;
 const slide = {
-  width:slideCoordinats.ne.x -slideCoordinats.sw.x,
-  height:slideCoordinats.ne.y -slideCoordinats.sw.y
+  height:slideCoordinats.ne.x -slideCoordinats.sw.x,
+  width:slideCoordinats.ne.y -slideCoordinats.sw.y
 }
 console.log(slide);
 
