@@ -7,6 +7,7 @@ import { useDeleteTestType } from "../hooks/useDeleteTestType";
 import { CustomDropdown } from "../../../../ui/dropdown/CustomDropdown";
 import { Dropdown } from "react-bootstrap";
 import { ConfirmModal } from "../../../../ui/modals/ConfirmModal";
+import { EditTestType } from "./EditTestType";
 
 
 type Props = {
@@ -116,7 +117,7 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
         <CustomDropdown>
             <Dropdown.Item
               data-bs-toggle="modal"
-              data-bs-target={`#edit_counsellor_info${testTypeData.id}`}
+              data-bs-target={`#edit_test_type_info${testTypeData.id}`}
             >
               <KTIcon iconName="pencil" className="fs-3 me-3" />
               Edit Info
@@ -139,6 +140,7 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
             isLoading={isDeleting}
             message={`Are you sure, you want to delete ${testTypeData.title}?`}
           />
+          <EditTestType testTypeId={testTypeData.id} />
         </div>
       </td>
     </tr>

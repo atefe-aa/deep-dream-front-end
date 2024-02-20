@@ -42,7 +42,7 @@ const EditPrice: React.FC<Props> = ({ labData, priceId }) => {
         updatePrice(values);
       } catch (error) {
         console.error(error);
-        setStatus("Somthing went wrong creating new price. Try again later.");
+        setStatus("Somthing went wrong updating price. Try again later.");
         setSubmitting(false);
       }
     },

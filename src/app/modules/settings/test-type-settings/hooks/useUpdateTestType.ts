@@ -1,23 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { postMethodRequest } from "../../../../utils/requestHelpers";
-import { TestTypesModel, TestTypesOutModel } from "../core/_models";
-
+import { TestTypesModel } from "../core/_models";
+import { request } from "../../../../utils/requestHelpers";
 const API_URL = import.meta.env.VITE_APP_API_URL_;
 const BASE_URL = `${API_URL}/test-type`;
 
-export function useCreateTestType() {
+export function useUpdateTestType(id: number) {
   const queryClient = useQueryClient();
   const {
-    mutate: createTestType,
-    isPending: isCreating,
-    error,
     data,
+    mutate: updateTestType,
+    isPending: isUpdating,
+    error,
   } = useMutation({
-    mutationFn: (testTypeData : TestTypesOutModel) =>
-      postMethodRequest("", "Test Type", BASE_URL, testTypeData),
+    mutationFn: (TestTypeData: TestTypesModel) =>
+      request("", "TestType", BASE_URL, TestTypeData, "PUT", id),
     onSuccess: () => {
-      toast.success("New Test Type successfully created.");
+      toast.success("Test Type successfully updated.");
+      queryClient.invalidateQueries({ queryKey: ["testType",id] });
       queryClient.invalidateQueries({ queryKey: ["testTypes"] });
     },
     onError: (err) => {
@@ -27,8 +27,8 @@ export function useCreateTestType() {
   });
 
   return {
-    createTestType,
-    isCreating,
+    updateTestType,
+    isUpdating,
     error,
     data,
   };
