@@ -1,5 +1,5 @@
 export interface PriceModel {
-  id?: number;
+  id: number;
   labId?: number | null | undefined;
   testName?: string;
   price: number | undefined;
@@ -18,7 +18,7 @@ export interface LabsModel {
   header?: string;
   footer?: string;
   signature?: string;
-  prices?: Array<PriceModel>;
+  prices?: Array<number>;
 }
 
 export interface LabDataModel {

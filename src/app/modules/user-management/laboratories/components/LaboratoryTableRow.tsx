@@ -169,10 +169,11 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
                 ))}
               </CustomTableHead>
               <CustomTableBody>
-                {labData.prices.map((test, index) => (
+                {labData.prices.map((priceId, index) => (
                   <TestTypesPriceTableRow
-                    priceData={test}
-                    key={test.id}
+                    priceId={priceId}
+                    labData={labData}
+                    key={priceId}
                     index={index + 1}
                   />
                 ))}
