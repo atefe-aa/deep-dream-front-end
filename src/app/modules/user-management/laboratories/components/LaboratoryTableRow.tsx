@@ -152,7 +152,7 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
         <td className="" colSpan={7}>
           {labData.prices && labData.prices.length > 0 ? (
             <CustomTable
-              modalId={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
+              modalId={`kt_modal_add_new_test_price_${labData.id}`}
               className="bg-light border-info"
               // tableTitle={}
             >
@@ -193,8 +193,7 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
                   href="#"
                   className="btn-light-primary"
                   data-bs-toggle="modal"
-                  // data-bs-target="#kt_modal_add_new_test_type"
-                  data-bs-target={`#kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
+                  data-bs-target={`#kt_modal_add_new_test_price_${labData.id}`}
                 >
                   Add New Test Price
                 </a>

@@ -1,15 +1,16 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import * as Yup from "yup";
 import clsx from "clsx";
 import { useFormik } from "formik";
-import { ModalLayout } from "../../../../ui/modals/ModalLayout";
-import { ModalForm } from "../../../../ui/modals/ModalForm";
-import { LaboratoryInput } from "./components/LaboratoryInput";
-import { TestTypeInput } from "./components/TestTypeInput";
-import { useCreateRegistration } from "../../hooks/useCreateRegistration";
-import { useAuth } from "../../../auth";
-import { hasRole } from "../../../../utils/helper";
-import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
+import { useAuth } from "../../auth";
+import { useRegistration } from "../hooks/useRegistration";
+import { useUpdateRegistration } from "../hooks/useUpdateRegistration";
+import { useCloseModalOnSuccess } from "../../hooks/useCloseModalOnSuccess";
+import { ModalLayout } from "../../../ui/modals/ModalLayout";
+import { ModalForm } from "../../../ui/modals/ModalForm";
+import { LaboratoryInput } from "./add-new-test/components/LaboratoryInput";
+import { hasRole } from "../../../utils/helper";
+import { TestTypeInput } from "./add-new-test/components/TestTypeInput";
 
 const addSchema = Yup.object().shape({
   name: Yup.string()
@@ -35,53 +36,73 @@ const addSchema = Yup.object().shape({
     .max(10, "Maximum 300 symbols"),
 });
 
-const AddNewTest: FC = () => {
+type Props = {
+  testId: number;
+};
+const EditRegistration: React.FC<Props> = ({ testId }) => {
   const { currentUser } = useAuth();
-
-  const initialValues = {
-    name: "",
-    nationalId: "",
-    age: "",
-    doctorName: "",
-    ageUnit: "year" as "year" | "day",
-    gender: "female" as "female" | "male",
-    testType: 0,
-    laboratoryId: (currentUser && currentUser.data.laboratory) || 1,
-    description: "",
-    senderRegistrationCode: "",
-    isMultiSlide: false,
-    numberOfSlides: 1,
-  };
-  const { isCreating, createRegistration, data } = useCreateRegistration();
-  const [qrCode, setQrCode] = useState(null);
+  const { isLoading, registration } = useRegistration(testId);
+  const { updateRegistration, isUpdating, data } =
+    useUpdateRegistration(testId);
 
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      id: testId,
+      name: "",
+      nationalId: "",
+      age: "",
+      doctorName: "",
+      ageUnit: "year" as "year" | "day",
+      gender: "female" as "female" | "male",
+      testType: 0,
+      laboratoryId: (currentUser && currentUser.data.laboratory) || 1,
+      description: "",
+      senderRegistrationCode: "",
+      isMultiSlide: false,
+      numberOfSlides: 1,
+    },
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
-        createRegistration(values);
-        if (!isCreating && data) {
-          setQrCode(data.data.id);
-          // TODO: Add label printer logic here
-        }
+        updateRegistration(values);
       } catch (error) {
         console.error(error);
-        setStatus("The login details are incorrect");
+        setStatus("Somthing went wrong updating test type. Try again later.");
         setSubmitting(false);
       }
     },
   });
-  useCloseModalOnSuccess("kt_modal_add_new_test", data, formik);
+  useEffect(() => {
+    if (!isLoading && registration) {
+      formik.setValues({
+        id: testId,
+        name: registration.name || "",
+        nationalId: registration.nationalId || "",
+        age: registration.age || "",
+        doctorName: registration.doctorName || "",
+        ageUnit: registration.ageUnit || ("year" as "year" | "day"),
+        gender: registration.gender || ("female" as "female" | "male"),
+        testType: registration.testTypeId || 0,
+        laboratoryId:
+          registration.laboratoryId ||
+          (currentUser && currentUser.data.laboratory) ||
+          1,
+        description: registration.description || "",
+        senderRegistrationCode: registration.senderRegistrationCode || "",
+        isMultiSlide: registration.numberOfSlides > 1,
+        numberOfSlides: registration.numberOfSlides || 1,
+      });
+    }
+  }, [isLoading, registration, formik.setValues]);
+
+  useCloseModalOnSuccess(`edit_test_info${testId}`, data, formik);
+
   return (
-    <ModalLayout modalId="kt_modal_add_new_test" title="Add New Test">
-      {!isCreating && data ? (
-        <span>Price: {data?.data.price} (R)</span>
-      ) : (
+    <ModalLayout modalId={`edit_test_info${testId}`} title="Add New Test">
         <ModalForm
           isError={false}
-          isLoading={isCreating}
-          modalId="kt_modal_add_new_test"
+          isLoading={isUpdating}
+          modalId={`edit_test_info${testId}`}
           formik={formik}
         >
           {/* begin::Form group */}
@@ -91,7 +112,7 @@ const AddNewTest: FC = () => {
           {/* end::Form group */}
 
           {/* begin::Form group */}
-          <div className="fv-row mb-3">
+          <div className="fv-row text-start mb-3">
             <label className="form-label fs-6 fw-bolder text-gray-900">
               Doctor Name
             </label>
@@ -99,6 +120,7 @@ const AddNewTest: FC = () => {
             <input
               placeholder="Doctor Name"
               {...formik.getFieldProps("doctorName")}
+              disabled={isUpdating || isLoading}
               className={clsx(
                 "form-control bg-transparent",
                 {
@@ -117,7 +139,7 @@ const AddNewTest: FC = () => {
           {/* end::Form group */}
 
           {/* begin::Form group */}
-          <div className="fv-row mb-3">
+          <div className="fv-row text-start mb-3">
             <label className="form-label fs-6 fw-bolder text-gray-900">
               Sender Registration Code
             </label>
@@ -125,6 +147,7 @@ const AddNewTest: FC = () => {
             <input
               placeholder="Sender Registration Code"
               {...formik.getFieldProps("senderRegistrationCode")}
+              disabled={isUpdating || isLoading}
               className={clsx(
                 "form-control bg-transparent",
                 {
@@ -153,13 +176,14 @@ const AddNewTest: FC = () => {
           {/* end::Form group */}
 
           {/* begin::Form group / Fullname*/}
-          <div className="fv-row mb-3">
+          <div className="fv-row text-start mb-3">
             <label className="form-label required fs-6 fw-bolder text-gray-900">
               Patient's Full Name
             </label>
             <input
               placeholder="Full Name"
               {...formik.getFieldProps("name")}
+              disabled={isUpdating || isLoading}
               className={clsx(
                 "form-control bg-transparent",
                 {
@@ -184,13 +208,14 @@ const AddNewTest: FC = () => {
           {/* end::Form group */}
 
           {/* begin::Form group / national id*/}
-          <div className="fv-row mb-3">
+          <div className="fv-row text-start mb-3">
             <label className="form-label required fs-6 fw-bolder text-gray-900">
               National ID
             </label>
             <input
               placeholder="National ID"
               {...formik.getFieldProps("nationalId")}
+              disabled={isUpdating || isLoading}
               className={clsx(
                 "form-control bg-transparent",
                 {
@@ -217,7 +242,7 @@ const AddNewTest: FC = () => {
           {/* end::Form group */}
 
           {/* begin::Form group / Age */}
-          <div className="fv-row mb-3 ">
+          <div className="fv-row text-start mb-3 ">
             <label className="form-label required fw-bolder text-gray-900 fs-6 mb-0">
               Age
             </label>
@@ -229,6 +254,7 @@ const AddNewTest: FC = () => {
                 autoComplete="on"
                 placeholder="Age"
                 {...formik.getFieldProps("age")}
+                disabled={isUpdating || isLoading}
                 className={clsx(
                   "form-control bg-transparent",
                   {
@@ -261,7 +287,7 @@ const AddNewTest: FC = () => {
           {/* end::Form group */}
 
           {/* begin::Form group /gender */}
-          <div className="fv-row mb-3">
+          <div className="fv-row text-start mb-3">
             <label className="required form-label fw-bolder text-gray-900 fs-6 mb-0">
               Gender
             </label>
@@ -278,6 +304,7 @@ const AddNewTest: FC = () => {
             >
               <label className="radio">
                 <input
+                disabled={isUpdating || isLoading}
                   type="radio"
                   className="me-2"
                   {...formik.getFieldProps("gender")}
@@ -288,6 +315,7 @@ const AddNewTest: FC = () => {
               </label>
               <label className="radio">
                 <input
+                disabled={isUpdating || isLoading}
                   type="radio"
                   {...formik.getFieldProps("gender")}
                   className="ms-5 me-2"
@@ -308,17 +336,18 @@ const AddNewTest: FC = () => {
           {/* end::Form group */}
 
           {/* begin::Form group/ test type */}
-          <TestTypeInput noPrice={false} formik={formik} />
+          <TestTypeInput formik={formik} noPrice={false} />
           {/* end::Form group */}
 
           {/* begin::Form group/ multi-slide */}
-          <div className="fv-row mb-3">
+          <div className="fv-row text-start mb-3">
             <div className="d-flex align-items-center">
               <label className="min-w-100px form-label fw-bolder text-gray-900 fs-6 mb-0 me-2">
                 Multi-Slide:
               </label>
               <div className="form-check form-check-custom form-check-solid form-switch me-6">
                 <input
+                disabled={isUpdating || isLoading}
                   className="form-check-input"
                   type="checkbox"
                   {...formik.getFieldProps("isMultiSlide")}
@@ -332,6 +361,7 @@ const AddNewTest: FC = () => {
                   </label>
 
                   <input
+                  disabled={isUpdating || isLoading}
                     className={clsx(
                       "form-control bg-transparent",
                       {
@@ -364,11 +394,12 @@ const AddNewTest: FC = () => {
           {/* end::Form group */}
 
           {/* begin::Form group */}
-          <div className="fv-row mb-3">
+          <div className="fv-row text-start mb-3">
             <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
               Description
             </label>
             <textarea
+            disabled={isUpdating || isLoading}
               autoComplete="on"
               {...formik.getFieldProps("description")}
               className="form-control bg-transparent"
@@ -377,9 +408,8 @@ const AddNewTest: FC = () => {
           </div>
           {/* end::Form group */}
         </ModalForm>
-      )}
     </ModalLayout>
   );
 };
 
-export { AddNewTest };
+export { EditRegistration };

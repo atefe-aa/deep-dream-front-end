@@ -19,6 +19,7 @@ const addSchema = Yup.object().shape({
 });
 
 const initialValues = {
+  id: 0,
   testType: "",
   price: undefined as number | undefined,
   extraPrice: undefined as number | undefined,
@@ -30,7 +31,7 @@ type Props = {
 };
 
 const AddNewTestPrice: React.FC<Props> = ({ labData }) => {
-  const { isCreating, createPrice, data } = useCreatePrice();
+  const { isCreating, createPrice, data } = useCreatePrice(labData.id);
 
   const formik = useFormik({
     initialValues,
@@ -46,23 +47,23 @@ const AddNewTestPrice: React.FC<Props> = ({ labData }) => {
     },
   });
   useCloseModalOnSuccess(
-    `kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`,
+    `kt_modal_add_new_test_price_${labData.id}`,
     data,
     formik
   );
   return (
     <ModalLayout
-      modalId={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
+      modalId={`kt_modal_add_new_test_price_${labData.id}`}
       title={`${labData.labName} Laboratory`}
     >
       <ModalForm
         isError={false}
         isLoading={isCreating}
-        modalId={`kt_modal_add_new_test_price_${labData.labName.toLowerCase()}`}
+        modalId={`kt_modal_add_new_test_price_${labData.id}`}
         formik={formik}
       >
         {/* begin::test type Form group */}
-        <TestTypeInput formik={formik} labId={labData.id} />
+        <TestTypeInput noPrice={true} formik={formik} labId={labData.id} />
         {/* end::Form group */}
 
         {/* begin::price Form group  */}

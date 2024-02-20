@@ -6,7 +6,7 @@ import { postMethodRequest } from "../../../../../utils/requestHelpers";
 const API_URL = import.meta.env.VITE_APP_API_URL_;
 const BASE_URL = `${API_URL}/price`;
 
-export function useCreatePrice() {
+export function useCreatePrice(labId:number) {
   const queryClient = useQueryClient();
   const {
     mutate: createPrice,
@@ -19,6 +19,7 @@ export function useCreatePrice() {
     onSuccess: () => {
       toast.success("New Test Type Price successfully created.");
       queryClient.invalidateQueries({ queryKey: ["laboratories"] });
+      queryClient.invalidateQueries({ queryKey: ["testTypes",`laboratory=${labId}&noPaginate=true&noPrice=true`] });
     },
     onError: (err) => {
       toast.error(err.message);

@@ -3,7 +3,7 @@ import { Search } from "../../ui/search-and-filter/Search";
 import { CustomTable } from "../../ui/table/CustomTable";
 import { useEffect, useMemo, useState } from "react";
 import { useQueryRequest } from "../QueryRequestProvider";
-import { useRegistration } from "./hooks/useRegistrations";
+import { useRegistrations } from "./hooks/useRegistrations";
 import { NoRecordRow } from "../../ui/table/NoRecordRow";
 import { TestsModel } from "./core/_models";
 import { PatientsTableRow } from "./components/PatientsTableRow";
@@ -35,7 +35,7 @@ export function Registrations() {
     isLoading: isLoadingRegistration,
     registrations,
     meta,
-  } = useRegistration(query);
+  } = useRegistrations(query);
 
   const onChangePage = (page: number) => {
     updateState("patients", { ...patientsState, page });

@@ -5,6 +5,7 @@ import Select, { SingleValue } from "react-select";
 interface Props {
   formik: any;
   labId?: number;
+  noPrice: boolean;
 }
 
 interface TestOption {
@@ -12,10 +13,15 @@ interface TestOption {
   label: string;
 }
 
-function TestTypeInput({ formik, labId }: Props) {
-  const query = `laboratory=${
-    formik.values.laboratoryId ? formik.values.laboratoryId : labId
-  }&noPaginate=true&noPrice=true`;
+function TestTypeInput({ formik, labId, noPrice }: Props) {
+  const query = noPrice
+    ? `laboratory=${
+        formik.values.laboratoryId ? formik.values.laboratoryId : labId
+      }&noPaginate=true&noPrice=true`
+    : `laboratory=${
+        formik.values.laboratoryId ? formik.values.laboratoryId : labId
+      }&noPaginate=true`;
+
   const { isLoading, testTypes } = useTestTypes(query);
 
   const testTypeOptions =
@@ -26,9 +32,15 @@ function TestTypeInput({ formik, labId }: Props) {
     }));
 
   return (
-    <div className="fv-row mb-3">
+    <div className="fv-row text-start mb-3">
       {isLoading ? (
         <span>Loading Test Types List....</span>
+      ) : testTypes.length === 0 ? (
+        <span className="alert p-2 alert-warning ">
+          {noPrice
+            ? "All test types have been priced for this labporatory."
+            : "No test type with price for this laboratory."}
+        </span>
       ) : (
         <>
           <label className="required form-label fw-bolder text-gray-900 fs-6 mb-0">

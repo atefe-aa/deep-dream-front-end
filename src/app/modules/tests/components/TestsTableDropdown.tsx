@@ -48,7 +48,7 @@ const TestsTableDropdown: FC<Props> = ({ data }) => {
       <CustomDropdown>
         <Dropdown.Item
           data-bs-toggle="modal"
-          // data-bs-target={`#edit_info${labData.id}`}
+          data-bs-target={`#edit_test_info${data.id}`}
         >
           <KTIcon iconName="pencil" className="fs-3 me-3" />
           Edit Info

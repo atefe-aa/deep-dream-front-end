@@ -10,6 +10,7 @@ export interface TestsModel {
   img: string | null;
   project: string | null;
   senderRegistrationCode: string;
+  doctorName:string;
   testType: string;
   description: string;
   laboratory: string;
@@ -29,7 +30,8 @@ export interface RegistrationRequestModel {
   testType: number;
   laboratoryId: number;
   description: string;
-  senderRegisterCode: string;
+  senderRegistrationCode: string;
   isMultiSlide: boolean;
   numberOfSlides: number;
 }
+

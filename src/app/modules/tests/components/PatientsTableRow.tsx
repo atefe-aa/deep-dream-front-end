@@ -6,6 +6,7 @@ import { TestsModel } from "../core/_models";
 import { ShareMenuDropdown } from "./ShareMenuDropdown";
 import { ConfirmModal } from "../../../ui/modals/ConfirmModal";
 import { useDeleteRegistration } from "../hooks/useDeleteRegistration";
+import { EditRegistration } from "./EditRegistration";
 
 
 type Props = {
@@ -149,6 +150,7 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
             isLoading={isDeleting}
             message={`Are you sure, you want to delete ${data.name}'s test?`}
           />
+          <EditRegistration testId={data.id} />
           </div>
         </td>
       </tr>
