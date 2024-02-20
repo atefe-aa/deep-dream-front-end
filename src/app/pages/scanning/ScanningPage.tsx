@@ -60,14 +60,15 @@ const ScanningPage = () => {
 
   const { isStarting, startFullSlideScanning, data } =
     useStartFullSlideScanning();
+    const { isLoading: isLoadingSlides, slides } = useSlides();
+    const { isLoading: isLoadingScans, scans } = useScans();
 
-  const checkboxes = Array.from({ length: 10 }, (_, index) => index + 1);
+  const checkboxes = Array.from({ length: slides.length }, (_, index) => index + 1);
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
-        console.log(values);
         startFullSlideScanning(values.selectedCheckboxes);
       } catch (error) {
         console.error(error);
@@ -112,8 +113,7 @@ const ScanningPage = () => {
     }
   };
 
-  const { isLoading: isLoadingSlides, slides } = useSlides();
-  const { isLoading: isLoadingScans, scans } = useScans();
+
 
   return (
     <form onSubmit={formik.handleSubmit}>

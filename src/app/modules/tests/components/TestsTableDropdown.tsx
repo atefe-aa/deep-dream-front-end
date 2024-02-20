@@ -54,8 +54,8 @@ const TestsTableDropdown: FC<Props> = ({ data }) => {
           Edit Info
         </Dropdown.Item>
         <Dropdown.Item onClick={handlePrint}>
-          <div ref={printRef} className="">
-            <QRCodeGenerator number="25" />
+          <div ref={printRef} className="d-none">
+            <QRCodeGenerator testId="225265" totalSlides={5} testType="colon" />
           </div>
           <KTIcon iconName="printer" className="fs-3 me-3" />
           Print Label
