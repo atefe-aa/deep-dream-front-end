@@ -13,7 +13,7 @@ const QRCodeGenerator: React.FC<Props> = ({
   testType,
 }) => {
   const [qrImageUrl, setQrImageUrl] = useState("");
-  const qrRef = useRef(null);
+  const qrRef = useRef<HTMLDivElement>(null);
 
   const labels = Array.from({ length: totalSlides }, (_, index) => index + 1);
 
