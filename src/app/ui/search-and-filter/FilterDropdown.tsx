@@ -94,22 +94,6 @@ const FilterDropdown: React.FC<Props> = ({ filters = [] }) => {
                   </div>
                 </div>
               </div>
-            {/* <div>
-              <select
-                className="form-select "
-                data-kt-select2="true"
-                data-placeholder="Select option"
-                data-allow-clear="true"
-                defaultValue={"1"}
-              >
-                <option>Choose Laboratory</option>
-                {LABS_TESTS_DATA.map((lab) => (
-                  <option key={lab.id} value={lab.id}>
-                    {lab.labName}
-                  </option>
-                ))}
-              </select>
-            </div> */}
           </div>
         )}
 
@@ -162,14 +146,6 @@ const FilterDropdown: React.FC<Props> = ({ filters = [] }) => {
                   </div>
                 </div>
               </div>
-            {/* <select className="form-select " aria-label="Select test type">
-              <option>Choose test type</option>
-              {TEST_TYPES.map((test) => (
-                <option value={test.id} key={test.id}>
-                  {test.code} - {test.title}
-                </option>
-              ))}
-            </select> */}
           </div>
         )}
 

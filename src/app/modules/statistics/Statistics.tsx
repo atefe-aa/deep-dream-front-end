@@ -35,7 +35,6 @@ export function Statistics() {
               chartColor="info"
               chartHeight="365px"
             />
-            {/* <ChartsWidget1 className='mb-5 mb-xxl-8' /> */}
           </div>
           <div className="col-lg-6">
             <BarChart
