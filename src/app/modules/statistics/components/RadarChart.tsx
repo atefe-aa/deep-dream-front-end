@@ -24,6 +24,7 @@ type Props = {
   description: string;
   totals: Array<TotalItem>;
   series: Array<ChartDataItem>;
+  xaxisCategories: object;
   unit: string;
 };
 interface ChartDataItem {
@@ -37,7 +38,11 @@ const RadarChart: React.FC<Props> = ({
   unit,
   description,
   totals,
+  xaxisCategories,
 }) => {
+  // Convert xaxisCategories from an object to an array
+  const xaxisCategoriesArray = Object.values(xaxisCategories);
+  
   const chartRef = useRef<HTMLDivElement | null>(null);
   const { mode } = useThemeMode();
   const refreshChart = () => {
@@ -52,7 +57,15 @@ const RadarChart: React.FC<Props> = ({
 
     const chart = new ApexCharts(
       chartRef.current,
-      getChartOptions(height, labelColor, baseColor, lightColor, series, unit)
+      getChartOptions(
+        height,
+        labelColor,
+        baseColor,
+        lightColor,
+        series,
+        unit,
+        xaxisCategoriesArray
+      )
     );
     if (chart) {
       chart.render();
@@ -122,7 +135,10 @@ const RadarChart: React.FC<Props> = ({
               <div key={total.title} className=" mx-5">
                 <div className="fs-6 text-gray-700">{total.title}</div>
                 <div className="fs-5 fw-bold text-gray-800">
-                  {total.value} {total.unit}
+                {total.unit === "(R)"
+                    ? total.value.toLocaleString()
+                    : total.value}{" "}
+                  {total.unit}
                 </div>
               </div>
             ))}
@@ -144,9 +160,9 @@ function getChartOptions(
   baseColor: string,
   lightColor: string,
   series: Array<ChartDataItem>,
-  unit: string
+  unit: string,
+  xaxisCategoriesArray: Array<string>
 ): ApexOptions {
-  const testTypes = TEST_TYPES.map((test) => test.title);
 
   return {
     series: series,
@@ -286,7 +302,7 @@ function getChartOptions(
       ],
     },
     xaxis: {
-      categories: testTypes,
+      categories: xaxisCategoriesArray,
       axisBorder: {
         show: false,
       },

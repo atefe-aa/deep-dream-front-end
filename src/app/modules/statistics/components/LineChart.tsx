@@ -141,7 +141,10 @@ const LineChart: React.FC<Props> = ({
               <div key={total.title} className=" mx-5">
                 <div className="fs-6 text-gray-700">{total.title}</div>
                 <div className="fs-5 fw-bold text-gray-800">
-                  {total.value} {total.unit}
+                  {total.unit === "(R)"
+                    ? total.value.toLocaleString()
+                    : total.value}{" "}
+                  {total.unit}
                 </div>
               </div>
             ))}
