@@ -6,6 +6,8 @@ import { KTIcon } from "../../../../_metronic/helpers";
 import clsx from "clsx";
 import { FilterDropdown } from "../../../ui/search-and-filter/FilterDropdown";
 import ScreenshotButton from "../../../ui/ScreenshotButton";
+import { useChart } from "../hooks/useChart";
+import { Spinner } from "react-bootstrap";
 
 interface TotalItem {
   title: string;
@@ -22,10 +24,8 @@ type Props = {
   color: string;
   chartHeight: string;
   chartTitle: string;
-  totals: Array<TotalItem>;
-  series: Array<ChartDataItem>;
-  xaxisCategories: object;
   unit: string;
+  y: "number" | "price";
 };
 
 const BarChart: FC<Props> = ({
@@ -33,13 +33,12 @@ const BarChart: FC<Props> = ({
   color,
   chartHeight,
   chartTitle,
-  totals,
-  series,
-  xaxisCategories,
   unit,
+  y,
 }) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
-
+  const query = `x=laboratories&y=${y}`;
+  const { isLoading, chartData } = useChart({ query, chart: "chart" });
   const targetComponentRef = useRef(null);
 
   const { mode } = useThemeMode();
@@ -48,9 +47,16 @@ const BarChart: FC<Props> = ({
       return;
     }
 
+    if (isLoading) return;
+
     const chart = new ApexCharts(
       chartRef.current,
-      chartOptions(chartHeight, series, xaxisCategories, unit)
+      chartOptions(
+        chartHeight,
+        chartData.series,
+        chartData.xAxisCategories,
+        unit
+      )
     );
     if (chart) {
       chart.render();
@@ -105,10 +111,14 @@ const BarChart: FC<Props> = ({
       {/* begin::Body  */}
       <div className="card-body p-0">
         {/* begin::Chart  */}
-        <div
-          ref={chartRef}
-          className={`mixed-widget-12-chart card-rounded-bottom `}
-        ></div>
+        {isLoading ? (
+          <Spinner animation="grow" />
+        ) : (
+          <div
+            ref={chartRef}
+            className={`mixed-widget-12-chart card-rounded-bottom `}
+          ></div>
+        )}
         {/* end::Chart  */}
 
         {/* begin::Stats  */}
@@ -116,7 +126,7 @@ const BarChart: FC<Props> = ({
           {/* begin::Row  */}
           <div className=" g-0 d-flex justify-content-around">
             {/* begin::Col  */}
-            {totals.map((total) => (
+           {chartData.totals && chartData.totals.map((total: TotalItem) =>(
               <div key={total.title} className=" mx-5">
                 <div className="fs-6 text-gray-700">{total.title}</div>
                 <div className="fs-5 fw-bold text-gray-800">
