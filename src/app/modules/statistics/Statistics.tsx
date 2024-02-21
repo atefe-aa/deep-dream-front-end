@@ -56,7 +56,7 @@ export function Statistics() {
                 unit=" tests"
                 xaxisCategories={chartData.xAxisCategories}
                 className="mb-5 mb-xl-8"
-                chartColor="info"
+                color="info"
                 chartHeight="365px"
               />
             )}
@@ -72,7 +72,7 @@ export function Statistics() {
                 chartTitle="Tests Price(R)"
                 xaxisCategories={chartData2.xAxisCategories}
                 className=" mb-xl-8"
-                chartColor="primary"
+                color="primary"
                 chartHeight="365px"
               />
             )}
@@ -133,7 +133,6 @@ export function Statistics() {
                 series={chartData5.series}
                 unit=" (R)"
                 className="mb-5 mb-xl-8 "
-                svgIcon="basket"
                 color="success"
                 description="Price(R) Base"
                 xaxisCategories={chartData5.xAxisCategories}
@@ -149,7 +148,6 @@ export function Statistics() {
                 series={chartData6.series}
                 unit=" tests"
                 className=" mb-xl-8 "
-                svgIcon="basket"
                 color="success"
                 description="Test Number Base"
                 xaxisCategories={chartData6.xAxisCategories}

@@ -19,7 +19,6 @@ interface TotalItem {
 
 type Props = {
   className: string;
-  svgIcon: string;
   color: string;
   description: string;
   totals: Array<TotalItem>;

@@ -19,7 +19,7 @@ interface ChartDataItem {
 
 type Props = {
   className: string;
-  chartColor: string;
+  color: string;
   chartHeight: string;
   chartTitle: string;
   totals: Array<TotalItem>;
@@ -31,7 +31,7 @@ type Props = {
 
 const BarChart: FC<Props> = ({
   className,
-  chartColor,
+  color,
   chartHeight,
   chartTitle,
   totals,
@@ -88,7 +88,7 @@ const BarChart: FC<Props> = ({
             type="button"
             className={clsx(
               "btn btn-sm btn-icon btn-color-white btn-active-white",
-              `btn-active-color-${chartColor}`,
+              `btn-active-color-${color}`,
               "border-0 me-n3"
             )}
             data-kt-menu-trigger="click"
