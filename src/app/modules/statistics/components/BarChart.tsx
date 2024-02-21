@@ -25,7 +25,6 @@ type Props = {
   totals: Array<TotalItem>;
   series: Array<ChartDataItem>;
   xaxisCategories: object;
-
   unit: string;
 };
 
