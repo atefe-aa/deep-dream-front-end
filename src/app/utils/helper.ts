@@ -1,5 +1,6 @@
 import { UserModel, useAuth } from "../modules/auth";
 import { MetaModel } from "../modules/user-management/laboratories/core/_models";
+import { FiltersModel } from "./_models";
 
 export function capitalizeWords(str: string) {
   return str.replace(/\b\w/g, (match) => match.toUpperCase());
@@ -98,4 +99,14 @@ export function getProgressUI(progress: string) {
   }
 
   return { progressPercent, progressBg };
+}
+
+
+export function saveFilters(filters:FiltersModel,storageKey:string) {
+  localStorage.setItem(storageKey, JSON.stringify(filters));
+}
+
+export function getFilters(storageKey:string) {
+  const storedFilters = localStorage.getItem(storageKey);
+  return storedFilters ? JSON.parse(storedFilters) : null;
 }

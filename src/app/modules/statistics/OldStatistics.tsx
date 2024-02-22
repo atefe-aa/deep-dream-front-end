@@ -1,9 +1,11 @@
+
 import { BarChart } from "./components/BarChart";
 import { LineChart } from "./components/LineChart";
 import { RadarChart } from "./components/RadarChart";
 
 export function OldStatistics() {
   return (
+
     <div className="row gy-5 g-xxl-8">
       {/* begin::Col */}
       <div className="col-lg-6">
@@ -71,6 +73,7 @@ export function OldStatistics() {
       </div> */}
       {/* end::Col */}
     </div>
+
   );
   {
     /* end::Row */

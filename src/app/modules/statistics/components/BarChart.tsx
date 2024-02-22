@@ -1,13 +1,18 @@
-import { useEffect, useRef, FC } from "react";
+import { useEffect, useRef, FC, useState, useMemo } from "react";
 import ApexCharts, { ApexOptions } from "apexcharts";
 import { getCSSVariableValue } from "../../../../_metronic/assets/ts/_utils";
 import { useThemeMode } from "../../../../_metronic/partials";
-import { KTIcon } from "../../../../_metronic/helpers";
+import {
+  KTIcon,
+  stringifyFilterChartQuery,
+} from "../../../../_metronic/helpers";
 import clsx from "clsx";
 import { FilterDropdown } from "../../../ui/search-and-filter/FilterDropdown";
 import ScreenshotButton from "../../../ui/ScreenshotButton";
 import { useChart } from "../hooks/useChart";
 import { Spinner } from "react-bootstrap";
+import { useFilterChart } from "../../../ui/search-and-filter/FilterChartProvider";
+import { FilterState } from "../../../ui/search-and-filter/_models";
 
 interface TotalItem {
   title: string;
@@ -37,17 +42,37 @@ const BarChart: FC<Props> = ({
   y,
 }) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
-  const query = `x=laboratories&y=${y}`;
-  const { isLoading, chartData } = useChart({ query, chart: "chart" });
+
   const targetComponentRef = useRef(null);
 
   const { mode } = useThemeMode();
+
+  const { state, updateState } = useFilterChart();
+  const barChart = state.barChart;
+  const initialQuery =
+    `x=laboratories&y=${y}&` + stringifyFilterChartQuery(barChart);
+  const [query, setQuery] = useState<string>(initialQuery);
+  const updatedQuery = useMemo(
+    () => stringifyFilterChartQuery(barChart),
+    [barChart]
+  );
+
+  useEffect(() => {
+    if (query !== updatedQuery) {
+      setQuery(`x=laboratories&y=${y}&` + updatedQuery);
+    }
+  }, [updatedQuery, query]);
+
+  const { isLoading, chartData } = useChart({ query, chart: "chart" });
+
+  const onChangeFilters = (filters: FilterState) => {
+    updateState("barChart", filters);
+  };
+
   const refreshChart = () => {
-    if (!chartRef.current) {
+    if (!chartRef.current || isLoading) {
       return;
     }
-
-    if (isLoading) return;
 
     const chart = new ApexCharts(
       chartRef.current,
@@ -66,6 +91,10 @@ const BarChart: FC<Props> = ({
   };
 
   useEffect(() => {
+    if (isLoading || !chartData.series || !chartData.xAxisCategories) {
+      return;
+    }
+
     const chart = refreshChart();
 
     return () => {
@@ -74,7 +103,7 @@ const BarChart: FC<Props> = ({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chartRef, mode]);
+  }, [chartRef, mode, isLoading, chartData, query]);
 
   return (
     <div className={`card ${className}`} ref={targetComponentRef}>
@@ -102,7 +131,11 @@ const BarChart: FC<Props> = ({
           >
             <KTIcon iconName="category" className="fs-2 text-info" />
           </button>
-          <FilterDropdown filters={["date"]} />
+          <FilterDropdown
+            onSubmit={onChangeFilters}
+            componentName="barChart"
+            filterTypes={["date"]}
+          />
           {/* end::Menu  */}
         </div>
       </div>
@@ -126,17 +159,18 @@ const BarChart: FC<Props> = ({
           {/* begin::Row  */}
           <div className=" g-0 d-flex justify-content-around">
             {/* begin::Col  */}
-           {chartData.totals && chartData.totals.map((total: TotalItem) =>(
-              <div key={total.title} className=" mx-5">
-                <div className="fs-6 text-gray-700">{total.title}</div>
-                <div className="fs-5 fw-bold text-gray-800">
-                  {total.unit === "(R)"
-                    ? total.value.toLocaleString()
-                    : total.value}{" "}
-                  {total.unit}
+            {chartData.totals &&
+              chartData.totals.map((total: TotalItem) => (
+                <div key={total.title} className=" mx-5">
+                  <div className="fs-6 text-gray-700">{total.title}</div>
+                  <div className="fs-5 fw-bold text-gray-800">
+                    {total.unit === "(R)"
+                      ? total.value.toLocaleString()
+                      : total.value}{" "}
+                    {total.unit}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
             {/* end::Col  */}
           </div>

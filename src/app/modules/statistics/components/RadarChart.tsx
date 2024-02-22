@@ -111,7 +111,7 @@ const RadarChart: React.FC<Props> = ({
           >
             <KTIcon iconName="category" className="fs-2 text-info" />
           </button>
-          <FilterDropdown filters={["lab", "date", "testType"]} />
+          <FilterDropdown componentName="radarChart"  filterTypes={["lab", "date", "testType"]} />
           {/* end::Menu  */}
         </div>
       </div>
