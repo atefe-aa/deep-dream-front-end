@@ -3,6 +3,7 @@ import { useThemeMode } from "../../../../_metronic/partials";
 import ApexCharts, { ApexOptions } from "apexcharts";
 import {
   KTIcon,
+  isNotEmpty,
   stringifyFilterChartQuery,
 } from "../../../../_metronic/helpers";
 import clsx from "clsx";
@@ -16,6 +17,8 @@ import { useFilterChart } from "../../../ui/search-and-filter/FilterChartProvide
 import { useChart } from "../hooks/useChart";
 import { FilterState } from "../../../ui/search-and-filter/_models";
 import { Spinner } from "react-bootstrap";
+import { useAuth } from "../../auth";
+import { hasRole } from "../../../utils/helper";
 
 interface TotalItem {
   title: string;
@@ -29,7 +32,6 @@ interface ChartDataItem {
 type Props = {
   className: string;
   color: string;
-  change: string | null | undefined;
   description: string;
   chartHeight: string;
   chartTitle: string;
@@ -44,10 +46,10 @@ const LineChart: React.FC<Props> = ({
   chartTitle,
   unit,
   color,
-  change,
   description,
   y,
 }) => {
+  const { currentUser } = useAuth();
   const chartRef = useRef<HTMLDivElement | null>(null);
   const { mode } = useThemeMode();
 
@@ -116,12 +118,24 @@ const LineChart: React.FC<Props> = ({
   }, [chartRef, color, mode, isLoading, chartData, query]);
 
   const targetComponentRef = useRef(null);
+
+  const superAdminChartTitle =
+    lineChart.laboratories.length !== 0
+      ? "Selected Laboratories"
+      : "All Laboratories";
   return (
     <div className={`card ${className}`} ref={targetComponentRef}>
       {/* begin::Header  */}
       <div className={`card-header border-0  py-5`}>
         <div className="d-flex flex-column">
-          <span className="text-gray-900 fw-bold fs-2">{change}</span>
+          <span className="text-gray-900 fw-bold fs-2">
+            {currentUser && hasRole(currentUser, ["superAdmin"])
+              ? superAdminChartTitle
+              : currentUser?.data.labName}
+          </span>
+        
+            {lineChart.testTypes.length !== 0 &&  <span className="text-gray-900 fw-bold fs-4"> Selected Test Types </span>}
+         
           <span className="text-muted fw-semibold mt-1">{description}</span>
         </div>
         <div className="card-toolbar">
@@ -146,7 +160,7 @@ const LineChart: React.FC<Props> = ({
           <FilterDropdown
             onSubmit={onChangeFilters}
             componentName="lineChart"
-            filterTypes={["lab", "date"]}
+            filterTypes={["lab", "date", "testType"]}
           />
           {/* end::Menu  */}
         </div>
@@ -157,9 +171,7 @@ const LineChart: React.FC<Props> = ({
       <div className="card-body p-0">
         <div className="d-flex flex-stack card-p flex-grow-1"></div>
         {isLoading ? (
-    
-            <Spinner animation="grow" />
-    
+          <Spinner animation="grow" />
         ) : (
           <div
             ref={chartRef}
@@ -172,7 +184,7 @@ const LineChart: React.FC<Props> = ({
           <div className=" g-0  d-flex justify-content-around">
             {/* begin::Col  */}
             {chartData.totals &&
-              chartData.totals.map((total:TotalItem) => (
+              chartData.totals.map((total: TotalItem) => (
                 <div key={total.title} className=" mx-5">
                   <div className="fs-6 text-gray-700">{total.title}</div>
                   <div className="fs-5 fw-bold text-gray-800">
@@ -210,7 +222,6 @@ function getChartOptions(
     chart: {
       fontFamily: "inherit",
       type: "area",
-      height: chartHeight,
       toolbar: {
         show: false,
       },

@@ -7,7 +7,7 @@ export function useChart({ query = "", chart = "chart" }) {
   const BASE_URL = `${API_URL}/statistics/${chart}`;
 
   const { data, error, isLoading } = useQuery({
-    queryKey: ["chart", query],
+    queryKey: ["chart", query,chart],
     queryFn: () => request(query, "Chart Data", BASE_URL, undefined, "GET"),
   });
 

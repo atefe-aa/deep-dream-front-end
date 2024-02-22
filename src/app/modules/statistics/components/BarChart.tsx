@@ -109,7 +109,15 @@ const BarChart: FC<Props> = ({
     <div className={`card ${className}`} ref={targetComponentRef}>
       {/* begin::Header  */}
       <div className={`card-header border-0 py-5`}>
-        <h3 className="card-title fw-bold ">{chartTitle}</h3>
+        <div className="d-flex flex-column">
+          <h3 className="card-title fw-bold ">{chartTitle}</h3>
+
+          {barChart.laboratories.length !== 0 && (
+            <span className="text-gray-900 fw-bold fs-4">
+              Selected Laboratories{" "}
+            </span>
+          )}
+        </div>
 
         <div className="card-toolbar">
           <ScreenshotButton
@@ -134,7 +142,7 @@ const BarChart: FC<Props> = ({
           <FilterDropdown
             onSubmit={onChangeFilters}
             componentName="barChart"
-            filterTypes={["date"]}
+            filterTypes={["date", "lab"]}
           />
           {/* end::Menu  */}
         </div>
@@ -159,7 +167,9 @@ const BarChart: FC<Props> = ({
           {/* begin::Row  */}
           <div className=" g-0 d-flex justify-content-around">
             {/* begin::Col  */}
-            {chartData.totals &&
+            {!isLoading &&
+              chartData &&
+              chartData.totals &&
               chartData.totals.map((total: TotalItem) => (
                 <div key={total.title} className=" mx-5">
                   <div className="fs-6 text-gray-700">{total.title}</div>

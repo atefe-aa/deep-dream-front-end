@@ -7,9 +7,15 @@ import {
   getCSS,
   getCSSVariableValue,
 } from "../../../../_metronic/assets/ts/_utils";
-import { TEST_TYPES } from "../../../utils/constants";
 import { FilterDropdown } from "../../../ui/search-and-filter/FilterDropdown";
 import ScreenshotButton from "../../../ui/ScreenshotButton";
+import { FC, useState, useMemo } from "react";
+import { stringifyFilterChartQuery } from "../../../../_metronic/helpers";
+
+import { useChart } from "../hooks/useChart";
+import { Spinner } from "react-bootstrap";
+import { useFilterChart } from "../../../ui/search-and-filter/FilterChartProvider";
+import { FilterState } from "../../../ui/search-and-filter/_models";
 
 interface TotalItem {
   title: string;
@@ -21,10 +27,8 @@ type Props = {
   className: string;
   color: string;
   description: string;
-  totals: Array<TotalItem>;
-  series: Array<ChartDataItem>;
-  xaxisCategories: object;
   unit: string;
+  y: string;
 };
 interface ChartDataItem {
   name: string;
@@ -33,15 +37,32 @@ interface ChartDataItem {
 const RadarChart: React.FC<Props> = ({
   className,
   color,
-  series,
   unit,
   description,
-  totals,
-  xaxisCategories,
+  y,
 }) => {
-  // Convert xaxisCategories from an object to an array
-  const xaxisCategoriesArray = Object.values(xaxisCategories);
-  
+  const { state, updateState } = useFilterChart();
+  const radarChart = state.radarChart;
+  const initialQuery =
+    `x=testTypes&y=${y}&` + stringifyFilterChartQuery(radarChart);
+  const [query, setQuery] = useState<string>(initialQuery);
+  const updatedQuery = useMemo(
+    () => stringifyFilterChartQuery(radarChart),
+    [radarChart]
+  );
+
+  useEffect(() => {
+    if (query !== updatedQuery) {
+      setQuery(`x=testTypes&y=${y}&` + updatedQuery);
+    }
+  }, [updatedQuery, query]);
+
+  const { isLoading, chartData } = useChart({ query, chart: "radarChart" });
+
+  const onChangeFilters = (filters: FilterState) => {
+    updateState("radarChart", filters);
+  };
+
   const chartRef = useRef<HTMLDivElement | null>(null);
   const { mode } = useThemeMode();
   const refreshChart = () => {
@@ -61,9 +82,9 @@ const RadarChart: React.FC<Props> = ({
         labelColor,
         baseColor,
         lightColor,
-        series,
+        chartData.series,
         unit,
-        xaxisCategoriesArray
+        chartData.xAxisCategories
       )
     );
     if (chart) {
@@ -74,6 +95,10 @@ const RadarChart: React.FC<Props> = ({
   };
 
   useEffect(() => {
+    if (isLoading || !chartData.series || !chartData.xAxisCategories) {
+      return;
+    }
+
     const chart = refreshChart();
     return () => {
       if (chart) {
@@ -81,7 +106,7 @@ const RadarChart: React.FC<Props> = ({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chartRef, color, mode]);
+  }, [chartRef, color, mode, isLoading, chartData, query]);
 
   const targetComponentRef = useRef(null);
 
@@ -111,7 +136,11 @@ const RadarChart: React.FC<Props> = ({
           >
             <KTIcon iconName="category" className="fs-2 text-info" />
           </button>
-          <FilterDropdown componentName="radarChart"  filterTypes={["lab", "date", "testType"]} />
+          <FilterDropdown
+            onSubmit={onChangeFilters}
+            componentName="radarChart"
+            filterTypes={["lab", "date", "testType"]}
+          />
           {/* end::Menu  */}
         </div>
       </div>
@@ -119,28 +148,35 @@ const RadarChart: React.FC<Props> = ({
 
       {/* begin::Body */}
       <div className="card-bod p-0 ">
-        <div
-          ref={chartRef}
-          className="statistics-widget-4-chart card-rounded-bottom "
-          style={{ height: "415px" }}
-        ></div>
+        {isLoading ? (
+          <Spinner animation="grow" />
+        ) : (
+          <div
+            ref={chartRef}
+            className="statistics-widget-4-chart card-rounded-bottom "
+            style={{ height: "415px" }}
+          ></div>
+        )}
 
         {/* begin::Stats  */}
         <div className="card-rounded bg-secondary mt-n6 position-relative card-px py-15">
           {/* begin::Row  */}
           <div className=" g-0  d-flex justify-content-around">
             {/* begin::Col  */}
-            {totals.map((total) => (
-              <div key={total.title} className=" mx-5">
-                <div className="fs-6 text-gray-700">{total.title}</div>
-                <div className="fs-5 fw-bold text-gray-800">
-                {total.unit === "(R)"
-                    ? total.value.toLocaleString()
-                    : total.value}{" "}
-                  {total.unit}
+            {!isLoading &&
+              chartData &&
+              chartData.totals &&
+              chartData.totals.map((total: TotalItem) => (
+                <div key={total.title} className=" mx-5">
+                  <div className="fs-6 text-gray-700">{total.title}</div>
+                  <div className="fs-5 fw-bold text-gray-800">
+                    {total.unit === "(R)"
+                      ? total.value.toLocaleString()
+                      : total.value}{" "}
+                    {total.unit}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
             {/* end::Col  */}
           </div>
           {/* end::Row  */}
@@ -162,7 +198,6 @@ function getChartOptions(
   unit: string,
   xaxisCategoriesArray: Array<string>
 ): ApexOptions {
-
   return {
     series: series,
     chart: {
