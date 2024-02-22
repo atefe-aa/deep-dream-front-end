@@ -31,9 +31,7 @@ const ImagePage = () => {
   const { data, isLoading } = useGetToken();
 
   if (!isLoading && data && data.data.token) url += data.data.token;
-  if (!isLoading &&( !data || !data?.data?.token) && token) url += token;
-
-  console.log(url);
+  if (!isLoading && (!data || !data?.data?.token) && token) url += token;
 
   return (
     <>

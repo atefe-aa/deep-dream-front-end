@@ -12,6 +12,7 @@ import { ErrorsPage } from "../modules/errors/ErrorsPage";
 import { Logout, AuthPage, useAuth } from "../modules/auth";
 import { App } from "../App";
 import ImagePage from "../pages/image/ImagePage";
+import { Redirect } from "../pages/redirect/Redirect";
 
 /**
  * Base URL of the website.
@@ -30,6 +31,7 @@ const AppRoutes: FC = () => {
           <Route path="error/*" element={<ErrorsPage />} />
           <Route path="logout" element={<Logout />} />
           <Route path="image" element={<ImagePage />} />
+          <Route path="link/:code" element={<Redirect />} />
           {currentUser ? (
             <>
               <Route path="/*" element={<PrivateRoutes />} />
