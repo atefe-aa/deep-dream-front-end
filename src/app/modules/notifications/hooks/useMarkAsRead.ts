@@ -13,7 +13,7 @@ export function useMarkAsRead() {
     error,
   } = useMutation({
     mutationFn: (ids: Array<string>) =>
-      request("", "Notifications", BASE_URL, ids, "POST"),
+      request("", "Notifications", BASE_URL, {ids}, "POST"),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['is-new'] });
     },

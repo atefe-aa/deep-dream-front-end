@@ -147,7 +147,8 @@ export async function request(
   BASE_URL: string,
   outgoingData: any,
   method = "GET",
-  id?: number|string
+  id?: number|string,
+  includeMeta=false
 ) {
   const options = {
     method: method,
@@ -167,8 +168,8 @@ export async function request(
       await handleRequestErrors(res);
     }
 
-    const { data } = await res.json();
-    return { data };
+    const { data,meta } = await res.json();
+    return { data,meta };
   } catch (e: unknown) {
     throw Error((e as Error).message);
     // throw Error(`${title} could not be fetched.`);
