@@ -60,7 +60,7 @@ const FilterDropdown: React.FC<Props> = ({
         toDate: toDate.toString(),
       };
     }
-    console.log(filters);
+  
     onSubmit(filters);
 
     localStorage.setItem(componentName, JSON.stringify(filters));

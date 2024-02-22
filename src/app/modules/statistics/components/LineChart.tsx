@@ -33,17 +33,12 @@ type Props = {
   className: string;
   color: string;
   description: string;
-  chartHeight: string;
-  chartTitle: string;
-
   unit: string;
   y: string;
 };
 
 const LineChart: React.FC<Props> = ({
   className,
-  chartHeight,
-  chartTitle,
   unit,
   color,
   description,
@@ -87,7 +82,6 @@ const LineChart: React.FC<Props> = ({
     const chart = new ApexCharts(
       chartRef.current,
       getChartOptions(
-        chartHeight,
         labelColor,
         baseColor,
         lightColor,
@@ -209,7 +203,6 @@ const LineChart: React.FC<Props> = ({
 export { LineChart };
 
 function getChartOptions(
-  chartHeight: string,
   labelColor: string,
   baseColor: string,
   lightColor: string,
@@ -222,6 +215,7 @@ function getChartOptions(
     chart: {
       fontFamily: "inherit",
       type: "area",
+      height: "400px",
       toolbar: {
         show: false,
       },
