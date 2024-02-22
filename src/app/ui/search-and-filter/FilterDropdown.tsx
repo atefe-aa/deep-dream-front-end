@@ -1,7 +1,7 @@
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_en from "react-date-object/locales/persian_en";
-import {  useState } from "react";
+import { useState } from "react";
 import type { Value } from "react-multi-date-picker";
 import { LABS_TESTS_DATA, TEST_TYPES } from "../../utils/constants";
 import { FilterState } from "./_models";
@@ -29,14 +29,13 @@ const FilterDropdown: React.FC<Props> = ({
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (Array.isArray(dateRange) && dateRange.length === 2) {
-   
       const [fromDate, toDate] = dateRange;
 
       filters = {
         ...filters,
-        fromDate: fromDate.toString(), 
+        fromDate: fromDate.toString(),
         toDate: toDate.toString(),
       };
     }
@@ -101,33 +100,29 @@ const FilterDropdown: React.FC<Props> = ({
         {filterTypes.find((filter) => filter === "lab") && (
           <div className="mb-10">
             <label className="form-label fw-bold">Laboratory:</label>
-            <div className="accordion" id={`accordion_filter`}>
+            <div className="accordion" id={`accordion_filter_labs`}>
               <div className="accordion-item">
-                <h2 className="accordion-header " id={`heading_filter`}>
+                <h2 className="accordion-header " id={`heading_filter_labs`}>
                   <button
                     className="accordion-button h-30px collapsed"
                     type="button"
                     data-bs-toggle="collapse"
-                    data-bs-target={`#collapse_filter`}
+                    data-bs-target={`#collapse_filter_labs`}
                     aria-expanded="true"
-                    aria-controls={`collapse_filter`}
+                    aria-controls={`collapse_filter_labs`}
                   >
                     Laboratories List
                   </button>
                 </h2>
                 <div
-                  id={`collapse_filter`}
+                  id={`collapse_filter_labs`}
                   className="accordion-collapse collapse h-150px scroll-y"
-                  aria-labelledby={`heading_filter`}
-                  data-bs-parent={`#accordion_filter`}
+                  aria-labelledby={`heading_filter_labs`}
+                  data-bs-parent={`#accordion_filter_labs`}
                 >
                   <div className="accordion-body">
                     {LABS_TESTS_DATA.map((lab) => (
-                      <div
-                        className="d-flex"
-                        key={lab.id}
-                        onClick={(e) => HandleOnChange(e)}
-                      >
+                      <div className="d-flex" key={lab.id}>
                         <div className="form-check form-check-custom form-check-solid">
                           <label className="form-label fw-bolder text-gray-800 fs-6">
                             <input
@@ -178,11 +173,7 @@ const FilterDropdown: React.FC<Props> = ({
                 >
                   <div className="accordion-body">
                     {TEST_TYPES.map((test) => (
-                      <div
-                        className="d-flex"
-                        key={test.id}
-                        onClick={(e) => HandleTestTypeChange(e)}
-                      >
+                      <div className="d-flex" key={test.id}>
                         <div className="form-check form-check-custom form-check-solid">
                           <label className="form-label fw-bolder text-gray-800 fs-6">
                             <input

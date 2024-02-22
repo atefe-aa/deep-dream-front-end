@@ -29,7 +29,7 @@ export function OldStatistics() {
           chartHeight="365px"
         />
       </div>
-      {/* <div className="col-lg-6">
+      <div className="col-lg-6">
         <LineChart
           chartHeight=""
           chartTitle=""
@@ -53,7 +53,7 @@ export function OldStatistics() {
           change="All Laboratories"
         />
       </div>
-      <div className="col-lg-6">
+      {/* <div className="col-lg-6">
         <RadarChart
           y="price"
           unit=" (R)"

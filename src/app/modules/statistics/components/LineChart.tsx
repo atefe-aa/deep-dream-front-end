@@ -1,7 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useThemeMode } from "../../../../_metronic/partials";
 import ApexCharts, { ApexOptions } from "apexcharts";
-import { KTIcon } from "../../../../_metronic/helpers";
+import {
+  KTIcon,
+  stringifyFilterChartQuery,
+} from "../../../../_metronic/helpers";
 import clsx from "clsx";
 import {
   getCSS,
@@ -9,6 +12,10 @@ import {
 } from "../../../../_metronic/assets/ts/_utils";
 import { FilterDropdown } from "../../../ui/search-and-filter/FilterDropdown";
 import ScreenshotButton from "../../../ui/ScreenshotButton";
+import { useFilterChart } from "../../../ui/search-and-filter/FilterChartProvider";
+import { useChart } from "../hooks/useChart";
+import { FilterState } from "../../../ui/search-and-filter/_models";
+import { Spinner } from "react-bootstrap";
 
 interface TotalItem {
   title: string;
@@ -26,26 +33,46 @@ type Props = {
   description: string;
   chartHeight: string;
   chartTitle: string;
-  totals: Array<TotalItem>;
-  series: Array<ChartDataItem>;
-  xaxisCategories: object;
+
   unit: string;
+  y: string;
 };
 
 const LineChart: React.FC<Props> = ({
   className,
   chartHeight,
   chartTitle,
-  totals,
-  series,
-  xaxisCategories,
   unit,
   color,
   change,
   description,
+  y,
 }) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const { mode } = useThemeMode();
+
+  const { state, updateState } = useFilterChart();
+  const lineChart = state.lineChart;
+  const initialQuery =
+    `x=testTypes&y=${y}&` + stringifyFilterChartQuery(lineChart);
+  const [query, setQuery] = useState<string>(initialQuery);
+  const updatedQuery = useMemo(
+    () => stringifyFilterChartQuery(lineChart),
+    [lineChart]
+  );
+
+  useEffect(() => {
+    if (query !== updatedQuery) {
+      setQuery(`x=testTypes&y=${y}&` + updatedQuery);
+    }
+  }, [updatedQuery, query]);
+
+  const { isLoading, chartData } = useChart({ query, chart: "chart" });
+
+  const onChangeFilters = (filters: FilterState) => {
+    updateState("lineChart", filters);
+  };
+
   const refreshChart = () => {
     if (!chartRef.current) {
       return;
@@ -62,8 +89,8 @@ const LineChart: React.FC<Props> = ({
         labelColor,
         baseColor,
         lightColor,
-        series,
-        xaxisCategories,
+        chartData.series,
+        chartData.xAxisCategories,
         unit
       )
     );
@@ -75,6 +102,10 @@ const LineChart: React.FC<Props> = ({
   };
 
   useEffect(() => {
+    if (isLoading || !chartData.series || !chartData.xAxisCategories) {
+      return;
+    }
+
     const chart = refreshChart();
     return () => {
       if (chart) {
@@ -82,7 +113,8 @@ const LineChart: React.FC<Props> = ({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chartRef, color, mode]);
+  }, [chartRef, color, mode, isLoading, chartData, query]);
+
   const targetComponentRef = useRef(null);
   return (
     <div className={`card ${className}`} ref={targetComponentRef}>
@@ -111,7 +143,11 @@ const LineChart: React.FC<Props> = ({
           >
             <KTIcon iconName="category" className="fs-2 text-info" />
           </button>
-          <FilterDropdown componentName="lineChart" filterTypes={["lab", "date"]} />
+          <FilterDropdown
+            onSubmit={onChangeFilters}
+            componentName="lineChart"
+            filterTypes={["lab", "date"]}
+          />
           {/* end::Menu  */}
         </div>
       </div>
@@ -119,35 +155,34 @@ const LineChart: React.FC<Props> = ({
 
       {/* begin::Body */}
       <div className="card-body p-0">
-        <div className="d-flex flex-stack card-p flex-grow-1">
-          {/* <div className="d-flex flex-column text-end">
-            <span className="text-gray-900 fw-bold fs-2">{change}</span>
-
-            <span className="text-muted fw-semibold mt-1">{description}</span>
-          </div> */}
-        </div>
-
-        <div
-          ref={chartRef}
-          className="statistics-widget-4-chart card-rounded-bottom"
-        ></div>
-
+        <div className="d-flex flex-stack card-p flex-grow-1"></div>
+        {isLoading ? (
+    
+            <Spinner animation="grow" />
+    
+        ) : (
+          <div
+            ref={chartRef}
+            className="statistics-widget-4-chart card-rounded-bottom"
+          ></div>
+        )}
         {/* begin::Stats  */}
         <div className="card-rounded bg-secondary mt-n6 position-relative card-px py-15 ">
           {/* begin::Row  */}
           <div className=" g-0  d-flex justify-content-around">
             {/* begin::Col  */}
-            {totals.map((total) => (
-              <div key={total.title} className=" mx-5">
-                <div className="fs-6 text-gray-700">{total.title}</div>
-                <div className="fs-5 fw-bold text-gray-800">
-                  {total.unit === "(R)"
-                    ? total.value.toLocaleString()
-                    : total.value}{" "}
-                  {total.unit}
+            {chartData.totals &&
+              chartData.totals.map((total:TotalItem) => (
+                <div key={total.title} className=" mx-5">
+                  <div className="fs-6 text-gray-700">{total.title}</div>
+                  <div className="fs-5 fw-bold text-gray-800">
+                    {total.unit === "(R)"
+                      ? total.value.toLocaleString()
+                      : total.value}{" "}
+                    {total.unit}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
             {/* end::Col  */}
           </div>
