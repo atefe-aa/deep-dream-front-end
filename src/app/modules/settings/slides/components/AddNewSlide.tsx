@@ -9,6 +9,7 @@ import { useCreateSlide } from "../hooks/useCreateSlide";
 import { useSlides } from "../hooks/useSlides";
 import { Modal } from "bootstrap";
 import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
+import { SlideModel } from "../../../scanning/core/_models";
 
 const AddNewSlide: FC = () => {
   const { isLoading, slides } = useSlides();

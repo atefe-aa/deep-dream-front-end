@@ -16,6 +16,7 @@ const AddNewCounsellor: FC = () => {
   const isSuperAdmin = currentUser && hasRole(currentUser, ["superAdmin"]);
 
   const initialValues = {
+    id:0,
     name: "",
     phone: "",
     ...(isSuperAdmin && { laboratoryId: 0 }), // Add labId for superAdmin

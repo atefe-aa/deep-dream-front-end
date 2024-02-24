@@ -48,8 +48,7 @@ const FilterDropdown: React.FC<Props> = ({
     laboratories,
     testTypes,
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = () => {
 
     if (Array.isArray(dateRange) && dateRange.length === 2) {
       const [fromDate, toDate] = dateRange;
@@ -254,8 +253,8 @@ const FilterDropdown: React.FC<Props> = ({
           </button>
 
           <button
-            onClick={(e) => handleSubmit(e)}
-            type="submit"
+            onClick={() => handleSubmit()}
+            type="button"
             className="btn btn-sm btn-primary"
             data-kt-menu-dismiss="true"
           >
