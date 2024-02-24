@@ -2,10 +2,8 @@ import clsx from "clsx";
 import { Dispatch, FC, SetStateAction, useMemo } from "react";
 import { KTIcon, toAbsoluteUrl } from "../../../_metronic/helpers";
 import { Link } from "react-router-dom";
-import { HeaderNotificationsMenu } from "../../../_metronic/partials";
 import { useAuth } from "../../modules/auth";
 import { hasRole } from "../../utils/helper";
-import { NewIndicator } from "../../modules/notifications/components/NewIndicator";
 import { NotificationsButton } from "../../modules/notifications/components/NotificationsButton";
 
 type Props = {

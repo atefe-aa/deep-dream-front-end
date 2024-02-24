@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { KTIcon, toAbsoluteUrl } from "../../../helpers";
 import { useLayout } from "../../core";
 import { Topbar } from "./Topbar";
-import { DefaultTitle } from "./page-title/DefaultTitle";
 
 export function HeaderWrapper() {
   const { config, classes, attributes } = useLayout();
@@ -42,7 +41,6 @@ export function HeaderWrapper() {
         )}
         id="kt_header_container"
       >
-         {/* <DefaultTitle /> */}
         {/* begin::Wrapper */}
         <div className="d-flex d-lg-none align-items-center ms-n2 me-2">
           {/* begin::Aside mobile toggle */}
