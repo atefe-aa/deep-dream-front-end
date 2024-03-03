@@ -55,26 +55,45 @@ const QRCodeGenerator: React.FC<Props> = ({
               <img
                 src={qrImageUrls[index]}
                 alt="QR Code"
-                style={{ width: "60px", height: "60px" }}
+                style={{
+                  width: "60px",
+                  height: "60px",
+                  marginTop: `${index > 0 ? "7px" : 0}`,
+                }}
               />
             )}
-            <div ref={el => qrRefs.current[index] = el} style={{ display: "none" }}>
+            <div
+              ref={(el) => (qrRefs.current[index] = el)}
+              style={{ display: "none" }}
+            >
               <QRCode value={qrCodeValue} />
             </div>
             <div
-              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+              style={{
+                writingMode: "vertical-rl",
+                transform: "rotate(180deg)",
+                marginTop: `${index > 0 ? "7px" : 0}`,
+              }}
             >
               <span className="fs-9">{testId}</span>
             </div>
             <div
-              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+              style={{
+                writingMode: "vertical-rl",
+                transform: "rotate(180deg)",
+                marginTop: `${index > 0 ? "7px" : 0}`,
+              }}
             >
               <span className="fs-9">
                 {label.slideNumber}/{totalSlides}
               </span>
             </div>
             <div
-              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+              style={{
+                writingMode: "vertical-rl",
+                transform: "rotate(180deg)",
+                marginTop: `${index > 0 ? "7px" : 0}`,
+              }}
             >
               <span className="fs-9">{testType}</span>
             </div>
