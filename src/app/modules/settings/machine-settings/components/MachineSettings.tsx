@@ -6,7 +6,6 @@ import { capitalizeWords } from "../../../../utils/helper";
 import { useSettings } from "../hooks/useSettings";
 import { Spinner } from "react-bootstrap";
 import { SettingModel } from "../core/_models";
-import { useUpdateSetting } from "../hooks/useUpdateSetting";
 import { CustomTableHead } from "../../../../ui/table/CustomTableHead";
 import { CustomHeaderCell } from "../../../../ui/table/CustomHeaderCell";
 import { CustomTableBody } from "../../../../ui/table/CustomTableBody";
@@ -17,12 +16,6 @@ import { SlideModel } from "../../../scanning/core/_models";
 
 function MachineSettings() {
   const { isLoading, settings } = useSettings();
-  const { isUpdating, updateSetting } = useUpdateSetting();
-  function handleUpdateSetting(e: any, id: number) {
-    const { value } = e.target;
-    if (!value) return;
-    updateSetting({ value, id });
-  }
 
   const { slides, isLoading: isLoadingSlides } = useSlides();
   const slidesColumns = ["Number", "SW x", "SW y", "NE x", "NE y"];
@@ -63,11 +56,11 @@ function MachineSettings() {
                         label={capitalizeWords(item.key.replace(/-/g,' '))}
                         type="number"
                         placeHolder={capitalizeWords(item.key.replace(/-/g,' '))}
-                        isLoading={isUpdating}
+                     
                         id={item.id}
                         inputName={`${item.key}-${item.id}-${set.id}`}
                         unit={item.unit}
-                        handleBlur={handleUpdateSetting}
+                   
                       />
                     ))}
                   </SettingItem>

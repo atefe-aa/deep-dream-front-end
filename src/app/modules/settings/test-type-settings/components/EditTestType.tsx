@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { useEffect } from "react";
 
 import * as Yup from "yup";
 import clsx from "clsx";
@@ -6,8 +6,6 @@ import { useFormik } from "formik";
 import { ModalLayout } from "../../../../ui/modals/ModalLayout";
 import Checkbox from "../../components/Checkbox";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
-import SettingFormGroup from "../../components/SettingFormGroup";
-import { useCreateTestType } from "../hooks/useCreateTestType";
 import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
 import { useTestType } from "../hooks/useTest Type";
 import { useUpdateTestType } from "../hooks/useUpdateTestType";
@@ -24,86 +22,75 @@ const addSchema = Yup.object().shape({
     .min(1, "Minimum 1 symbols")
     .max(300, "Maximum 300 symbols"),
   magnification: Yup.string().required("Magnification is required"),
-  numberOfLayers: Yup.number().min(1,'Number of layers is at leat 1.')
+  numberOfLayers: Yup.number().min(1, "Number of layers is at leat 1."),
 });
 
-const initialValues = {
-  title: "",
-  code: "",
-  type: "optical" as "optical" | "invert" | "fluorescent",
-  gender: "both" as "male" | "female" | "both",
-  description: "",
-  numberOfLayers: 1,
-  step: 0,
-  microStep: 0,
-  z: 0,
-  brightness: 0,
-  condenser: 0,
-  multiLayer: false,
-  magnification: 2 as 2 | 10 | 40 | 100,
-};
+
 type Props = {
-    testTypeId: number;
-  };
-  
-const EditTestType: React.FC<Props> = ({  testTypeId }) => {
-    const { isLoading, testType } = useTestType(testTypeId);
-    const { updateTestType, isUpdating, data } = useUpdateTestType(testTypeId);
-  
-    const formik = useFormik({
-      initialValues: {
-        id:testTypeId,
-        title: "",
-        code: "",
-        type: "optical" as "optical" | "invert" | "fluorescent",
-        gender: "both" as "male" | "female" | "both",
-        description: "",
-        numberOfLayers: 1,
-        step: 0,
-        microStep: 0,
-        z: 0,
-        brightness: 0,
-        condenser: 0,
-        multiLayer: false,
-        magnification: 2 as 2 | 10 | 40 | 100,
-      },
-      validationSchema: addSchema,
-      onSubmit: async (values, { setStatus, setSubmitting }) => {
-        try {
-          updateTestType(values);
-        } catch (error) {
-          console.error(error);
-          setStatus("Somthing went wrong updating test type. Try again later.");
-          setSubmitting(false);
-        }
-      },
-    });
-    useEffect(() => {
-      if (!isLoading && testType) {
-        formik.setValues({
-          id:testTypeId ,
-          title: testType.title || "",
-          code: testType.code || "",
-          type: testType.type || "optical" as "optical" | "invert" | "fluorescent",
-          gender: testType.gender ||  "both" as "male" | "female" | "both",
-          description: testType.description || "",
-          numberOfLayers: testType.numberOfLayers || 1,
-          step: testType.step || 0,
-          microStep: testType.microstep || 0,
-          z: testType.z || 0,
-          brightness: testType.brightness || 0,
-          condenser: testType.condenser || 0,
-          multiLayer: false ,
-          magnification:testType.magnification ||2 as 2 | 10 | 40 | 100,
-        });
+  testTypeId: number;
+};
+
+const EditTestType: React.FC<Props> = ({ testTypeId }) => {
+  const { isLoading, testType } = useTestType(testTypeId);
+  const { updateTestType, isUpdating, data } = useUpdateTestType(testTypeId);
+
+  const formik = useFormik({
+    initialValues: {
+      id: testTypeId,
+      title: "",
+      code: "",
+      type: "optical" as "optical" | "invert" | "fluorescent",
+      gender: "both" as "male" | "female" | "both",
+      description: "",
+      numberOfLayers: 1,
+      step: 0,
+      microStep: 0,
+      z: 0,
+      brightness: 0,
+      condenser: 0,
+      multiLayer: false,
+      magnification: 2 as 2 | 10 | 40 | 100,
+    },
+    validationSchema: addSchema,
+    onSubmit: async (values, { setStatus, setSubmitting }) => {
+      try {
+        updateTestType(values);
+      } catch (error) {
+        console.error(error);
+        setStatus("Somthing went wrong updating test type. Try again later.");
+        setSubmitting(false);
       }
-    }, [isLoading, testType, formik.setValues]);
-  
-  
-    useCloseModalOnSuccess(`edit_test_type_info${testTypeId}`, data, formik);
+    },
+  });
+  useEffect(() => {
+    if (!isLoading && testType) {
+      formik.setValues({
+        id: testTypeId,
+        title: testType.title || "",
+        code: testType.code || "",
+        type:
+          testType.type || ("optical" as "optical" | "invert" | "fluorescent"),
+        gender: testType.gender || ("both" as "male" | "female" | "both"),
+        description: testType.description || "",
+        numberOfLayers: testType.numberOfLayers || 1,
+        step: testType.step || 0,
+        microStep: testType.microStep || 0,
+        z: testType.z || 0,
+        brightness: testType.brightness || 0,
+        condenser: testType.condenser || 0,
+        multiLayer: testType.numberOfLayers>1,
+        magnification: testType.magnification || (2 as 2 | 10 | 40 | 100),
+      });
+    }
+  }, [isLoading, testType, formik.setValues]);
+
+  useCloseModalOnSuccess(`edit_test_type_info${testTypeId}`, data, formik);
 
   return (
-    <ModalLayout modalId={`edit_test_type_info${testTypeId}`} title="Add New Test Type">
+    <ModalLayout
+      modalId={`edit_test_type_info${testTypeId}`}
+      title="Edit Test Type"
+    >
       <ModalForm
         isError={false}
         isLoading={isUpdating}
@@ -111,9 +98,9 @@ const EditTestType: React.FC<Props> = ({  testTypeId }) => {
         formik={formik}
       >
         {/* begin::Title Form group */}
-        <div className="fv-row mb-3">
-          <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
-            Test Title<span className="text-danger">*</span>
+        <div className="fv-row text-start mb-3">
+          <label className="form-label required fw-bolder text-gray-900 fs-6 mb-0">
+            Test Title
           </label>
 
           <input
@@ -144,7 +131,7 @@ const EditTestType: React.FC<Props> = ({  testTypeId }) => {
         </div>
         {/* end::Form group */}
         {/* begin::code Form group  */}
-        <div className="fv-row mb-3">
+        <div className="fv-row text-start mb-3">
           <label className="form-label fs-6 fw-bolder text-gray-900">
             Code <span className="text-danger">*</span>
           </label>
@@ -175,7 +162,7 @@ const EditTestType: React.FC<Props> = ({  testTypeId }) => {
         </div>
         {/* end::Form group */}
         {/* begin::gender Form group */}
-        <div className="fv-row mb-3">
+        <div className="fv-row text-start mb-3">
           <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
             Gender<span className="text-danger">*</span>
           </label>
@@ -219,7 +206,7 @@ const EditTestType: React.FC<Props> = ({  testTypeId }) => {
         </div>
         {/* end::Form group */}
         {/* begin::type Form group */}
-        <div className="fv-row mb-3">
+        <div className="fv-row text-start mb-3">
           <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
             Type<span className="text-danger">*</span>
           </label>
@@ -265,55 +252,199 @@ const EditTestType: React.FC<Props> = ({  testTypeId }) => {
         <Checkbox formik={formik} label="Multi-layer" inputName="multiLayer" />
         {formik.values.multiLayer && (
           <>
-            <SettingFormGroup
-              label="Number Of Layers"
-              type="number"
-              placeHolder="Number Of Layers"
-              inputName="numberOfLayers"
-              formik={formik}
-            />
-            <SettingFormGroup
-              label="Step"
-              type="number"
-              placeHolder="Step"
-              inputName="step"
-              formik={formik}
-            />
-            <SettingFormGroup
-              label="Micro Step (mm)"
-              type="number"
-              placeHolder="Micro Step (mm)"
-              inputName="microStep"
-              formik={formik}
-            />
+            <div className="fv-row text-start mb-3">
+              <label className="form-label fs-6 fw-bolder text-gray-900">
+                Number Of Layers
+              </label>
+              <input
+                disabled={isUpdating}
+                placeholder="Number Of Layers"
+                {...formik.getFieldProps("numberOfLayers")}
+                className={clsx(
+                  "form-control bg-transparent",
+                  {
+                    "is-invalid":
+                      formik.touched.numberOfLayers &&
+                      formik.errors.numberOfLayers,
+                  },
+                  {
+                    "is-valid":
+                      formik.touched.numberOfLayers &&
+                      !formik.errors.numberOfLayers,
+                  }
+                )}
+                type="number"
+                name="numberOfLayers"
+                autoComplete="off"
+              />
+              {formik.touched.numberOfLayers &&
+                formik.errors.numberOfLayers && (
+                  <div className="fv-plugins-message-container">
+                    <div className="fv-help-block">
+                      <span role="alert">{formik.errors.numberOfLayers}</span>
+                    </div>
+                  </div>
+                )}
+            </div>
+
+            <div className="fv-row text-start mb-3">
+              <label className="form-label fs-6 fw-bolder text-gray-900">
+                Step
+              </label>
+              <input
+                disabled={isUpdating}
+                placeholder="Step"
+                {...formik.getFieldProps("step")}
+                className={clsx(
+                  "form-control bg-transparent",
+                  {
+                    "is-invalid": formik.touched.step && formik.errors.step,
+                  },
+                  {
+                    "is-valid": formik.touched.step && !formik.errors.step,
+                  }
+                )}
+                type="number"
+                name="step"
+                autoComplete="off"
+              />
+              {formik.touched.step && formik.errors.step && (
+                <div className="fv-plugins-message-container">
+                  <div className="fv-help-block">
+                    <span role="alert">{formik.errors.step}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="fv-row text-start mb-3">
+              <label className="form-label fs-6 fw-bolder text-gray-900">
+                Micro Step (mm)
+              </label>
+              <input
+                disabled={isUpdating}
+                placeholder="Micro Step (mm)"
+                {...formik.getFieldProps("microStep")}
+                className={clsx(
+                  "form-control bg-transparent",
+                  {
+                    "is-invalid":
+                      formik.touched.microStep && formik.errors.microStep,
+                  },
+                  {
+                    "is-valid":
+                      formik.touched.microStep && !formik.errors.microStep,
+                  }
+                )}
+                type="number"
+                name="microStep"
+                autoComplete="off"
+              />
+              {formik.touched.microStep && formik.errors.microStep && (
+                <div className="fv-plugins-message-container">
+                  <div className="fv-help-block">
+                    <span role="alert">{formik.errors.microStep}</span>
+                  </div>
+                </div>
+              )}
+            </div>
           </>
         )}
-        <SettingFormGroup
-          required={false}
-          label="Z"
-          type="number"
-          placeHolder="Z"
-          inputName="z"
-          formik={formik}
-        />
-        <SettingFormGroup
-          required={false}
-          label="Brightness"
-          type="number"
-          placeHolder="Brightness"
-          inputName="brightness"
-          formik={formik}
-        />
-        <SettingFormGroup
-          required={false}
-          label="Condenser"
-          type="number"
-          placeHolder="Condenser"
-          inputName="condenser"
-          formik={formik}
-        />
+
+        <div className="fv-row text-start mb-3">
+          <label className="form-label fs-6 fw-bolder text-gray-900">Z</label>
+          <input
+            disabled={isUpdating}
+            placeholder="Z"
+            {...formik.getFieldProps("z")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid": formik.touched.z && formik.errors.z,
+              },
+              {
+                "is-valid": formik.touched.z && !formik.errors.z,
+              }
+            )}
+            type="number"
+            name="z"
+            autoComplete="off"
+          />
+          {formik.touched.z && formik.errors.z && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.z}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="fv-row text-start mb-3">
+          <label className="form-label fs-6 fw-bolder text-gray-900">
+            Brightness
+          </label>
+          <input
+            disabled={isUpdating}
+            placeholder="Brightness"
+            {...formik.getFieldProps("brightness")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid":
+                  formik.touched.brightness && formik.errors.brightness,
+              },
+              {
+                "is-valid":
+                  formik.touched.brightness && !formik.errors.brightness,
+              }
+            )}
+            type="number"
+            name="brightness"
+            autoComplete="off"
+          />
+          {formik.touched.brightness && formik.errors.brightness && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.brightness}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="fv-row text-start mb-3">
+          <label className="form-label fs-6 fw-bolder text-gray-900">
+            Condenser
+          </label>
+          <input
+            disabled={isUpdating}
+            placeholder="Condenser"
+            {...formik.getFieldProps("condenser")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid":
+                  formik.touched.condenser && formik.errors.condenser,
+              },
+              {
+                "is-valid":
+                  formik.touched.condenser && !formik.errors.condenser,
+              }
+            )}
+            type="number"
+            name="condenser"
+            autoComplete="off"
+          />
+          {formik.touched.condenser && formik.errors.condenser && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.condenser}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
         {/* begin:: description Form group */}
-        <div className="fv-row mb-3">
+        <div className="fv-row text-start mb-3">
           <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
             Description
           </label>

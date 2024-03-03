@@ -1,7 +1,5 @@
 import { FC } from "react";
 import { KTIcon } from "../../../../../_metronic/helpers";
-import { title } from "process";
-import { DropDownButton } from "../../../../ui/dropdown/DropDownButton";
 import { TestTypesModel } from "../core/_models";
 import { useDeleteTestType } from "../hooks/useDeleteTestType";
 import { CustomDropdown } from "../../../../ui/dropdown/CustomDropdown";
@@ -52,6 +50,16 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
       <td>
         <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {testTypeData.numberOfLayers}
+        </div>
+      </td>
+      <td>
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
+          {testTypeData.step}
+        </div>
+      </td>
+      <td>
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
+          {testTypeData.microStep}
         </div>
       </td>
       <td>

@@ -1,15 +1,17 @@
+import { KTIcon } from "../../../../_metronic/helpers";
+import { useSettings } from "../machine-settings/hooks/useSettings";
+import { useUpdateSetting } from "../machine-settings/hooks/useUpdateSetting";
+import { useState } from "react";
+
 type Props = {
   label: string;
   type: string;
   placeHolder: string;
   inputName: string;
-  formik?: any;
   required?: boolean;
   value?: number;
   unit?: string;
-  isLoading?: boolean;
-  handleBlur?: Function;
-  id?: number;
+  id: number;
 };
 
 const SettingFormGroup: React.FC<Props> = ({
@@ -18,22 +20,28 @@ const SettingFormGroup: React.FC<Props> = ({
   type,
   placeHolder,
   inputName,
-  formik,
   value,
   unit,
-  isLoading,
-  handleBlur,
   id,
 }) => {
+  const [inputValue, setInputValue] = useState(value);
+
+  const { isUpdating, updateSetting } = useUpdateSetting();
+  function handleUpdateSetting(e: any) {
+    e.preventDefault();
+
+    if (!inputValue) return;
+    updateSetting({ value: inputValue, id });
+  }
+
   let inputProps = {
-    ...(formik && formik.getFieldProps(inputName)), // Spread formik props if formik is provided
-    ...(value !== undefined && { defaultValue:value }), // Only add value prop if value is provided
     type: type,
-    disabled: isLoading,
+    disabled: isUpdating,
     className: "form-control mb-3 mb-lg-0",
     placeholder: placeHolder,
     name: inputName,
     id: inputName,
+    step: "any",
   };
   return (
     <div className="row mb-6">
@@ -46,23 +54,25 @@ const SettingFormGroup: React.FC<Props> = ({
         {label}
       </label>
 
-      <div className="col-lg-7 col-9">
+      <div className="col-lg-7 col-6">
         <div className="row">
           <div className="fv-row">
             <input
               {...inputProps}
-              onBlur={(e: any) => handleBlur && handleBlur(e, id)}
+              value={inputValue}
+              inputMode="numeric"
+              onChange={(e) => setInputValue(Number(e.target.value))}
             />
-            {/* Use inputProps here */}
-            {formik?.touched[inputName] && formik?.errors[inputName] && (
-              <div className="fv-plugins-message-container">
-                <div className="fv-help-block">{formik.errors[inputName]}</div>
-              </div>
-            )}
           </div>
         </div>
       </div>
-      <div className="col-form-label col-3 col-lg-2 fw-bold fs-8">{unit}</div>
+      <div className="col-form-label col-3 col-lg-1 fw-bold fs-8">{unit}</div>
+      <button
+        className=" btn col-1 col-lg-1 fw-bold"
+        onClick={(e: any) => handleUpdateSetting(e)}
+      >
+        <KTIcon className="fs-1  text-primary " iconName="check-circle" />
+      </button>
     </div>
   );
 };

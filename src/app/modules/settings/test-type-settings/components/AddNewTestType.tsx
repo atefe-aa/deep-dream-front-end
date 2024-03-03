@@ -32,11 +32,11 @@ const initialValues = {
   gender: "both" as "male" | "female" | "both",
   description: "",
   numberOfLayers: 1,
-  step: 0,
-  microStep: 0,
-  z: 0,
-  brightness: 0,
-  condenser: 0,
+  step: undefined as unknown as number,
+  microStep: undefined as unknown as number,
+  z: undefined as unknown as number,
+  brightness: undefined as unknown as number,
+  condenser: undefined as unknown as number,
   multiLayer: false,
   magnification: 2 as 2 | 10 | 40 | 100,
 };
@@ -226,53 +226,196 @@ const AddNewTestType: FC = () => {
         <Checkbox formik={formik} label="Multi-layer" inputName="multiLayer" />
         {formik.values.multiLayer && (
           <>
-            <SettingFormGroup
-              label="Number Of Layers"
-              type="number"
-              placeHolder="Number Of Layers"
-              inputName="numberOfLayers"
-              formik={formik}
-            />
-            <SettingFormGroup
-              label="Step"
-              type="number"
-              placeHolder="Step"
-              inputName="step"
-              formik={formik}
-            />
-            <SettingFormGroup
-              label="Micro Step (mm)"
-              type="number"
-              placeHolder="Micro Step (mm)"
-              inputName="microStep"
-              formik={formik}
-            />
+            <div className="fv-row text-start mb-3">
+              <label className="form-label fs-6 fw-bolder text-gray-900">
+                Number Of Layers
+              </label>
+              <input
+                disabled={isCreating}
+                placeholder="Number Of Layers"
+                {...formik.getFieldProps("numberOfLayers")}
+                className={clsx(
+                  "form-control bg-transparent",
+                  {
+                    "is-invalid":
+                      formik.touched.numberOfLayers &&
+                      formik.errors.numberOfLayers,
+                  },
+                  {
+                    "is-valid":
+                      formik.touched.numberOfLayers &&
+                      !formik.errors.numberOfLayers,
+                  }
+                )}
+                type="number"
+                name="numberOfLayers"
+                autoComplete="off"
+              />
+              {formik.touched.numberOfLayers &&
+                formik.errors.numberOfLayers && (
+                  <div className="fv-plugins-message-container">
+                    <div className="fv-help-block">
+                      <span role="alert">{formik.errors.numberOfLayers}</span>
+                    </div>
+                  </div>
+                )}
+            </div>
+
+            <div className="fv-row text-start mb-3">
+              <label className="form-label fs-6 fw-bolder text-gray-900">
+                Step
+              </label>
+              <input
+                disabled={isCreating}
+                placeholder="Step"
+                {...formik.getFieldProps("step")}
+                className={clsx(
+                  "form-control bg-transparent",
+                  {
+                    "is-invalid": formik.touched.step && formik.errors.step,
+                  },
+                  {
+                    "is-valid": formik.touched.step && !formik.errors.step,
+                  }
+                )}
+                type="number"
+                name="step"
+                autoComplete="off"
+              />
+              {formik.touched.step && formik.errors.step && (
+                <div className="fv-plugins-message-container">
+                  <div className="fv-help-block">
+                    <span role="alert">{formik.errors.step}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="fv-row text-start mb-3">
+              <label className="form-label fs-6 fw-bolder text-gray-900">
+                Micro Step (mm)
+              </label>
+              <input
+                disabled={isCreating}
+                placeholder="Micro Step (mm)"
+                {...formik.getFieldProps("microStep")}
+                className={clsx(
+                  "form-control bg-transparent",
+                  {
+                    "is-invalid":
+                      formik.touched.microStep && formik.errors.microStep,
+                  },
+                  {
+                    "is-valid":
+                      formik.touched.microStep && !formik.errors.microStep,
+                  }
+                )}
+                type="number"
+                name="microStep"
+                autoComplete="off"
+              />
+              {formik.touched.microStep && formik.errors.microStep && (
+                <div className="fv-plugins-message-container">
+                  <div className="fv-help-block">
+                    <span role="alert">{formik.errors.microStep}</span>
+                  </div>
+                </div>
+              )}
+            </div>
           </>
         )}
-        <SettingFormGroup
-          required={false}
-          label="Z"
-          type="number"
-          placeHolder="Z"
-          inputName="z"
-          formik={formik}
-        />
-        <SettingFormGroup
-          required={false}
-          label="Brightness"
-          type="number"
-          placeHolder="Brightness"
-          inputName="brightness"
-          formik={formik}
-        />
-        <SettingFormGroup
-          required={false}
-          label="Condenser"
-          type="number"
-          placeHolder="Condenser"
-          inputName="condenser"
-          formik={formik}
-        />
+
+        <div className="fv-row text-start mb-3">
+          <label className="form-label fs-6 fw-bolder text-gray-900">Z</label>
+          <input
+            disabled={isCreating}
+            placeholder="Z"
+            {...formik.getFieldProps("z")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid": formik.touched.z && formik.errors.z,
+              },
+              {
+                "is-valid": formik.touched.z && !formik.errors.z,
+              }
+            )}
+            type="number"
+            name="z"
+            autoComplete="off"
+          />
+          {formik.touched.z && formik.errors.z && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.z}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="fv-row text-start mb-3">
+          <label className="form-label fs-6 fw-bolder text-gray-900">
+            Brightness
+          </label>
+          <input
+            disabled={isCreating}
+            placeholder="Brightness"
+            {...formik.getFieldProps("brightness")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid":
+                  formik.touched.brightness && formik.errors.brightness,
+              },
+              {
+                "is-valid":
+                  formik.touched.brightness && !formik.errors.brightness,
+              }
+            )}
+            type="number"
+            name="brightness"
+            autoComplete="off"
+          />
+          {formik.touched.brightness && formik.errors.brightness && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.brightness}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="fv-row text-start mb-3">
+          <label className="form-label fs-6 fw-bolder text-gray-900">
+            Condenser
+          </label>
+          <input
+            disabled={isCreating}
+            placeholder="Condenser"
+            {...formik.getFieldProps("condenser")}
+            className={clsx(
+              "form-control bg-transparent",
+              {
+                "is-invalid":
+                  formik.touched.condenser && formik.errors.condenser,
+              },
+              {
+                "is-valid":
+                  formik.touched.condenser && !formik.errors.condenser,
+              }
+            )}
+            type="number"
+            name="condenser"
+            autoComplete="off"
+          />
+          {formik.touched.condenser && formik.errors.condenser && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.condenser}</span>
+              </div>
+            </div>
+          )}
+        </div>
         {/* begin:: description Form group */}
         <div className="fv-row mb-3">
           <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
