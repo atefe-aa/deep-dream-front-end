@@ -46,7 +46,7 @@ const AddNewTest: FC = () => {
     ageUnit: "year" as "year" | "day",
     gender: "female" as "female" | "male",
     testType: 0,
-    laboratoryId: (currentUser && currentUser.data.laboratory) || 1,
+    laboratoryId: (currentUser && currentUser.data.laboratory) || undefined as unknown as number,
     description: "",
     senderRegistrationCode: "",
     isMultiSlide: false,
