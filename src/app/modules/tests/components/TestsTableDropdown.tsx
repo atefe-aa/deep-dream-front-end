@@ -5,6 +5,7 @@ import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { TestsModel } from "../core/_models";
 import QRCodeGenerator from "./add-new-test/QRCodeGenerator";
+import { PrintQrCode } from "./add-new-test/PrintQrCode";
 
 type Props = {
   data: TestsModel;
@@ -32,7 +33,8 @@ const TestsTableDropdown: FC<Props> = ({ data }) => {
         printWindow.document.close(); // necessary for IE >= 10
         printWindow.focus(); // necessary for IE >= 10*/
 
-        setTimeout(() => {  // Delay to ensure QR code is fully rendered
+        setTimeout(() => {
+          // Delay to ensure QR code is fully rendered
           printWindow.print();
           printWindow.close();
         }, 1000); // Adjust time as necessar
@@ -53,13 +55,11 @@ const TestsTableDropdown: FC<Props> = ({ data }) => {
           <KTIcon iconName="pencil" className="fs-3 me-3" />
           Edit Info
         </Dropdown.Item>
-        <Dropdown.Item onClick={handlePrint}>
-          <div ref={printRef} className="d-none">
-            <QRCodeGenerator testId="225265" totalSlides={5} testType="colon" />
-          </div>
-          <KTIcon iconName="printer" className="fs-3 me-3" />
-          Print Label
-        </Dropdown.Item>
+        <PrintQrCode
+          testId={data.id}
+          testType={data.testType}
+          totalSlides={data.numberOfSlides}
+        />
         {data.img && data.project && (
           <Dropdown.Item>
             <Link

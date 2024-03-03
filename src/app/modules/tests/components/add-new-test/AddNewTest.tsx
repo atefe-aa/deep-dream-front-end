@@ -53,7 +53,7 @@ const AddNewTest: FC = () => {
     numberOfSlides: 1,
   };
   const { isCreating, createRegistration, data } = useCreateRegistration();
-  const [qrCode, setQrCode] = useState(null);
+
 
   const formik = useFormik({
     initialValues,
@@ -62,7 +62,7 @@ const AddNewTest: FC = () => {
       try {
         createRegistration(values);
         if (!isCreating && data) {
-          setQrCode(data.data.id);
+        
           // TODO: Add label printer logic here
         }
       } catch (error) {
