@@ -36,11 +36,11 @@ const addSchema = Yup.object().shape({
     .min(3, "Minimum 3 symbols")
     .max(100, "Maximum 100 symbols"),
   password: Yup.string()
-    .min(7, "Password must be at least 7 charecter")
+    .min(8, "Password must be at least 7 charecter")
     .required("Password is required."),
   password_confirmation: Yup.string()
     .oneOf([Yup.ref("password"), ""], "Passwords must match")
-    .min(7, "Password must be at least 7 charecter")
+    .min(8, "Password must be at least 7 charecter")
     .required("Confirm the password."),
   signature: Yup.mixed().required("Signature is required"),
   header: Yup.mixed().required("Signature is required"),

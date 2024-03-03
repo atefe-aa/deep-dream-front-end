@@ -178,13 +178,13 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
                 data-bs-trigger="hover"
                 title="Click to add a new row"
               >
-                <div
-                  className="btn-light-primary"
+                <button
+                  className="btn py-1 px-4 btn-light-primary fs-7"
                   data-bs-toggle="modal"
                   data-bs-target={`#kt_modal_add_new_test_price_${labData.id}`}
                 >
-                  Add New Test Price
-                </div>
+                 + Add New Test Price
+                </button>
               </div>
             </span>
           )}
