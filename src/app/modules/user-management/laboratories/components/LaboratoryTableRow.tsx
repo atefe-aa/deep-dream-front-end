@@ -35,7 +35,7 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
           <div className="d-flex align-items-center">
             {/* begin:: Avatar */}
             <div className="symbol symbol-circle symbol-50px overflow-hidden me-3">
-              <a href="#">
+              <div>
                 {labData.avatar ? (
                   <div className="symbol-label">
                     <img
@@ -55,44 +55,33 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
                     {labData.labName[0]}
                   </div>
                 )}
-              </a>
+              </div>
             </div>
             <div className="d-flex flex-column">
-              <a href="#" className="text-gray-800 text-hover-primary mb-1">
+              <div className="text-gray-800 text-hover-primary mb-1">
                 {labData.labName}
-              </a>
+              </div>
               <span>{labData.fullName}</span>
             </div>
           </div>
         </td>
         <td>
-          <a href="#" className="badge badge-light fw-bolder">
-            {labData.username}
-          </a>
+          <div className="badge badge-light fw-bolder">{labData.username}</div>
         </td>
         <td>
-          <a
-            href="#"
-            className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-          >
+          <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
             {labData.phone}
-          </a>
+          </div>
         </td>
         <td>
-          <a
-            href="#"
-            className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-          >
+          <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
             {labData.address}
-          </a>
+          </div>
         </td>
         <td>
-          <a
-            href="#"
-            className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-          >
+          <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
             {labData.description}
-          </a>
+          </div>
         </td>
         <td>
           <div className="d-flex justify-content-end flex-shrink-0">
@@ -189,14 +178,13 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
                 data-bs-trigger="hover"
                 title="Click to add a new row"
               >
-                <a
-                  href="#"
+                <div
                   className="btn-light-primary"
                   data-bs-toggle="modal"
                   data-bs-target={`#kt_modal_add_new_test_price_${labData.id}`}
                 >
                   Add New Test Price
-                </a>
+                </div>
               </div>
             </span>
           )}

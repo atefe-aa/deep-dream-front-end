@@ -75,12 +75,12 @@ function SystemPane() {
                 </div>
 
                 <div className="mb-0 me-2" data-id={noti.id}>
-                  <a
-                    href="#"
+                  <div
+                    
                     className="fs-6 text-gray-800 text-hover-primary fw-bolder"
                   >
                     {noti.data?.title}
-                  </a>
+                  </div>
                   <div className="text-gray-500 fs-7">
                     {noti.data?.description}
                   </div>
@@ -92,14 +92,14 @@ function SystemPane() {
           ))}
         {!isPending && meta.total > items.length && (
           <div className="d-flex justify-content-center">
-            <a
-              href="#"
+            <div
+              
               className="text-gray-900 fw-bold text-hover-primary fs-6"
               onClick={handleLoadMore}
               aria-disabled={isPending || isPending}
             >
               Load More
-            </a>
+            </div>
           </div>
         )}
       </div>

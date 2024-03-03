@@ -28,33 +28,33 @@ const CounsellorTableRow: FC<Props> = ({ counsellorData, index }) => {
       </td>
       <td>
         <div className="d-flex flex-column">
-          <a href="#" className="text-gray-800 text-hover-primary mb-1">
+          <div  className="text-gray-800 text-hover-primary mb-1">
             {counsellorData.name}
-          </a>
+          </div>
         </div>
       </td>
       <td>
         <div className="d-flex flex-column">
-          <a href="#" className="text-gray-800 text-hover-primary mb-1">
+          <div  className="text-gray-800 text-hover-primary mb-1">
             {counsellorData.labName}
-          </a>
+          </div>
         </div>
       </td>
       <td>
-        <a
-          href="#"
+        <div
+          
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
           {counsellorData.phone}
-        </a>
+        </div>
       </td>
       <td>
-        <a
-          href="#"
+        <div
+          
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
           {counsellorData.labName}
-        </a>
+        </div>
       </td>
       <td>
         <div className="d-flex justify-content-end flex-shrink-0">

@@ -9,7 +9,6 @@ import { Dropdown } from "react-bootstrap";
 import { ConfirmModal } from "../../../../ui/modals/ConfirmModal";
 import { EditTestType } from "./EditTestType";
 
-
 type Props = {
   testTypeData: TestTypesModel;
   index: number;
@@ -24,97 +23,65 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
   return (
     <tr>
       <td>
-        <div className="">
-          {index}
-        </div>
+        <div className="">{index}</div>
       </td>
       <td>
         <div className="">
           <div className="d-flex justify-content-start flex-column">
-            <a
-              href="#"
-              className="text-gray-900 fw-bold text-hover-primary fs-6"
-            >
+            <div className="text-gray-900 fw-bold text-hover-primary fs-6">
               {testTypeData.title}
-            </a>
+            </div>
           </div>
         </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {testTypeData.code}
-        </a>
+        </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {testTypeData.gender}
-        </a>
+        </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {testTypeData.type}
-        </a>
+        </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {testTypeData.numberOfLayers}
-        </a>
+        </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
-          {testTypeData.z  || "default"}
-        </a>
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
+          {testTypeData.z || "default"}
+        </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {testTypeData.condenser || "default"}
-        </a>
+        </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
-          {testTypeData.brightness  || "default"}
-        </a>
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
+          {testTypeData.brightness || "default"}
+        </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {testTypeData.magnification}
-        </a>
+        </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {testTypeData.description}
-        </a>
+        </div>
       </td>
       <td>
         <div className="d-flex justify-content-end flex-shrink-0">
-        <CustomDropdown>
+          <CustomDropdown>
             <Dropdown.Item
               data-bs-toggle="modal"
               data-bs-target={`#edit_test_type_info${testTypeData.id}`}
@@ -133,8 +100,8 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
             </Dropdown.Item>
           </CustomDropdown>
 
-            {/* modals */}
-            <ConfirmModal
+          {/* modals */}
+          <ConfirmModal
             actionName={`delete_test_type${testTypeData.id}`}
             onConfirm={handleDelete}
             isLoading={isDeleting}

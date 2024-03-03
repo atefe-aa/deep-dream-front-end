@@ -19,7 +19,7 @@ const initialScanData = {
 type Props = {
   slide: SlideModel;
   formik: any;
-  scan:ScanModel;
+  scan: ScanModel;
   handleCheckboxChange: Function;
   handleSetAreas: (scanId: number, regions: AreaModel[]) => void;
 };
@@ -31,7 +31,6 @@ const SlideRow: React.FC<Props> = ({
   handleSetAreas,
   handleCheckboxChange,
 }) => {
-
   // Safely handle potentially undefined scan object
   const safeScanId = scan?.id || 0; // Use 0 or some safe fallback value if scan is undefined
 
@@ -45,7 +44,7 @@ const SlideRow: React.FC<Props> = ({
   const [tableData, setTableData] = useState<ScanModel>();
 
   useEffect(() => {
-    if (scan && safeScanId!==0 && liveScan === undefined) {
+    if (scan && safeScanId !== 0 && liveScan === undefined) {
       setTableData(scan);
     }
   }, [scan, liveScan]);
@@ -63,7 +62,7 @@ const SlideRow: React.FC<Props> = ({
   const { progressBg, progressPercent } = getProgressUI(
     tableData?.progress || ""
   );
- 
+
   return (
     <tr>
       <td className="text-center">
@@ -71,12 +70,12 @@ const SlideRow: React.FC<Props> = ({
           <input
             {...formik.getFieldProps("selectedCheckboxes")}
             checked={
-              ((!scan) || !scan.id) &&
+              (!scan || !scan.id) &&
               (formik.values.selectAll ||
                 formik.values.selectedCheckboxes.includes(slide.nth))
             }
             onChange={handleCheckboxChange}
-            disabled={scan && safeScanId!==0}
+            disabled={scan && safeScanId !== 0}
             className="form-check-input widget-9-check"
             type="checkbox"
             value={slide.nth}
@@ -86,20 +85,17 @@ const SlideRow: React.FC<Props> = ({
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
-          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+          <div className="text-gray-900 fw-bold text-hover-primary fs-6">
             {slide.nth}
-          </a>
+          </div>
         </div>
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           {scan && tableData?.testNumber ? (
-            <a
-              href="#"
-              className="text-gray-900 fw-bold text-hover-primary fs-6"
-            >
+            <div className="text-gray-900 fw-bold text-hover-primary fs-6">
               {tableData?.testNumber}
-            </a>
+            </div>
           ) : (
             scan &&
             scan.id &&
@@ -122,12 +118,9 @@ const SlideRow: React.FC<Props> = ({
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
           {scan && tableData?.slideNumber ? (
-            <a
-              href="#"
-              className="text-gray-900 fw-bold text-hover-primary fs-6"
-            >
+            <div className="text-gray-900 fw-bold text-hover-primary fs-6">
               {tableData?.slideNumber}
-            </a>
+            </div>
           ) : (
             scan &&
             scan.id &&
@@ -149,23 +142,23 @@ const SlideRow: React.FC<Props> = ({
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
-          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+          <div className="text-gray-900 fw-bold text-hover-primary fs-6">
             {scan && tableData?.testType}
-          </a>
+          </div>
         </div>
       </td>
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
-          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+          <div className="text-gray-900 fw-bold text-hover-primary fs-6">
             {scan && tableData?.laboratory}
-          </a>
+          </div>
         </div>
       </td>
       <td className="text-center">
         <div className="d-flex flex-column w-100 me-2">
           <div className="d-flex flex-stack mb-2">
             <span className="text-muted me-2 fs-7 fw-semibold">
-              {tableData?.progress?.replace(/-/g,' ')}
+              {tableData?.progress?.replace(/-/g, " ")}
             </span>
           </div>
           <div className="progress h-6px w-100">
@@ -180,19 +173,20 @@ const SlideRow: React.FC<Props> = ({
       {/* start::Time Left */}
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
-         
-          { tableData && tableData?.secondsLeft && tableData?.progress === "scanning" && (
-            <Timer secondsLeft={tableData?.secondsLeft} />
-          )}
+          {tableData &&
+            tableData?.secondsLeft &&
+            tableData?.progress === "scanning" && (
+              <Timer secondsLeft={tableData?.secondsLeft} />
+            )}
         </div>
       </td>
       {/* end::Time Left */}
       {/* start::Durations */}
       <td className="text-center">
         <div className="d-flex justify-content-start flex-column">
-          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
-            {tableData?.duration && Math.round(tableData?.duration/60)}
-          </a>
+          <div className="text-gray-900 fw-bold text-hover-primary fs-6">
+            {tableData?.duration && Math.round(tableData?.duration / 60)}
+          </div>
         </div>
       </td>
       {/* end::Durations */}
@@ -203,10 +197,10 @@ const SlideRow: React.FC<Props> = ({
             {/* Start Action */}
             {tableData?.progress === "ready" && (
               <div className="menu-item px-3">
-                <a href="#" className="menu-link px-3">
+                <div className="menu-link px-3">
                   <KTIcon iconName="to-right" className="fs-3 me-3" />
                   Start Scanning
-                </a>
+                </div>
               </div>
             )}
 
@@ -228,23 +222,22 @@ const SlideRow: React.FC<Props> = ({
             {/* Try Again Action */}
             {tableData?.progress === "failed" && (
               <div className="menu-item px-3">
-                <a href="#" className="menu-link px-3">
+                <div className="menu-link px-3">
                   <KTIcon iconName="arrows-circle" className="fs-3 me-3" />
                   Try Again
-                </a>
+                </div>
               </div>
             )}
 
             <div className="menu-item px-3 my-1">
-              <a
-                href="#"
+              <div
                 className="menu-link px-3 text-danger "
                 data-bs-toggle="tooltip"
                 title="Delete Test Price"
               >
                 <KTIcon iconName="trash" className="fs-3 me-3" />
                 Delete Slide
-              </a>
+              </div>
             </div>
           </DropDownButton>
         </div>

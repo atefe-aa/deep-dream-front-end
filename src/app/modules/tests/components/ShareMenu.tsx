@@ -152,12 +152,9 @@ const ShareMenu: FC<Props> = ({ backgrounUrl, testId }) => {
                   </div>
 
                   <div className="mb-0 me-2">
-                    <a
-                      href="#"
-                      className="fs-6 text-gray-800 text-hover-primary fw-bolder"
-                    >
+                    <div className="fs-6 text-gray-800 text-hover-primary fw-bolder">
                       {alert.name}
-                    </a>
+                    </div>
                     <div className="text-gray-500 fs-7">
                       {alert.description}
                     </div>

@@ -26,42 +26,30 @@ const SlidesPlacementTableRow: FC<Props> = ({ data, index }) => {
       </td>
       <td>
         <div className="d-flex justify-content-start flex-column">
-          <a href="#" className="text-gray-900 fw-bold text-hover-primary fs-6">
+          <div className="text-gray-900 fw-bold text-hover-primary fs-6">
             {data.nth}
-          </a>
+          </div>
         </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {data.sw_x}
-        </a>
+        </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {data.sw_y}
-        </a>
+        </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {data.ne_x}
-        </a>
+        </div>
       </td>
       <td>
-        <a
-          href="#"
-          className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-        >
+        <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
           {data.ne_y}
-        </a>
+        </div>
       </td>
       <td>
         <div className="d-flex justify-content-end flex-shrink-0">

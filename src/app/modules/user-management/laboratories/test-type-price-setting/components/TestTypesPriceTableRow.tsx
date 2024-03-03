@@ -39,37 +39,25 @@ const TestTypesPriceTableRow: FC<Props> = ({ priceId, index, labData }) => {
           </td>
           <td>
             <div className="d-flex justify-content-start flex-column">
-              <a
-                href="#"
-                className="text-gray-900 fw-bold text-hover-primary fs-6"
-              >
+              <div className="text-gray-900 fw-bold text-hover-primary fs-6">
                 {priceData.testName}
-              </a>
+              </div>
             </div>
           </td>
           <td>
-            <a
-              href="#"
-              className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-            >
+            <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
               {priceData.price && priceData.price.toLocaleString()}
-            </a>
+            </div>
           </td>
           <td>
-            <a
-              href="#"
-              className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-            >
+            <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
               {priceData.extraPrice && priceData.extraPrice.toLocaleString()}
-            </a>
+            </div>
           </td>
           <td>
-            <a
-              href="#"
-              className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
-            >
+            <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
               {priceData.description}
-            </a>
+            </div>
           </td>
           <td>
             <div className="d-flex justify-content-end flex-shrink-0">
