@@ -4,9 +4,15 @@ type Props = {
   children: React.ReactNode;
   modalId: string;
   title: string;
+  onClose?: () => void;
 };
 
-const ModalLayout: React.FC<Props> = ({ children, modalId, title }) => {
+const ModalLayout: React.FC<Props> = ({
+  children,
+  modalId,
+  title,
+  onClose = () => {},
+}) => {
   return (
     <div className="modal fade" id={modalId} aria-hidden="true">
       <div className="modal-dialog mw-650px">
@@ -18,6 +24,7 @@ const ModalLayout: React.FC<Props> = ({ children, modalId, title }) => {
             <div
               className="btn btn-sm btn-icon btn-active-color-primary"
               data-bs-dismiss="modal"
+              onClick={onClose}
             >
               <KTIcon iconName="cross" className="fs-1" />
             </div>

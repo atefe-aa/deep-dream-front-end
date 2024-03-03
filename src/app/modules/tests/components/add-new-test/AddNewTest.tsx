@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import * as Yup from "yup";
 import clsx from "clsx";
 import { useFormik } from "formik";
@@ -9,7 +9,8 @@ import { TestTypeInput } from "./components/TestTypeInput";
 import { useCreateRegistration } from "../../hooks/useCreateRegistration";
 import { useAuth } from "../../../auth";
 import { hasRole } from "../../../../utils/helper";
-import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
+import { PrintQrCode } from "./PrintQrCode";
+import { TestsModel } from "../../core/_models";
 
 const addSchema = Yup.object().shape({
   name: Yup.string()
@@ -46,25 +47,23 @@ const AddNewTest: FC = () => {
     ageUnit: "year" as "year" | "day",
     gender: "female" as "female" | "male",
     testType: 0,
-    laboratoryId: (currentUser && currentUser.data.laboratory) || undefined as unknown as number,
+    laboratoryId:
+      (currentUser && currentUser.data.laboratory) ||
+      (undefined as unknown as number),
     description: "",
     senderRegistrationCode: "",
     isMultiSlide: false,
     numberOfSlides: 1,
   };
   const { isCreating, createRegistration, data } = useCreateRegistration();
-
+  const [showLabelPrint, setShowLabelPrint] = useState(false);
 
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
-        createRegistration(values);
-        if (!isCreating && data) {
-        
-          // TODO: Add label printer logic here
-        }
+        await createRegistration(values);
       } catch (error) {
         console.error(error);
         setStatus("The login details are incorrect");
@@ -72,11 +71,39 @@ const AddNewTest: FC = () => {
       }
     },
   });
-  useCloseModalOnSuccess("kt_modal_add_new_test", data, formik);
+  useEffect(() => {
+    if (data) {
+      setShowLabelPrint(true);
+    }
+  }, [data]);
+
+  function HandleClose() {
+    setShowLabelPrint(false);
+    formik.resetForm();
+  }
+
   return (
-    <ModalLayout modalId="kt_modal_add_new_test" title="Add New Test">
-      {!isCreating && data ? (
-        <span>Price: {data?.data.price} (R)</span>
+    <ModalLayout
+      onClose={HandleClose}
+      modalId="kt_modal_add_new_test"
+      title="Add New Test"
+    >
+      {showLabelPrint ? (
+        <div className="d-flex flex-column">
+          <span className="fs-2 fw-bold">Price: {data?.data.price} (R)</span>
+          <button
+            onClick={HandleClose}
+            className="btn btn-light-info fs-2 mt-5"
+            disabled={!data?.data.id}
+            data-bs-dismiss="modal"
+          >
+            <PrintQrCode
+              testId={data?.data.id}
+              testType={data?.data.testType}
+              totalSlides={data?.data.numberOfSlides}
+            />
+          </button>
+        </div>
       ) : (
         <ModalForm
           isError={false}
@@ -145,7 +172,9 @@ const AddNewTest: FC = () => {
               formik.errors.senderRegistrationCode && (
                 <div className="fv-plugins-message-container">
                   <div className="fv-help-block">
-                    <span role="alert">{formik.errors.senderRegistrationCode}</span>
+                    <span role="alert">
+                      {formik.errors.senderRegistrationCode}
+                    </span>
                   </div>
                 </div>
               )}

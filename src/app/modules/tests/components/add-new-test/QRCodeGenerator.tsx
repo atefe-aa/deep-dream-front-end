@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import QRCode from "qrcode.react";
 
 type Props = {
@@ -12,11 +12,15 @@ const QRCodeGenerator: React.FC<Props> = ({
   totalSlides,
   testType,
 }) => {
+  // const [qrImageUrls, setQrImageUrls] = useState<string[]>([]);
+  // const qrRefs = useRef<Array<HTMLDivElement null>>([]);
   const [qrImageUrls, setQrImageUrls] = useState<string[]>([]);
   const qrRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const labels = Array.from({ length: totalSlides }, (_, index) => {
-    return { slideNumber: index + 1, testId };
-  });
+  const labels = useMemo(() => {
+    return Array.from({ length: totalSlides }, (_, index) => {
+      return { slideNumber: index + 1, testId };
+    });
+  }, [testId, totalSlides]);
 
   useEffect(() => {
     const imageUrls: string[] = [];
@@ -34,7 +38,6 @@ const QRCodeGenerator: React.FC<Props> = ({
     <>
       {labels.map((label, index) => {
         const qrCodeValue = JSON.stringify(label);
-        console.log(qrCodeValue);
         return (
           <div
             className="print-page"

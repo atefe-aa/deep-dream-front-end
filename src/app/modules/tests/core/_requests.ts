@@ -48,6 +48,9 @@ export async function createRegistration(
       method: "POST",
       body: JSON.stringify(registrationData),
     });
+    if (!res.ok) {
+      await handleRequestErrors(res);
+    }
 
     const { data } = await res.json();
     return { data };
