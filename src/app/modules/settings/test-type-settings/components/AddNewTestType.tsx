@@ -24,7 +24,13 @@ const addSchema = Yup.object().shape({
     .min(0, "Percentage must be a positive number.")
     .max(100, "Percentage must be 100 or less."),
   magnification: Yup.string().required("Magnification is required"),
-  numberOfLayers: Yup.number().min(1, "Number of layers is at leat 1."),
+  numberOfLayers: Yup.number()
+    .min(1, "Number of layers is at leat 1.")
+    .test(
+      "is-odd",
+      "Number of layers must be odd.",
+      (value): value is number => typeof value === "number" && value % 2 !== 0
+    ),
 });
 
 const initialValues = {
@@ -51,7 +57,6 @@ const AddNewTestType: FC = () => {
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
-        console.log(values);
         createTestType(values);
       } catch (error) {
         console.error(error);
@@ -62,6 +67,11 @@ const AddNewTestType: FC = () => {
       }
     },
   });
+
+  const handleWheel = (event: React.WheelEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    return;
+  };
 
   useCloseModalOnSuccess("kt_modal_add_new_test_type", data, formik);
 
@@ -235,6 +245,7 @@ const AddNewTestType: FC = () => {
               <input
                 disabled={isCreating}
                 placeholder="Number Of Layers"
+                min={1}
                 {...formik.getFieldProps("numberOfLayers")}
                 className={clsx(
                   "form-control bg-transparent",
@@ -250,6 +261,7 @@ const AddNewTestType: FC = () => {
                   }
                 )}
                 type="number"
+                
                 name="numberOfLayers"
                 autoComplete="off"
               />
@@ -270,6 +282,7 @@ const AddNewTestType: FC = () => {
               <input
                 disabled={isCreating}
                 placeholder="Step"
+                min={1}
                 {...formik.getFieldProps("step")}
                 className={clsx(
                   "form-control bg-transparent",
@@ -281,6 +294,7 @@ const AddNewTestType: FC = () => {
                   }
                 )}
                 type="number"
+                
                 name="step"
                 autoComplete="off"
               />
@@ -300,6 +314,7 @@ const AddNewTestType: FC = () => {
               <input
                 disabled={isCreating}
                 placeholder="Micro Step (mm)"
+                min={1}
                 {...formik.getFieldProps("microStep")}
                 className={clsx(
                   "form-control bg-transparent",
@@ -313,6 +328,7 @@ const AddNewTestType: FC = () => {
                   }
                 )}
                 type="number"
+                
                 name="microStep"
                 autoComplete="off"
               />
@@ -343,6 +359,7 @@ const AddNewTestType: FC = () => {
               }
             )}
             type="number"
+            
             name="z"
             autoComplete="off"
           />
@@ -362,6 +379,7 @@ const AddNewTestType: FC = () => {
           <input
             disabled={isCreating}
             placeholder="Brightness"
+            min={0}
             {...formik.getFieldProps("brightness")}
             className={clsx(
               "form-control bg-transparent",
@@ -375,6 +393,7 @@ const AddNewTestType: FC = () => {
               }
             )}
             type="number"
+            
             name="brightness"
             autoComplete="off"
           />
@@ -407,6 +426,7 @@ const AddNewTestType: FC = () => {
               }
             )}
             type="number"
+            
             name="condenser"
             autoComplete="off"
           />

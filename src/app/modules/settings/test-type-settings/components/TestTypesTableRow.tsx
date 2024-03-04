@@ -54,12 +54,12 @@ const TestTypesTableRow: FC<Props> = ({ testTypeData, index }) => {
       </td>
       <td>
         <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
-          {testTypeData.step}
+          {testTypeData.step || "default"}
         </div>
       </td>
       <td>
         <div className="text-gray-900 fw-bold text-hover-primary d-block fs-6">
-          {testTypeData.microStep}
+          {testTypeData.microStep || "default"}
         </div>
       </td>
       <td>
