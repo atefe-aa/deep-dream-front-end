@@ -108,7 +108,7 @@ const AddNewCounsellor: FC = () => {
           <input
             placeholder="Phone"
             {...formik.getFieldProps("phone")}
-            type="tel"
+            type="number"
             name="phone"
             className={clsx(
               "form-control form-control-solid mb-3 mb-lg-0",

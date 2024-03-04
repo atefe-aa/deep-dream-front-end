@@ -23,7 +23,7 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
   const initialValues = {
     name: counsellorData.name || "",
     phone: counsellorData.phone || "",
-    ...(isSuperAdmin && { laboratoryId: counsellorData.labId  }), // Add labId for superAdmin
+    ...(isSuperAdmin && { laboratoryId: counsellorData.labId }), // Add labId for superAdmin
   };
 
   const addSchema = Yup.object().shape({
@@ -36,7 +36,7 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
       .max(50, "Maximum 50 symbols")
       .required("Phone is required"),
     ...(isSuperAdmin && {
-        laboratoryId: Yup.number().required("Laboratory is required"),
+      laboratoryId: Yup.number().required("Laboratory is required"),
     }),
   });
 
@@ -55,7 +55,11 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
       }
     },
   });
-  useCloseModalOnSuccess(`edit_counsellor_info${counsellorData.id}`, data, formik);
+  useCloseModalOnSuccess(
+    `edit_counsellor_info${counsellorData.id}`,
+    data,
+    formik
+  );
 
   return (
     <ModalLayout
@@ -113,7 +117,7 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
           <input
             placeholder="Phone"
             {...formik.getFieldProps("phone")}
-            type="tel"
+            type="number"
             name="phone"
             className={clsx(
               "form-control form-control-solid mb-3 mb-lg-0",
