@@ -21,10 +21,12 @@ const addSchema = Yup.object().shape({
   discription: Yup.string()
     .min(1, "Minimum 1 symbols")
     .max(300, "Maximum 300 symbols"),
+  brightness: Yup.number()
+    .min(0, "Percentage must be a positive number.")
+    .max(100, "Percentage must be 100 or less."),
   magnification: Yup.string().required("Magnification is required"),
   numberOfLayers: Yup.number().min(1, "Number of layers is at leat 1."),
 });
-
 
 type Props = {
   testTypeId: number;
@@ -78,7 +80,7 @@ const EditTestType: React.FC<Props> = ({ testTypeId }) => {
         z: testType.z || 0,
         brightness: testType.brightness || 0,
         condenser: testType.condenser || 0,
-        multiLayer: testType.numberOfLayers>1,
+        multiLayer: testType.numberOfLayers > 1,
         magnification: testType.magnification || (2 as 2 | 10 | 40 | 100),
       });
     }

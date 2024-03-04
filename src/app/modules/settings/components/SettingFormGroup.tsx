@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { useSettings } from "../machine-settings/hooks/useSettings";
 import { useUpdateSetting } from "../machine-settings/hooks/useUpdateSetting";
@@ -31,6 +32,12 @@ const SettingFormGroup: React.FC<Props> = ({
     e.preventDefault();
 
     if (!inputValue) return;
+
+    if (unit === "%" && (Number(inputValue) > 100 || Number(inputValue) < 0)) {
+      toast.error("Percentage must be a number between 0 and 100.");
+      return;
+    }
+
     updateSetting({ value: inputValue, id });
   }
 
@@ -59,7 +66,7 @@ const SettingFormGroup: React.FC<Props> = ({
           <div className="fv-row">
             <input
               {...inputProps}
-              value={inputValue}
+              defaultValue={inputValue}
               inputMode="numeric"
               onChange={(e) => setInputValue(Number(e.target.value))}
             />

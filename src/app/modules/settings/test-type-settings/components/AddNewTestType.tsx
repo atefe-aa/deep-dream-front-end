@@ -6,7 +6,6 @@ import { useFormik } from "formik";
 import { ModalLayout } from "../../../../ui/modals/ModalLayout";
 import Checkbox from "../../components/Checkbox";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
-import SettingFormGroup from "../../components/SettingFormGroup";
 import { useCreateTestType } from "../hooks/useCreateTestType";
 import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
 
@@ -21,8 +20,11 @@ const addSchema = Yup.object().shape({
   discription: Yup.string()
     .min(1, "Minimum 1 symbols")
     .max(300, "Maximum 300 symbols"),
+  brightness: Yup.number()
+    .min(0, "Percentage must be a positive number.")
+    .max(100, "Percentage must be 100 or less."),
   magnification: Yup.string().required("Magnification is required"),
-  numberOfLayers: Yup.number().min(1,'Number of layers is at leat 1.')
+  numberOfLayers: Yup.number().min(1, "Number of layers is at leat 1."),
 });
 
 const initialValues = {
