@@ -4,7 +4,7 @@ import { BarChart } from "./components/BarChart";
 import { LineChart } from "./components/LineChart";
 import { RadarChart } from "./components/RadarChart";
 
-export function OldStatistics() {
+export function Statistics() {
   const { currentUser } = useAuth();
   return (
     <div className="row gy-5 g-xxl-8">
@@ -13,22 +13,21 @@ export function OldStatistics() {
         <>
           <div className="col-lg-6">
             <BarChart
-              y="number"
-              chartTitle="Tests Number"
-              unit=" tests"
-              className="mb-5 mb-xl-8"
-              color="info"
-              chartHeight="365px"
-            />
-            {/* <ChartsWidget1 className='mb-5 mb-xxl-8' /> */}
-          </div>
-          <div className="col-lg-6">
-            <BarChart
               unit=" (R)"
               y="price"
               chartTitle="Tests Price(R)"
               className=" mb-xl-8"
               color="primary"
+              chartHeight="365px"
+            />
+          </div>
+          <div className="col-lg-6">
+            <BarChart
+              y="number"
+              chartTitle="Tests Number"
+              unit=" tests"
+              className="mb-5 mb-xl-8"
+              color="info"
               chartHeight="365px"
             />
           </div>
