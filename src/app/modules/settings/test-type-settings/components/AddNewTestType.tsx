@@ -68,11 +68,6 @@ const AddNewTestType: FC = () => {
     },
   });
 
-  const handleWheel = (event: React.WheelEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    return;
-  };
-
   useCloseModalOnSuccess("kt_modal_add_new_test_type", data, formik);
 
   return (

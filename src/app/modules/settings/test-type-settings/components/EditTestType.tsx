@@ -25,7 +25,13 @@ const addSchema = Yup.object().shape({
     .min(0, "Percentage must be a positive number.")
     .max(100, "Percentage must be 100 or less."),
   magnification: Yup.string().required("Magnification is required"),
-  numberOfLayers: Yup.number().min(1, "Number of layers is at leat 1."),
+  numberOfLayers: Yup.number()
+    .min(1, "Number of layers is at leat 1.")
+    .test(
+      "is-odd",
+      "Number of layers must be odd.",
+      (value): value is number => typeof value === "number" && value % 2 !== 0
+    ),
 });
 
 type Props = {
