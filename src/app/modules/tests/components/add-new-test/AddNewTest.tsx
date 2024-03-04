@@ -27,7 +27,7 @@ const addSchema = Yup.object().shape({
     .min(1, "Minimum 1 symbols")
     .max(7, "Maximum 7 symbols")
     .required("Test Type is required"),
-  laboratoryId: Yup.string().required("Laboratory is required"),
+  laboratoryId: Yup.number().min(1,"Laboratory is required.").required("Laboratory is required"),
   discription: Yup.string()
     .min(1, "Minimum 1 symbols")
     .max(300, "Maximum 300 symbols"),

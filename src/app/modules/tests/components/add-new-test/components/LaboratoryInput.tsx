@@ -38,7 +38,7 @@ function LaboratoryInput({ formik }: Props) {
               formik.setFieldValue("laboratoryId", parseInt(e.target.value, 10))
             }
           >
-            <option>Choose Laboratory</option>
+            <option value="0">Choose Laboratory</option>
             {!isLoadingLaboratories &&
               laboratories &&
               laboratories.length > 0 &&

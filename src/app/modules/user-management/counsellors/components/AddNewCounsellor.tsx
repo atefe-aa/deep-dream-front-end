@@ -16,10 +16,10 @@ const AddNewCounsellor: FC = () => {
   const isSuperAdmin = currentUser && hasRole(currentUser, ["superAdmin"]);
 
   const initialValues = {
-    id:0,
+    id: 0,
     name: "",
     phone: "",
-    ...(isSuperAdmin && { laboratoryId: 0 }), // Add labId for superAdmin
+    ...(isSuperAdmin && { laboratoryId: undefined }), // Add labId for superAdmin
   };
 
   const addSchema = Yup.object().shape({
@@ -30,19 +30,25 @@ const AddNewCounsellor: FC = () => {
     phone: Yup.string()
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
-      .required("Phone is required"),
+      .required("Phone is required")
+      .matches(
+        /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/,
+        "Invalid phone number"
+      ),
     ...(isSuperAdmin && {
-      laboratoryId: Yup.number().required("Laboratory is required"),
+      laboratoryId: Yup.number().min(1,"Laboratory is required.").required("Laboratory is required"),
     }),
   });
 
-  const { isCreating, createCounsellor,data } = useCreateCounsellor();
+  const { isCreating, createCounsellor, data } = useCreateCounsellor();
 
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
+        console.log(values);
+        
         createCounsellor(values);
       } catch (error) {
         console.error(error);

@@ -6,10 +6,9 @@ import clsx from "clsx";
 import { useFormik } from "formik";
 import { ModalLayout } from "../../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../../ui/modals/ModalForm";
-import { KTIcon, toAbsoluteUrl } from "../../../../../../_metronic/helpers";
+import { KTIcon } from "../../../../../../_metronic/helpers";
 import { LabsModel } from "../../core/_models";
 import { useEditInfo } from "../../hooks/useEditInfo";
-import { FormLabel } from "react-bootstrap";
 import { useCloseModalOnSuccess } from "../../../../hooks/useCloseModalOnSuccess";
 
 const addSchema = Yup.object().shape({
@@ -22,7 +21,13 @@ const addSchema = Yup.object().shape({
   username: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols"),
-  phone: Yup.string().min(3, "Minimum 3 symbols").max(50, "Maximum 50 symbols"),
+  phone: Yup.string()
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .matches(
+      /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/,
+      "Invalid phone number"
+    ),
   address: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols"),
@@ -51,7 +56,7 @@ const EditInfo: FC<Props> = ({ labData }) => {
     password_confirmation: "",
   };
 
-  const { editLaboratoryInfo, isPending, error,data } = useEditInfo();
+  const { editLaboratoryInfo, isPending, error, data } = useEditInfo();
   const [showPasswprd, setShowPassword] = useState(false);
 
   const formik = useFormik({
@@ -74,7 +79,10 @@ const EditInfo: FC<Props> = ({ labData }) => {
 
   useCloseModalOnSuccess(`edit_info${labData.id}`, data, formik);
   return (
-    <ModalLayout modalId={`edit_info${labData.id}`} title="Update laboratory info">
+    <ModalLayout
+      modalId={`edit_info${labData.id}`}
+      title="Update laboratory info"
+    >
       <ModalForm
         modalId={`edit_info${labData.id}`}
         formik={formik}

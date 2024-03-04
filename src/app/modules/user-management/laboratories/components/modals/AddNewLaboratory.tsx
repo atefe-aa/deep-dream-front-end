@@ -27,7 +27,11 @@ const addSchema = Yup.object().shape({
   phone: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
-    .required("phone is required"),
+    .required("phone is required")
+    .matches(
+      /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/,
+      "Invalid phone number"
+    ),
   address: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
