@@ -1,4 +1,5 @@
 import { UserModel, useAuth } from "../modules/auth";
+import { SlideModel } from "../modules/scanning/core/_models";
 import { MetaModel } from "../modules/user-management/laboratories/core/_models";
 import { FiltersModel } from "./_models";
 
@@ -92,21 +93,45 @@ export function getProgressUI(progress: string) {
       progressPercent = 100;
       progressBg = "primary";
       break;
-      default:
-        progressPercent = 100;
-        progressBg = "danger";
-
+    default:
+      progressPercent = 100;
+      progressBg = "danger";
   }
 
   return { progressPercent, progressBg };
 }
 
-
-export function saveFilters(filters:FiltersModel,storageKey:string) {
+export function saveFilters(filters: FiltersModel, storageKey: string) {
   localStorage.setItem(storageKey, JSON.stringify(filters));
 }
 
-export function getFilters(storageKey:string) {
+export function getFilters(storageKey: string) {
   const storedFilters = localStorage.getItem(storageKey);
   return storedFilters ? JSON.parse(storedFilters) : null;
+}
+
+
+export function nextNth(isLoading: boolean, slides: SlideModel[]) {
+  if (isLoading || (!isLoading && !slides)) return;
+
+  const sortedSlidesNth = slides
+    .map((slide: SlideModel) => slide.nth)
+    .sort((a: number, b: number) => a - b);
+
+  const length =
+    sortedSlidesNth[sortedSlidesNth.length - 1] - sortedSlidesNth[0] + 1;
+
+  const allNth = Array.from({ length }, (_, index) => {
+    return index + 1;
+  });
+
+  const missingNth =
+    sortedSlidesNth.length > 0 && allNth.length > 0
+      ? allNth.filter((nth) => !sortedSlidesNth.includes(nth))
+      : [];
+
+  const nextNth =
+    missingNth.length > 0 ? missingNth[0] : allNth[allNth.length - 1] + 1;
+
+  return nextNth;
 }

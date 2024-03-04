@@ -7,12 +7,14 @@ import { ModalLayout } from "../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
 import { useCreateSlide } from "../hooks/useCreateSlide";
 import { useSlides } from "../hooks/useSlides";
-import { Modal } from "bootstrap";
 import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
 import { SlideModel } from "../../../scanning/core/_models";
+import { nextNth } from "../../../../utils/helper";
 
 const AddNewSlide: FC = () => {
   const { isLoading, slides } = useSlides();
+
+  const initialNth = nextNth(isLoading, slides);
 
   const nthUnique = (value: number, context: Yup.TestContext) => {
     if (isLoading) {
@@ -52,13 +54,21 @@ const AddNewSlide: FC = () => {
 
   const { isCreating, createSlide, data } = useCreateSlide();
 
-
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
-        createSlide(values);
+        const data = {
+          nth: values.nth,
+          coordinates: {
+            sw_x: values.sw_x,
+            sw_y: values.sw_y,
+            ne_x: values.ne_x,
+            ne_y: values.ne_y,
+          },
+        };
+        createSlide(data);
       } catch (error) {
         console.error(error);
         setStatus("Somthing went wrong adding new slide.");
@@ -66,7 +76,11 @@ const AddNewSlide: FC = () => {
       }
     },
   });
-  
+
+  useEffect(() => {
+    formik.setFieldValue("nth", initialNth || 1);
+  }, [initialNth]);
+
   useCloseModalOnSuccess("kt_modal_add_new_slide", data, formik);
   return (
     <ModalLayout modalId="kt_modal_add_new_slide" title="Add new slide">

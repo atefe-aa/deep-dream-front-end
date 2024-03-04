@@ -45,24 +45,24 @@ export async function customFetch(url: string, options: FetchOptions = {}) {
 }
 
 export async function handleRequestErrors(res: Response): Promise<void> {
-  let errorText = "Error making request.";
+  let errorText = "";
 
   try {
     const { message, errors } = await res.json();
     if (message) {
       console.error(message);
-      errorText += ` ${message}`;
+      // errorText += ` ${message}`;
     }
     if (errors) {
       const errorMessages = Object.entries(errors)
         .map(([_, value]: [string, unknown]) => (value as string[]).join(", "))
         .join(". ");
-      errorText += ` Details: ${errorMessages}`;
+      errorText += `  ${errorMessages}`;
     }
   } catch (jsonError) {
-    errorText += ` Non-JSON error: ${res.statusText}`; 
-
-  }     throw new Error(errorText);
+    errorText += ` Non-JSON error: ${res.statusText}`;
+  }
+  throw new Error(errorText);
 }
 
 export async function getMethodRequest(
@@ -147,8 +147,8 @@ export async function request(
   BASE_URL: string,
   outgoingData: any,
   method = "GET",
-  id?: number|string,
-  includeMeta=false
+  id?: number | string,
+  includeMeta = false
 ) {
   const options = {
     method: method,
@@ -161,15 +161,15 @@ export async function request(
   const queryString = query ? `?${query}` : "";
   try {
     const res = await customFetch(
-      `${BASE_URL}${id? `/${id}`:""}${queryString}`,
+      `${BASE_URL}${id ? `/${id}` : ""}${queryString}`,
       options
     );
     if (!res.ok) {
       await handleRequestErrors(res);
     }
 
-    const { data,meta } = await res.json();
-    return { data,meta };
+    const { data, meta } = await res.json();
+    return { data, meta };
   } catch (e: unknown) {
     throw Error((e as Error).message);
     // throw Error(`${title} could not be fetched.`);
