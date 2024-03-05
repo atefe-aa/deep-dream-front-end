@@ -18,7 +18,8 @@ export interface LabsModel {
   header?: string;
   footer?: string;
   signature?: string;
-  prices?: Array<number>;
+  prices?: PriceModel[];
+  // prices?: Array<number>;
 }
 
 export interface LabDataModel {

@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { useFormik } from "formik";
 import { ModalLayout } from "../../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../../ui/modals/ModalForm";
-import { LabsModel } from "../../core/_models";
+import { LabsModel, PriceModel } from "../../core/_models";
 import { useCloseModalOnSuccess } from "../../../../hooks/useCloseModalOnSuccess";
 import { useUpdatePrice } from "../hooks/useUpdatePrice";
 import { usePrice } from "../hooks/usePrice";
@@ -21,19 +21,19 @@ const addSchema = Yup.object().shape({
 
 type Props = {
   labData: LabsModel;
-  priceId: number;
+  price: PriceModel;
 };
 
-const EditPrice: React.FC<Props> = ({ labData, priceId }) => {
-  const { isLoading, price } = usePrice(priceId);
-  const { updatePrice, isUpdating, data } = useUpdatePrice(priceId);
+const EditPrice: React.FC<Props> = ({ labData, price }) => {
+  // const { isLoading, price } = usePrice(price.id);
+  const { updatePrice, isUpdating, data } = useUpdatePrice(price.id);
 
   const formik = useFormik({
     initialValues: {
-      id: priceId,
-      price: 0,
-      extraPrice: 0,
-      description: "",
+      id: price.id,
+      price: price.price||undefined as unknown as number,
+      extraPrice: price.extraPrice||undefined as unknown as number,
+      description: price.description ||"",
     },
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
@@ -46,28 +46,28 @@ const EditPrice: React.FC<Props> = ({ labData, priceId }) => {
       }
     },
   });
-  useEffect(() => {
-    if (!isLoading && price) {
-      formik.setValues({
-        id:priceId,
-        price: price.price || 0,
-        extraPrice: price.extraPrice || 0,
-        description: price.description || "",
-      });
-    }
-  }, [isLoading, price, formik.setValues]);
+  // useEffect(() => {
+  //   if (!isLoading && price) {
+  //     formik.setValues({
+  //       id:priceId,
+  //       price: price.price || 0,
+  //       extraPrice: price.extraPrice || 0,
+  //       description: price.description || "",
+  //     });
+  //   }
+  // }, [isLoading, price, formik.setValues]);
 
   // {if(isLoading)return<Spinner animation="border" />}
-  useCloseModalOnSuccess(`edit_price_info${priceId}`, data, formik);
+  useCloseModalOnSuccess(`edit_price_info${price.id}`, data, formik);
   return (
     <ModalLayout
-      modalId={`edit_price_info${priceId}`}
+      modalId={`edit_price_info${price.id}`}
       title={`${labData.labName} Laboratory`}
     >
       <ModalForm
         isError={false}
         isLoading={isUpdating}
-        modalId={`edit_price_info${priceId}`}
+        modalId={`edit_price_info${price.id}`}
         formik={formik}
       >
         {/* begin::test type Form group */}

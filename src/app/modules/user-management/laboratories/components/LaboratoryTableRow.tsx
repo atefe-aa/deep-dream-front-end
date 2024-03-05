@@ -3,8 +3,7 @@ import { KTIcon } from "../../../../../_metronic/helpers";
 import { TestTypesPriceTableRow } from "../test-type-price-setting/components/TestTypesPriceTableRow";
 import { LabsModel } from "../core/_models";
 import clsx from "clsx";
-import { randomState } from "../../../../utils/helper";
-import { LABS_TESTS_DATA } from "../../../../utils/constants";
+import { capitalizeWords, randomState } from "../../../../utils/helper";
 import { Dropdown } from "react-bootstrap";
 import { CustomDropdown } from "../../../../ui/dropdown/CustomDropdown";
 import { CustomTable } from "../../../../ui/table/CustomTable";
@@ -143,7 +142,7 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
             <CustomTable
               modalId={`kt_modal_add_new_test_price_${labData.id}`}
               className="bg-light border-info"
-              // tableTitle={}
+              tableTitle={`${capitalizeWords(labData.labName)} Price List`}
             >
               <CustomTableHead>
                 {columns.map((col) => (
@@ -158,11 +157,11 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
                 ))}
               </CustomTableHead>
               <CustomTableBody>
-                {labData.prices.map((priceId, index) => (
+                {labData.prices.map((price, index) => (
                   <TestTypesPriceTableRow
-                    priceId={priceId}
+                    price={price}
                     labData={labData}
-                    key={priceId}
+                    key={price.id}
                     index={index + 1}
                   />
                 ))}
@@ -183,7 +182,7 @@ const LaboratoryTableRow: FC<Props> = ({ labData, index }) => {
                   data-bs-toggle="modal"
                   data-bs-target={`#kt_modal_add_new_test_price_${labData.id}`}
                 >
-                 + Add New Test Price
+                  + Add New Test Price
                 </button>
               </div>
             </span>
