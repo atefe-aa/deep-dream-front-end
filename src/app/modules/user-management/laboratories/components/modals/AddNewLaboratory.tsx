@@ -25,8 +25,8 @@ const addSchema = Yup.object().shape({
     .max(50, "Maximum 50 symbols")
     .required("Username is required"),
   phone: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
+    .min(11, "Invalid phone number")
+    .max(15, "Invalid phone number")
     .required("phone is required")
     .matches(
       /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/,
@@ -262,7 +262,8 @@ const AddNewLaboratory: FC<Props> = () => {
           <input
             placeholder="Phone"
             {...formik.getFieldProps("phone")}
-            type="number"
+            type="text"
+            inputMode="tel"
             name="phone"
             className={clsx(
               "form-control form-control-solid mb-3 mb-lg-0",

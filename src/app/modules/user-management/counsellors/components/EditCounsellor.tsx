@@ -31,9 +31,9 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
       .required("Name is required"),
-    phone: Yup.string()
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
+      phone: Yup.string()
+      .min(11, "Invalid phone number")
+      .max(15, "Invalid phone number")
       .required("Phone is required")
       .matches(
         /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/,
@@ -122,6 +122,7 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
             placeholder="Phone"
             {...formik.getFieldProps("phone")}
             type="number"
+            inputMode="tel"
             name="phone"
             className={clsx(
               "form-control form-control-solid mb-3 mb-lg-0",

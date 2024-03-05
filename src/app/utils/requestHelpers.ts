@@ -49,15 +49,19 @@ export async function handleRequestErrors(res: Response): Promise<void> {
 
   try {
     const { message, errors } = await res.json();
-    if (message) {
-      console.error(message);
-      // errorText += ` ${message}`;
-    }
+
     if (errors) {
       const errorMessages = Object.entries(errors)
         .map(([_, value]: [string, unknown]) => (value as string[]).join(", "))
         .join(". ");
       errorText += `  ${errorMessages}`;
+    }
+
+    if (message) {
+      console.error(message);
+      if (errorText.length < 3) {
+        errorText += ` ${message}`;
+      }
     }
   } catch (jsonError) {
     errorText += ` Non-JSON error: ${res.statusText}`;
