@@ -67,25 +67,25 @@ const LabFilter: React.FC<Props> = ({ componentName }) => {
   return (
     <div className="mb-10">
       <label className="form-label fw-bold">Laboratory:</label>
-      <div className="accordion" id={`accordion_filter_labs`}>
+      <div className="accordion" id={`accordion_filter_labs_${componentName}`}>
         <div className="accordion-item">
-          <h2 className="accordion-header " id={`heading_filter_labs`}>
+          <h2 className="accordion-header " id={`heading_filter_labs_${componentName}`}>
             <button
               className="accordion-button h-30px collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target={`#collapse_filter_labs`}
+              data-bs-target={`#collapse_filter_labs_${componentName}`}
               aria-expanded="true"
-              aria-controls={`collapse_filter_labs`}
+              aria-controls={`collapse_filter_labs_${componentName}`}
             >
               Laboratories List
             </button>
           </h2>
           <div
-            id={`collapse_filter_labs`}
+            id={`collapse_filter_labs_${componentName}`}
             className="accordion-collapse collapse h-150px scroll-y"
-            aria-labelledby={`heading_filter_labs`}
-            data-bs-parent={`#accordion_filter_labs`}
+            aria-labelledby={`heading_filter_labs_${componentName}`}
+            data-bs-parent={`#accordion_filter_labs_${componentName}`}
           >
             <div className="accordion-body">
               {!isLoadingLaboratories && labsList && (

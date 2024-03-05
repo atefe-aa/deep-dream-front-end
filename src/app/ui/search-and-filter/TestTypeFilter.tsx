@@ -67,25 +67,25 @@ const TestTypeFilter: React.FC<Props> = ({ componentName }) => {
     <div className="mb-10">
       <label className="form-label fw-bold">Test Type:</label>
 
-      <div className="accordion" id={`accordion_filter_test_type`}>
+      <div className="accordion" id={`accordion_filter_test_type_${componentName}`}>
         <div className="accordion-item">
-          <h2 className="accordion-header " id={`heading_filter_test_type`}>
+          <h2 className="accordion-header " id={`heading_filter_test_type_${componentName}`}>
             <button
               className="accordion-button h-30px collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target={`#collapse_filter_test_type`}
+              data-bs-target={`#collapse_filter_test_type_${componentName}`}
               aria-expanded="true"
-              aria-controls={`collapse_filter_test_type`}
+              aria-controls={`collapse_filter_test_type_${componentName}`}
             >
               Test Types List
             </button>
           </h2>
           <div
-            id={`collapse_filter_test_type`}
+            id={`collapse_filter_test_type_${componentName}`}
             className="accordion-collapse collapse h-150px scroll-y"
-            aria-labelledby={`heading_filter_test_type`}
-            data-bs-parent={`#accordion_filter_test_type`}
+            aria-labelledby={`heading_filter_test_type_${componentName}`}
+            data-bs-parent={`#accordion_filter_test_type_${componentName}`}
           >
             <div className="accordion-body">
               {!isLoading && testTypesList && (
