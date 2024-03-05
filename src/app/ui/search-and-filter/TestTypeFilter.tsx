@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { useTestTypes } from "../../modules/settings/test-type-settings/hooks/useTestTypes";
-import { areArraysEqual } from "../../utils/helper";
 import { TestTypesModel } from "../../modules/settings/test-type-settings/core/_models";
 import { useFilterChart } from "./FilterChartProvider";
 import toast from "react-hot-toast";
+import { CHART_LIMIT } from "../../utils/constants";
+import { SelectAll } from "./SelectAll";
+import { ComponentName } from "./_models";
+import { areArraysEqual } from "../../utils/helper";
 
 type Props = {
   componentName: ComponentName;
 };
-type ComponentName = "lineChart" | "radarChart" | "barChart";
+
 const TestTypeFilter: React.FC<Props> = ({ componentName }) => {
   const { state, updateState } = useFilterChart();
   const relevantState = state[componentName];
@@ -18,15 +21,11 @@ const TestTypeFilter: React.FC<Props> = ({ componentName }) => {
 
   const [testTypes, setTestTypes] = useState<number[]>(relevantState.testTypes);
 
-  const [isAllTestTypes, setIsAllTestTypes] = useState(
-    areArraysEqual(testTypesList, testTypes)
-  );
-
   function HandleTestTypeChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.stopPropagation();
     const { name, checked } = e.target;
-    if (testTypes.length >= 10) {
-      toast.error("You can select up to 10 test types.");
+    if (testTypes.length >= CHART_LIMIT) {
+      toast.error(`You can select up to ${CHART_LIMIT} test types.`);
       return testTypes;
     }
 
@@ -38,6 +37,20 @@ const TestTypeFilter: React.FC<Props> = ({ componentName }) => {
       }
     });
   }
+
+  const [isSelectedAll, setIsSelectedAll] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading && testTypesList) {
+      setIsSelectedAll(
+        areArraysEqual(
+          testTypesList.map((lab: TestTypesModel) => lab.id),
+          testTypes
+        )
+      );
+    }
+  }, [testTypes, testTypesList, isLoading, setIsSelectedAll]);
+
   useEffect(() => {
     const updatedFilters = {
       ...state,
@@ -46,16 +59,10 @@ const TestTypeFilter: React.FC<Props> = ({ componentName }) => {
         testTypes,
       },
     };
-    
+
     localStorage.setItem("entityFilterState", JSON.stringify(updatedFilters));
   }, [testTypes]);
 
-  function handleSelectAllTestTypes() {
-    const allTestTypesIds = testTypesList.map((lab: TestTypesModel) => lab.id);
-
-    setTestTypes(isAllTestTypes ? [] : allTestTypesIds);
-    setIsAllTestTypes((isAll) => !isAll);
-  }
   return (
     <div className="mb-10">
       <label className="form-label fw-bold">Test Type:</label>
@@ -82,20 +89,12 @@ const TestTypeFilter: React.FC<Props> = ({ componentName }) => {
           >
             <div className="accordion-body">
               {!isLoading && testTypesList && (
-                <div className="d-flex">
-                  <div className="form-check form-check-custom form-check-solid">
-                    <label className="form-label fw-bolder text-gray-800 fs-6">
-                      <input
-                        className="form-check-input me-3"
-                        type="checkbox"
-                        checked={isAllTestTypes}
-                        onChange={handleSelectAllTestTypes}
-                        name="allTestTypes"
-                      />
-                      Select All
-                    </label>
-                  </div>
-                </div>
+                <SelectAll
+                  setList={setTestTypes}
+                  allList={testTypesList.map((test: TestTypesModel) => test.id)}
+                  isSelectedAll={isSelectedAll}
+                  setIsSelectedAll={setIsSelectedAll}
+                />
               )}
 
               {!isLoading &&

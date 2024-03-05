@@ -1,18 +1,7 @@
-import DatePicker from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_en from "react-date-object/locales/persian_en";
-import { useState } from "react";
-import type { Value } from "react-multi-date-picker";
-import { LABS_TESTS_DATA, TEST_TYPES } from "../../utils/constants";
-import { FilterState } from "./_models";
-import { useLaboratories } from "../../modules/user-management/laboratories/hooks/useLaboratories";
-import { useTestTypes } from "../../modules/settings/test-type-settings/hooks/useTestTypes";
+import { ComponentName, FilterState } from "./_models";
 import { useAuth } from "../../modules/auth";
 import { hasRole } from "../../utils/helper";
-import { TestTypesModel } from "../../modules/settings/test-type-settings/core/_models";
-import { LabsModel } from "../../modules/user-management/laboratories/core/_models";
 import { useFilterChart } from "./FilterChartProvider";
-import toast from "react-hot-toast";
 import { LabFilter } from "./LabFilter";
 import { TestTypeFilter } from "./TestTypeFilter";
 import { DateRangeFilter } from "./DateRangeFilter";
@@ -23,7 +12,7 @@ type Props = {
   onSubmit: (filters: FilterState) => void;
 };
 
-type ComponentName = "lineChart" | "radarChart" | "barChart";
+
 
 const FilterDropdown: React.FC<Props> = ({
   filterTypes = [],
@@ -37,10 +26,11 @@ const FilterDropdown: React.FC<Props> = ({
 
   const handleSubmit = () => {
     const savedState = localStorage.getItem("entityFilterState");
-    const newFilter= savedState ? JSON.parse(savedState)[componentName] : relevantState;
-    
-    onSubmit(newFilter);
+    const newFilter = savedState
+      ? JSON.parse(savedState)[componentName]
+      : relevantState;
 
+    onSubmit(newFilter);
   };
 
   const handleReset = () => {
@@ -50,6 +40,13 @@ const FilterDropdown: React.FC<Props> = ({
       laboratories: [],
       testTypes: [],
     };
+    const updatedFilters = {
+      ...state,
+      [componentName]: {
+        filters,
+      },
+    };
+    localStorage.setItem("entityFilterState", JSON.stringify(updatedFilters));
     onSubmit(filters);
     updateState(componentName, filters);
   };

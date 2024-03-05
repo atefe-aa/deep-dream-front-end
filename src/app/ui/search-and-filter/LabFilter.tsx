@@ -1,23 +1,16 @@
-import DatePicker from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_en from "react-date-object/locales/persian_en";
 import { useEffect, useState } from "react";
-import type { Value } from "react-multi-date-picker";
-import { LABS_TESTS_DATA, TEST_TYPES } from "../../utils/constants";
-import { FilterState } from "./_models";
 import { useLaboratories } from "../../modules/user-management/laboratories/hooks/useLaboratories";
-import { useTestTypes } from "../../modules/settings/test-type-settings/hooks/useTestTypes";
-import { useAuth } from "../../modules/auth";
-import { areArraysEqual, hasRole } from "../../utils/helper";
-import { TestTypesModel } from "../../modules/settings/test-type-settings/core/_models";
 import { LabsModel } from "../../modules/user-management/laboratories/core/_models";
 import { useFilterChart } from "./FilterChartProvider";
 import toast from "react-hot-toast";
+import { SelectAll } from "./SelectAll";
+import { CHART_LIMIT } from "../../utils/constants";
+import { ComponentName } from "./_models";
+import { areArraysEqual } from "../../utils/helper";
 
 type Props = {
   componentName: ComponentName;
 };
-type ComponentName = "lineChart" | "radarChart" | "barChart";
 
 const LabFilter: React.FC<Props> = ({ componentName }) => {
   const { state, updateState } = useFilterChart();
@@ -30,22 +23,29 @@ const LabFilter: React.FC<Props> = ({ componentName }) => {
     relevantState.laboratories
   );
 
-  const [isAllLabs, setIsAllLabs] = useState(
-    areArraysEqual(labsList, laboratories)
-  );
+  const [isSelectedAll, setIsSelectedAll] = useState(false);
+
+  useEffect(() => {
+    if (!isLoadingLaboratories && labsList) {
+      setIsSelectedAll(
+        areArraysEqual(
+          labsList.map((lab: LabsModel) => lab.id),
+          laboratories
+        )
+      );
+    }
+  }, [labsList, laboratories, isLoadingLaboratories, setIsSelectedAll]);
 
   function HandleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.stopPropagation();
     const { name, checked } = e.target;
-    if (laboratories.length >= 10) {
-      toast.error("You can select up to 10 laboratories.");
+    if (checked && laboratories.length >= CHART_LIMIT) {
+      toast.error(`You can select up to ${CHART_LIMIT} laboratories.`);
       return laboratories;
     }
-    const inArray = laboratories.includes(Number(name));
-
     let newLabs = [...laboratories];
     setLaboratories((prevlaboratories) => {
-      if (!inArray) {
+      if (checked) {
         newLabs = [...prevlaboratories, Number(name)];
       } else {
         newLabs = prevlaboratories.filter((item) => item !== Number(name));
@@ -64,12 +64,6 @@ const LabFilter: React.FC<Props> = ({ componentName }) => {
     localStorage.setItem("entityFilterState", JSON.stringify(updatedFilters));
   }, [laboratories]);
 
-  function handleSelectAllLabs() {
-    const allLabsIds = labsList.map((lab: LabsModel) => lab.id);
-
-    setLaboratories(isAllLabs ? [] : allLabsIds);
-    setIsAllLabs((isAll) => !isAll);
-  }
   return (
     <div className="mb-10">
       <label className="form-label fw-bold">Laboratory:</label>
@@ -95,20 +89,12 @@ const LabFilter: React.FC<Props> = ({ componentName }) => {
           >
             <div className="accordion-body">
               {!isLoadingLaboratories && labsList && (
-                <div className="d-flex">
-                  <div className="form-check form-check-custom form-check-solid">
-                    <label className="form-label fw-bolder text-gray-800 fs-6">
-                      <input
-                        className="form-check-input me-3"
-                        type="checkbox"
-                        checked={isAllLabs}
-                        onChange={handleSelectAllLabs}
-                        name="allLabs"
-                      />
-                      Select All
-                    </label>
-                  </div>
-                </div>
+                <SelectAll
+                  setList={setLaboratories}
+                  allList={labsList.map((lab: LabsModel) => lab.id)}
+                  isSelectedAll={isSelectedAll}
+                  setIsSelectedAll={setIsSelectedAll}
+                />
               )}
               {!isLoadingLaboratories &&
                 labsList &&

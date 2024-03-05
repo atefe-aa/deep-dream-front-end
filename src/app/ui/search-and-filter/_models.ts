@@ -9,6 +9,9 @@ export type FilterState = DateRangeState & {
   laboratories: LaboratoriesState;
   testTypes: TestTypesState;
 };
+
+export type ComponentName = "lineChart" | "radarChart" | "barChart";
+
 export type EntityFilterState = {
   barChart: FilterState;
   lineChart: FilterState;

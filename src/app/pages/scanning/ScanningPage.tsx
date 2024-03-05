@@ -2,7 +2,6 @@ import { SlidesTable } from "../../modules/scanning/components/SlidesTable";
 import { SlideRow } from "../../modules/scanning/components/SlideRow";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import Timer from "../../modules/scanning/components/Timer";
 
 import { useStartFullSlideScanning } from "../../modules/scanning/hooks/useStartFullSlideScanning";
 import { useSlides } from "../../modules/settings/slides/hooks/useSlides";

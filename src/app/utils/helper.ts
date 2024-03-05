@@ -134,12 +134,16 @@ export function nextNth(isLoading: boolean, slides: SlideModel[]) {
 
   return nextNth;
 }
-export function areArraysEqual(arr1: any[], arr2: any[]) {
-  if (arr1 && arr2) {
-    if (arr1.length !== arr2.length) {
-      return false; // Early exit if lengths differ
-    }
 
-    return arr1.every((element, index) => element === arr2[index]);
+export function areArraysEqual(arr1: any[], arr2: any[]) {
+  if (arr1.length !== arr2.length) {
+    return false; // Early exit if lengths differ
   }
+
+  let elemntsIn = 0;
+  arr1.forEach((element) => {
+    elemntsIn = arr2.includes(element) ? elemntsIn + 1 : elemntsIn;
+  });
+
+  return elemntsIn === arr1.length;
 }
