@@ -27,21 +27,24 @@ const SelectAll: React.FC<Props> = ({
   };
 
   return (
-    <div className="d-flex">
-      <div className="form-check form-check-custom form-check-solid">
-        <label className="form-label fw-bolder text-gray-800 fs-6">
-          <input
-            className="form-check-input me-3"
-            type="checkbox"
-            checked={isSelectedAll}
-            onChange={handleChange}
-            name="allLabs"
-            disabled={allList.length > CHART_LIMIT}
-          />
-          Select All
-        </label>
+    <>
+      <div className="d-flex">
+        <div className="form-check form-check-custom form-check-solid">
+          <label className="form-label fw-bolder text-gray-800 fs-6">
+            <input
+              className="form-check-input me-3"
+              type="checkbox"
+              checked={isSelectedAll}
+              onChange={handleChange}
+              name="allLabs"
+              disabled={allList.length > CHART_LIMIT}
+            />
+            Select All
+          </label>
+        </div>
       </div>
-    </div>
+      <hr />
+    </>
   );
 };
 
