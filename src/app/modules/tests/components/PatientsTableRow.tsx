@@ -8,7 +8,6 @@ import { ConfirmModal } from "../../../ui/modals/ConfirmModal";
 import { useDeleteRegistration } from "../hooks/useDeleteRegistration";
 import { EditRegistration } from "./EditRegistration";
 
-
 type Props = {
   data: TestsModel;
   index: number;
@@ -140,17 +139,17 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
                 backgrounUrl="/media/misc/pattern-1.jpg"
               />
             </ShareMenuDropdown>
-            
-            <TestsTableDropdown data={data}  />
 
-                {/* modals */}
-                <ConfirmModal
-            actionName={`delete_test${data.id}`}
-            onConfirm={handleDelete}
-            isLoading={isDeleting}
-            message={`Are you sure, you want to delete ${data.name}'s test?`}
-          />
-          <EditRegistration testId={data.id} />
+            <TestsTableDropdown data={data} />
+
+            {/* modals */}
+            <ConfirmModal
+              actionName={`delete_test${data.id}`}
+              onConfirm={handleDelete}
+              isLoading={isDeleting}
+              message={`Are you sure, you want to delete ${data.name}'s test?`}
+            />
+            <EditRegistration test={data} testId={data.id} />
           </div>
         </td>
       </tr>
@@ -182,10 +181,19 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
               </div>
             </div>
             <div className="card col me-2 p-4 bg-light-primary ">
-              <h6>Description:</h6>
-              <div className=" d-flex justify-content-start flex-column ">
-                <div className="text-gray-800 fw-bold text-hover-primary fs-6 ">
-                  {data.description}
+              <div className="d-flex justify-content-between mx-10">
+                <h6>Doctor:</h6>
+                <div className=" d-flex justify-content-start flex-column ">
+                  <div className="text-gray-800 fw-bold text-hover-primary fs-6 ">
+                    {data.doctorName}
+                  </div>
+                </div>
+              </div>   <div className="d-flex justify-content-between mx-10">
+                <h6>Description:</h6>
+                <div className=" d-flex justify-content-start flex-column ">
+                  <div className="text-gray-800 fw-bold text-hover-primary fs-6 ">
+                    {data.description}
+                  </div>
                 </div>
               </div>
             </div>

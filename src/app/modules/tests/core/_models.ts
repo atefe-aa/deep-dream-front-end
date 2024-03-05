@@ -3,17 +3,19 @@ export interface TestsModel {
   name: string;
   nationalId: string;
   age: number;
-  ageUnit: string;
-  gender: string;
+  ageUnit: "year" | "day";
+  gender: "female" | "male";
   date: string;
   registrationCode: number;
   img: string | null;
   project: string | null;
   senderRegistrationCode: string;
-  doctorName:string;
+  doctorName: string;
   testType: string;
   description: string;
   laboratory: string;
+  laboratoryId: number;
+  testTypeId: number;
   progress: string;
   price: number;
   numberOfSlides: number;
@@ -23,9 +25,9 @@ export interface TestsModel {
 export interface RegistrationRequestModel {
   name: string;
   nationalId: string;
-  age: string;
+  age: number;
   doctorName: string;
-  ageUnit:  "year" | "day";
+  ageUnit: "year" | "day";
   gender: "male" | "female";
   testType: number;
   laboratoryId: number;
@@ -34,4 +36,3 @@ export interface RegistrationRequestModel {
   isMultiSlide: boolean;
   numberOfSlides: number;
 }
-
