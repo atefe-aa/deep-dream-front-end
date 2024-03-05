@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { KTIcon, toAbsoluteUrl } from "../../../helpers";
 import { useLayout } from "../../core";
@@ -41,6 +41,15 @@ export function HeaderWrapper() {
         )}
         id="kt_header_container"
       >
+        <div
+          data-kt-swapper="true"
+          data-kt-swapper-mode="prepend"
+          data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}"
+          className={clsx(
+            "page-title d-flex flex-column align-items-start justify-content-center flex-wrap mt-n5 mt-lg-0 me-lg-2 pb-2 pb-lg-0",
+            classes.pageTitle.join(" ")
+          )}
+        ></div>
         {/* begin::Wrapper */}
         <div className="d-flex d-lg-none align-items-center ms-n2 me-2">
           {/* begin::Aside mobile toggle */}
