@@ -110,7 +110,6 @@ export function getFilters(storageKey: string) {
   return storedFilters ? JSON.parse(storedFilters) : null;
 }
 
-
 export function nextNth(isLoading: boolean, slides: SlideModel[]) {
   if (isLoading || (!isLoading && !slides)) return;
 
@@ -134,4 +133,13 @@ export function nextNth(isLoading: boolean, slides: SlideModel[]) {
     missingNth.length > 0 ? missingNth[0] : allNth[allNth.length - 1] + 1;
 
   return nextNth;
+}
+export function areArraysEqual(arr1: any[], arr2: any[]) {
+  if (arr1 && arr2) {
+    if (arr1.length !== arr2.length) {
+      return false; // Early exit if lengths differ
+    }
+
+    return arr1.every((element, index) => element === arr2[index]);
+  }
 }
