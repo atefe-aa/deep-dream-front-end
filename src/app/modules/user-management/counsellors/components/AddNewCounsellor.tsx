@@ -59,7 +59,9 @@ const AddNewCounsellor: FC = () => {
       }
     },
   });
+
   useCloseModalOnSuccess("kt_modal_add_new_counsellor", data, formik);
+  
   return (
     <ModalLayout
       modalId="kt_modal_add_new_counsellor"

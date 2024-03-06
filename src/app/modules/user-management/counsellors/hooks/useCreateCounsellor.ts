@@ -18,7 +18,7 @@ export function useCreateCounsellor() {
       postMethodRequest("", "Counsellor", BASE_URL, counsellorData),
     onSuccess: () => {
       toast.success("New counsellor successfully created.");
-      queryClient.invalidateQueries({ queryKey: ["Counsellors"] });
+      queryClient.invalidateQueries({ queryKey: ["counsellors"] });
     },
     onError: (err) => {
       toast.error(err.message);

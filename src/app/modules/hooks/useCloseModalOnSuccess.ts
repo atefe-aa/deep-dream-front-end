@@ -7,7 +7,7 @@ export function useCloseModalOnSuccess(
   formik: any
 ) {
   useEffect(() => {
-    if (data && data?.data === "success") {
+    if (data && data?.data) {
       formik.resetForm();
       const modalElement = document.getElementById(modalId);
       if (modalElement) {
