@@ -44,8 +44,7 @@ const CustomTable: FC<Props> = ({
       {/* begin::Body */}
       <div className="card-body py-3">
         {/* begin::Table container */}
-        {/* <div className="table-responsive"> */}
-        <div>
+        <div className="table-responsive">
           {/* begin::Table */}
           <table className="table text-center table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
             {children}
