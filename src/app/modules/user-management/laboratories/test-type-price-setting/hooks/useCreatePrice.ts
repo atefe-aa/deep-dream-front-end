@@ -15,9 +15,9 @@ export function useCreatePrice(labId:number) {
     data,
   } = useMutation({
     mutationFn: (priceData : PriceModel) =>
-      postMethodRequest("", "Test Type Price", BASE_URL, priceData),
+      postMethodRequest("", "Price", BASE_URL, priceData),
     onSuccess: () => {
-      toast.success("New Test Type Price successfully created.");
+      toast.success("New Price successfully created.");
       queryClient.invalidateQueries({ queryKey: ["laboratories"] });
       queryClient.invalidateQueries({ queryKey: ["testTypes",`laboratory=${labId}&noPaginate=true&noPrice=true`] });
     },

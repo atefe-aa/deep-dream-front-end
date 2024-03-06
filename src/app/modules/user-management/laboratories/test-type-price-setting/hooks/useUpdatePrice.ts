@@ -17,7 +17,7 @@ export function useUpdatePrice(id:number) {
       request("", "Price", BASE_URL, priceData, "PUT", id),
     onSuccess: () => {
       toast.success("Price successfully updated.");
-      queryClient.invalidateQueries({ queryKey: ["price",id] });
+      queryClient.invalidateQueries({ queryKey: ["laboratories"] });
     },
     onError: (err) => {
       toast.error(err.message);

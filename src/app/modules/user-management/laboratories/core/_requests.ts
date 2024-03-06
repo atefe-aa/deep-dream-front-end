@@ -62,6 +62,8 @@ export async function deleteLaboratory(labId: number) {
 
 export async function editLaboratoryInfo(labId: number, labData: LabsModel) {
   try {
+    console.log(labId);
+    
     const res = await fetch(`${BASE_URL}/${labId}`, {
       method: "PUT",
       headers: {

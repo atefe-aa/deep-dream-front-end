@@ -18,9 +18,9 @@ const addSchema = Yup.object().shape({
   labName: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols"),
-  username: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols"),
+  // username: Yup.string()
+  //   .min(3, "Minimum 3 symbols")
+  //   .max(50, "Maximum 50 symbols"),
   phone: Yup.string()
     .min(11, "Invalid phone number")
     .max(15, "Invalid phone number")
@@ -276,26 +276,13 @@ const EditInfo: FC<Props> = ({ labData }) => {
             {...formik.getFieldProps("username")}
             className={clsx(
               "form-control form-control-solid mb-3 mb-lg-0",
-              {
-                "is-invalid": formik.touched.username && formik.errors.username,
-              },
-              {
-                "is-valid": formik.touched.username && !formik.errors.username,
-              }
             )}
             type="username"
             name="username"
             autoComplete="off"
-            disabled={formik.isSubmitting || isPending}
+            disabled={true}
           />
           {/* end::Input */}
-          {formik.touched.username && formik.errors.username && (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">
-                <span role="alert">{formik.errors.username}</span>
-              </div>
-            </div>
-          )}
         </div>
         {/* end::Input group */}
 
