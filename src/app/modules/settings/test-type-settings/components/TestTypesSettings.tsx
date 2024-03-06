@@ -14,6 +14,7 @@ import { useTestTypes } from "../hooks/useTestTypes";
 import { TestTypesModel } from "../core/_models";
 import { useEffect, useMemo, useState } from "react";
 import { useQueryRequest } from "../../../QueryRequestProvider";
+import { Search } from "../../../../ui/search-and-filter/Search";
 
 function TestTypesSettings() {
   const { state, updateState } = useQueryRequest();
@@ -41,6 +42,14 @@ function TestTypesSettings() {
 
   const sortFunction = (sort: string, order: "asc" | "desc" | undefined) => {
     updateState("testTypes", { ...testTypesState, sort, order, page: 1 });
+  };
+
+  const search = (searchTerm: string) => {
+    updateState("testTypes", {
+      ...testTypesState,
+      search: searchTerm,
+      page: 1,
+    });
   };
 
   const columns = [
@@ -74,7 +83,7 @@ function TestTypesSettings() {
         </div>
 
         <KTCardBody className="py-4">
-          {/* <Search updateState={searchFunction} /> */}
+          <Search updateState={search} />
           <div className="table-responsive">
             <CustomTable
               modalId="kt_modal_add_new_test_type"
@@ -109,7 +118,7 @@ function TestTypesSettings() {
               </CustomTableBody>
             </CustomTable>
           </div>
-          {!isLoadingTestType && testTypes && testTypes.length > 0 &&  meta &&(
+          {!isLoadingTestType && testTypes && testTypes.length > 0 && meta && (
             <Pagination onPageChange={onChangePage} meta={meta} />
           )}
           {isLoadingTestType && <ListLoading />}
