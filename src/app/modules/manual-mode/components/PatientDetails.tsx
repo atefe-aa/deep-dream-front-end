@@ -1,7 +1,3 @@
-import { CustomTable } from "../../../ui/table/CustomTable";
-import { PatientsTableRow } from "../../tests/components/PatientsTableRow";
-import { FAKE_DATA } from "../../../utils/constants";
-
 function PatientDetails() {
   return (
     <div className="row gy-5 g-xxl-8 ">

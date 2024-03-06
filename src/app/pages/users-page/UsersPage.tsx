@@ -1,4 +1,3 @@
-import { LABS_TESTS_DATA, counsellorsData } from "../../utils/constants";
 import { AddNewLaboratory } from "../../modules/user-management/laboratories/components/modals/AddNewLaboratory";
 import { AddNewCounsellor } from "../../modules/user-management/counsellors/components/AddNewCounsellor";
 import { Laboratories } from "../../modules/user-management/laboratories/components/Laboratories";

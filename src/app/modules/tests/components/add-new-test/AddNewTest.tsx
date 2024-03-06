@@ -42,7 +42,7 @@ const AddNewTest: FC = () => {
   const initialValues = {
     name: "",
     nationalId: "",
-    age: "",
+    age: undefined as unknown as number,
     doctorName: "",
     ageUnit: "year" as "year" | "day",
     gender: "female" as "female" | "male",
