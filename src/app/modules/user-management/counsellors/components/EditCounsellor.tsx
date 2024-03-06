@@ -29,12 +29,10 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
   const addSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
-      .required("Name is required"),
+      .max(50, "Maximum 50 symbols"),
       phone: Yup.string()
       .min(11, "Invalid phone number")
       .max(15, "Invalid phone number")
-      .required("Phone is required")
       .matches(
         /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/,
         "Invalid phone number"
@@ -121,7 +119,7 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
           <input
             placeholder="Phone"
             {...formik.getFieldProps("phone")}
-            type="number"
+            type="text"
             inputMode="tel"
             name="phone"
             className={clsx(
