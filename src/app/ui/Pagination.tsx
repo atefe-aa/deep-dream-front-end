@@ -39,7 +39,7 @@ const Pagination: FC<PaginationProps> = ({ meta, onPageChange }) => {
           </a>
         </li>
 
-        {pages.map((page, index) => (
+        {pages?.map((page, index) => (
           <li
             key={index}
             className={`page-item ${

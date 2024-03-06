@@ -13,6 +13,8 @@ export function randomState() {
 }
 
 export const getPageNumbers = (meta: MetaModel) => {
+  if(!meta) return;
+  
   const pages = [];
 
   // Determine the range of page numbers to display

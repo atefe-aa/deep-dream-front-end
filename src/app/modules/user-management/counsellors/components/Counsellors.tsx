@@ -63,13 +63,17 @@ function Counsellors() {
   const handleDelete = (labId: number) => {
     // deleteCounsellor(labId);
   };
-  const columns = ["Name","laboratory",  "Phone",  "Description"];
+  const columns = ["Name", "laboratory", "Phone", "Description"];
   return (
     <>
       <KTCardBody className="py-4">
         <Search updateState={search} />
         <div className="table-responsive">
-          <CustomTable tableTitle="Counsellors List" className="" modalId="kt_modal_add_new_counsellor">
+          <CustomTable
+            tableTitle="Counsellors List"
+            className=""
+            modalId="kt_modal_add_new_counsellor"
+          >
             <CustomTableHead>
               {columns.map((col) => (
                 <CustomHeaderCell
@@ -84,23 +88,23 @@ function Counsellors() {
             </CustomTableHead>
             <CustomTableBody accordionId="labsPanel">
               {!isLoadingCounsellors &&
-                (counsellors?.length === 0 || !counsellors) && (
-                  <NoRecordRow />
-                )}
+                (counsellors?.length === 0 || !counsellors) && <NoRecordRow />}
 
               {!isLoadingCounsellors &&
                 counsellors &&
-                counsellors.map((counsellor: CounsellorModel, index: number) => (
-                  <CounsellorTableRow
-                    key={counsellor.id}
-                    counsellorData={counsellor}
-                    index={index + 1}
-                  />
-                ))}
+                counsellors.map(
+                  (counsellor: CounsellorModel, index: number) => (
+                    <CounsellorTableRow
+                      key={counsellor.id}
+                      counsellorData={counsellor}
+                      index={index + 1}
+                    />
+                  )
+                )}
             </CustomTableBody>
           </CustomTable>
         </div>
-        {!isLoadingCounsellors && counsellors && (
+        {!isLoadingCounsellors && counsellors && meta && (
           <Pagination onPageChange={onChangePage} meta={meta} />
         )}
         {isLoadingCounsellors && <ListLoading />}

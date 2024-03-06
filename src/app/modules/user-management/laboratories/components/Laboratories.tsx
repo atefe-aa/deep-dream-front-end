@@ -102,7 +102,7 @@ function Laboratories() {
             </CustomTableBody>
           </CustomTable>
         </div>
-        {!isLoadingLaboratories && laboratories && (
+        {!isLoadingLaboratories && laboratories &&  meta && (
           <Pagination onPageChange={onChangePage} meta={meta} />
         )}
         {isLoadingLaboratories && <ListLoading />}

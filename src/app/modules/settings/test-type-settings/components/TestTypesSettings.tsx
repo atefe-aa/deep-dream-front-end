@@ -109,7 +109,7 @@ function TestTypesSettings() {
               </CustomTableBody>
             </CustomTable>
           </div>
-          {!isLoadingTestType && testTypes && testTypes.length > 0 && (
+          {!isLoadingTestType && testTypes && testTypes.length > 0 &&  meta &&(
             <Pagination onPageChange={onChangePage} meta={meta} />
           )}
           {isLoadingTestType && <ListLoading />}
