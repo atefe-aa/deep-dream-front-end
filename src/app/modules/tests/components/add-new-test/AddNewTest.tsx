@@ -17,9 +17,11 @@ const addSchema = Yup.object().shape({
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
     .required("Name is required"),
-  nationalId: Yup.number()
-    .min(1000000000, "The national ID format is wrong.")
-    .max(9999999999, "The national ID format is wrong."),
+  nationalId: Yup.string()
+  .matches(
+    /^(?!(\d)\1{9})\d{10}$/,
+    "Invalid National ID"
+  ),
   age: Yup.number().min(1, "Minimum age is 1 ").required("Age is required"),
   ageUnit: Yup.string().required("Age type is required"),
   gender: Yup.string().required("Gender is required"),
@@ -231,7 +233,8 @@ const AddNewTest: FC = () => {
                     formik.touched.nationalId && !formik.errors.nationalId,
                 }
               )}
-              type="number"
+              type="text"
+              inputMode="numeric"
               name="nationalId"
               autoComplete="on"
             />
