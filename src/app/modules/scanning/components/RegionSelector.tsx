@@ -14,7 +14,6 @@ const slide = {
   height:slideCoordinats.ne.x -slideCoordinats.sw.x,
   width:slideCoordinats.ne.y -slideCoordinats.sw.y
 }
-console.log(slide);
 
   const [areas, setAreas] = useState<IArea[]>([]);
 

@@ -4,12 +4,13 @@ import { RegionSelector } from "./RegionSelector";
 import { DropDownButton } from "../../../ui/dropdown/DropDownButton";
 
 import { useScan } from "../hooks/useScan";
-import { Spinner } from "react-bootstrap";
+import { Dropdown, Spinner } from "react-bootstrap";
 import { AreaModel, ScanModel, SlideModel } from "../core/_models";
 import { usePusher } from "../../hooks/usePusher";
 import { getProgressUI } from "../../../utils/helper";
 import useHandleUpdateScan from "../hooks/useHandleUpdateScan";
 import Timer from "./Timer";
+import { CustomDropdown } from "../../../ui/dropdown/CustomDropdown";
 
 const initialScanData = {
   testId: 0,
@@ -62,7 +63,7 @@ const SlideRow: React.FC<Props> = ({
   const { progressBg, progressPercent } = getProgressUI(
     tableData?.progress || ""
   );
-
+  
   return (
     <tr>
       <td className="text-center">
@@ -193,53 +194,42 @@ const SlideRow: React.FC<Props> = ({
       <td className="text-center">
         {/* Actions */}
         <div className="d-flex justify-content-end flex-shrink-0">
-          <DropDownButton>
-            {/* Start Action */}
+          <CustomDropdown>
             {tableData?.progress === "ready" && (
-              <div className="menu-item px-3">
-                <div className="menu-link px-3">
+              <Dropdown.Item>
+                <div className="text-gray-900  text-hover-primary fs-6">
                   <KTIcon iconName="to-right" className="fs-3 me-3" />
                   Start Scanning
                 </div>
-              </div>
+              </Dropdown.Item>
             )}
-
-            {/* View Action */}
             {tableData?.progress === "scanned" && (
-              <div className="menu-item px-3">
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={tableData.image}
-                  className="menu-link px-3"
-                >
-                  <KTIcon iconName="eye" className="fs-3 me-3" />
-                  View Image
-                </a>
+              <Dropdown.Item onClick={() => window.open("http://magic.deepdream.ir/#/storage", "_blank")}>
+              <div className="text-gray-900  text-hover-primary fs-6">
+                <KTIcon iconName="exit-up" className="fs-3 me-3" />
+                Upload Images
               </div>
+            </Dropdown.Item>
             )}
-
             {/* Try Again Action */}
             {tableData?.progress === "failed" && (
-              <div className="menu-item px-3">
-                <div className="menu-link px-3">
-                  <KTIcon iconName="arrows-circle" className="fs-3 me-3" />
-                  Try Again
-                </div>
-              </div>
+              <Dropdown.Item>
+                <KTIcon iconName="arrows-circle" className="fs-3 me-3" />
+                Try Again
+              </Dropdown.Item>
             )}
 
-            <div className="menu-item px-3 my-1">
+            <Dropdown.Item>
               <div
-                className="menu-link px-3 text-danger "
+                className="text-danger "
                 data-bs-toggle="tooltip"
                 title="Delete Test Price"
               >
                 <KTIcon iconName="trash" className="fs-3 me-3" />
                 Delete Slide
               </div>
-            </div>
-          </DropDownButton>
+            </Dropdown.Item>
+          </CustomDropdown>
         </div>
       </td>
       <td className="text-center">
