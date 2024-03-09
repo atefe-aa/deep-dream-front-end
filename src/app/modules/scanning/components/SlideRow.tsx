@@ -204,7 +204,7 @@ const SlideRow: React.FC<Props> = ({
               </Dropdown.Item>
             )}
             {tableData?.progress === "scanned" && (
-              <Dropdown.Item onClick={() => window.open("http://magic.deepdream.ir/#/storage", "_blank")}>
+              <Dropdown.Item onClick={() => window.open(`${import.meta.env.VITE_CYTOMINE_URL}/#/storage`, "_blank")}>
               <div className="text-gray-900  text-hover-primary fs-6">
                 <KTIcon iconName="exit-up" className="fs-3 me-3" />
                 Upload Images
