@@ -4,6 +4,7 @@ type Props = {
   children: React.ReactNode;
   modalId: string;
   title: string;
+  size?:"sm"|"lg",
   onClose?: () => void;
 };
 
@@ -11,11 +12,12 @@ const ModalLayout: React.FC<Props> = ({
   children,
   modalId,
   title,
+  size="sm",
   onClose = () => {},
 }) => {
   return (
     <div className="modal fade" id={modalId} aria-hidden="true">
-      <div className="modal-dialog mw-650px">
+      <div className={`modal-dialog ${size==='lg'?"mw-850px":"mw-650px"}`}>
         <div className="modal-content">
           <div className="modal-header mb-5">
             {/* begin::Modal title */}

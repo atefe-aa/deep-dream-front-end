@@ -68,32 +68,7 @@ export const defaultAlerts = [
   // },
 ];
 
-interface OptionModel {
-  id: number;
-  type: string;
-  className: string;
-  label: string;
-  value: string | boolean;
-}
 
-interface GroupModel {
-  title: string;
-  classNames: string;
-  options: OptionModel[];
-}
-
-interface SectionModel {
-  id: number;
-  sectionTitle: string;
-  groups: GroupModel[];
-}
-
-type ReportTemplateModel = {
-  id: number;
-  testTitle: string;
-  note?: string;
-  sections: SectionModel[];
-};
 
 export const REPORT_TEMPLATES = [
   {

@@ -4,7 +4,6 @@ import { CustomDropdown } from "../../../ui/dropdown/CustomDropdown";
 import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { TestsModel } from "../core/_models";
-import QRCodeGenerator from "./add-new-test/QRCodeGenerator";
 import { PrintQrCode } from "./add-new-test/PrintQrCode";
 
 type Props = {
@@ -73,7 +72,7 @@ const TestsTableDropdown: FC<Props> = ({ data }) => {
         )}
         <Dropdown.Item
           data-bs-toggle="modal"
-          // data-bs-target={`#edit_media${labData.id}`}
+          data-bs-target={`#download_report${data.id}`}
         >
           <KTIcon iconName="document" className="fs-3 me-3" />
           Download Report

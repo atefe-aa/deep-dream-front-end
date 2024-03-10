@@ -7,6 +7,7 @@ import { ShareMenuDropdown } from "./ShareMenuDropdown";
 import { ConfirmModal } from "../../../ui/modals/ConfirmModal";
 import { useDeleteRegistration } from "../hooks/useDeleteRegistration";
 import { EditRegistration } from "./EditRegistration";
+import { ReportModal } from "../../reports/components/ReportModal";
 
 type Props = {
   data: TestsModel;
@@ -150,6 +151,7 @@ const PatientsTableRow: React.FC<Props> = ({ data, index }) => {
               message={`Are you sure, you want to delete ${data.name}'s test?`}
             />
             <EditRegistration test={data} testId={data.id} />
+            <ReportModal test={data} />
           </div>
         </td>
       </tr>
