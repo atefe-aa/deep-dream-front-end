@@ -20,13 +20,13 @@ type Props = {
 
 const EditMedia: FC<Props> = ({ labData }) => {
   const initialValues = {
-    avatar: undefined as File | undefined,
-    signature: undefined as File | undefined,
-    header: undefined as File | undefined,
-    footer: undefined as File | undefined,
+    avatar: labData.avatar || (undefined as File | undefined),
+    signature: labData.signature || (undefined as File | undefined),
+    header: labData.header || (undefined as File | undefined),
+    footer: labData.footer || (undefined as File | undefined),
   };
 
-  const { updateMedia, isPending, error,data } = useUpdateMedia();
+  const { updateMedia, isPending, error, data } = useUpdateMedia();
 
   const blankAvatar = toAbsoluteUrl("/media/svg/avatars/blank.svg");
   const blankImg = toAbsoluteUrl("/media/svg/files/blank-image.svg");
@@ -49,9 +49,13 @@ const EditMedia: FC<Props> = ({ labData }) => {
     },
   });
 
+
   useCloseModalOnSuccess(`edit_media${labData.id}`, data, formik);
   return (
-    <ModalLayout modalId={`edit_media${labData.id}`} title="Update laboratory media">
+    <ModalLayout
+      modalId={`edit_media${labData.id}`}
+      title="Update laboratory media"
+    >
       <ModalForm
         modalId={`edit_media${labData.id}`}
         formik={formik}
@@ -59,13 +63,17 @@ const EditMedia: FC<Props> = ({ labData }) => {
         isLoading={isPending}
       >
         {/* begin::Hint */}
-        <div className="mb-8">Allowed file types: png, jpg, jpeg.</div>
+        <div>Allowed file types: png, jpg, jpeg.</div>
+        <span className="fs-7 text-muted mb-8">
+          Recommendation: The image ratio for avatar and signature is better to
+          be 1:1 and for header and footer is better to be 10:1
+        </span>
         {/* end::Hint */}
         <div className="d-flex justify-content-between">
           {/* begin::Avatar Input group */}
           <div className="d-flex justify-content-between align-items-center fv-row mb-7">
             {/* begin::Label */}
-            <label className="fw-bold fs-6 form-label me-4 p-2 rounded bg-light-info">
+            <label className="fw-bold fs-7 p-2 me-1 rounded bg-light-info mb-2">
               Avatar
             </label>
             {/* end::Label */}
@@ -79,9 +87,9 @@ const EditMedia: FC<Props> = ({ labData }) => {
               {/* begin::Preview existing avatar */}
               <img
                 src={
-                  formik.values.avatar
+                  formik.values.avatar instanceof File
                     ? URL.createObjectURL(formik.values.avatar)
-                    : labData.avatar || blankImg
+                    : formik.values.avatar || blankImg
                 }
                 alt="Avatar Preview"
                 className="image-input-wrapper w-125px h-125px"
@@ -112,28 +120,21 @@ const EditMedia: FC<Props> = ({ labData }) => {
               </label>
               {/* end::Label */}
 
-              {/* begin::Cancel */}
-              <span
-                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                data-kt-image-input-action="cancel"
-                data-bs-toggle="tooltip"
-                title="Cancel avatar"
-              >
-                <i className="bi bi-x fs-2"></i>
-              </span>
-              {/* end::Cancel */}
-
               {/* begin::Remove */}
               <span
                 className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                 data-kt-image-input-action="remove"
                 data-bs-toggle="tooltip"
                 title="Remove avatar"
+                onClick={() => {
+                  formik.setFieldValue("avatar", undefined);
+                }}
               >
                 <i className="bi bi-x fs-2"></i>
               </span>
               {/* end::Remove */}
             </div>
+
             {/* end::Image input */}
           </div>
           {/* end::Input group */}
@@ -142,7 +143,7 @@ const EditMedia: FC<Props> = ({ labData }) => {
           <div className="d-flex justify-content-between align-items-center fv-row mb-7">
             {/* begin::Label */}
 
-            <label className=" fw-bold fs-6 p-2 me-4 rounded bg-light-info mb-2">
+            <label className=" fw-bold fs-7 p-2 me-1 rounded bg-light-info mb-2">
               Signature
             </label>
 
@@ -154,12 +155,12 @@ const EditMedia: FC<Props> = ({ labData }) => {
               data-kt-image-input="true"
               style={{ backgroundImage: `url('${blankImg}')` }}
             >
-              {/* begin::Preview existing avatar */}
+              {/* begin::Preview existing signature */}
               <img
                 src={
-                  formik.values.signature
+                  formik.values.signature instanceof File
                     ? URL.createObjectURL(formik.values.signature)
-                    : labData.signature || blankImg
+                    : formik.values.signature  || blankImg
                 }
                 alt="signature Preview"
                 className="image-input-wrapper w-125px h-125px"
@@ -190,23 +191,15 @@ const EditMedia: FC<Props> = ({ labData }) => {
               </label>
               {/* end::Label */}
 
-              {/* begin::Cancel */}
-              <span
-                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                data-kt-image-input-action="cancel"
-                data-bs-toggle="tooltip"
-                title="Cancel avatar"
-              >
-                <i className="bi bi-x fs-2"></i>
-              </span>
-              {/* end::Cancel */}
-
               {/* begin::Remove */}
               <span
                 className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                 data-kt-image-input-action="remove"
                 data-bs-toggle="tooltip"
-                title="Remove avatar"
+                title="Remove signature"
+                onClick={() => {
+                  formik.setFieldValue("signature", undefined);
+                }}
               >
                 <i className="bi bi-x fs-2"></i>
               </span>
@@ -220,7 +213,7 @@ const EditMedia: FC<Props> = ({ labData }) => {
         {/* begin:: header Input group */}
         <div className="d-flex justify-content-between align-items-center fv-row mb-7">
           {/* begin::Label */}
-          <label className=" fw-bold fs-6 form-label p-2 rounded bg-light-info mb-2">
+          <label className=" fw-bold fs-7 p-2 me-1 rounded bg-light-info mb-2">
             Header
           </label>
           {/* end::Label */}
@@ -234,12 +227,12 @@ const EditMedia: FC<Props> = ({ labData }) => {
             {/* begin::Preview existing header */}
             <img
               src={
-                formik.values.header
+                formik.values.header instanceof File
                   ? URL.createObjectURL(formik.values.header)
-                  : labData.header || blankImg
+                  : formik.values.header || blankImg
               }
               alt="header Preview"
-              className="image-input-wrapper w-350px h-150px"
+              className="image-input-wrapper w-500px h-50px"
             />
             {/* end::Preview existing header */}
 
@@ -267,16 +260,6 @@ const EditMedia: FC<Props> = ({ labData }) => {
             </label>
             {/* end::Label */}
 
-            {/* begin::Cancel */}
-            <span
-              className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-              data-kt-image-input-action="cancel"
-              data-bs-toggle="tooltip"
-              title="Cancel header"
-            >
-              <i className="bi bi-x fs-2"></i>
-            </span>
-            {/* end::Cancel */}
 
             {/* begin::Remove */}
             <span
@@ -284,6 +267,9 @@ const EditMedia: FC<Props> = ({ labData }) => {
               data-kt-image-input-action="remove"
               data-bs-toggle="tooltip"
               title="Remove header"
+              onClick={() => {
+                formik.setFieldValue("header", undefined);
+              }}
             >
               <i className="bi bi-x fs-2"></i>
             </span>
@@ -296,7 +282,7 @@ const EditMedia: FC<Props> = ({ labData }) => {
         {/* begin:: footer Input group */}
         <div className="d-flex justify-content-between align-items-center fv-row mb-7">
           {/* begin::Label */}
-          <label className="fw-bold fs-6 form-label p-2 rounded bg-light-info mb-2">
+          <label className="fw-bold fs-7 p-2 me-1 rounded bg-light-info mb-2">
             Footer
           </label>
           {/* end::Label */}
@@ -310,12 +296,12 @@ const EditMedia: FC<Props> = ({ labData }) => {
             {/* begin::Preview existing footer */}
             <img
               src={
-                formik.values.footer
+                formik.values.footer instanceof File
                   ? URL.createObjectURL(formik.values.footer)
-                  : labData.footer || blankImg
+                  : formik.values.footer || blankImg
               }
               alt="footer Preview"
-              className="image-input-wrapper w-350px h-150px"
+              className="image-input-wrapper  w-500px h-50px"
             />
             {/* end::Preview existing footer */}
 
@@ -349,6 +335,9 @@ const EditMedia: FC<Props> = ({ labData }) => {
               data-kt-image-input-action="cancel"
               data-bs-toggle="tooltip"
               title="Cancel footer"
+              onClick={() => {
+                formik.setFieldValue("footer", undefined);
+              }}
             >
               <i className="bi bi-x fs-2"></i>
             </span>
@@ -360,6 +349,9 @@ const EditMedia: FC<Props> = ({ labData }) => {
               data-kt-image-input-action="remove"
               data-bs-toggle="tooltip"
               title="Remove avatar"
+              onClick={() => {
+                formik.setFieldValue("footer", undefined);
+              }}
             >
               <i className="bi bi-x fs-2"></i>
             </span>

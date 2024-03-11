@@ -108,6 +108,7 @@ const AddNewLaboratory: FC<Props> = () => {
         <div className="fv-row mb-7">
           {/* begin::Label */}
           <label className="d-block fw-bold fs-6 mb-5">Avatar</label>
+
           {/* end::Label */}
 
           {/* begin::Image input */}
@@ -178,6 +179,9 @@ const AddNewLaboratory: FC<Props> = () => {
 
           {/* begin::Hint */}
           <div className="form-text">Allowed file types: png, jpg, jpeg.</div>
+          <span className="fs-8 text-muted">
+            Recommendation: The image ratio is better to be 1:1
+          </span>
           {/* end::Hint */}
         </div>
         {/* end::Input group */}
@@ -536,6 +540,7 @@ const AddNewLaboratory: FC<Props> = () => {
         <div className="fv-row mb-7">
           {/* begin::Label */}
           <label className="required fw-bold fs-6 mb-2">Header</label>
+
           {/* end::Label */}
 
           {/* begin:: Input */}
@@ -554,6 +559,9 @@ const AddNewLaboratory: FC<Props> = () => {
             autoComplete="off"
             disabled={formik.isSubmitting}
           />
+          <span className="fs-8 text-muted">
+            Recommendation: The image ratio is better to be 10:1
+          </span>
           {formik.touched.header && formik.errors.header && (
             <div className="fv-plugins-message-container">
               <div className="fv-help-block">
@@ -587,6 +595,10 @@ const AddNewLaboratory: FC<Props> = () => {
             autoComplete="off"
             disabled={formik.isSubmitting}
           />
+
+          <span className="fs-8 text-muted">
+            Recommendation: The image ratio is better to be 10:1
+          </span>
           {formik.touched.footer && formik.errors.footer && (
             <div className="fv-plugins-message-container">
               <div className="fv-help-block">
