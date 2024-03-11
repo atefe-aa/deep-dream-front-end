@@ -9,6 +9,9 @@ import { useReportTemplates } from "../hooks/useReportTemplates";
 import { ReportTemplateModel } from "../_model";
 import clsx from "clsx";
 import { useCreateReport } from "../hooks/useCreateReport";
+import { useReport } from "../hooks/useReport";
+import { KTIcon } from "../../../../_metronic/helpers";
+import { ExportPdf } from "./ExportPdf";
 
 type Props = {
   test: TestsModel;
@@ -18,13 +21,25 @@ const addSchema = Yup.object().shape({});
 type ValuesType = {
   [key: number]: string | boolean;
 };
-const initialValues: ValuesType = {};
 
 const ReportModal: React.FC<Props> = ({ test }) => {
   const { reports, isLoading } = useReportTemplates();
-  const [template, setTemplate] = useState<ReportTemplateModel>();
-  const { isCreating, createReport, data } = useCreateReport();
+  const initialTemplate = test.report !== null ? test.report : undefined;
+  const [template, setTemplate] = useState<ReportTemplateModel | undefined>(
+    initialTemplate
+  );
 
+  const { isCreating, createReport, data } = useCreateReport();
+  let initialValues: ValuesType = {};
+  if (test.report) {
+    test.report.sections.forEach((section) => {
+      section.groups.forEach((group) => {
+        group.options.forEach((option) => {
+          initialValues[option.id] = option.value;
+        });
+      });
+    });
+  }
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
@@ -81,9 +96,9 @@ const ReportModal: React.FC<Props> = ({ test }) => {
       >
         {/* Template selection */}
         <div className="fv-row mb-3">
-          {/* <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
-            
-          </label> */}
+          {template && (
+           <ExportPdf ref="ff" />
+          )}
           <div className={clsx("mt-3 mb-5 bg-transparent")}>
             <select
               onChange={handleTemplateChange}
@@ -105,19 +120,25 @@ const ReportModal: React.FC<Props> = ({ test }) => {
         </div>
         {/*end Template selection */}
 
-        {template &&
+        {template !== undefined &&
+          template &&
           template.sections &&
+          template.sections.length > 0 &&
           template.sections.map((section) => (
             <div key={section.id}>
               <h5 className="mt-5 text-start">{section.sectionTitle}</h5>
-              {section.groups.length > 0 &&
+              {section.groups &&
+                section.groups.length > 0 &&
                 section.groups.map((group, index) => (
                   <div
                     key={group.title + index}
                     className={`justify-content-start ${group.className}`}
                   >
-                    {group.title.length > 0 && <span>{group.title}:</span>}
-                    {group.options.length > 0 &&
+                    {group.title && group.title.length > 0 && (
+                      <span>{group.title}:</span>
+                    )}
+                    {group.options &&
+                      group.options.length > 0 &&
                       group.options.map((option) => {
                         if (option.type === "checkbox")
                           return (
@@ -148,8 +169,6 @@ const ReportModal: React.FC<Props> = ({ test }) => {
                                 disabled={isCreating}
                                 autoComplete="on"
                                 {...formik.getFieldProps(option.id)}
-                                value={option.value.toString()}
-                                onChange={formik.handleChange}
                                 className="form-control bg-transparent"
                                 style={{ minHeight: "150px" }}
                               />

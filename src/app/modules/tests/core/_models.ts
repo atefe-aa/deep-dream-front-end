@@ -1,3 +1,5 @@
+import { ReportTemplateModel } from "../../reports/_model";
+
 export interface TestsModel {
   id: number;
   name: string;
@@ -20,6 +22,7 @@ export interface TestsModel {
   price: number;
   numberOfSlides: number;
   durations: number;
+  report?: ReportTemplateModel;
 }
 
 export interface RegistrationRequestModel {
