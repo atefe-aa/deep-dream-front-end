@@ -4,14 +4,17 @@ export interface AuthModel {
 }
 
 export interface UserModel {
- data:{
-  id: number;
-  username: string;
-  laboratory?: number | null;
-  labName?: string | null;
-  name: string;
-  phone?: string;
-  roles?: Array<string>;
-  picture?: string | null;
- } 
+  data: {
+    id: number;
+    username: string;
+    laboratory?: number | null;
+    labName?: string | null;
+    name: string;
+    phone?: string;
+    roles?: Array<string>;
+    picture?: string | null;
+    header?: string | null;
+    footer?: string | null;
+    signature?: string | null;
+  };
 }

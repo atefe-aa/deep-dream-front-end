@@ -3,7 +3,7 @@ import { ModalLayout } from "../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../ui/modals/ModalForm";
 import { TestsModel } from "../../tests/core/_models";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import * as Yup from "yup";
 import { useReportTemplates } from "../hooks/useReportTemplates";
 import { ReportTemplateModel } from "../_model";
@@ -12,6 +12,7 @@ import { useCreateReport } from "../hooks/useCreateReport";
 import { useReport } from "../hooks/useReport";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { ExportPdf } from "./ExportPdf";
+import { Report } from "./Report";
 
 type Props = {
   test: TestsModel;
@@ -97,7 +98,12 @@ const ReportModal: React.FC<Props> = ({ test }) => {
         {/* Template selection */}
         <div className="fv-row mb-3">
           {template && (
-           <ExportPdf ref="ff" />
+            <ExportPdf
+            test={test}
+              formik={formik}
+              isCreating={isCreating}
+              template={template}
+            />
           )}
           <div className={clsx("mt-3 mb-5 bg-transparent")}>
             <select
@@ -120,68 +126,7 @@ const ReportModal: React.FC<Props> = ({ test }) => {
         </div>
         {/*end Template selection */}
 
-        {template !== undefined &&
-          template &&
-          template.sections &&
-          template.sections.length > 0 &&
-          template.sections.map((section) => (
-            <div key={section.id}>
-              <h5 className="mt-5 text-start">{section.sectionTitle}</h5>
-              {section.groups &&
-                section.groups.length > 0 &&
-                section.groups.map((group, index) => (
-                  <div
-                    key={group.title + index}
-                    className={`justify-content-start ${group.className}`}
-                  >
-                    {group.title && group.title.length > 0 && (
-                      <span>{group.title}:</span>
-                    )}
-                    {group.options &&
-                      group.options.length > 0 &&
-                      group.options.map((option) => {
-                        if (option.type === "checkbox")
-                          return (
-                            <div className="" key={option.id}>
-                              <div className="form-check form-check-custom form-check-solid">
-                                <label className="form-label fw-bolder text-gray-800 fs-6">
-                                  <input
-                                    {...formik.getFieldProps(option.id)}
-                                    checked={Boolean(formik.values[option.id])}
-                                    onChange={formik.handleChange}
-                                    disabled={isCreating}
-                                    className="form-check-input me-1 ms-3"
-                                    type="checkbox"
-                                    name={option.id.toString()}
-                                  />
-                                  {option.label}
-                                </label>
-                              </div>
-                            </div>
-                          );
-                        if (option.type === "textArea")
-                          return (
-                            <div key={option.id} className="fv-row mb-3">
-                              <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
-                                {option.label}
-                              </label>
-                              <textarea
-                                disabled={isCreating}
-                                autoComplete="on"
-                                {...formik.getFieldProps(option.id)}
-                                className="form-control bg-transparent"
-                                style={{ minHeight: "150px" }}
-                              />
-                            </div>
-                          );
-                      })}
-                  </div>
-                ))}
-            </div>
-          ))}
-        {template && template.note && template?.note?.length > 0 && (
-          <h6 className="text-start my-3">Note:{template.note}</h6>
-        )}
+        <Report formik={formik} isCreating={isCreating} template={template} />
       </ModalForm>
     </ModalLayout>
   );
