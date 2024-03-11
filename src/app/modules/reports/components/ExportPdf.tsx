@@ -59,7 +59,7 @@ const ExportPdf: React.FC<Props> = ({ template, formik, isCreating, test }) => {
         <KTIcon iconName="exit-up" className="fs-2" />
         Export PDF
       </button>
-      <div className="d-none" ref={printRef}>
+      <div className="d-none" ref={printRef} >
         <ReportHeader />
         <ReportPatient test={test} />
         <PrintableReport

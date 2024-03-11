@@ -8,7 +8,7 @@ type Props = {
 
 const PrintableReport: React.FC<Props> = ({ template, formik, isCreating }) => {
   return (
-    <div>
+    <div  style={{margin:'0 10px 0 10px'}}>
       {template !== undefined &&
         template &&
         template.sections &&
@@ -17,7 +17,7 @@ const PrintableReport: React.FC<Props> = ({ template, formik, isCreating }) => {
           <div key={section.id}>
             <div
               style={{
-                marginTop: "15px",
+                marginTop: "10px",
                 fontSize: "15px",
                 fontWeight: "bolder",
               }}
@@ -80,7 +80,7 @@ const PrintableReport: React.FC<Props> = ({ template, formik, isCreating }) => {
           </div>
         ))}
       {template && template.note && template?.note?.length > 0 && (
-        <h6 className="text-start my-3">Note:{template.note}</h6>
+        <span style={{fontWeight:"bold"}}>Note:{template.note}</span>
       )}
     </div>
   );

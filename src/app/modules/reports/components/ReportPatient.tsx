@@ -10,7 +10,7 @@ const ReportPatient: React.FC<Props> = ({ test }) => {
       style={{
         border: "0.5px solid gray",
         padding: "10px",
-        margin: "10px 0 10px 0",
+        margin: "3px 10px 6px 10px",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
