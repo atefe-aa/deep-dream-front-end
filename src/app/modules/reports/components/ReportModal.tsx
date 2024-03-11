@@ -8,63 +8,45 @@ import * as Yup from "yup";
 import { useReportTemplates } from "../hooks/useReportTemplates";
 import { ReportTemplateModel } from "../_model";
 import clsx from "clsx";
+import { useCreateReport } from "../hooks/useCreateReport";
 
 type Props = {
   test: TestsModel;
 };
-const addSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Name is required"),
-  nationalId: Yup.string().matches(
-    /^(?!(\d)\1{9})\d{10}$/,
-    "Invalid National ID"
-  ),
-  age: Yup.number().min(1, "Minimum age is 1 ").required("Age is required"),
-  ageUnit: Yup.string().required("Age type is required"),
-  gender: Yup.string().required("Gender is required"),
-  testType: Yup.string()
-    .min(1, "Minimum 1 symbols")
-    .max(7, "Maximum 7 symbols")
-    .required("Test Type is required"),
-  laboratoryId: Yup.number()
-    .min(1, "Laboratory is required.")
-    .required("Laboratory is required"),
-  discription: Yup.string()
-    .min(1, "Minimum 1 symbols")
-    .max(300, "Maximum 300 symbols"),
-  senderRegistrationCode: Yup.string()
-    .min(1, "Minimum 1 symbols")
-    .max(10, "Maximum 300 symbols"),
-});
+const addSchema = Yup.object().shape({});
 
-const initialValues = {
-  name: "",
-  nationalId: "",
-  age: undefined as unknown as number,
-  doctorName: "",
-  ageUnit: "year" as "year" | "day",
-  gender: "female" as "female" | "male",
-  testType: 0,
-
-  description: "",
-  senderRegistrationCode: "",
-  isMultiSlide: false,
-  numberOfSlides: 1,
+type ValuesType = {
+  [key: number]: string | boolean;
 };
+const initialValues: ValuesType = {};
+
 const ReportModal: React.FC<Props> = ({ test }) => {
   const { reports, isLoading } = useReportTemplates();
   const [template, setTemplate] = useState<ReportTemplateModel>();
+  const { isCreating, createReport, data } = useCreateReport();
+
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
-        // await createRegistration(values);
+        // Update values in the template array
+        if (template && template.sections) {
+          template.sections.forEach((section) => {
+            section.groups.forEach((group) => {
+              group.options.forEach((option) => {
+                if (values.hasOwnProperty(option.id)) {
+                  option.value = values[option.id];
+                }
+              });
+            });
+          });
+
+          createReport({ ...template, testId: test.id });
+        }
       } catch (error) {
         console.error(error);
-        setStatus("The login details are incorrect");
+        setStatus("An error occurred while submitting the form.");
         setSubmitting(false);
       }
     },
@@ -83,13 +65,17 @@ const ReportModal: React.FC<Props> = ({ test }) => {
       setTemplate(undefined);
     }
   }
-  useCloseModalOnSuccess(`download_report${test.id}`, "data", formik);
+  useCloseModalOnSuccess(`download_report${test.id}`, data, formik);
 
   return (
-    <ModalLayout size="lg" modalId={`download_report${test.id}`} title="Download Report">
+    <ModalLayout
+      size="lg"
+      modalId={`download_report${test.id}`}
+      title="Download Report"
+    >
       <ModalForm
         isError={false}
-        isLoading={false}
+        isLoading={isCreating}
         modalId={`download_report${test.id}`}
         formik={formik}
       >
@@ -104,6 +90,7 @@ const ReportModal: React.FC<Props> = ({ test }) => {
               defaultValue={undefined}
               className={clsx("form-select")}
               aria-label="Select Report Template"
+              disabled={isCreating}
             >
               <option value={undefined}>Choose a template</option>
               {!isLoading &&
@@ -127,7 +114,7 @@ const ReportModal: React.FC<Props> = ({ test }) => {
                 section.groups.map((group, index) => (
                   <div
                     key={group.title + index}
-                    className={`justify-content-start ${group.classNames}`}
+                    className={`justify-content-start ${group.className}`}
                   >
                     {group.title.length > 0 && <span>{group.title}:</span>}
                     {group.options.length > 0 &&
@@ -138,7 +125,10 @@ const ReportModal: React.FC<Props> = ({ test }) => {
                               <div className="form-check form-check-custom form-check-solid">
                                 <label className="form-label fw-bolder text-gray-800 fs-6">
                                   <input
-                                    disabled={false}
+                                    {...formik.getFieldProps(option.id)}
+                                    checked={Boolean(formik.values[option.id])}
+                                    onChange={formik.handleChange}
+                                    disabled={isCreating}
                                     className="form-check-input me-1 ms-3"
                                     type="checkbox"
                                     name={option.id.toString()}
@@ -155,8 +145,11 @@ const ReportModal: React.FC<Props> = ({ test }) => {
                                 {option.label}
                               </label>
                               <textarea
+                                disabled={isCreating}
                                 autoComplete="on"
-                                {...formik.getFieldProps("description")}
+                                {...formik.getFieldProps(option.id)}
+                                value={option.value.toString()}
+                                onChange={formik.handleChange}
                                 className="form-control bg-transparent"
                                 style={{ minHeight: "150px" }}
                               />
@@ -167,6 +160,9 @@ const ReportModal: React.FC<Props> = ({ test }) => {
                 ))}
             </div>
           ))}
+        {template && template.note && template?.note?.length > 0 && (
+          <h6 className="text-start my-3">Note:{template.note}</h6>
+        )}
       </ModalForm>
     </ModalLayout>
   );

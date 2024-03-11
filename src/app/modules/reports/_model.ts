@@ -8,7 +8,7 @@ export interface OptionModel {
 
 export interface GroupModel {
   title: string;
-  classNames: string;
+  className: string;
   options: OptionModel[];
 }
 
@@ -20,6 +20,7 @@ export interface SectionModel {
 
 export type ReportTemplateModel = {
   id: number;
+  testId?:number,
   testTitle: string;
   note?: string;
   sections: SectionModel[];
