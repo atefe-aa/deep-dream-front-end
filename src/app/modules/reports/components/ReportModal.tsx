@@ -31,7 +31,7 @@ const ReportModal: React.FC<Props> = ({ test }) => {
   );
   const [newTemplate, setNewTemplate] = useState<
     ReportTemplateModel | undefined
-  >();
+  >(initialTemplate);
 
   const { isCreating, createReport, data } = useCreateReport();
   let initialValues: ValuesType = {};
