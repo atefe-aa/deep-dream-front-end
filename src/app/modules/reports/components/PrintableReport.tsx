@@ -8,7 +8,7 @@ type Props = {
 
 const PrintableReport: React.FC<Props> = ({ template, formik, isCreating }) => {
   return (
-    <div  style={{margin:'0 10px 0 10px'}}>
+    <div style={{ margin: "0 10px 0 10px" }}>
       {template !== undefined &&
         template &&
         template.sections &&
@@ -70,8 +70,10 @@ const PrintableReport: React.FC<Props> = ({ template, formik, isCreating }) => {
                         );
                       if (option.type === "textArea")
                         return (
-                          <div key={option.id} className="">
-                            <div>{formik.values[option.id]}</div>
+                          <div key={option.id}>
+                            <div style={{ width: "95vw" }}>
+                              {formik.values[option.id]}
+                            </div>
                           </div>
                         );
                     })}
@@ -80,7 +82,7 @@ const PrintableReport: React.FC<Props> = ({ template, formik, isCreating }) => {
           </div>
         ))}
       {template && template.note && template?.note?.length > 0 && (
-        <span style={{fontWeight:"bold"}}>Note:{template.note}</span>
+        <span style={{ fontWeight: "bold" }}>Note:{template.note}</span>
       )}
     </div>
   );

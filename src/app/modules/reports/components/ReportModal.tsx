@@ -29,6 +29,9 @@ const ReportModal: React.FC<Props> = ({ test }) => {
   const [template, setTemplate] = useState<ReportTemplateModel | undefined>(
     initialTemplate
   );
+  const [newTemplate, setNewTemplate] = useState<
+    ReportTemplateModel | undefined
+  >();
 
   const { isCreating, createReport, data } = useCreateReport();
   let initialValues: ValuesType = {};
@@ -57,7 +60,7 @@ const ReportModal: React.FC<Props> = ({ test }) => {
               });
             });
           });
-
+          setNewTemplate(template);
           createReport({ ...template, testId: test.id });
         }
       } catch (error) {
@@ -81,7 +84,7 @@ const ReportModal: React.FC<Props> = ({ test }) => {
       setTemplate(undefined);
     }
   }
-  useCloseModalOnSuccess(`download_report${test.id}`, data, formik);
+  // useCloseModalOnSuccess(`download_report${test.id}`, data, formik);
 
   return (
     <ModalLayout
@@ -97,12 +100,12 @@ const ReportModal: React.FC<Props> = ({ test }) => {
       >
         {/* Template selection */}
         <div className="fv-row mb-3">
-          {template && (
+          {newTemplate && (
             <ExportPdf
-            test={test}
+              test={test}
               formik={formik}
               isCreating={isCreating}
-              template={template}
+              template={newTemplate}
             />
           )}
           <div className={clsx("mt-3 mb-5 bg-transparent")}>
