@@ -65,8 +65,18 @@ const EditSlide: FC<Props> = ({ slideData }) => {
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
-        console.log(values);
-        updateSlide({ ...values, id: slideData.id });
+        const data = {
+          nth: values.nth,
+          coordinates: {
+            sw_x: values.sw_x,
+            sw_y: values.sw_y,
+            ne_x: values.ne_x,
+            ne_y: values.ne_y,
+          },
+        };
+        console.log({ ...data, id: slideData.id });
+        
+        updateSlide({ ...data, id: slideData.id });
       } catch (error) {
         console.error(error);
         setStatus("Somthing went wrong adding new slide.");
