@@ -13,9 +13,9 @@ export function useDeleteRegistration() {
     error,
   } = useMutation({
     mutationFn: (id: number) =>
-      request("", "Registration", BASE_URL, "", "DELETE", id),
+      request("", "Patient", BASE_URL, "", "DELETE", id),
     onSuccess: () => {
-      toast.success("Registration successfully deleted.");
+      toast.success("Patient successfully deleted.");
       queryClient.invalidateQueries({ queryKey: ["registrations"] });
     },
     onError: (err) => {

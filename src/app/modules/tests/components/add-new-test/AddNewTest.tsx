@@ -148,11 +148,11 @@ const AddNewTest: FC = () => {
           {/* begin::Form group */}
           <div className="fv-row mb-3">
             <label className="form-label fs-6 fw-bolder text-gray-900">
-              Sender Registration Code
+              Sender Admit Number
             </label>
 
             <input
-              placeholder="Sender Registration Code"
+              placeholder="Sender Admit Number"
               {...formik.getFieldProps("senderRegistrationCode")}
               className={clsx(
                 "form-control bg-transparent",

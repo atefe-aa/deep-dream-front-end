@@ -14,9 +14,9 @@ export function useUpdateRegistration(id: number) {
     error,
   } = useMutation({
     mutationFn: (RegistrationData: RegistrationRequestModel) =>
-      request("", "Registration", BASE_URL, RegistrationData, "PUT", id),
+      request("", "Patient", BASE_URL, RegistrationData, "PUT", id),
     onSuccess: () => {
-      toast.success("Test successfully updated.");
+      toast.success("Patient successfully updated.");
       queryClient.invalidateQueries({ queryKey: ["registration",id] });
       queryClient.invalidateQueries({ queryKey: ["registrations"] });
     },

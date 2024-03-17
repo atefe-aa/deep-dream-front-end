@@ -12,7 +12,7 @@ export function useCreateRegistration() {
   } = useMutation({
     mutationFn: createRegistrationApi,
     onSuccess: () => {
-      toast.success("New Registration successfully created.");
+      toast.success("New Patient successfully created.");
       queryClient.invalidateQueries({ queryKey: ["registrations"] });
     },
     onError: (err) => {
