@@ -23,6 +23,7 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
   const initialValues = {
     name: counsellorData.name || "",
     phone: counsellorData.phone || "",
+    description: counsellorData.description || "",
     ...(isSuperAdmin && { laboratoryId: counsellorData.labId }), // Add labId for superAdmin
   };
 
@@ -30,7 +31,10 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
     name: Yup.string()
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols"),
-      phone: Yup.string()
+    description: Yup.string()
+      .min(3, "Minimum 3 symbols")
+      .max(200, "Maximum 200 symbols"),
+    phone: Yup.string()
       .min(11, "Invalid phone number")
       .max(15, "Invalid phone number")
       .matches(
@@ -38,7 +42,9 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
         "Invalid phone number"
       ),
     ...(isSuperAdmin && {
-      laboratoryId: Yup.number().min(1,"Laboratory is required.").required("Laboratory is required"),
+      laboratoryId: Yup.number()
+        .min(1, "Laboratory is required.")
+        .required("Laboratory is required"),
     }),
   });
 
@@ -136,6 +142,42 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
             <div className="fv-plugins-message-container">
               <div className="fv-help-block">
                 <span role="alert">{formik.errors.phone}</span>
+              </div>
+            </div>
+          )}
+          {/* end::Input */}
+        </div>
+        {/* end::Input group */}
+
+        {/* begin:: description Input group */}
+        <div className="fv-row mb-7">
+          {/* begin::Label */}
+          <label className="fw-bold fs-6 mb-2">Description</label>
+          {/* end::Label */}
+
+          {/* begin:: Input */}
+          <textarea
+            placeholder="Description"
+            {...formik.getFieldProps("description")}
+            name="description"
+            className={clsx(
+              "form-control form-control-solid mb-3 mb-lg-0",
+              {
+                "is-invalid":
+                  formik.touched.description && formik.errors.description,
+              },
+              {
+                "is-valid":
+                  formik.touched.description && !formik.errors.description,
+              }
+            )}
+            autoComplete="off"
+            disabled={isUpdating}
+          />
+          {formik.touched.description && formik.errors.description && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.description}</span>
               </div>
             </div>
           )}

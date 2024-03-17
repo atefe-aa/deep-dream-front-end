@@ -4,4 +4,5 @@ export interface CounsellorModel {
   phone: string;
   labId?: number;
   labName?: string;
+  description?: string;
 }
