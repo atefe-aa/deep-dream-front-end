@@ -9,12 +9,12 @@ function ClearSlotsButton({ isLoading }: Props) {
   const { isClearing, clearSlots } = useClearSlots();
 
   return (
-    <>
+    <div className="d-flex justify-content-end">
       <button
         type="button"
         data-bs-toggle="modal"
         data-bs-target="#confirm_cleareSlots"
-        className="btn btn-danger ms-4"
+        className="btn btn-sm btn-danger ms-4"
         disabled={isLoading || isClearing}
       >
         {!isClearing && <span className="indicator-label">Cleare Slots</span>}
@@ -32,7 +32,7 @@ function ClearSlotsButton({ isLoading }: Props) {
         message="All slots will be empty.Are you sure?"
         isLoading={isClearing}
       />
-    </>
+    </div>
   );
 }
 export { ClearSlotsButton };
