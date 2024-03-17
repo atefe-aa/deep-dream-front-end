@@ -146,11 +146,11 @@ const EditRegistration: React.FC<Props> = ({ testId, test }) => {
         {/* begin::Form group */}
         <div className="fv-row text-start mb-3">
           <label className="form-label fs-6 fw-bolder text-gray-900">
-            Sender Registration Code
+            Sender Admit Number
           </label>
 
           <input
-            placeholder="Sender Registration Code"
+            placeholder="Sender Admit Number"
             {...formik.getFieldProps("senderRegistrationCode")}
             disabled={isUpdating}
             className={clsx(

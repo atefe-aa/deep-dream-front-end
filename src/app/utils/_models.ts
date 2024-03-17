@@ -20,14 +20,3 @@ export interface FiltersModel {
   laboratories?: Array<number>;
   testTypes?: Array<number>;
 }
-
-export const TestsTableColumns = [
-  {
-    title: "Ragistration",
-    id: "registration",
-  },
-  {
-    title: "Ragistration",
-    id: "registration",
-  },
-];

@@ -7,7 +7,7 @@ const BASE_URL = `${API_URL}/registration`;
 export function useRegistrations(query = "") {
   const { data, error, isLoading } = useQuery({
     queryKey: ["registrations", query], // Include the query in the queryKey for cache differentiation
-    queryFn: () => getMethodRequest(query,'Registration',BASE_URL),
+    queryFn: () => getMethodRequest(query,'Patient',BASE_URL),
   });
 
   const registrations = data?.data || [];
