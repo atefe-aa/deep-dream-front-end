@@ -59,10 +59,13 @@ const ScanningPage = () => {
 
   const { isStarting, startFullSlideScanning, data } =
     useStartFullSlideScanning();
-    const { isLoading: isLoadingSlides, slides } = useSlides();
-    const { isLoading: isLoadingScans, scans } = useScans();
+  const { isLoading: isLoadingSlides, slides } = useSlides();
+  const { isLoading: isLoadingScans, scans } = useScans();
 
-  const checkboxes = Array.from({ length: slides.length }, (_, index) => index + 1);
+  const checkboxes = Array.from(
+    { length: slides.length },
+    (_, index) => index + 1
+  );
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
@@ -112,92 +115,95 @@ const ScanningPage = () => {
     }
   };
 
-
-
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <div className="row g-5 g-xl-8">
-        {/* begin::Action */}
-        <div className="d-flex align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
-            <button
-              type="submit"
-              className="btn btn-primary"
-              disabled={formik.isSubmitting || !formik.isValid}
-            >
-              {!isStarting && (
-                <span className="indicator-label">Start 2x Scanning</span>
-              )}
-              {isStarting && (
-                <span
-                  className="indicator-progress"
-                  style={{ display: "block" }}
-                >
-                  Please wait...
-                  <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                </span>
-              )}
-            </button>
+    <>
+      <ClearSlotsButton
+        isLoading={isLoadingScans || isLoadingSlides || isStarting}
+      />
 
-            <div>
-              <StartRegionScanButton selectedRegions={selectedRegions} />
-            </div>
-          </div>
-          <ClearSlotsButton
-            isLoading={isLoadingScans || isLoadingSlides || isStarting}
-          />
-        </div>
-        {/* end::Action */}
-        {formik.touched.selectedCheckboxes &&
-          formik.errors.selectedCheckboxes && (
-            <div className="fv-plugins-message-container mb-4">
-              <div className="fv-help-block">
-                <span role="alert">*** {formik.errors.selectedCheckboxes}</span>
+      <form onSubmit={formik.handleSubmit}>
+        <div className="row g-5 g-xl-8">
+          {/* begin::Action */}
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={formik.isSubmitting || !formik.isValid}
+              >
+                {!isStarting && (
+                  <span className="indicator-label">Start 2x Scanning</span>
+                )}
+                {isStarting && (
+                  <span
+                    className="indicator-progress"
+                    style={{ display: "block" }}
+                  >
+                    Please wait...
+                    <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+                  </span>
+                )}
+              </button>
+
+              <div>
+                <StartRegionScanButton selectedRegions={selectedRegions} />
               </div>
             </div>
-          )}
+          </div>
+          {/* end::Action */}
+          {formik.touched.selectedCheckboxes &&
+            formik.errors.selectedCheckboxes && (
+              <div className="fv-plugins-message-container mb-4">
+                <div className="fv-help-block">
+                  <span role="alert">
+                    *** {formik.errors.selectedCheckboxes}
+                  </span>
+                </div>
+              </div>
+            )}
 
-        <div className="col-xl-12">
-          <div className="card-xl-stretch mb-xl-8">
-            <SlidesTable
-              handleSelectAllChange={handleSelectAllChange}
-              formik={formik}
-              className="card-xl-stretch mb-xl-8"
-            >
-              {isLoadingScans && isLoadingSlides && (
-                <tr>
-                  <td colSpan={20} className="text-center">
-                    <span className="text-muted"> Loading...</span>
-                    <Spinner animation="border" size="sm" />
-                  </td>
-                </tr>
-              )}
-              {!isLoadingScans &&
-                !isLoadingSlides &&
-                slides &&
-                slides.length > 0 &&
-                slides.map((slide: SlideModel, _index: number) => {
-                  // Find the corresponding scan for this slide
-                  const matchingScan = scans.find(
-                    (scan: ScanModel) => scan.nth === slide.nth
-                  );
+          <div className="col-xl-12">
+            <div className="card-xl-stretch mb-xl-8">
+              <SlidesTable
+                handleSelectAllChange={handleSelectAllChange}
+                formik={formik}
+                className="card-xl-stretch mb-xl-8"
+              >
+                {isLoadingScans && isLoadingSlides && (
+                  <tr>
+                    <td colSpan={20} className="text-center">
+                      <span className="text-muted"> Loading...</span>
+                      <Spinner animation="border" size="sm" />
+                    </td>
+                  </tr>
+                )}
+                {!isLoadingScans &&
+                  !isLoadingSlides &&
+                  slides &&
+                  slides.length > 0 &&
+                  slides.map((slide: SlideModel, _index: number) => {
+                    // Find the corresponding scan for this slide
+                    const matchingScan = scans.find(
+                      (scan: ScanModel) => scan.nth === slide.nth
+                    );
 
-                  return (
-                    <SlideRow
-                      handleCheckboxChange={handleCheckboxChange}
-                      formik={formik}
-                      key={_index}
-                      slide={slide}
-                      scan={matchingScan} // Pass the found scan object to the SlideRow
-                      handleSetAreas={handleRegionSelection}
-                    />
-                  );
-                })}
-            </SlidesTable>
+                    return (
+                      <SlideRow
+                        handleCheckboxChange={handleCheckboxChange}
+                        formik={formik}
+                        key={_index}
+                        slide={slide}
+                        scan={matchingScan} // Pass the found scan object to the SlideRow
+                        handleSetAreas={handleRegionSelection}
+                      />
+                    );
+                  })}
+              </SlidesTable>
+            </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </>
   );
 };
 

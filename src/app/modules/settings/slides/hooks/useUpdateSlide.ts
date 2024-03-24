@@ -14,7 +14,7 @@ export function useUpdateSlide() {
     isPending: isUpdating,
     error,
   } = useMutation({
-    mutationFn: (slideData: SlideModel) => request("", "Slide", BASE_URL, slideData, "PUT",slideData.id),
+    mutationFn: (slideData: any) => request("", "Slide", BASE_URL, slideData, "PUT",slideData.id),
     onSuccess: () => {
       toast.success("Slide successfully updated.");
       queryClient.invalidateQueries({ queryKey: ["slides"] });
