@@ -2,7 +2,7 @@ import { FC, useRef } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
 import { CustomDropdown } from "../../../ui/dropdown/CustomDropdown";
 import { Dropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TestsModel } from "../core/_models";
 import { PrintQrCode } from "./add-new-test/PrintQrCode";
 
@@ -12,6 +12,7 @@ type Props = {
 
 const TestsTableDropdown: FC<Props> = ({ data }) => {
   const printRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handlePrint = () => {
     if (printRef.current) {
@@ -51,7 +52,7 @@ const TestsTableDropdown: FC<Props> = ({ data }) => {
           data-bs-toggle="modal"
           data-bs-target={`#edit_test_info${data.id}`}
         >
-          <KTIcon iconName="pencil" className="fs-3 me-3" />
+          <KTIcon iconName="pencil" className="fs-3 me-3 text-info" />
           Edit Info
         </Dropdown.Item>
         <PrintQrCode
@@ -61,13 +62,14 @@ const TestsTableDropdown: FC<Props> = ({ data }) => {
         />
         {data.img && data.project && (
           <Dropdown.Item>
-            <Link
-              to={`/image${queryStr}`}
+            <div
+            onClick={()=>navigate(`/image${queryStr}`)}
+              // to={`/image${queryStr}`}
               className="text-gray-900  text-hover-primary fs-6"
             >
-              <KTIcon iconName="eye" className="fs-3 me-3" />
+              <KTIcon iconName="eye" className="fs-3 me-3 text-primary" />
               View Image
-            </Link>
+            </div>
           </Dropdown.Item>
         )}
         <Dropdown.Item
@@ -81,7 +83,7 @@ const TestsTableDropdown: FC<Props> = ({ data }) => {
           data-bs-toggle="modal"
           // data-bs-target={`#edit_media${labData.id}`}
         >
-          <KTIcon iconName="picture" className="fs-3 me-3" />
+          <KTIcon iconName="picture" className="fs-3 me-3 text-warning" />
           View Slide Image
         </Dropdown.Item>
         <Dropdown.Item
@@ -89,7 +91,7 @@ const TestsTableDropdown: FC<Props> = ({ data }) => {
           data-bs-toggle="modal"
           data-bs-target={`#confirm_delete_test${data.id}`}
         >
-          <KTIcon iconName="trash" className="fs-3 me-3" />
+          <KTIcon iconName="trash" className="fs-3 me-3 text-danger" />
           Delete Test
         </Dropdown.Item>
       </CustomDropdown>

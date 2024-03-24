@@ -49,7 +49,7 @@ const PrintQrCode: FC<Props> = ({ testId, totalSlides, testType }) => {
       <div ref={printRef} className="d-none">
         <QRCodeGenerator testId={testId} totalSlides={totalSlides} testType={testType} />
       </div>
-      <KTIcon iconName="printer" className="fs-3 me-3" />
+      <KTIcon iconName="printer" className="fs-3 me-3 text-success" />
       Print Label
     </Dropdown.Item>
   );
