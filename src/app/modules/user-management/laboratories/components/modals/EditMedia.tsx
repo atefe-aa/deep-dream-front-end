@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import { useState } from "react";
 import * as Yup from "yup";
@@ -6,8 +6,7 @@ import clsx from "clsx";
 import { useFormik } from "formik";
 import { ModalLayout } from "../../../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../../../ui/modals/ModalForm";
-import { KTIcon, toAbsoluteUrl } from "../../../../../../_metronic/helpers";
-import { useCreateLaboratory } from "../../hooks/useCreateLaboratory";
+import { toAbsoluteUrl } from "../../../../../../_metronic/helpers";
 import { LabsModel } from "../../core/_models";
 import { useUpdateMedia } from "../../hooks/useUpdateMedia";
 import { useCloseModalOnSuccess } from "../../../../hooks/useCloseModalOnSuccess";
@@ -49,6 +48,15 @@ const EditMedia: FC<Props> = ({ labData }) => {
     },
   });
 
+  useEffect(() => {
+    // Update formik initialValues whenever counsellorData changes
+    formik.setValues({
+      avatar: labData.avatar || (undefined as File | undefined),
+      signature: labData.signature || (undefined as File | undefined),
+      header: labData.header || (undefined as File | undefined),
+      footer: labData.footer || (undefined as File | undefined),
+    });
+  }, [labData]);
 
   useCloseModalOnSuccess(`edit_media${labData.id}`, data, formik);
   return (
@@ -160,7 +168,7 @@ const EditMedia: FC<Props> = ({ labData }) => {
                 src={
                   formik.values.signature instanceof File
                     ? URL.createObjectURL(formik.values.signature)
-                    : formik.values.signature  || blankImg
+                    : formik.values.signature || blankImg
                 }
                 alt="signature Preview"
                 className="image-input-wrapper w-125px h-125px"
@@ -259,7 +267,6 @@ const EditMedia: FC<Props> = ({ labData }) => {
               <input type="hidden" name="header_remove" />
             </label>
             {/* end::Label */}
-
 
             {/* begin::Remove */}
             <span
