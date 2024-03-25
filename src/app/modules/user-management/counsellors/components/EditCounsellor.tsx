@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC,useEffect,useState } from "react";
 
 import * as Yup from "yup";
 import clsx from "clsx";
@@ -19,7 +19,7 @@ type Props = {
 const EditCounsellor: FC<Props> = ({ counsellorData }) => {
   const { currentUser } = useAuth();
   const isSuperAdmin = currentUser && hasRole(currentUser, ["superAdmin"]);
-
+  
   const initialValues = {
     name: counsellorData.name || "",
     phone: counsellorData.phone || "",
@@ -63,11 +63,23 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
       }
     },
   });
+
+  useEffect(() => {
+    // Update formik initialValues whenever counsellorData changes
+    formik.setValues({
+      name: counsellorData.name || "",
+      phone: counsellorData.phone || "",
+      description: counsellorData.description || "",
+      laboratoryId: isSuperAdmin ? counsellorData.labId || 0 : 0
+    });
+  }, [counsellorData, isSuperAdmin]);
+
   useCloseModalOnSuccess(
     `edit_counsellor_info${counsellorData.id}`,
     data,
     formik
   );
+
 
   return (
     <ModalLayout
@@ -150,9 +162,9 @@ const EditCounsellor: FC<Props> = ({ counsellorData }) => {
         {/* end::Input group */}
 
         {/* begin:: description Input group */}
-        <div className="fv-row mb-7">
+        <div className="fv-row mb-7 text-start">
           {/* begin::Label */}
-          <label className="fw-bold fs-6 mb-2">Description</label>
+          <label className="fw-bold fs-6 mb-2 ">Description</label>
           {/* end::Label */}
 
           {/* begin:: Input */}

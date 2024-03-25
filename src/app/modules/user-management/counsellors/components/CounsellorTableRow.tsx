@@ -53,7 +53,7 @@ const CounsellorTableRow: FC<Props> = ({ counsellorData, index }) => {
           
           className="text-gray-900 fw-bold text-hover-primary d-block fs-6"
         >
-          {counsellorData.labName}
+          {counsellorData.description}
         </div>
       </td>
       <td>

@@ -7,28 +7,28 @@ type Props = {
 };
 
 const SenderAdmitNumberInput: React.FC<Props> = ({ formik }) => {
-  const { data, isLoading } = useMiladAdmitInfo(
-    formik.values.senderRegistrationCode
-  );
+  // const { data, isLoading } = useMiladAdmitInfo(
+  //   formik.values.senderRegistrationCode
+  // );
 
   const miladLabId = localStorage.getItem("miladLabId");
 
-  useEffect(() => {
-    console.log(miladLabId);
-    const selectedLab = formik.values.laboratoryId;
+  // useEffect(() => {
+  //   console.log(miladLabId);
+  //   const selectedLab = formik.values.laboratoryId;
 
-    if (!isLoading && data && miladLabId && selectedLab === miladLabId) {
-      console.log(data);
-      formik.setValues({
-        name:data.id,
-        nationalId:data.id,
-        age:data.id,
-        ageUnit:data.id,
-        gender:data.id,
-        discription:data.id,
-      });
-    }
-  }, [formik, isLoading]);
+  //   if (!isLoading && data && miladLabId && selectedLab === miladLabId) {
+  //     console.log(data);
+  //     formik.setValues({
+  //       name:data.id,
+  //       nationalId:data.id,
+  //       age:data.id,
+  //       ageUnit:data.id,
+  //       gender:data.id,
+  //       discription:data.id,
+  //     });
+  //   }
+  // }, [formik, isLoading]);
 
   return (
     <div className="fv-row mb-3">
