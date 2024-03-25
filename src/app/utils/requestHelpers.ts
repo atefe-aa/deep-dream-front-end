@@ -64,7 +64,7 @@ export async function handleRequestErrors(res: Response): Promise<void> {
       }
     }
   } catch (jsonError) {
-    errorText += ` Non-JSON error: ${res.statusText}`;
+    errorText += ` ${res.statusText}. Please report the error if it persits.`;
   }
   throw new Error(errorText);
 }
