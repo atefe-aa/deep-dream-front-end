@@ -17,7 +17,7 @@ function ClearSlotsButton({ isLoading }: Props) {
         className="btn btn-sm btn-danger ms-4"
         disabled={isLoading || isClearing}
       >
-        {!isClearing && <span className="indicator-label">Cleare Slots</span>}
+        {!isClearing && <span className="indicator-label">Clear Slots</span>}
         {isClearing && (
           <span className="indicator-progress" style={{ display: "block" }}>
             Please wait...
