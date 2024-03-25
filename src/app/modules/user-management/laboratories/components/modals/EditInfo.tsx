@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import * as Yup from "yup";
 import clsx from "clsx";
 import { useFormik } from "formik";
@@ -77,20 +77,19 @@ const EditInfo: FC<Props> = ({ labData }) => {
     },
   });
 
-  useEffect(()=>{
-    if(!isPending && data){
-      initialValues = {
-        fullName: data.data.fullName || "",
-        labName: data.data.labName || "",
-        username: data.data.username || "",
-        phone: data.data.phone || "",
-        address: data.data.address || "",
-        description: data.data.description || "",
-        password: "",
-        password_confirmation: "",
-      };
-    }
-  },[isPending,data])
+  useEffect(() => {
+    // Update formik initialValues whenever data changes
+    formik.setValues({
+      fullName: labData.fullName || "",
+      labName: labData.labName || "",
+      username: labData.username || "",
+      phone: labData.phone || "",
+      address: labData.address || "",
+      description: labData.description || "",
+      password: "",
+      password_confirmation: "",
+    });
+  }, [labData]);
 
   useCloseModalOnSuccess(`edit_info${labData.id}`, data, formik);
   return (
@@ -289,9 +288,7 @@ const EditInfo: FC<Props> = ({ labData }) => {
           <input
             placeholder="Username"
             {...formik.getFieldProps("username")}
-            className={clsx(
-              "form-control form-control-solid mb-3 mb-lg-0",
-            )}
+            className={clsx("form-control form-control-solid mb-3 mb-lg-0")}
             type="username"
             name="username"
             autoComplete="off"
