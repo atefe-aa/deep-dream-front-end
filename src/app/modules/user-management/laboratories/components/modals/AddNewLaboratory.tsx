@@ -153,23 +153,15 @@ const AddNewLaboratory: FC<Props> = () => {
             </label>
             {/* end::Label */}
 
-            {/* begin::Cancel */}
-            <span
-              className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-              data-kt-image-input-action="cancel"
-              data-bs-toggle="tooltip"
-              title="Cancel avatar"
-            >
-              <i className="bi bi-x fs-2"></i>
-            </span>
-            {/* end::Cancel */}
-
             {/* begin::Remove */}
             <span
               className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
               data-kt-image-input-action="remove"
               data-bs-toggle="tooltip"
               title="Remove avatar"
+              onClick={() => {
+                formik.setFieldValue("avatar", undefined);
+              }}
             >
               <i className="bi bi-x fs-2"></i>
             </span>
