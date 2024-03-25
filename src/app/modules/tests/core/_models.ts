@@ -39,3 +39,15 @@ export interface RegistrationRequestModel {
   isMultiSlide: boolean;
   numberOfSlides: number;
 }
+
+
+export interface MiladAdmitInfo {
+  id: string;
+  name: string;
+  nationalId: string;
+  age: number;
+  ageUnit: string;
+  gender: string;
+  description: string;
+  // Add other properties as needed
+}

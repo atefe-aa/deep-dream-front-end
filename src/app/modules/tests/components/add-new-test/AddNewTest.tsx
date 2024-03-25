@@ -10,15 +10,14 @@ import { useCreateRegistration } from "../../hooks/useCreateRegistration";
 import { useAuth } from "../../../auth";
 import { hasRole } from "../../../../utils/helper";
 import { PrintQrCode } from "./PrintQrCode";
-import { TestsModel } from "../../core/_models";
+import { SenderAdmitNumberInput } from "./components/SenderAdmitNumberInput";
 
 const addSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
     .required("Name is required"),
-  nationalId: Yup.string()
-  .matches(
+  nationalId: Yup.string().matches(
     /^(?!(\d)\1{9})\d{10}$/,
     "Invalid National ID"
   ),
@@ -29,7 +28,9 @@ const addSchema = Yup.object().shape({
     .min(1, "Minimum 1 symbols")
     .max(7, "Maximum 7 symbols")
     .required("Test Type is required"),
-  laboratoryId: Yup.number().min(1,"Laboratory is required.").required("Laboratory is required"),
+  laboratoryId: Yup.number()
+    .min(1, "Laboratory is required.")
+    .required("Laboratory is required"),
   discription: Yup.string()
     .min(1, "Minimum 1 symbols")
     .max(300, "Maximum 300 symbols"),
@@ -145,43 +146,7 @@ const AddNewTest: FC = () => {
           </div>
           {/* end::Form group */}
 
-          {/* begin::Form group */}
-          <div className="fv-row mb-3">
-            <label className="form-label fs-6 fw-bolder text-gray-900">
-              Sender Admit Number
-            </label>
-
-            <input
-              placeholder="Sender Admit Number"
-              {...formik.getFieldProps("senderRegistrationCode")}
-              className={clsx(
-                "form-control bg-transparent",
-                {
-                  "is-invalid":
-                    formik.touched.senderRegistrationCode &&
-                    formik.errors.senderRegistrationCode,
-                },
-                {
-                  "is-valid":
-                    formik.touched.senderRegistrationCode &&
-                    !formik.errors.senderRegistrationCode,
-                }
-              )}
-              type="text"
-              autoComplete="on"
-            />
-            {formik.touched.senderRegistrationCode &&
-              formik.errors.senderRegistrationCode && (
-                <div className="fv-plugins-message-container">
-                  <div className="fv-help-block">
-                    <span role="alert">
-                      {formik.errors.senderRegistrationCode}
-                    </span>
-                  </div>
-                </div>
-              )}
-          </div>
-          {/* end::Form group */}
+          <SenderAdmitNumberInput formik={formik} />
 
           {/* begin::Form group / Fullname*/}
           <div className="fv-row mb-3">

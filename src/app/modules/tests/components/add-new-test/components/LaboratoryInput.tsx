@@ -10,14 +10,24 @@ function LaboratoryInput({ formik }: Props) {
   const { isLoading: isLoadingLaboratories, laboratories } =
     useLaboratories("noPaginate=true");
 
+  let miladData = [];
+  if (!isLoadingLaboratories && laboratories && laboratories.length > 0) {
+    miladData =
+      laboratories &&
+      laboratories.find(
+        (lab: LabsModel) => lab.labName === "Milad" || lab.labName === "milad"
+      );
+    localStorage.setItem("miladLabId", miladData.id);
+  }
+
   return (
     <div className="fv-row mb-3 text-start">
       {isLoadingLaboratories ? (
         <span>Loading Laboratories List...</span>
       ) : (
         <>
-          <label className="form-label fw-bolder text-gray-900 fs-6 mb-0">
-            Sender Laboratory<span className="text-danger">*</span>
+          <label className="form-label required fw-bolder text-gray-900 fs-6 mb-0">
+            Sender Laboratory
           </label>
 
           <select
