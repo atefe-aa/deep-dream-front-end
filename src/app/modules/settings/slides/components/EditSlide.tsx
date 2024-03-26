@@ -109,7 +109,7 @@ const EditSlide: FC<Props> = ({ slideData }) => {
         formik={formik}
       >
         {/* begin::code Form group  */}
-        <div className="fv-row mb-3">
+        <div className="fv-row mb-3 text-start">
           <label className="form-label required fs-6 fw-bolder text-gray-900">
             Slide Number
           </label>
@@ -139,22 +139,14 @@ const EditSlide: FC<Props> = ({ slideData }) => {
         </div>
         {/* end::Form group */}
         {/* begin::code Form group  */}
-        <div className="fv-row mb-3">
+        <div className="fv-row mb-3 text-start">
           <label className="form-label required fs-6 fw-bolder text-gray-900">
             SW x
           </label>
           <input
             placeholder="SW X"
             {...formik.getFieldProps("sw_x")}
-            className={clsx(
-              "form-control bg-transparent",
-              {
-                "is-invalid": formik.touched.sw_x && formik.errors.sw_x,
-              },
-              {
-                "is-valid": formik.touched.sw_x && !formik.errors.sw_x,
-              }
-            )}
+            className={clsx("form-control bg-transparent")}
             type="number"
             name="sw_x"
             autoComplete="off"
@@ -168,22 +160,14 @@ const EditSlide: FC<Props> = ({ slideData }) => {
           )}
         </div>
         {/* end::Form group */} {/* begin::code Form group  */}
-        <div className="fv-row mb-3">
+        <div className="fv-row mb-3 text-start">
           <label className="form-label required fs-6 fw-bolder text-gray-900">
             SW y
           </label>
           <input
             placeholder="SW Y"
             {...formik.getFieldProps("sw_y")}
-            className={clsx(
-              "form-control bg-transparent",
-              {
-                "is-invalid": formik.touched.sw_y && formik.errors.sw_y,
-              },
-              {
-                "is-valid": formik.touched.sw_y && !formik.errors.sw_y,
-              }
-            )}
+            className={clsx("form-control bg-transparent")}
             type="number"
             name="sw_y"
             autoComplete="off"
@@ -198,22 +182,14 @@ const EditSlide: FC<Props> = ({ slideData }) => {
         </div>
         {/* end::Form group */}
         {/* begin::code Form group  */}
-        <div className="fv-row mb-3">
+        <div className="fv-row mb-3 text-start">
           <label className="form-label required fs-6 fw-bolder text-gray-900">
             NE x
           </label>
           <input
             placeholder="NE X"
             {...formik.getFieldProps("ne_x")}
-            className={clsx(
-              "form-control bg-transparent",
-              {
-                "is-invalid": formik.touched.ne_x && formik.errors.ne_x,
-              },
-              {
-                "is-valid": formik.touched.ne_x && !formik.errors.ne_x,
-              }
-            )}
+            className={clsx("form-control bg-transparent")}
             type="number"
             name="ne_x"
             autoComplete="off"
@@ -228,22 +204,14 @@ const EditSlide: FC<Props> = ({ slideData }) => {
         </div>
         {/* end::Form group */}
         {/* begin::code Form group  */}
-        <div className="fv-row mb-3">
+        <div className="fv-row mb-3 text-start">
           <label className="form-label required fs-6 fw-bolder text-gray-900">
             NE y
           </label>
           <input
             placeholder="NE y"
             {...formik.getFieldProps("ne_y")}
-            className={clsx(
-              "form-control bg-transparent",
-              {
-                "is-invalid": formik.touched.ne_y && formik.errors.ne_y,
-              },
-              {
-                "is-valid": formik.touched.ne_y && !formik.errors.ne_y,
-              }
-            )}
+            className={clsx("form-control bg-transparent")}
             type="number"
             name="ne_y"
             autoComplete="off"

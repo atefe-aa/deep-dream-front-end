@@ -46,10 +46,10 @@ const AddNewSlide: FC = () => {
 
   const initialValues = {
     nth: 1,
-    sw_x: 0,
-    sw_y: 0,
-    ne_x: 0,
-    ne_y: 0,
+    sw_x: "" as unknown as number,
+    sw_y: "" as unknown as number,
+    ne_x: "" as unknown as number,
+    ne_y: "" as unknown as number,
   };
 
   const { isCreating, createSlide, data } = useCreateSlide();
@@ -128,15 +128,7 @@ const AddNewSlide: FC = () => {
           <input
             placeholder="SW X"
             {...formik.getFieldProps("sw_x")}
-            className={clsx(
-              "form-control bg-transparent",
-              {
-                "is-invalid": formik.touched.sw_x && formik.errors.sw_x,
-              },
-              {
-                "is-valid": formik.touched.sw_x && !formik.errors.sw_x,
-              }
-            )}
+            className={clsx("form-control bg-transparent")}
             type="number"
             name="sw_x"
             autoComplete="off"
@@ -157,15 +149,7 @@ const AddNewSlide: FC = () => {
           <input
             placeholder="SW Y"
             {...formik.getFieldProps("sw_y")}
-            className={clsx(
-              "form-control bg-transparent",
-              {
-                "is-invalid": formik.touched.sw_y && formik.errors.sw_y,
-              },
-              {
-                "is-valid": formik.touched.sw_y && !formik.errors.sw_y,
-              }
-            )}
+            className={clsx("form-control bg-transparent")}
             type="number"
             name="sw_y"
             autoComplete="off"
@@ -187,15 +171,7 @@ const AddNewSlide: FC = () => {
           <input
             placeholder="NE X"
             {...formik.getFieldProps("ne_x")}
-            className={clsx(
-              "form-control bg-transparent",
-              {
-                "is-invalid": formik.touched.ne_x && formik.errors.ne_x,
-              },
-              {
-                "is-valid": formik.touched.ne_x && !formik.errors.ne_x,
-              }
-            )}
+            className={clsx("form-control bg-transparent")}
             type="number"
             name="ne_x"
             autoComplete="off"
@@ -217,15 +193,7 @@ const AddNewSlide: FC = () => {
           <input
             placeholder="NE y"
             {...formik.getFieldProps("ne_y")}
-            className={clsx(
-              "form-control bg-transparent",
-              {
-                "is-invalid": formik.touched.ne_y && formik.errors.ne_y,
-              },
-              {
-                "is-valid": formik.touched.ne_y && !formik.errors.ne_y,
-              }
-            )}
+            className={clsx("form-control bg-transparent")}
             type="number"
             name="ne_y"
             autoComplete="off"
