@@ -32,7 +32,7 @@ const ExportPdf: React.FC<Props> = ({ template, formik, isCreating, test }) => {
       // Ensure the window opened
       if (printWindow && printWindow.document) {
         printWindow.document.write(
-          `<html><head><title>Report-${test.id}</title>`
+          `<html><head><title>${test.name}-${test.id}</title>`
         );
         // Optionally, add any required styles here
         printWindow.document.write("</head><body>");

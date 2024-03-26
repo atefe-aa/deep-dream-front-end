@@ -12,13 +12,13 @@ const Footer: FC = () => {
       <div className={clsx(classes.footerContainer, 'd-flex flex-column flex-md-row flex-stack')}>
         {/*begin::Copyright*/}
         <div className='text-gray-900 order-2 order-md-1'>
-          <span className='text-gray-500 fw-bold me-1'>Created by</span>
+          <span className='text-gray-500 fw-bold me-1'>Developed by</span>
           <a
             href='Keenthemes.com'
             target='_blank'
             className='text-muted text-hover-primary fw-bold me-2 fs-6'
           >
-            Deep Dream team &copy;
+            DeepDream
           </a>
         </div>
         {/*end::Copyright*/}

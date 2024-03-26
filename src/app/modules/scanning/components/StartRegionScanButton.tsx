@@ -18,7 +18,7 @@ const StartRegionScanButton: React.FC<Props> = ({ selectedRegions }) => {
       disabled={isStarting}
       onClick={start}
     >
-      Start Scanning Regions
+      Start Region Scanning
     </button>
   );
 };

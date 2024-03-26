@@ -29,14 +29,14 @@ const ReportPatient: React.FC<Props> = ({ test }) => {
           <span>{test.doctorName}</span>
         </div>
       </div>
-      <div style={{ display: "flex", marginTop: "8px" }}>
+      <div style={{ display: "flex", marginTop: "8px", justifyContent: "space-between" }}>
         <div>
           <span style={{ fontWeight: "bold" }}>Admit Date: </span>{" "}
           <span>{test.date}</span>
         </div>
         <div style={{ marginLeft: "10px" }}>
-          <span style={{ fontWeight: "bold" }}> Admit Number: </span> Admit
-          Number: <span>{test.id}</span>
+          <span style={{ fontWeight: "bold" }}> Admit Number: </span>
+          <span>{test.id}</span>
         </div>
       </div>
     </div>
