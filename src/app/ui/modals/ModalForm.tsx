@@ -48,7 +48,7 @@ const ModalForm: React.FC<Props> = ({
           <button
             type="reset"
             onClick={() => formik.resetForm()}
-            className="btn btn-light me-3"
+            className="btn btn-light-danger me-3"
             data-kt-users-modal-action="cancel"
             disabled={formik.isSubmitting || isLoading}
           >

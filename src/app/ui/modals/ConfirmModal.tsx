@@ -26,7 +26,7 @@ const ConfirmModal: React.FC<Props> = ({
       <div className="text-center pt-15">
         <button
           data-bs-dismiss="modal"
-          className="btn btn-light me-3"
+          className="btn btn-light-danger me-3"
           disabled={isLoading}
         >
           Discard

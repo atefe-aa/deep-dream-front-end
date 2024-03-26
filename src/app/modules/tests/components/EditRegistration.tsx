@@ -81,28 +81,26 @@ const EditRegistration: React.FC<Props> = ({ testId, test }) => {
       }
     },
   });
-  // useEffect(() => {
-  //   if (! && registration) {
-  //     formik.setValues({
-  //       id: testId,
-  //       name: registration.name || "",
-  //       nationalId: registration.nationalId || "",
-  //       age: registration.age || "",
-  //       doctorName: registration.doctorName || "",
-  //       ageUnit: registration.ageUnit || ("year" as "year" | "day"),
-  //       gender: registration.gender || ("female" as "female" | "male"),
-  //       testType: registration.testTypeId || 0,
-  //       laboratoryId:
-  //         registration.laboratoryId ||
-  //         (currentUser && currentUser.data.laboratory) ||
-  //         1,
-  //       description: registration.description || "",
-  //       senderRegistrationCode: registration.senderRegistrationCode || "",
-  //       isMultiSlide: registration.numberOfSlides > 1,
-  //       numberOfSlides: registration.numberOfSlides || 1,
-  //     });
-  //   }
-  // }, [, registration, formik.setValues]);
+
+  useEffect(() => {
+    // Update formik initialValues whenever counsellorData changes
+    formik.setValues({
+      id: testId,
+      name: test.name || "",
+      nationalId: test.nationalId || "",
+      age: test.age || (undefined as unknown as number),
+      doctorName: test.doctorName || "",
+      ageUnit: test.ageUnit || ("year" as "year" | "day"),
+      gender: test.gender || ("female" as "female" | "male"),
+      testType: test.testTypeId || (undefined as unknown as number),
+      laboratoryId:
+        test.laboratoryId || (currentUser && currentUser.data.laboratory) || 1,
+      description: test.description || "",
+      senderRegistrationCode: test.senderRegistrationCode || "",
+      isMultiSlide: test.numberOfSlides > 1,
+      numberOfSlides: test.numberOfSlides,
+    });
+  }, [test]);
 
   useCloseModalOnSuccess(`edit_test_info${testId}`, data, formik);
 
@@ -369,6 +367,7 @@ const EditRegistration: React.FC<Props> = ({ testId, test }) => {
                 className="form-check-input"
                 type="checkbox"
                 {...formik.getFieldProps("isMultiSlide")}
+                checked={formik.values.isMultiSlide}
                 name="isMultiSlide"
               />
             </div>
