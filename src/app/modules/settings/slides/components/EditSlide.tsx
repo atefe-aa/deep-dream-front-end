@@ -74,7 +74,6 @@ const EditSlide: FC<Props> = ({ slideData }) => {
             ne_y: values.ne_y,
           },
         };
-        console.log({ ...data, id: slideData.id });
         
         updateSlide({ ...data, id: slideData.id });
       } catch (error) {

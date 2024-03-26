@@ -53,7 +53,6 @@ const AddNewCounsellor: FC = () => {
     validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
-        // console.log(values);
 
         createCounsellor(values);
       } catch (error) {
