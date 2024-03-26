@@ -31,7 +31,7 @@ const SettingItem: React.FC<Props> = ({
         id={`collapse${modifiedName}`}
         className={`accordion-collapse collapse ${show && "show"}`}
         aria-labelledby={`hedding${modifiedName}`}
-        data-bs-parent="#accordionExample"
+        // data-bs-parent="#accordionExample"
       >
         <div className="accordion-body">
           <div className="card-body border-top p-9">{children}</div>
