@@ -40,7 +40,6 @@ export interface RegistrationRequestModel {
   numberOfSlides: number;
 }
 
-
 export interface MiladAdmitInfo {
   id: string;
   name: string;
@@ -49,5 +48,6 @@ export interface MiladAdmitInfo {
   ageUnit: string;
   gender: string;
   description: string;
-  // Add other properties as needed
+  doctorName: string;
+  admitNumber: number;
 }

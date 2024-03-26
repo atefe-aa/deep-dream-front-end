@@ -29,30 +29,30 @@ export async function createRegistration(
   }
 }
 
-const PARSIC_URL = import.meta.env.VITE_PARSIC_API_URL;
-const MILAD_INFO_URL = `${PARSIC_URL}/slider-patient-info-tests`;
-export async function getMiladAdmitInfo(admitNumber: number) {
-  try {
-    const formData = new URLSearchParams();
-    formData.append("id", admitNumber.toString());
+// const PARSIC_URL = import.meta.env.VITE_PARSIC_API_URL;
+// const MILAD_INFO_URL = `${PARSIC_URL}/slider-patient-info-tests`;
+// export async function getMiladAdmitInfo(admitNumber: number) {
+//   try {
+//     const formData = new URLSearchParams();
+//     formData.append("id", admitNumber.toString());
 
-    const res = await fetch(MILAD_INFO_URL, {
-      method: "POST",
-      body: formData,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
-        apikey: "apikey",
-      },
-    });
-    if (!res.ok) {
-      await handleRequestErrors(res);
-    }
+//     const res = await fetch(MILAD_INFO_URL, {
+//       method: "POST",
+//       body: formData,
+//       headers: {
+//         Accept: "application/json",
+//         "Content-Type": "application/x-www-form-urlencoded",
+//         apikey: "apikey",
+//       },
+//     });
+//     if (!res.ok) {
+//       await handleRequestErrors(res);
+//     }
 
-    const { data } = await res.json();
-    return { data };
-  } catch (e: unknown) {
-    console.error((e as Error).message, e);
-    throw e;
-  }
-}
+//     const { data } = await res.json();
+//     return { data };
+//   } catch (e: unknown) {
+//     console.error((e as Error).message, e);
+//     throw e;
+//   }
+// }

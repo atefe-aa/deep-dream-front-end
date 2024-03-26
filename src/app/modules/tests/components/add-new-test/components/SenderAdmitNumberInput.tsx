@@ -7,28 +7,54 @@ type Props = {
 };
 
 const SenderAdmitNumberInput: React.FC<Props> = ({ formik }) => {
-  // const { data, isLoading } = useMiladAdmitInfo(
-  //   formik.values.senderRegistrationCode
-  // );
+  const { data, isPending, getAdmitInfo } = useMiladAdmitInfo(
+    formik.values.senderRegistrationCode
+  );
 
   const miladLabId = localStorage.getItem("miladLabId");
 
-  // useEffect(() => {
-  //   console.log(miladLabId);
-  //   const selectedLab = formik.values.laboratoryId;
+  useEffect(() => {
+    const selectedLab = formik.values.laboratoryId;
+    if (
+      !isPending &&
+      miladLabId &&
+      Number(selectedLab) === Number(miladLabId) &&formik.values.senderRegistrationCode&&
+      (!data || data.admitNumber !== formik.values.senderRegistrationCode)
+    ) {
+      getAdmitInfo();
+    }
+    if (
+      !isPending &&
+      data &&
+      miladLabId &&
+      Number(selectedLab) === Number(miladLabId)
+    ) {
+      formik.setValues({
+        ...formik.values,
+        name: data.name,
+        nationalId: data.nationalId,
+        age: data.age,
+        ageUnit: data.ageUnit,
+        gender: data.gender,
+        description: data.description,
+        doctorName: data.doctorName,
+      });
+    }
+  }, [
+    formik.values.senderRegistrationCode,
+    formik.values.laboratoryId,
+    isPending,
+  ]);
 
-  //   if (!isLoading && data && miladLabId && selectedLab === miladLabId) {
-  //     console.log(data);
-  //     formik.setValues({
-  //       name:data.id,
-  //       nationalId:data.id,
-  //       age:data.id,
-  //       ageUnit:data.id,
-  //       gender:data.id,
-  //       discription:data.id,
-  //     });
+  // function handleAdmitInfo(e:any) {
+  //   e.preventDefault();
+
+  //   const selectedLab = formik.values.laboratoryId;
+  //   if (!isPending && miladLabId && selectedLab === miladLabId) {
+  //     getAdmitInfo();
   //   }
-  // }, [formik, isLoading]);
+  //   return;
+  // }
 
   return (
     <div className="fv-row mb-3">
@@ -54,6 +80,7 @@ const SenderAdmitNumberInput: React.FC<Props> = ({ formik }) => {
         )}
         type="text"
         autoComplete="on"
+        // onBlur={handleAdmitInfo}
       />
       {formik.touched.senderRegistrationCode &&
         formik.errors.senderRegistrationCode && (
