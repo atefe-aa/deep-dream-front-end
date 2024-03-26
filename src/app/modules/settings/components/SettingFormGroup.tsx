@@ -43,7 +43,7 @@ const SettingFormGroup: React.FC<Props> = ({
 
   let inputProps = {
     type: type,
-    disabled: isUpdating,
+    // disabled: isUpdating,
     className: "form-control mb-3 mb-lg-0",
     placeholder: placeHolder,
     name: inputName,
@@ -69,17 +69,18 @@ const SettingFormGroup: React.FC<Props> = ({
               defaultValue={inputValue}
               inputMode="numeric"
               onChange={(e) => setInputValue(Number(e.target.value))}
+              onBlur={(e) => handleUpdateSetting(e)}
             />
           </div>
         </div>
       </div>
       <div className="col-form-label col-3 col-lg-1 fw-bold fs-8">{unit}</div>
-      <button
+      {/* <button
         className=" btn col-1 col-lg-1 fw-bold"
         onClick={(e: any) => handleUpdateSetting(e)}
       >
         <KTIcon className="fs-1  text-primary " iconName="check-circle" />
-      </button>
+      </button> */}
     </div>
   );
 };

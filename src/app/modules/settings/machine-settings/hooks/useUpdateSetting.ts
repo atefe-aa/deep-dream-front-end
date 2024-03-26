@@ -27,7 +27,7 @@ export function useUpdateSetting() {
         itemData.id
       ),
     onSuccess: () => {
-      toast.success("Setting's updated.");
+      // toast.success("Setting's updated.");
       queryClient.invalidateQueries({ queryKey: ["settings"] });
     },
     onError: (err) => {
