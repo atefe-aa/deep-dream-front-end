@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import * as Yup from "yup";
 import clsx from "clsx";
@@ -59,7 +59,7 @@ const EditSlide: FC<Props> = ({ slideData }) => {
     ne_y: slideData.ne_y || 0,
   };
 
-  const { isUpdating, updateSlide,data } = useUpdateSlide();
+  const { isUpdating, updateSlide, data } = useUpdateSlide();
   const formik = useFormik({
     initialValues,
     validationSchema: addSchema,
@@ -74,7 +74,7 @@ const EditSlide: FC<Props> = ({ slideData }) => {
             ne_y: values.ne_y,
           },
         };
-        
+
         updateSlide({ ...data, id: slideData.id });
       } catch (error) {
         console.error(error);
@@ -84,8 +84,19 @@ const EditSlide: FC<Props> = ({ slideData }) => {
     },
   });
 
+  useEffect(() => {
+    // Update formik initialValues whenever data changes
+    formik.setValues({
+      nth: slideData.nth || 1,
+      sw_x: slideData.sw_x || 0,
+      sw_y: slideData.sw_y || 0,
+      ne_x: slideData.ne_x || 0,
+      ne_y: slideData.ne_y || 0,
+    });
+  }, [slideData]);
+
   useCloseModalOnSuccess(`edit_slide_info${slideData.id}`, data, formik);
-  
+
   return (
     <ModalLayout
       modalId={`edit_slide_info${slideData.id}`}
