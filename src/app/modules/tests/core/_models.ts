@@ -18,6 +18,7 @@ export interface TestsModel {
   laboratory: string;
   laboratoryId: number;
   testTypeId: number;
+  templateId: number;
   progress: string;
   price: number;
   numberOfSlides: number;

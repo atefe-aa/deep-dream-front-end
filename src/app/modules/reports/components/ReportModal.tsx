@@ -23,10 +23,23 @@ type ValuesType = {
 
 const ReportModal: React.FC<Props> = ({ test }) => {
   const { reports, isLoading } = useReportTemplates();
-  const initialTemplate = test.report !== null ? test.report : undefined;
+  let initialTemplate = test.report !== null ? test.report : undefined;
+
+  if (
+    !isLoading &&
+    reports &&
+    reports.length > 0 &&
+    initialTemplate === undefined &&
+    test.templateId
+  ) {
+    initialTemplate = reports.find(
+      (repo: ReportTemplateModel) => repo.id === test.templateId
+    );
+  }
   const [template, setTemplate] = useState<ReportTemplateModel | undefined>(
     initialTemplate
   );
+
   const [newTemplate, setNewTemplate] = useState<
     ReportTemplateModel | undefined
   >(initialTemplate);
@@ -106,24 +119,26 @@ const ReportModal: React.FC<Props> = ({ test }) => {
               template={newTemplate}
             />
           )}
-          <div className={clsx("mt-3 mb-5 bg-transparent")}>
-            <select
-              onChange={handleTemplateChange}
-              defaultValue={undefined}
-              className={clsx("form-select")}
-              aria-label="Select Report Template"
-              disabled={isCreating}
-            >
-              <option value={undefined}>Choose a template</option>
-              {!isLoading &&
-                reports &&
-                reports.map((rep: ReportTemplateModel) => (
-                  <option key={rep.id} value={rep.id}>
-                    {rep.testTitle}
-                  </option>
-                ))}
-            </select>
-          </div>
+          {!template && (
+            <div className={clsx("mt-3 mb-5 bg-transparent")}>
+              <select
+                onChange={handleTemplateChange}
+                defaultValue={undefined}
+                className={clsx("form-select")}
+                aria-label="Select Report Template"
+                disabled={isCreating}
+              >
+                <option value={undefined}>Choose a template</option>
+                {!isLoading &&
+                  reports &&
+                  reports.map((rep: ReportTemplateModel) => (
+                    <option key={rep.id} value={rep.id}>
+                      {rep.testTitle}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          )}
         </div>
         {/*end Template selection */}
 
