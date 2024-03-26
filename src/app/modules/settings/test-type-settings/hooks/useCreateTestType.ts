@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { postMethodRequest } from "../../../../utils/requestHelpers";
 import { TestTypesModel, TestTypesOutModel } from "../core/_models";
 
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 const BASE_URL = `${API_URL}/test-type`;
 
 export function useCreateTestType() {
@@ -14,7 +14,7 @@ export function useCreateTestType() {
     error,
     data,
   } = useMutation({
-    mutationFn: (testTypeData : TestTypesOutModel) =>
+    mutationFn: (testTypeData: TestTypesOutModel) =>
       postMethodRequest("", "Test Type", BASE_URL, testTypeData),
     onSuccess: () => {
       toast.success("New Test Type successfully created.");

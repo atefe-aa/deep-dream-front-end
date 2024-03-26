@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { postMethodRequest } from "../../../utils/requestHelpers";
 import { SelectedRegion } from "../../../pages/scanning/ScanningPage";
 
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 const BASE_URL = `${API_URL}/scan/region`;
 
 export function useStartRegionScanning() {
@@ -15,7 +15,7 @@ export function useStartRegionScanning() {
     data,
   } = useMutation({
     mutationFn: (selectedRegions: SelectedRegion[]) =>
-      postMethodRequest("", "Scanning", BASE_URL, {selectedRegions}),
+      postMethodRequest("", "Scanning", BASE_URL, { selectedRegions }),
     onSuccess: () => {
       toast.success("Scanning started.");
       queryClient.invalidateQueries({ queryKey: ["slides"] });

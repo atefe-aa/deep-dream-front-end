@@ -2,9 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { request } from "../../../../utils/requestHelpers";
 import { CounsellorModel } from "../core/_models";
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 const BASE_URL = `${API_URL}/counsellor`;
-
 
 export function useUpdateCounsellor() {
   const queryClient = useQueryClient();
@@ -14,7 +13,15 @@ export function useUpdateCounsellor() {
     isPending: isUpdating,
     error,
   } = useMutation({
-    mutationFn: (counsellorData: CounsellorModel) => request("", "Counsellor", BASE_URL, counsellorData, "PUT",counsellorData.id),
+    mutationFn: (counsellorData: CounsellorModel) =>
+      request(
+        "",
+        "Counsellor",
+        BASE_URL,
+        counsellorData,
+        "PUT",
+        counsellorData.id
+      ),
     onSuccess: () => {
       toast.success("Counsellor successfully updated.");
       queryClient.invalidateQueries({ queryKey: ["counsellors"] });
@@ -29,6 +36,6 @@ export function useUpdateCounsellor() {
     updateCounsellor,
     isUpdating,
     error,
-    data
+    data,
   };
 }

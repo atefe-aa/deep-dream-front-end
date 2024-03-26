@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { request } from "../../../utils/requestHelpers";
 
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 const BASE_URL = `${API_URL}/notification/is-new`;
 
 export function useCheckNotifications(query = "") {
@@ -10,6 +10,6 @@ export function useCheckNotifications(query = "") {
     queryFn: () => request(query, "Notifications", BASE_URL, undefined, "GET"),
   });
 
-const isNew = data?.data.isNew || false;
-  return { error, isNew, isLoading,  };
+  const isNew = data?.data.isNew || false;
+  return { error, isNew, isLoading };
 }

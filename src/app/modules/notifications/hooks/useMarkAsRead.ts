@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { request } from "../../../utils/requestHelpers";
 
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 const BASE_URL = `${API_URL}/notification/read`;
 
 export function useMarkAsRead() {
@@ -9,13 +9,13 @@ export function useMarkAsRead() {
   const {
     data,
     mutate: markAsRead,
-    isPending:isMarking,
+    isPending: isMarking,
     error,
   } = useMutation({
     mutationFn: (ids: Array<string>) =>
-      request("", "Notifications", BASE_URL, {ids}, "POST"),
+      request("", "Notifications", BASE_URL, { ids }, "POST"),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['is-new'] });
+      queryClient.invalidateQueries({ queryKey: ["is-new"] });
     },
     onError: (err) => {
       throw new Error(err.message);

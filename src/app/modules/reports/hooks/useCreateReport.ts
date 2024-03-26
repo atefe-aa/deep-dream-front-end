@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { ReportTemplateModel } from "../_model";
 import { request } from "../../../utils/requestHelpers";
 
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 const BASE_URL = `${API_URL}/report`;
 
 export function useCreateReport() {
@@ -14,8 +14,8 @@ export function useCreateReport() {
     error,
     data,
   } = useMutation({
-    mutationFn: (reportData:ReportTemplateModel) =>
-      request("", "Report", BASE_URL, reportData,"POST"),
+    mutationFn: (reportData: ReportTemplateModel) =>
+      request("", "Report", BASE_URL, reportData, "POST"),
     onSuccess: () => {
       toast.success("Report successfully created.");
       queryClient.invalidateQueries({ queryKey: ["registrations"] });

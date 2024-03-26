@@ -2,10 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { request } from "../../../../../utils/requestHelpers";
 import { PriceModel } from "../../core/_models";
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 const BASE_URL = `${API_URL}/price`;
 
-export function useUpdatePrice(id:number) {
+export function useUpdatePrice(id: number) {
   const queryClient = useQueryClient();
   const {
     data,

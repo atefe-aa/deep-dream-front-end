@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { request } from "../../../utils/requestHelpers";
 
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 const BASE_URL = `${API_URL}/scan/addTestId`;
 
 interface dataModel {
@@ -19,8 +19,7 @@ export function useUpdateScan(nthSlide: number) {
     data,
   } = useMutation({
     mutationFn: (itemData: dataModel) => {
-    
-     return request(
+      return request(
         "",
         "Scan",
         BASE_URL,
@@ -31,7 +30,7 @@ export function useUpdateScan(nthSlide: number) {
     },
     onSuccess: () => {
       toast.success("Scan's updated.");
-      queryClient.invalidateQueries({ queryKey:  ["scans"] });
+      queryClient.invalidateQueries({ queryKey: ["scans"] });
     },
     onError: (err) => {
       toast.error(err.message);

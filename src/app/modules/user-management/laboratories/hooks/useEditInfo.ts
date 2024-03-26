@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { editLaboratoryInfo as editLaboratoryInfoApi } from "../core/_requests";
 import { request } from "../../../../utils/requestHelpers";
 
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 
 const BASE_URL = `${API_URL}/laboratory`;
 

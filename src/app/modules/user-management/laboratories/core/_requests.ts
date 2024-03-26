@@ -1,8 +1,11 @@
-import { getAuthToken, handleRequestErrors } from "../../../../utils/requestHelpers";
+import {
+  getAuthToken,
+  handleRequestErrors,
+} from "../../../../utils/requestHelpers";
 // import { customFetch } from "../../../auth";
 import { LabDataModel, LabsModel } from "./_models";
 
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 
 const BASE_URL = `${API_URL}/laboratory`;
 
@@ -21,7 +24,7 @@ export async function createLaboratory(labData: LabDataModel) {
       method: "POST",
       headers: {
         Accept: "application/json",
-        'Authorization' : authToken || ""
+        Authorization: authToken || "",
       },
       body: formData,
     });
@@ -44,7 +47,7 @@ export async function deleteLaboratory(labId: number) {
       method: "DELETE",
       headers: {
         Accept: "application/json",
-        'Authorization' : authToken || ""
+        Authorization: authToken || "",
       },
     });
 
@@ -63,7 +66,7 @@ export async function deleteLaboratory(labId: number) {
 export async function editLaboratoryInfo(labId: number, labData: LabsModel) {
   try {
     console.log(labId);
-    
+
     const res = await fetch(`${BASE_URL}/${labId}`, {
       method: "PUT",
       headers: {
@@ -97,7 +100,7 @@ export async function editLaboratoryMedia(labId: number, labData: LabsModel) {
       method: "POST",
       headers: {
         Accept: "application/json",
-        'Authorization' : authToken || ""
+        Authorization: authToken || "",
       },
       body: formData,
     });

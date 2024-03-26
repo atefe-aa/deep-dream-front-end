@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { getMethodRequest } from "../../../../utils/requestHelpers";
+import { request } from "../../../../utils/requestHelpers";
 
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 const BASE_URL = `${API_URL}/settings`;
 
 export function useSettings(query = "") {
   const { data, error, isLoading } = useQuery({
     queryKey: ["settings", query],
-    queryFn: () => getMethodRequest(query, 'Settings',BASE_URL),
+    queryFn: () => request(query, "Settings", BASE_URL, undefined, "GET"),
   });
 
   const settings = data?.data || [];

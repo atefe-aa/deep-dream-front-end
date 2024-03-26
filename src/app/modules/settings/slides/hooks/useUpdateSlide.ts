@@ -2,9 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { request } from "../../../../utils/requestHelpers";
 import { SlideModel } from "../../../scanning/core/_models";
-const API_URL = import.meta.env.VITE_APP_API_URL_;
+const API_URL = import.meta.env.VITE_APP_API_URL;
 const BASE_URL = `${API_URL}/scan/slide`;
-
 
 export function useUpdateSlide() {
   const queryClient = useQueryClient();
@@ -14,7 +13,8 @@ export function useUpdateSlide() {
     isPending: isUpdating,
     error,
   } = useMutation({
-    mutationFn: (slideData: any) => request("", "Slide", BASE_URL, slideData, "PUT",slideData.id),
+    mutationFn: (slideData: any) =>
+      request("", "Slide", BASE_URL, slideData, "PUT", slideData.id),
     onSuccess: () => {
       toast.success("Slide successfully updated.");
       queryClient.invalidateQueries({ queryKey: ["slides"] });
@@ -29,6 +29,6 @@ export function useUpdateSlide() {
     updateSlide,
     isUpdating,
     error,
-    data
+    data,
   };
 }
