@@ -17,10 +17,13 @@ const addSchema = Yup.object().shape({
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
     .required("Name is required"),
-  nationalId: Yup.string().matches(
-    /^(?!(\d)\1{9})\d{10}$/,
-    "Invalid National ID"
-  ),
+  doctorName: Yup.string()
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Doctor name is required"),
+  nationalId: Yup.string()
+    .matches(/^(?!(\d)\1{9})\d{10}$/, "Invalid National ID")
+    .required("National ID is required"),
   age: Yup.number().min(1, "Minimum age is 1 ").required("Age is required"),
   ageUnit: Yup.string().required("Age type is required"),
   gender: Yup.string().required("Gender is required"),
@@ -49,7 +52,7 @@ const AddNewTest: FC = () => {
     doctorName: "",
     ageUnit: "year" as "year" | "day",
     gender: "female" as "female" | "male",
-    testType: 0,
+    testType: undefined as unknown as number,
     laboratoryId:
       (currentUser && currentUser.data.laboratory) ||
       (undefined as unknown as number),
@@ -122,7 +125,7 @@ const AddNewTest: FC = () => {
 
           {/* begin::Form group */}
           <div className="fv-row mb-3">
-            <label className="form-label fs-6 fw-bolder text-gray-900">
+            <label className="form-label required fs-6 fw-bolder text-gray-900">
               Doctor Name
             </label>
 
@@ -143,6 +146,13 @@ const AddNewTest: FC = () => {
               type="text"
               autoComplete="on"
             />
+            {formik.touched.doctorName && formik.errors.doctorName && (
+              <div className="fv-plugins-message-container">
+                <div className="fv-help-block">
+                  <span role="alert">{formik.errors.doctorName}</span>
+                </div>
+              </div>
+            )}
           </div>
           {/* end::Form group */}
 

@@ -18,9 +18,13 @@ const addSchema = Yup.object().shape({
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
     .required("Name is required"),
-  nationalId: Yup.number()
-    .min(1000000000, "The national ID format is wrong.")
-    .max(9999999999, "The national ID format is wrong."),
+  doctorName: Yup.string()
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Doctor name is required"),
+  nationalId: Yup.string()
+    .matches(/^(?!(\d)\1{9})\d{10}$/, "Invalid National ID")
+    .required("National ID is required"),
   age: Yup.number().min(1, "Minimum age is 1 ").required("Age is required"),
   ageUnit: Yup.string().required("Age type is required"),
   gender: Yup.string().required("Gender is required"),
@@ -118,7 +122,7 @@ const EditRegistration: React.FC<Props> = ({ testId, test }) => {
 
         {/* begin::Form group */}
         <div className="fv-row text-start mb-3">
-          <label className="form-label fs-6 fw-bolder text-gray-900">
+          <label className="form-label required fs-6 fw-bolder text-gray-900">
             Doctor Name
           </label>
 
@@ -140,6 +144,13 @@ const EditRegistration: React.FC<Props> = ({ testId, test }) => {
             type="text"
             autoComplete="on"
           />
+          {formik.touched.doctorName && formik.errors.doctorName && (
+            <div className="fv-plugins-message-container">
+              <div className="fv-help-block">
+                <span role="alert">{formik.errors.doctorName}</span>
+              </div>
+            </div>
+          )}
         </div>
         {/* end::Form group */}
 

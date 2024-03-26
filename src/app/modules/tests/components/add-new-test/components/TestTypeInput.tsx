@@ -47,39 +47,41 @@ function TestTypeInput({ formik, labId, noPrice }: Props) {
             Test Type
           </label>
           {testTypes && testTypes.length > 0 && (
-            <Select
-              {...formik.getFieldProps("testType")}
-              theme={(theme) => ({
-                ...theme,
-                borderRadius: 7,
-                colors: {
-                  ...theme.colors,
-                  primary25: "var(--bs-success-text-emphasis)",
-                  neutral0: "var(--bs-modal-bg)",
-                  neutral20: "var(--bs-gray-300)",
-                  neutral80: "var(--bs-gray-700)",
-                },
-              })}
-              options={testTypeOptions}
-              isSearchable={true}
-              placeholder="Choose the test type"
-              onChange={(option: SingleValue<TestOption>) =>
-                formik.setFieldValue("testType", option?.value)
-              }
-              value={testTypeOptions.find(
-                (test: TestOption) =>
-                  test.value === Number(formik.values.testType)
+            <>
+              <Select
+                {...formik.getFieldProps("testType")}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 7,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "var(--bs-success-text-emphasis)",
+                    neutral0: "var(--bs-modal-bg)",
+                    neutral20: "var(--bs-gray-300)",
+                    neutral80: "var(--bs-gray-700)",
+                  },
+                })}
+                options={testTypeOptions}
+                isSearchable={true}
+                placeholder="Choose the test type"
+                onChange={(option: SingleValue<TestOption>) =>
+                  formik.setFieldValue("testType", option?.value)
+                }
+                value={testTypeOptions.find(
+                  (test: TestOption) =>
+                    test.value === Number(formik.values.testType)
+                )}
+              />
+              {formik.errors.testType && (
+                <div className="fv-plugins-message-container">
+                  <div className="fv-help-block">
+                    <span role="alert">{formik.errors.testType}</span>
+                  </div>
+                </div>
               )}
-            />
+            </>
           )}
         </>
-      )}
-      {formik.touched.testType && formik.errors.testType && (
-        <div className="fv-plugins-message-container">
-          <div className="fv-help-block">
-            <span role="alert">{formik.errors.testType}</span>
-          </div>
-        </div>
       )}
     </div>
   );
