@@ -4,13 +4,14 @@ import { useCheckNotifications } from "../hooks/useCheckNotifications";
 import { NewIndicator } from "./NewIndicator";
 import { NotificationsMenu } from "./NotificationsMenu";
 import { useNotifications } from "../hooks/useNotifications";
+import { useMarkAsRead } from "../hooks/useMarkAsRead";
 
 function NotificationsButton() {
   const { isLoading, isNew } = useCheckNotifications();
-
+  const { markAsRead } = useMarkAsRead();
 
   return (
-    <div className="d-flex align-items-center ">
+    <div className="d-flex align-items-center " onClick={()=>markAsRead()}>
       {/* begin::Menu wrapper */}
       <div
         className="btn btn-icon position-relative btn-active-color-primary btn-color-gray-500 btn-active-light"

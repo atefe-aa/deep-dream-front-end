@@ -12,8 +12,8 @@ export function useMarkAsRead() {
     isPending: isMarking,
     error,
   } = useMutation({
-    mutationFn: (ids: Array<string>) =>
-      request("", "Notifications", BASE_URL, { ids }, "POST"),
+    mutationFn: () =>
+      request("", "Notifications", BASE_URL,undefined, "POST"),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["is-new"] });
     },

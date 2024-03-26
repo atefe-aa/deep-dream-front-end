@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { KTIcon } from "../../../../_metronic/helpers";
-import { useNotifications } from "../hooks/useNotifications";
 import { NotificationModel } from "../_models";
 import clsx from "clsx";
 import { Spinner } from "react-bootstrap";
@@ -14,7 +13,7 @@ function SystemPane() {
     getNotifs,
     meta
   } = useGetNotifications("system");
-  const { markAsRead } = useMarkAsRead();
+ 
   const [items, setItems] = useState<NotificationModel[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -38,12 +37,7 @@ function SystemPane() {
       });
     }
   }, [isPending, notifs]); 
-  useEffect(() => {
-    return () => {
-      const notifIds = items.map(noti => noti.id);
-      markAsRead(notifIds);
-    };
-  }, [items]);
+
 
   function handleLoadMore() {
     if (!isPending && meta.total === items.length) return;
