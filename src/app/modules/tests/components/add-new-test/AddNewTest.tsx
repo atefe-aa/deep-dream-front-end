@@ -96,7 +96,8 @@ const AddNewTest: FC = () => {
     >
       {showLabelPrint ? (
         <div className="d-flex flex-column">
-          <span className="fs-2 fw-bold">Price: {data?.data.price} (R)</span>
+          <span className="fs-4 fw-bold">Price: {data?.data.price&& data.data.price.toLocaleString() } (R)</span>
+          <span className="fs-4 fw-bold">Admit Number: {data?.data.id}</span>
           <button
             onClick={HandleClose}
             className="btn btn-light-info fs-2 mt-5"
