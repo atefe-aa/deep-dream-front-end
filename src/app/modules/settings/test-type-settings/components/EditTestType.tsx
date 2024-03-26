@@ -9,6 +9,7 @@ import { ModalForm } from "../../../../ui/modals/ModalForm";
 import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
 import { useTestType } from "../hooks/useTest Type";
 import { useUpdateTestType } from "../hooks/useUpdateTestType";
+import { TemplateInput } from "./TemplateInput";
 
 const addSchema = Yup.object().shape({
   title: Yup.string()
@@ -25,6 +26,7 @@ const addSchema = Yup.object().shape({
     .min(0, "Percentage must be a positive number.")
     .max(100, "Percentage must be 100 or less."),
   magnification: Yup.string().required("Magnification is required"),
+  template: Yup.string().required("Template is required"),
   numberOfLayers: Yup.number()
     .min(1, "Number of layers is at leat 1.")
     .test(
@@ -47,6 +49,7 @@ const EditTestType: React.FC<Props> = ({ testTypeId }) => {
       id: testTypeId,
       title: "",
       code: "",
+      template: undefined as unknown as number,
       type: "optical" as "optical" | "invert" | "fluorescent",
       gender: "both" as "male" | "female" | "both",
       description: "",
@@ -75,6 +78,7 @@ const EditTestType: React.FC<Props> = ({ testTypeId }) => {
       formik.setValues({
         id: testTypeId,
         title: testType.title || "",
+        template: testType.template || "",
         code: testType.code || "",
         type:
           testType.type || ("optical" as "optical" | "invert" | "fluorescent"),
@@ -138,6 +142,9 @@ const EditTestType: React.FC<Props> = ({ testTypeId }) => {
           )}
         </div>
         {/* end::Form group */}
+
+        <TemplateInput formik={formik} />
+
         {/* begin::code Form group  */}
         <div className="fv-row text-start mb-3">
           <label className="form-label fs-6 fw-bolder text-gray-900">

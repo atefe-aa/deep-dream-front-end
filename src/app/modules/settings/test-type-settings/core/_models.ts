@@ -12,6 +12,7 @@ export interface TestTypesModel {
   microStep: number | undefined;
   brightness: number | undefined;
   magnification: 2 | 10 | 40 | 100;
+  template:number;
 }
 
 export interface TestTypesOutModel {
@@ -25,4 +26,5 @@ export interface TestTypesOutModel {
   condenser: number | undefined;
   brightness: number | undefined;
   magnification: 2 | 10 | 40 | 100;
+  template:number;
 }

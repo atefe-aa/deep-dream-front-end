@@ -1,16 +1,14 @@
-import { useCloseModalOnSuccess } from "../../hooks/useCloseModalOnSuccess";
 import { ModalLayout } from "../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../ui/modals/ModalForm";
 import { TestsModel } from "../../tests/core/_models";
 import { useFormik } from "formik";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
 import { useReportTemplates } from "../hooks/useReportTemplates";
 import { ReportTemplateModel } from "../_model";
 import clsx from "clsx";
 import { useCreateReport } from "../hooks/useCreateReport";
-import { useReport } from "../hooks/useReport";
-import { KTIcon } from "../../../../_metronic/helpers";
+
 import { ExportPdf } from "./ExportPdf";
 import { Report } from "./Report";
 

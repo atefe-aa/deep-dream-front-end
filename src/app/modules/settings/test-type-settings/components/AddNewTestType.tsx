@@ -8,6 +8,7 @@ import Checkbox from "../../components/Checkbox";
 import { ModalForm } from "../../../../ui/modals/ModalForm";
 import { useCreateTestType } from "../hooks/useCreateTestType";
 import { useCloseModalOnSuccess } from "../../../hooks/useCloseModalOnSuccess";
+import { TemplateInput } from "./TemplateInput";
 
 const addSchema = Yup.object().shape({
   title: Yup.string()
@@ -16,6 +17,7 @@ const addSchema = Yup.object().shape({
     .required("Title is required"),
   code: Yup.string().required("Test code is required."),
   type: Yup.string().required("Type is required"),
+  template: Yup.string().required("Template is required"),
   gender: Yup.string().required("Gender is required"),
   discription: Yup.string()
     .min(1, "Minimum 1 symbols")
@@ -39,6 +41,7 @@ const initialValues = {
   type: "optical" as "optical" | "invert" | "fluorescent",
   gender: "both" as "male" | "female" | "both",
   description: "",
+  template: undefined as unknown as number,
   numberOfLayers: 1,
   step: undefined as unknown as number,
   microStep: undefined as unknown as number,
@@ -111,6 +114,9 @@ const AddNewTestType: FC = () => {
           )}
         </div>
         {/* end::Form group */}
+
+        <TemplateInput formik={formik} />
+
         {/* begin::code Form group  */}
         <div className="fv-row mb-3">
           <label className="form-label fs-6 fw-bolder text-gray-900">
@@ -256,7 +262,6 @@ const AddNewTestType: FC = () => {
                   }
                 )}
                 type="number"
-                
                 name="numberOfLayers"
                 autoComplete="off"
               />
@@ -289,7 +294,6 @@ const AddNewTestType: FC = () => {
                   }
                 )}
                 type="number"
-                
                 name="step"
                 autoComplete="off"
               />
@@ -323,7 +327,6 @@ const AddNewTestType: FC = () => {
                   }
                 )}
                 type="number"
-                
                 name="microStep"
                 autoComplete="off"
               />
@@ -354,7 +357,6 @@ const AddNewTestType: FC = () => {
               }
             )}
             type="number"
-            
             name="z"
             autoComplete="off"
           />
@@ -388,7 +390,6 @@ const AddNewTestType: FC = () => {
               }
             )}
             type="number"
-            
             name="brightness"
             autoComplete="off"
           />
@@ -421,7 +422,6 @@ const AddNewTestType: FC = () => {
               }
             )}
             type="number"
-            
             name="condenser"
             autoComplete="off"
           />
