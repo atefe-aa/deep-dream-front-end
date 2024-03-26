@@ -358,7 +358,7 @@ const EditRegistration: React.FC<Props> = ({ testId, test }) => {
         {/* end::Form group */}
 
         {/* begin::Form group/ multi-slide */}
-        <div className="fv-row text-start mb-3">
+        <div className="fv-row text-start d-flex align-items-center h-50px">
           <div className="d-flex align-items-center">
             <label className="min-w-100px form-label fw-bolder text-gray-900 fs-6 mb-0 me-2">
               Multi-Slide:
