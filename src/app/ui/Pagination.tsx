@@ -30,13 +30,12 @@ const Pagination: FC<PaginationProps> = ({ meta, onPageChange }) => {
             meta.current_page === 1 ? "disabled" : ""
           }`}
         >
-          <a
-            href="#"
+          <div
             className="page-link"
             onClick={() => handlePageClick(meta.current_page - 1)}
           >
             <i className="previous"></i> Previous
-          </a>
+          </div>
         </li>
 
         {pages?.map((page, index) => (
@@ -49,13 +48,12 @@ const Pagination: FC<PaginationProps> = ({ meta, onPageChange }) => {
             }`}
           >
             {typeof page === "number" ? (
-              <a
-                href="#"
+              <div
                 className="page-link"
                 onClick={() => handlePageClick(page)}
               >
                 {page}
-              </a>
+              </div>
             ) : (
               <span className="page-link">{page}</span>
             )}
@@ -67,13 +65,12 @@ const Pagination: FC<PaginationProps> = ({ meta, onPageChange }) => {
             meta.current_page === meta.last_page ? "disabled" : ""
           }`}
         >
-          <a
-            href="#"
+          <div
             className="page-link"
             onClick={() => handlePageClick(meta.current_page + 1)}
           >
             Next <i className="next"></i>
-          </a>
+          </div>
         </li>
       </ul>
     </div>
