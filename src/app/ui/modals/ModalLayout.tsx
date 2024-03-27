@@ -17,7 +17,7 @@ const ModalLayout: React.FC<Props> = ({
 }) => {
   return (
     <div className="modal fade" id={modalId} aria-hidden="true">
-      <div className={`modal-dialog ${size==='lg'?"mw-850px":"mw-650px"}`}>
+      <div className={`modal-dialog ${size==='lg'?"mw-950px":"mw-650px"}`}>
         <div className="modal-content">
           <div className="modal-header mb-5">
             {/* begin::Modal title */}

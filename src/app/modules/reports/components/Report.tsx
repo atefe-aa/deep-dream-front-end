@@ -15,7 +15,7 @@ const Report: React.FC<Props> = ({ template, formik, isCreating }) => {
         template.sections.length > 0 &&
         template.sections.map((section) => (
           <div key={section.id}>
-            <h5 className="mt-5 text-start">{section.sectionTitle}</h5>
+            <h5 className="mt-5 text-start text-info">{section.sectionTitle}</h5>
             {section.groups &&
               section.groups.length > 0 &&
               section.groups.map((group, index) => (
@@ -68,9 +68,6 @@ const Report: React.FC<Props> = ({ template, formik, isCreating }) => {
               ))}
           </div>
         ))}
-      {template && template.note && template?.note?.length > 0 && (
-        <h6 className="text-start my-3">Note:{template.note}</h6>
-      )}
     </div>
   );
 };
