@@ -2,8 +2,7 @@ import { ModalLayout } from "../../../ui/modals/ModalLayout";
 import { ModalForm } from "../../../ui/modals/ModalForm";
 import { TestsModel } from "../../tests/core/_models";
 import { useFormik } from "formik";
-import { useState } from "react";
-import * as Yup from "yup";
+import { useState, useEffect } from "react";
 import { useReportTemplates } from "../hooks/useReportTemplates";
 import { ReportTemplateModel } from "../_model";
 import clsx from "clsx";
@@ -15,16 +14,24 @@ import { Report } from "./Report";
 type Props = {
   test: TestsModel;
 };
-const addSchema = Yup.object().shape({});
 
 type ValuesType = {
   [key: number]: string | boolean;
 };
 
 const ReportModal: React.FC<Props> = ({ test }) => {
-  const { reports, isLoading } = useReportTemplates();
+  const { isCreating, createReport, data } = useCreateReport();
+
+  //if a report already exits fort the test, set it as initial template
   let initialTemplate = test.report !== null ? test.report : undefined;
 
+  const [template, setTemplate] = useState<ReportTemplateModel | undefined>(
+    initialTemplate
+  );
+
+  const { reports, isLoading } = useReportTemplates();
+  //if the test doesn't have a report field and there is a templateId then use the templateId
+  //to finde the report template from the reports list
   if (
     !isLoading &&
     reports &&
@@ -35,29 +42,29 @@ const ReportModal: React.FC<Props> = ({ test }) => {
     initialTemplate = reports.find(
       (repo: ReportTemplateModel) => repo.id === test.templateId
     );
-  }
-  const [template, setTemplate] = useState<ReportTemplateModel | undefined>(
-    initialTemplate
-  );
 
+    if(template !== initialTemplate) setTemplate(initialTemplate);
+    
+  }
+
+  //for exporting pdf we need to have new state changes
   const [newTemplate, setNewTemplate] = useState<
     ReportTemplateModel | undefined
   >(initialTemplate);
 
-  const { isCreating, createReport, data } = useCreateReport();
   let initialValues: ValuesType = {};
   if (test.report) {
     test.report.sections.forEach((section) => {
       section.groups.forEach((group) => {
         group.options.forEach((option) => {
-          initialValues[option.id] = option.value;
+          initialValues[option.id] = option.value !== null ? option.value : "";
         });
       });
     });
   }
   const formik = useFormik({
     initialValues,
-    validationSchema: addSchema,
+    // validationSchema: addSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       try {
         // Update values in the template array
@@ -81,6 +88,7 @@ const ReportModal: React.FC<Props> = ({ test }) => {
       }
     },
   });
+
   function handleTemplateChange(e: React.ChangeEvent<HTMLSelectElement>) {
     if (isLoading || !reports || reports.length === 0) return;
 

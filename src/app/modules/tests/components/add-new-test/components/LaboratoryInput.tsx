@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useLaboratories } from "../../../../user-management/laboratories/hooks/useLaboratories";
 import { LabsModel } from "../../../../user-management/laboratories/core/_models";
+import { useAuth } from "../../../../auth";
 
 interface Props {
   formik: any;
@@ -17,7 +18,7 @@ function LaboratoryInput({ formik }: Props) {
       laboratories.find(
         (lab: LabsModel) => lab.labName === "Milad" || lab.labName === "milad"
       );
-    localStorage.setItem("miladLabId", miladData.id);
+    if (miladData) localStorage.setItem("miladLabId", miladData.id);
   }
 
   return (

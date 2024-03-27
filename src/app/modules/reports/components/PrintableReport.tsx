@@ -81,9 +81,6 @@ const PrintableReport: React.FC<Props> = ({ template, formik, isCreating }) => {
               ))}
           </div>
         ))}
-      {template && template.note && template?.note?.length > 0 && (
-        <span style={{ fontWeight: "bold" }}>Note:{template.note}</span>
-      )}
     </div>
   );
 };
